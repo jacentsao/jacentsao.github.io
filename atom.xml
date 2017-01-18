@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-01-18T07:39:54.000Z</updated>
+  <updated>2017-01-18T12:00:36.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,82 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Android Library中的R文件不是常量</title>
+    <link href="http://yoursite.com/2017/01/18/Android-Library%E4%B8%AD%E7%9A%84R%E6%96%87%E4%BB%B6/"/>
+    <id>http://yoursite.com/2017/01/18/Android-Library中的R文件/</id>
+    <published>2017-01-18T11:59:40.000Z</published>
+    <updated>2017-01-18T12:00:36.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>前段时间跟项目老大提了个请求,就是将<a href="https://github.com/JakeWharton/butterknife" target="_blank" rel="external">Butterknife</a>加入到我们的项目中,结合<a href="https://github.com/avast/android-butterknife-zelezny" target="_blank" rel="external">android-butterknife-zelezny</a>使用,这样子不仅代码简洁,也可以减少一些findViewById的繁琐过程,提升我们的开发效率.效果如下图,是不是特别简洁.</p>
+<p><img src="https://github.com/avast/android-butterknife-zelezny/raw/master/img/zelezny_animated.gif" alt="MacDown Screenshot"></p>
+<p>经过老大的同意以后,我开始加依赖,下载自动注解插件,进行自动生成代码,一气呵成,神清气爽.But问题立马就暴露出来了,代码如下:</p>
+<pre><code>  @OnClick({R2.id.m_button_pattern, R2.id.m_button_password})
+      public void onClick(View view) {
+    Log.d(&quot;xx&quot;, &quot;========onClick=========&quot;);
+    Intent intent = new Intent();
+    switch (view.getId()) {
+        case R2.id.m_button_pattern:
+            intent.setClass(getApplicationContext(),MainActivity.class);
+            Log.d(&quot;xx&quot;, &quot;========onClick====MainActivity=====&quot;);
+            break;
+        case R2.id.m_button_password:
+            intent.setClass(getApplicationContext(),SetPasswordLockActivity.class);
+            Log.d(&quot;xx&quot;, &quot;========onClick=====SetPasswordLockActivity====&quot;);
+            break;
+    }
+    this.startActivity(intent);
+}
+</code></pre><p>然后问题就出现了.由于我们的项目是在Library中开发(蛋疼得不行,很多限制),问题就是出在这里,请看下面的代码:</p>
+<pre><code>//Library中生成的R文件
+public static int activity_open_exit=0x7f04000d;
+//Module中生成的R文件
+public static final int abc_fade_out=0x7f050001;
+</code></pre><p>所以在Library中无法使用switch语句进而影响到了Butterknife的使用.</p>
+<p>至于为什么在Library中无法使用参考<a href="http://tools.android.com/tips/non-constant-fields" target="_blank" rel="external">谷歌文档</a>.经过阅读我们知道从ADT14开始Library中的R文件才从静态常量变为非常量.因为如果在多个Library中可能出现id冲突的问题.在ADT14以前则采用的是将所有的资源文件和相关的代码重新随着主项目一起重新编译,导致编译速度过慢.因此,从ADT14开始就变成了非常量的id了:</p>
+<pre><code>int id = view.getId();
+switch (id) {
+    case R.id.button1:
+        action1();
+        break;
+    case R.id.button2:
+        action2();
+        break;
+    case R.id.button3:
+        action3();
+        break;
+}
+</code></pre><p>Android Studio也提供了一键转换的快捷方式如下图:</p>
+<p><img src="http://tools.android.com/_/rsrc/1319062860174/tips/non-constant-fields/convert2.png" alt="ConvertSwitch"></p>
+<p>然后就变成了如下所示的代码了.</p>
+<pre><code>int id = view.getId();
+if (id == R.id.button1) {
+    action1();
+} else if (id == R.id.button2) {
+    action2();
+} else if (id == R.id.button3) {
+    action3();
+}
+</code></pre><p> 因为找资料的原因又去看了下Github的Butterknife, JakeWharton大神终于在大家的强烈请求下更新了支持Library, <a href="https://github.com/JakeWharton/butterknife/blob/master/CHANGELOG.md" target="_blank" rel="external">更新日志</a>;</p>
+<pre><code>Version 8.2.0 (2016-07-10)
+
+New: Support for library projects. Requires application of a Butter Knife Gradle plugin. See README for details.
+New: Generated code now emits R references instead of raw integer IDs.
+Fix: @OnPageChange listener binding now uses the &apos;add&apos;/&apos;remove&apos; methods on ViewPager instead of &apos;set&apos;.
+</code></pre><p>算是意料之外的惊喜吧,下周一就把Butterknife加入我们的项目!</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;前段时间跟项目老大提了个请求,就是将&lt;a href=&quot;https://github.com/JakeWharton/butterknife&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Butterknife&lt;/a&gt;加入到我们的项目中,结合&lt;a href=
+    
+    </summary>
+    
+      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>搭建gomobile开发环境</title>
@@ -78,10 +154,9 @@ $ gomobile init //安装NDK之类的
     <link href="http://yoursite.com/2017/01/18/%E5%B8%B8%E7%94%A8%E7%9A%84hexo%E6%8C%87%E4%BB%A4/"/>
     <id>http://yoursite.com/2017/01/18/常用的hexo指令/</id>
     <published>2017-01-18T06:15:47.000Z</published>
-    <updated>2017-01-18T07:22:08.000Z</updated>
+    <updated>2017-01-18T08:12:23.000Z</updated>
     
-    <content type="html"><![CDATA[<p>å    </p>
-<pre><code>hexo new post &quot;article title&quot;  //创建新的post,创建目录为: /source/_posts/
+    <content type="html"><![CDATA[<pre><code>hexo new post &quot;article title&quot;  //创建新的post,创建目录为: /source/_posts/
 hexo d  //deploy 发布
 hexo s //
 hexo clean
@@ -99,12 +174,11 @@ hexo new page tags
     
     <summary type="html">
     
-      &lt;p&gt;å    &lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;hexo new post &amp;quot;article title&amp;quot;  //创建新的post,创建目录为: /source/_posts/
+      &lt;pre&gt;&lt;code&gt;hexo new post &amp;quot;article title&amp;quot;  //创建新的post,创建目录为: /source/_posts/
 hexo d  //deploy 发布
 hexo s //
 hexo clean
-
+hexo s --debu
     
     </summary>
     

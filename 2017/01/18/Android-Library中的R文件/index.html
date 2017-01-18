@@ -86,16 +86,28 @@
 
 
 
-<meta name="description" content="gomobile是谷歌开发的一种跨平台技术解决方案,可以针对iOS和Android平台进行直接开发或者进行Library开发.">
+<meta name="description" content="前段时间跟项目老大提了个请求,就是将Butterknife加入到我们的项目中,结合android-butterknife-zelezny使用,这样子不仅代码简洁,也可以减少一些findViewById的繁琐过程,提升我们的开发效率.效果如下图,是不是特别简洁.
+
+经过老大的同意以后,我开始加依赖,下载自动注解插件,进行自动生成代码,一气呵成,神清气爽.But问题立马就暴露出来了,代码如下:
+  @">
 <meta property="og:type" content="article">
-<meta property="og:title" content="搭建gomobile开发环境">
-<meta property="og:url" content="http://yoursite.com/2017/01/18/搭建gomobile开发环境/index.html">
+<meta property="og:title" content="Android Library中的R文件不是常量">
+<meta property="og:url" content="http://yoursite.com/2017/01/18/Android-Library中的R文件/index.html">
 <meta property="og:site_name" content="Silence of Heart">
-<meta property="og:description" content="gomobile是谷歌开发的一种跨平台技术解决方案,可以针对iOS和Android平台进行直接开发或者进行Library开发.">
-<meta property="og:updated_time" content="2017-01-18T07:39:54.000Z">
+<meta property="og:description" content="前段时间跟项目老大提了个请求,就是将Butterknife加入到我们的项目中,结合android-butterknife-zelezny使用,这样子不仅代码简洁,也可以减少一些findViewById的繁琐过程,提升我们的开发效率.效果如下图,是不是特别简洁.
+
+经过老大的同意以后,我开始加依赖,下载自动注解插件,进行自动生成代码,一气呵成,神清气爽.But问题立马就暴露出来了,代码如下:
+  @">
+<meta property="og:image" content="https://github.com/avast/android-butterknife-zelezny/raw/master/img/zelezny_animated.gif">
+<meta property="og:image" content="http://tools.android.com/_/rsrc/1319062860174/tips/non-constant-fields/convert2.png">
+<meta property="og:updated_time" content="2017-01-18T12:00:36.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="搭建gomobile开发环境">
-<meta name="twitter:description" content="gomobile是谷歌开发的一种跨平台技术解决方案,可以针对iOS和Android平台进行直接开发或者进行Library开发.">
+<meta name="twitter:title" content="Android Library中的R文件不是常量">
+<meta name="twitter:description" content="前段时间跟项目老大提了个请求,就是将Butterknife加入到我们的项目中,结合android-butterknife-zelezny使用,这样子不仅代码简洁,也可以减少一些findViewById的繁琐过程,提升我们的开发效率.效果如下图,是不是特别简洁.
+
+经过老大的同意以后,我开始加依赖,下载自动注解插件,进行自动生成代码,一气呵成,神清气爽.But问题立马就暴露出来了,代码如下:
+  @">
+<meta name="twitter:image" content="https://github.com/avast/android-butterknife-zelezny/raw/master/img/zelezny_animated.gif">
 
 
 
@@ -123,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/01/18/搭建gomobile开发环境/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/01/18/Android-Library中的R文件/"/>
 
 
 
 
 
-  <title> 搭建gomobile开发环境 | Silence of Heart </title>
+  <title> Android Library中的R文件不是常量 | Silence of Heart </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -272,7 +284,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/18/搭建gomobile开发环境/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/18/Android-Library中的R文件/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="JacenTsao">
@@ -296,7 +308,7 @@
             
             
               
-                搭建gomobile开发环境
+                Android Library中的R文件不是常量
               
             
           </h1>
@@ -311,7 +323,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-18T15:24:21+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-18T19:59:40+08:00">
                 2017-01-18
               </time>
             
@@ -322,6 +334,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -330,8 +364,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/01/18/搭建gomobile开发环境/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/18/搭建gomobile开发环境/" itemprop="commentCount"></span>
+                <a href="/2017/01/18/Android-Library中的R文件/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/18/Android-Library中的R文件/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -357,47 +391,63 @@
       
 
       
-        <p>gomobile是谷歌开发的一种跨平台技术解决方案,可以针对iOS和Android平台进行直接开发或者进行Library开发.<br><a id="more"></a></p>
-<h3 id="配置gomobile开发环境"><a href="#配置gomobile开发环境" class="headerlink" title="配置gomobile开发环境"></a>配置gomobile开发环境</h3><ol>
-<li>设置终端http,https代理</li>
-<li>配置git,及环境变量</li>
-<li>配置golang及gopath环境及环境变量</li>
-<li>配置gomobile及环境变量</li>
-</ol>
-<h3 id="gomobile的优缺点"><a href="#gomobile的优缺点" class="headerlink" title="gomobile的优缺点"></a>gomobile的优缺点</h3><h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ul>
-<li>直接构建用于ios的framework文件,可以直接调用生成的类</li>
-<li>直接构建用于Android的aar文件,使用jni直接调用</li>
-<li>统一三端规则,避免重复开发和一些错误</li>
-</ul>
-<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点:"></a>缺点:</h4><h5 id="数据类型限制"><a href="#数据类型限制" class="headerlink" title="数据类型限制"></a>数据类型限制</h5><ul>
-<li>int and float;</li>
-<li>string and boolean;</li>
-<li>byte[]. The current implementation doesn’t allow to use []byte as the     function argument (<a href="https://golang.org/issues/12113" target="_blank" rel="external">https://golang.org/issues/12113</a>);</li>
-<li>function has to return only supported types, it may not return the result, it may return one or two types wherein the second type should be an error;</li>
-<li>interfaces could be used if they are exported to files of any supported type;</li>
-<li>struct type, only in case all fields meet the constraints.</li>
-</ul>
-<p>]</p>
-<h3 id="环境搭建流程"><a href="#环境搭建流程" class="headerlink" title="环境搭建流程"></a>环境搭建流程</h3><h4 id="官方教程"><a href="#官方教程" class="headerlink" title="官方教程"></a>官方教程</h4><ol>
-<li><a href="https://godoc.org/golang.org/x/mobile/cmd/gomobile" target="_blank" rel="external">官网地址</a>,安装gomobile,当然首先得安装golang才能够使用go命令</li>
-</ol>
-<pre><code>$ go get golang.org/x/mobile/cmd/gomobile
-$ gomobile init
-//然后就可以通过gomobile指令查看了
-$ gomobile
-</code></pre><ol>
-<li>前面地址进不去的话有个<a href="https://github.com/golang/mobile" target="_blank" rel="external">Github地址</a></li>
-</ol>
-<h4 id="使用Github镜像安装"><a href="#使用Github镜像安装" class="headerlink" title="使用Github镜像安装"></a>使用Github镜像安装</h4><p>由于使用谷歌的官网资源需要在命令行翻墙,比较麻烦,所以直接使用Github的镜像进行安装.</p>
-<pre><code>$ mkdir -p $GOPATH/src/github.com/golang
-$ cd $GOPATH/src/github.com/golang
-$ git clone https://github.com/golang/mobile.git
-$ mkdir -p $GOPATH/src/golang.org/x    
-$ cp -r $GOPATH/src/github.com/golang/mobile $GOPATH/src/golang.org/x 
-$ cd $GOPATH/src/golang.org/x/mobile/cmd/gomobile
-$ go install  //会在$GOPATH/src/bin 目录下生成gomobile  
-$ gomobile init //安装NDK之类的
-</code></pre>
+        <p>前段时间跟项目老大提了个请求,就是将<a href="https://github.com/JakeWharton/butterknife" target="_blank" rel="external">Butterknife</a>加入到我们的项目中,结合<a href="https://github.com/avast/android-butterknife-zelezny" target="_blank" rel="external">android-butterknife-zelezny</a>使用,这样子不仅代码简洁,也可以减少一些findViewById的繁琐过程,提升我们的开发效率.效果如下图,是不是特别简洁.</p>
+<p><img src="https://github.com/avast/android-butterknife-zelezny/raw/master/img/zelezny_animated.gif" alt="MacDown Screenshot"></p>
+<p>经过老大的同意以后,我开始加依赖,下载自动注解插件,进行自动生成代码,一气呵成,神清气爽.But问题立马就暴露出来了,代码如下:</p>
+<pre><code>  @OnClick({R2.id.m_button_pattern, R2.id.m_button_password})
+      public void onClick(View view) {
+    Log.d(&quot;xx&quot;, &quot;========onClick=========&quot;);
+    Intent intent = new Intent();
+    switch (view.getId()) {
+        case R2.id.m_button_pattern:
+            intent.setClass(getApplicationContext(),MainActivity.class);
+            Log.d(&quot;xx&quot;, &quot;========onClick====MainActivity=====&quot;);
+            break;
+        case R2.id.m_button_password:
+            intent.setClass(getApplicationContext(),SetPasswordLockActivity.class);
+            Log.d(&quot;xx&quot;, &quot;========onClick=====SetPasswordLockActivity====&quot;);
+            break;
+    }
+    this.startActivity(intent);
+}
+</code></pre><p>然后问题就出现了.由于我们的项目是在Library中开发(蛋疼得不行,很多限制),问题就是出在这里,请看下面的代码:</p>
+<pre><code>//Library中生成的R文件
+public static int activity_open_exit=0x7f04000d;
+//Module中生成的R文件
+public static final int abc_fade_out=0x7f050001;
+</code></pre><p>所以在Library中无法使用switch语句进而影响到了Butterknife的使用.</p>
+<p>至于为什么在Library中无法使用参考<a href="http://tools.android.com/tips/non-constant-fields" target="_blank" rel="external">谷歌文档</a>.经过阅读我们知道从ADT14开始Library中的R文件才从静态常量变为非常量.因为如果在多个Library中可能出现id冲突的问题.在ADT14以前则采用的是将所有的资源文件和相关的代码重新随着主项目一起重新编译,导致编译速度过慢.因此,从ADT14开始就变成了非常量的id了:</p>
+<pre><code>int id = view.getId();
+switch (id) {
+    case R.id.button1:
+        action1();
+        break;
+    case R.id.button2:
+        action2();
+        break;
+    case R.id.button3:
+        action3();
+        break;
+}
+</code></pre><p>Android Studio也提供了一键转换的快捷方式如下图:</p>
+<p><img src="http://tools.android.com/_/rsrc/1319062860174/tips/non-constant-fields/convert2.png" alt="ConvertSwitch"></p>
+<p>然后就变成了如下所示的代码了.</p>
+<pre><code>int id = view.getId();
+if (id == R.id.button1) {
+    action1();
+} else if (id == R.id.button2) {
+    action2();
+} else if (id == R.id.button3) {
+    action3();
+}
+</code></pre><p> 因为找资料的原因又去看了下Github的Butterknife, JakeWharton大神终于在大家的强烈请求下更新了支持Library, <a href="https://github.com/JakeWharton/butterknife/blob/master/CHANGELOG.md" target="_blank" rel="external">更新日志</a>;</p>
+<pre><code>Version 8.2.0 (2016-07-10)
+
+New: Support for library projects. Requires application of a Butter Knife Gradle plugin. See README for details.
+New: Generated code now emits R references instead of raw integer IDs.
+Fix: @OnPageChange listener binding now uses the &apos;add&apos;/&apos;remove&apos; methods on ViewPager instead of &apos;set&apos;.
+</code></pre><p>算是意料之外的惊喜吧,下周一就把Butterknife加入我们的项目!</p>
+
       
     </div>
 
@@ -423,8 +473,8 @@ $ gomobile init //安装NDK之类的
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/01/18/常用的hexo指令/" rel="next" title="常用的hexo指令">
-                <i class="fa fa-chevron-left"></i> 常用的hexo指令
+              <a href="/2017/01/18/搭建gomobile开发环境/" rel="next" title="搭建gomobile开发环境">
+                <i class="fa fa-chevron-left"></i> 搭建gomobile开发环境
               </a>
             
           </div>
@@ -432,10 +482,6 @@ $ gomobile init //安装NDK之类的
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/01/18/Android-Library中的R文件/" rel="prev" title="Android Library中的R文件不是常量">
-                Android Library中的R文件不是常量 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -461,8 +507,8 @@ $ gomobile init //安装NDK之类的
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2017/01/18/搭建gomobile开发环境/"
-           data-title="搭建gomobile开发环境" data-url="http://yoursite.com/2017/01/18/搭建gomobile开发环境/">
+      <div class="ds-thread" data-thread-key="2017/01/18/Android-Library中的R文件/"
+           data-title="Android Library中的R文件不是常量" data-url="http://yoursite.com/2017/01/18/Android-Library中的R文件/">
       </div>
     
   </div>
@@ -486,17 +532,8 @@ $ gomobile init //安装NDK之类的
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -552,22 +589,6 @@ $ gomobile init //安装NDK之类的
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置gomobile开发环境"><span class="nav-number">1.</span> <span class="nav-text">配置gomobile开发环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gomobile的优缺点"><span class="nav-number">2.</span> <span class="nav-text">gomobile的优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优点"><span class="nav-number">2.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺点"><span class="nav-number">2.2.</span> <span class="nav-text">缺点:</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#数据类型限制"><span class="nav-number">2.2.1.</span> <span class="nav-text">数据类型限制</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#环境搭建流程"><span class="nav-number">3.</span> <span class="nav-text">环境搭建流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#官方教程"><span class="nav-number">3.1.</span> <span class="nav-text">官方教程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用Github镜像安装"><span class="nav-number">3.2.</span> <span class="nav-text">使用Github镜像安装</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
     </div>
