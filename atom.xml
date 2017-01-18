@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-01-18T12:02:51.000Z</updated>
+  <updated>2017-01-18T12:15:11.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,226 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>搭建跨平台go编译环境</title>
+    <link href="http://yoursite.com/2017/01/18/%E6%90%AD%E5%BB%BA%E8%B7%A8%E5%B9%B3%E5%8F%B0go%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83/"/>
+    <id>http://yoursite.com/2017/01/18/搭建跨平台go编译环境/</id>
+    <published>2017-01-18T12:12:15.000Z</published>
+    <updated>2017-01-18T12:15:11.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="跨平台编译环境搭建流程"><a href="#跨平台编译环境搭建流程" class="headerlink" title="跨平台编译环境搭建流程"></a>跨平台编译环境搭建流程</h3><p>本文主要是为了搭建golang跨平台环境,从而实现一套golang代码运行在多重环境(OSX,Linux,Android,iOS,Windows),实现跨平台共享代码,简化开发流程.</p>
+<ol>
+<li>安装Docker   </li>
+<li>安装golang</li>
+<li>安装xgo镜像及编译指令</li>
+<li>配置环境变量</li>
+</ol>
+<a id="more"></a>
+<h4 id="1-安装docker"><a href="#1-安装docker" class="headerlink" title="1. 安装docker"></a>1. 安装docker</h4><p>针对Mac和Windows可以直接下载安装包进行安装,其他系统可以使用命令行进行安装.<a href="https://www.docker.com/products/docker#/mac" target="_blank" rel="external">参考链接</a>,最后通过docker version 指令进行查看</p>
+<pre><code># Jacen at EveeedeMacBook-Pro.local in ~ [10:51:52] docker version
+Client:
+Version:      1.12.5
+API version:  1.24
+Go version:   go1.6.4
+Git commit:   7392c3b
+Built:        Fri Dec 16 06:14:34 2016
+OS/Arch:      darwin/amd64
+
+Server:
+Version:      1.12.5
+API version:  1.24
+Go version:   go1.6.4
+Git commit:   7392c3b
+Built:        Fri Dec 16 06:14:34 2016
+OS/Arch:      linux/amd64
+</code></pre><h4 id="2-安装golang"><a href="#2-安装golang" class="headerlink" title="2. 安装golang"></a>2. 安装golang</h4><p>同样的在Windows和Mac下面都有一键安装包,针对其他系统也是通过命令行进行安装.<a href="https://golang.org/dl/" target="_blank" rel="external">参考链接</a>,安装好以后还需要进行环境变量的配置.</p>
+<p>在mac系统和Linux系统下面,Windows配置环境变量</p>
+<pre><code>export GOROOT=&quot;/usr/local/go&quot;
+export GOPATH=&quot;你的工作目录&quot;  //这里主要是影响到后面需要安装的xgo
+</code></pre><p>再执行go env查看是否配置成功:</p>
+<pre><code>GOARCH=&quot;amd64&quot;
+GOBIN=&quot;&quot;
+GOEXE=&quot;&quot;
+GOHOSTARCH=&quot;amd64&quot;
+GOHOSTOS=&quot;darwin&quot;
+GOOS=&quot;darwin&quot;
+GOPATH=&quot;/Volumes/Work/go&quot;
+GORACE=&quot;&quot;
+GOROOT=&quot;/usr/local/go&quot;
+GOTOOLDIR=&quot;/usr/local/go/pkg/tool/darwin_amd64&quot;
+CC=&quot;clang&quot;
+GOGCCFLAGS=&quot;-fPIC -m64 -pthread -fno-caret-diagnostics -Qunused-arguments -fmessage-length=0 -fdebug-prefix-map=/var/folders/w4/75xgx41n2bb7mm3m0dxbp0d40000gn/T/go-build003828011=/tmp/go-build -gno-record-gcc-switches -fno-common&quot;
+CXX=&quot;clang++&quot;
+CGO_ENABLED=&quot;1&quot;
+</code></pre><h4 id="3-安装xgo-docker镜像"><a href="#3-安装xgo-docker镜像" class="headerlink" title="3. 安装xgo docker镜像"></a>3. 安装xgo docker镜像</h4><p>xgo的docker镜像是我们真正的编译环境,<a href="https://github.com/karalabe/xgo" target="_blank" rel="external">Github地址</a></p>
+<ol>
+<li><p>安装xgo docker镜像,这个镜像大概4.xG,需要花较长的时间下载</p>
+<p> docker pull karalabe/xgo-latest </p>
+</li>
+</ol>
+<p>这里latest指的最新的编译环境,如果需要的话也可以指定安装具体版本的镜像,<a href="https://hub.docker.com/u/karalabe/" target="_blank" rel="external">在这里</a>,这个版本的差异主要是golang版本的不同,由于编译的时候可以指定golang版本进行编译,所以我们直接安装最新版本即可.</p>
+<ol>
+<li><p>安装xgo </p>
+<p> go get github.com/karalabe/xgo</p>
+</li>
+</ol>
+<p>安装xgo编译工具,这个工具封装了go build,简化了我们的操作.</p>
+<h4 id="4-配置环境变量"><a href="#4-配置环境变量" class="headerlink" title="4. 配置环境变量"></a>4. 配置环境变量</h4><p>如果我们使用的是bash的话可以将环境变量配置到.bash_profile中,免去export的过程</p>
+<h5 id="使用bash"><a href="#使用bash" class="headerlink" title="使用bash"></a>使用bash</h5><ol>
+<li><p>在 ~ 目录下编辑.bash_profile 文件,在末尾添加</p>
+<p> export GOPATH=”你的工作目录”<br> export GOROOT=”usr/local/go”<br> export PATH=$PATH:$GOPATH/bin<br> export GOROOT_BOOTSTRAP=$GOROOT</p>
+</li>
+<li>source .bash_profile使得配置文件生效</li>
+</ol>
+<h5 id="使用如zsh-shell程序"><a href="#使用如zsh-shell程序" class="headerlink" title="使用如zsh shell程序"></a>使用如zsh shell程序</h5><ol>
+<li>在~ 目录下编辑.zshrc 文件,添加上面同样的文件</li>
+<li>同上source生效</li>
+</ol>
+<h4 id="5-测试xgo交叉编译环境是否OK"><a href="#5-测试xgo交叉编译环境是否OK" class="headerlink" title="5. 测试xgo交叉编译环境是否OK"></a>5. 测试xgo交叉编译环境是否OK</h4><pre><code>$ cd $GOPATH/src       // If you have multiple (I have at least 3 in there), change into any, doesn&apos;t matter
+$ mkdir xgo_test
+$ cd xgo_test
+$ echo -e &apos;package main\n import &quot;fmt&quot;\n func main(){\nfmt.Println(&quot;Hello&quot;)\n}&apos; &gt; main.go
+$ xgo .
+</code></pre><p>执行完上述命令后在当前目录查看是否有编译生成的可执行文件</p>
+<h4 id="6-打包"><a href="#6-打包" class="headerlink" title="6. 打包"></a>6. 打包</h4><pre><code>  ~ xgo  /Volumes/Public\ Storage/go/src/zhjd()
+  ~ xgo --targets=android-14/arm /Volumes/Storage/go/src/zhjd 指定生成Android端专用的会快很多很多,这里的14指的是最小支持SDK版本
+Checking docker installation...
+Client:
+ Version:      1.12.3
+ API version:  1.24
+ Go version:   go1.6.3
+ Git commit:   6b644ec
+ Built:        Wed Oct 26 23:26:11 2016
+ OS/Arch:      darwin/amd64
+
+Server:
+ Version:      1.12.3
+ API version:  1.24
+ Go version:   go1.6.3
+ Git commit:   6b644ec
+ Built:        Wed Oct 26 23:26:11 2016
+ OS/Arch:      linux/amd64
+
+Checking for required docker image karalabe/xgo-latest... found.
+Cross compiling zhjd...
+Building locally zhjd...
+Assembling toolchain for android-16/arm...
+Bootstrapping android-16/arm...
+Compiling for android-16/arm...
+Assembling toolchain for android-16/386...
+Bootstrapping android-16/386...
+Compiling for android-16/386...
+No API C header specified, skipping android-16/aar... 重点关注
+Compiling for linux/amd64...
+Compiling for linux/386...
+Bootstrapping linux/arm-5...
+Compiling for linux/arm-5...
+Cleaning up Go runtime for linux/arm-5...
+Bootstrapping linux/arm-6...
+Compiling for linux/arm-6...
+Cleaning up Go runtime for linux/arm-6...
+Bootstrapping linux/arm-7...
+Compiling for linux/arm-7...
+Cleaning up Go runtime for linux/arm-7...
+Compiling for linux/arm64...
+Compiling for linux/mips64...
+Compiling for linux/mips64le...
+Compiling for windows-4.0/amd64...
+Compiling for windows-4.0/386...
+Compiling for darwin-10.6/amd64...
+Compiling for darwin-10.6/386...
+Bootstrapping ios-5.0/arm-7...
+# runtime/cgo
+ldid.cpp(602): _assert(): Swap(mach_header_-&gt;filetype) == MH_EXECUTE || Swap(mach_header_-&gt;filetype) == MH_DYLIB || Swap(mach_header_-&gt;filetype) == MH_BUNDLE
+# net
+ldid.cpp(602): _assert(): Swap(mach_header_-&gt;filetype) == MH_EXECUTE || Swap(mach_header_-&gt;filetype) == MH_DYLIB || Swap(mach_header_-&gt;filetype) == MH_BUNDLE
+# os/user
+ldid.cpp(602): _assert(): Swap(mach_header_-&gt;filetype) == MH_EXECUTE || Swap(mach_header_-&gt;filetype) == MH_DYLIB || Swap(mach_header_-&gt;filetype) == MH_BUNDLE
+Compiling for ios-5.0/arm-7...
+# github.com/mattn/go-sqlite3
+ldid.cpp(602): _assert(): Swap(mach_header_-&gt;filetype) == MH_EXECUTE || Swap(mach_header_-&gt;filetype) == MH_DYLIB || Swap(mach_header_-&gt;filetype) == MH_BUNDLE
+# github.com/mattn/go-sqlite3
+ldid.cpp(602): _assert(): Swap(mach_header_-&gt;filetype) == MH_EXECUTE || Swap(mach_header_-&gt;filetype) == MH_DYLIB || Swap(mach_header_-&gt;filetype) == MH_BUNDLE
+Cleaning up Go runtime for ios-5.0/arm-7...
+Bootstrapping ios-5.0/arm64...
+# runtime/cgo
+ldid.cpp(602): _assert(): Swap(mach_header_-&gt;filetype) == MH_EXECUTE || Swap(mach_header_-&gt;filetype) == MH_DYLIB || Swap(mach_header_-&gt;filetype) == MH_BUNDLE
+# net
+ldid.cpp(602): _assert(): Swap(mach_header_-&gt;filetype) == MH_EXECUTE || Swap(mach_header_-&gt;filetype) == MH_DYLIB || Swap(mach_header_-&gt;filetype) == MH_BUNDLE
+# os/user
+ldid.cpp(602): _assert(): Swap(mach_header_-&gt;filetype) == MH_EXECUTE || Swap(mach_header_-&gt;filetype) == MH_DYLIB || Swap(mach_header_-&gt;filetype) == MH_BUNDLE
+Compiling for ios-5.0/arm64...
+# github.com/mattn/go-sqlite3
+ldid.cpp(602): _assert(): Swap(mach_header_-&gt;filetype) == MH_EXECUTE || Swap(mach_header_-&gt;filetype) == MH_DYLIB || Swap(mach_header_-&gt;filetype) == MH_BUNDLE
+# github.com/mattn/go-sqlite3
+ldid.cpp(602): _assert(): Swap(mach_header_-&gt;filetype) == MH_EXECUTE || Swap(mach_header_-&gt;filetype) == MH_DYLIB || Swap(mach_header_-&gt;filetype) == MH_BUNDLE
+Cleaning up Go runtime for ios-5.0/arm64...
+Cleaning up build environment...
+</code></pre><p>查看编译生成的文件</p>
+<pre><code>➜  all ls -al
+total 427872
+drwxr-xr-x  21 silence  staff       714 Dec 29 11:37 .
+drwxr-xr-x+ 29 silence  staff       986 Dec 29 11:37 ..
+-rw-r--r--@  1 silence  staff      6148 Dec 29 11:37 .DS_Store
+-rwxr-xr-x   1 silence  staff  14633608 Dec 29 11:27 zhjd-android-16-386
+drwxr-xr-x   5 silence  staff       170 Dec 29 11:27 zhjd-android-16-aar
+-rwxr-xr-x   1 silence  staff  14705872 Dec 29 11:26 zhjd-android-16-arm
+-rwxr-xr-x   1 silence  staff  10418780 Dec 29 11:32 zhjd-darwin-10.6-386
+-rwxr-xr-x   1 silence  staff  11578172 Dec 29 11:31 zhjd-darwin-10.6-amd64
+-rwxr-xr-x   1 silence  staff  11224720 Dec 29 11:34 zhjd-ios-5.0-arm64
+-rwxr-xr-x   1 silence  staff  10569184 Dec 29 11:33 zhjd-ios-5.0-armv7
+drwxrwxrwx   3 silence  staff       102 Dec 29 11:35 zhjd-ios-5.0-framework
+-rwxr-xr-x   1 silence  staff  14611432 Dec 29 11:28 zhjd-linux-386
+-rwxr-xr-x   1 silence  staff  17246480 Dec 29 11:27 zhjd-linux-amd64
+-rwxr-xr-x   1 silence  staff  13034956 Dec 29 11:28 zhjd-linux-arm-5
+-rwxr-xr-x   1 silence  staff  12965808 Dec 29 11:29 zhjd-linux-arm-6
+-rwxr-xr-x   1 silence  staff  12939788 Dec 29 11:29 zhjd-linux-arm-7
+-rwxr-xr-x   1 silence  staff  17075720 Dec 29 11:29 zhjd-linux-arm64
+-rwxr-xr-x   1 silence  staff  18700376 Dec 29 11:30 zhjd-linux-mips64
+-rwxr-xr-x   1 silence  staff  18699640 Dec 29 11:31 zhjd-linux-mips64le
+-rwxr-xr-x   1 silence  staff   9734407 Dec 29 11:31 zhjd-windows-4.0-386.exe
+-rwxr-xr-x   1 silence  staff  10889885 Dec 29 11:31 zhjd-windows-4.0-amd64.exe
+</code></pre><p>可以发现,针对不同平台生成了不同类型的文件.Android支持生成aar库文件,iOS支持生成Framework库文件</p>
+<h3 id="平台实测"><a href="#平台实测" class="headerlink" title="平台实测"></a>平台实测</h3><h4 id="Android端测试"><a href="#Android端测试" class="headerlink" title="Android端测试"></a>Android端测试</h4><ol>
+<li><p>推送到设备中,之所以不直接推送到app目录下是因为权限问题,这里如果提示adb命令不存在同样的也要把Android SDK中的adb命令配置到环境变量中</p>
+<pre><code>//直接推送到app目录下会有权限问题
+
+adb push zhjd-android-16-arm data/data/com,kingdee.zhihuiji 
+adb: error: failed to copy &apos;zhjd-android-16-arm&apos; to &apos;data/data/    com.kingdee.zhihuiji&apos;: Permission denied
+
+//所以推送到该目录下
+
+adb push zhjd-android-16-arm data/local/tmp                
+[100%] data/local/tmp/zhjd-android-16-arm
+</code></pre></li>
+</ol>
+<ol>
+<li>切换到Android设备并执行该文件,这里只能使用已经<strong>root的设备</strong></li>
+</ol>
+<pre><code>adb shell 进入手机命令行
+su 切换超级用户
+cd /data/local/tmp 
+./zhjd-android-16-arm
+</code></pre><p>最后在终端会输出可执行文件的执行结果</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;跨平台编译环境搭建流程&quot;&gt;&lt;a href=&quot;#跨平台编译环境搭建流程&quot; class=&quot;headerlink&quot; title=&quot;跨平台编译环境搭建流程&quot;&gt;&lt;/a&gt;跨平台编译环境搭建流程&lt;/h3&gt;&lt;p&gt;本文主要是为了搭建golang跨平台环境,从而实现一套golang代码运行在多重环境(OSX,Linux,Android,iOS,Windows),实现跨平台共享代码,简化开发流程.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;安装Docker   &lt;/li&gt;
+&lt;li&gt;安装golang&lt;/li&gt;
+&lt;li&gt;安装xgo镜像及编译指令&lt;/li&gt;
+&lt;li&gt;配置环境变量&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="Golang" scheme="http://yoursite.com/categories/Golang/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>Android Library中的R文件不是常量</title>
