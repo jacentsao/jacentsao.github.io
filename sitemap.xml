@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2017/01/16/article-title/</loc>
+    
+    <lastmod>2017-01-18T12:03:57.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2017/01/18/Android-Library%E4%B8%AD%E7%9A%84R%E6%96%87%E4%BB%B6/</loc>
     
     <lastmod>2017-01-18T12:02:51.000Z</lastmod>
@@ -12,13 +19,6 @@
     <loc>http://yoursite.com/2017/01/18/%E5%B8%B8%E7%94%A8%E7%9A%84hexo%E6%8C%87%E4%BB%A4/</loc>
     
     <lastmod>2017-01-18T08:12:23.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2017/01/16/article-title/</loc>
-    
-    <lastmod>2017-01-18T07:49:21.000Z</lastmod>
     
   </url>
   

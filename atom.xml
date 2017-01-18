@@ -192,7 +192,7 @@ hexo s --debu
     <link href="http://yoursite.com/2017/01/16/article-title/"/>
     <id>http://yoursite.com/2017/01/16/article-title/</id>
     <published>2017-01-16T14:15:59.000Z</published>
-    <updated>2017-01-18T07:49:21.000Z</updated>
+    <updated>2017-01-18T12:03:57.000Z</updated>
     
     <content type="html"><![CDATA[<p>/etc/bashrc 是针对系统所有用户的全局变量，只有root用户才能修改这两个文件，对一般用户来说是他们是只读的。一般用户要想修改它们，可以在命令前加sudo，意思是以Root身份执行，比如：sudo vi /etc/profile  ，然后按照提示输入密码即可。(以上是针对使用默认shell的用户,如果使用zsh的话则对应的修改文件是.zshrc)</p>
 <p>因此，对于一般用户而言，通常我们建议去修改~/.bash_profile来设置环境变量，它是用户级的设置，只对当前用户有效。<br>操作步骤:</p>
@@ -210,7 +210,7 @@ hexo s --debu
     
     </summary>
     
-      <category term="shell" scheme="http://yoursite.com/categories/shell/"/>
+      <category term="Shell" scheme="http://yoursite.com/categories/Shell/"/>
     
     
   </entry>
