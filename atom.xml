@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-01-18T04:31:17.000Z</updated>
+  <updated>2017-01-18T07:22:08.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,51 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>常用的hexo指令</title>
+    <link href="http://yoursite.com/2017/01/18/%E5%B8%B8%E7%94%A8%E7%9A%84hexo%E6%8C%87%E4%BB%A4/"/>
+    <id>http://yoursite.com/2017/01/18/常用的hexo指令/</id>
+    <published>2017-01-18T06:15:47.000Z</published>
+    <updated>2017-01-18T07:22:08.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>å    </p>
+<pre><code>hexo new post &quot;article title&quot;  //创建新的post,创建目录为: /source/_posts/
+hexo d  //deploy 发布
+hexo s //
+hexo clean
+hexo s --debug
+
+
+hexo new page categories
+hexo new page about
+hexo new page commonweal
+hexo new page sitemap
+hexo new page tags
+hexo new page archives
+hexo new page tags
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;å    &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;hexo new post &amp;quot;article title&amp;quot;  //创建新的post,创建目录为: /source/_posts/
+hexo d  //deploy 发布
+hexo s //
+hexo clean
+
+    
+    </summary>
+    
+      <category term="博客编写" scheme="http://yoursite.com/categories/%E5%8D%9A%E5%AE%A2%E7%BC%96%E5%86%99/"/>
+    
+    
+  </entry>
+  
+  <entry>
     <title>Mac OS X 配置环境变量</title>
     <link href="http://yoursite.com/2017/01/16/article-title/"/>
     <id>http://yoursite.com/2017/01/16/article-title/</id>
     <published>2017-01-16T14:15:59.000Z</published>
-    <updated>2017-01-18T04:31:17.000Z</updated>
+    <updated>2017-01-18T06:08:13.000Z</updated>
     
     <content type="html"><![CDATA[<p>/etc/profile；/etc/bashrc 是针对系统所有用户的全局变量，只有root用户才能修改这两个文件，对一般用户来说是他们是只读的。一般用户要想修改它们，可以在命令前加sudo，意思是以Root身份执行，比如：sudo vi /etc/profile  ，然后按照提示输入密码即可。(以上是针对使用默认shell的用户,如果使用zsh的话则对应的修改文件是.zshrc)</p>
 <p>因此，对于一般用户而言，通常我们建议去修改~/.bash_profile来设置环境变量，它是用户级的设置，只对当前用户有效。<br>操作步骤:</p>
@@ -38,7 +78,7 @@
     
     </summary>
     
-      <category term="programming" scheme="http://yoursite.com/categories/programming/"/>
+      <category term="shell" scheme="http://yoursite.com/categories/shell/"/>
     
     
   </entry>
@@ -48,7 +88,7 @@
     <link href="http://yoursite.com/2017/01/16/hello-world/"/>
     <id>http://yoursite.com/2017/01/16/hello-world/</id>
     <published>2017-01-16T14:11:26.000Z</published>
-    <updated>2017-01-18T04:29:48.000Z</updated>
+    <updated>2017-01-18T06:03:43.000Z</updated>
     
     <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
@@ -67,8 +107,6 @@
     
     </summary>
     
-    
-      <category term="life" scheme="http://yoursite.com/tags/life/"/>
     
   </entry>
   
