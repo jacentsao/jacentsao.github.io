@@ -86,19 +86,43 @@
 
 
 
-<meta name="description" content="/etc/profile；/etc/bashrc 是针对系统所有用户的全局变量，只有root用户才能修改这两个文件，对一般用户来说是他们是只读的。一般用户要想修改它们，可以在命令前加sudo，意思是以Root身份执行，比如：sudo vi /etc/profile  ，然后按照提示输入密码即可。(以上是针对使用默认shell的用户,如果使用zsh的话则对应的修改文件是.zshrc)
-因此，对于一般">
+<meta name="description" content="gomobile是谷歌开发的一种跨平台技术解决方案,可以针对iOS和Android平台进行直接开发或者进行Library开发.
+配置gomobile开发环境
+设置终端http,https代理
+配置git,及环境变量
+配置golang及gopath环境及环境变量
+配置gomobile及环境变量
+
+gomobile的优缺点优点
+直接构建用于ios的framework文件,可以直接调用生成的类
+直接构建">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Mac OS X 配置环境变量">
-<meta property="og:url" content="http://yoursite.com/2017/01/16/article-title/index.html">
+<meta property="og:title" content="搭建gomobile开发环境">
+<meta property="og:url" content="http://yoursite.com/2017/01/18/搭建gomobile开发环境/index.html">
 <meta property="og:site_name" content="Silence of Heart">
-<meta property="og:description" content="/etc/profile；/etc/bashrc 是针对系统所有用户的全局变量，只有root用户才能修改这两个文件，对一般用户来说是他们是只读的。一般用户要想修改它们，可以在命令前加sudo，意思是以Root身份执行，比如：sudo vi /etc/profile  ，然后按照提示输入密码即可。(以上是针对使用默认shell的用户,如果使用zsh的话则对应的修改文件是.zshrc)
-因此，对于一般">
-<meta property="og:updated_time" content="2017-01-18T06:08:13.000Z">
+<meta property="og:description" content="gomobile是谷歌开发的一种跨平台技术解决方案,可以针对iOS和Android平台进行直接开发或者进行Library开发.
+配置gomobile开发环境
+设置终端http,https代理
+配置git,及环境变量
+配置golang及gopath环境及环境变量
+配置gomobile及环境变量
+
+gomobile的优缺点优点
+直接构建用于ios的framework文件,可以直接调用生成的类
+直接构建">
+<meta property="og:updated_time" content="2017-01-18T07:25:46.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mac OS X 配置环境变量">
-<meta name="twitter:description" content="/etc/profile；/etc/bashrc 是针对系统所有用户的全局变量，只有root用户才能修改这两个文件，对一般用户来说是他们是只读的。一般用户要想修改它们，可以在命令前加sudo，意思是以Root身份执行，比如：sudo vi /etc/profile  ，然后按照提示输入密码即可。(以上是针对使用默认shell的用户,如果使用zsh的话则对应的修改文件是.zshrc)
-因此，对于一般">
+<meta name="twitter:title" content="搭建gomobile开发环境">
+<meta name="twitter:description" content="gomobile是谷歌开发的一种跨平台技术解决方案,可以针对iOS和Android平台进行直接开发或者进行Library开发.
+配置gomobile开发环境
+设置终端http,https代理
+配置git,及环境变量
+配置golang及gopath环境及环境变量
+配置gomobile及环境变量
+
+gomobile的优缺点优点
+直接构建用于ios的framework文件,可以直接调用生成的类
+直接构建">
 
 
 
@@ -126,13 +150,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/01/16/article-title/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/01/18/搭建gomobile开发环境/"/>
 
 
 
 
 
-  <title> Mac OS X 配置环境变量 | Silence of Heart </title>
+  <title> 搭建gomobile开发环境 | Silence of Heart </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -275,7 +299,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/16/article-title/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/18/搭建gomobile开发环境/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="JacenTsao">
@@ -299,7 +323,7 @@
             
             
               
-                Mac OS X 配置环境变量
+                搭建gomobile开发环境
               
             
           </h1>
@@ -314,8 +338,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-16T22:15:59+08:00">
-                2017-01-16
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-18T15:24:21+08:00">
+                2017-01-18
               </time>
             
 
@@ -325,28 +349,6 @@
           </span>
 
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/shell/" itemprop="url" rel="index">
-                    <span itemprop="name">shell</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -355,8 +357,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/01/16/article-title/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/16/article-title/" itemprop="commentCount"></span>
+                <a href="/2017/01/18/搭建gomobile开发环境/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/18/搭建gomobile开发环境/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -382,14 +384,46 @@
       
 
       
-        <p>/etc/profile；/etc/bashrc 是针对系统所有用户的全局变量，只有root用户才能修改这两个文件，对一般用户来说是他们是只读的。一般用户要想修改它们，可以在命令前加sudo，意思是以Root身份执行，比如：sudo vi /etc/profile  ，然后按照提示输入密码即可。(以上是针对使用默认shell的用户,如果使用zsh的话则对应的修改文件是.zshrc)</p>
-<p>因此，对于一般用户而言，通常我们建议去修改~/.bash_profile来设置环境变量，它是用户级的设置，只对当前用户有效。<br>操作步骤:</p>
-<pre><code>1、打开Terminal（终端）
-2、输入：vi ~/.bash_profile
-3、设置PATH：export PATH=/usr/local/mysql/bin:$PATH
-4、输入：:wq    //保存并退出vi
-5、修改立即生效：source ~/.bash_profile
-6、查看环境变量的值：echo $PATH
+        <p>gomobile是谷歌开发的一种跨平台技术解决方案,可以针对iOS和Android平台进行直接开发或者进行Library开发.</p>
+<h3 id="配置gomobile开发环境"><a href="#配置gomobile开发环境" class="headerlink" title="配置gomobile开发环境"></a>配置gomobile开发环境</h3><ol>
+<li>设置终端http,https代理</li>
+<li>配置git,及环境变量</li>
+<li>配置golang及gopath环境及环境变量</li>
+<li>配置gomobile及环境变量</li>
+</ol>
+<h3 id="gomobile的优缺点"><a href="#gomobile的优缺点" class="headerlink" title="gomobile的优缺点"></a>gomobile的优缺点</h3><h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ul>
+<li>直接构建用于ios的framework文件,可以直接调用生成的类</li>
+<li>直接构建用于Android的aar文件,使用jni直接调用</li>
+<li>统一三端规则,避免重复开发和一些错误</li>
+</ul>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点:"></a>缺点:</h4><h5 id="数据类型限制"><a href="#数据类型限制" class="headerlink" title="数据类型限制"></a>数据类型限制</h5><ul>
+<li>int and float;</li>
+<li>string and boolean;</li>
+<li>byte[]. The current implementation doesn’t allow to use []byte as the     function argument (<a href="https://golang.org/issues/12113" target="_blank" rel="external">https://golang.org/issues/12113</a>);</li>
+<li>function has to return only supported types, it may not return the result, it may return one or two types wherein the second type should be an error;</li>
+<li>interfaces could be used if they are exported to files of any supported type;</li>
+<li>struct type, only in case all fields meet the constraints.</li>
+</ul>
+<p>]</p>
+<h3 id="环境搭建流程"><a href="#环境搭建流程" class="headerlink" title="环境搭建流程"></a>环境搭建流程</h3><h4 id="官方教程"><a href="#官方教程" class="headerlink" title="官方教程"></a>官方教程</h4><ol>
+<li><a href="https://godoc.org/golang.org/x/mobile/cmd/gomobile" target="_blank" rel="external">官网地址</a>,安装gomobile,当然首先得安装golang才能够使用go命令</li>
+</ol>
+<pre><code>$ go get golang.org/x/mobile/cmd/gomobile
+$ gomobile init
+//然后就可以通过gomobile指令查看了
+$ gomobile
+</code></pre><ol>
+<li>前面地址进不去的话有个<a href="https://github.com/golang/mobile" target="_blank" rel="external">Github地址</a></li>
+</ol>
+<h4 id="使用Github镜像安装"><a href="#使用Github镜像安装" class="headerlink" title="使用Github镜像安装"></a>使用Github镜像安装</h4><p>由于使用谷歌的官网资源需要在命令行翻墙,比较麻烦,所以直接使用Github的镜像进行安装.</p>
+<pre><code>$ mkdir -p $GOPATH/src/github.com/golang
+$ cd $GOPATH/src/github.com/golang
+$ git clone https://github.com/golang/mobile.git
+$ mkdir -p $GOPATH/src/golang.org/x    
+$ cp -r $GOPATH/src/github.com/golang/mobile $GOPATH/src/golang.org/x 
+$ cd $GOPATH/src/golang.org/x/mobile/cmd/gomobile
+$ go install  //会在$GOPATH/src/bin 目录下生成gomobile  
+$ gomobile init //安装NDK之类的
 </code></pre>
       
     </div>
@@ -416,8 +450,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/01/16/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
+              <a href="/2017/01/18/常用的hexo指令/" rel="next" title="常用的hexo指令">
+                <i class="fa fa-chevron-left"></i> 常用的hexo指令
               </a>
             
           </div>
@@ -425,10 +459,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/01/18/常用的hexo指令/" rel="prev" title="常用的hexo指令">
-                常用的hexo指令 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -454,8 +484,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2017/01/16/article-title/"
-           data-title="Mac OS X 配置环境变量" data-url="http://yoursite.com/2017/01/16/article-title/">
+      <div class="ds-thread" data-thread-key="2017/01/18/搭建gomobile开发环境/"
+           data-title="搭建gomobile开发环境" data-url="http://yoursite.com/2017/01/18/搭建gomobile开发环境/">
       </div>
     
   </div>
@@ -479,8 +509,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -536,6 +575,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置gomobile开发环境"><span class="nav-number">1.</span> <span class="nav-text">配置gomobile开发环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gomobile的优缺点"><span class="nav-number">2.</span> <span class="nav-text">gomobile的优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优点"><span class="nav-number">2.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺点"><span class="nav-number">2.2.</span> <span class="nav-text">缺点:</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#数据类型限制"><span class="nav-number">2.2.1.</span> <span class="nav-text">数据类型限制</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#环境搭建流程"><span class="nav-number">3.</span> <span class="nav-text">环境搭建流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#官方教程"><span class="nav-number">3.1.</span> <span class="nav-text">官方教程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用Github镜像安装"><span class="nav-number">3.2.</span> <span class="nav-text">使用Github镜像安装</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
     </div>
