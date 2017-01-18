@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-01-18T16:45:28.000Z</updated>
+  <updated>2017-01-18T17:00:29.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,97 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Linux服务端更新Android SDK</title>
+    <link href="http://yoursite.com/2017/01/19/Linux%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%9B%B4%E6%96%B0Android-SDK/"/>
+    <id>http://yoursite.com/2017/01/19/Linux服务端更新Android-SDK/</id>
+    <published>2017-01-18T16:57:39.000Z</published>
+    <updated>2017-01-18T17:00:29.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>前段时间因为新版本需求更新了一下项目的Recycleview版本,对应的SDK也更新了.项目组的几位同事的项目全都因为找不到对应的SDK报错了,后面把自己的SDK拷贝一份给他们才OK(实在想吐槽一下,我觉得做为一个Android程序员翻墙是一项基本的技能).<br><a id="more"></a><br>然而就在今天根据新的安排,后续打包统一走运维.而运维使用的是jenkins集成打包,然后上传到<a href="http://fir.im/" target="_blank" rel="external">fir</a>,测试人员直接下载安装然后进行测试.结果服务端果然出现了同样的错误.</p>
+<pre><code>   Could not resolve all dependencies for configuration &apos;:app:_debugCompile&apos;.
+   &gt; Could not find com.android.support:recyclerview-v7:23.4.0.
+Searched in the following locations:
+    https://jcenter.bintray.com/com/android/support/recyclerview-v7/23.4.0/recyclerview-v7-23.4.0.pom
+    https://jcenter.bintray.com/com/android/support/recyclerview-v7/23.4.0/recyclerview-v7-23.4.0.jar
+    file:/root/.jenkins/jobs_android/workspace/appbs/recyclerview-v7-23.4.0.jar
+    file:/root/.jenkins/jobs_android/workspace/appbs/recyclerview-v7.jar
+    file:/usr/local/android/extras/android/m2repository/com/android/support/recyclerview-v7/23.4.0/recyclerview-v7-23.4.0.pom
+    file:/usr/local/android/extras/android/m2repository/com/android/support/recyclerview-v7/23.4.0/recyclerview-v7-23.4.0.jar
+    file:/usr/local/android/extras/google/m2repository/com/android/support/recyclerview-v7/23.4.0/recyclerview-v7-23.4.0.pom
+    file:/usr/local/android/extras/google/m2repository/com/android/support/recyclerview-v7/23.4.0/recyclerview-v7-23.4.0.jar
+Required by:
+    workspace:app:unspecified
+    workspace:app:unspecified &gt; com.yanzhenjie:recyclerview-swipe:1.0.1
+    &gt; Could not find com.android.support:recyclerview-v7:23.4.0.
+Searched in the following locations:
+    https://jcenter.bintray.com/com/android/support/recyclerview-v7/23.4.0/recyclerview-v7-23.4.0.pom
+    https://jcenter.bintray.com/com/android/support/recyclerview-v7/23.4.0/recyclerview-v7-23.4.0.jar
+    file:/root/.jenkins/jobs_android/workspace/appbs/recyclerview-v7-23.4.0.jar
+    file:/root/.jenkins/jobs_android/workspace/appbs/recyclerview-v7.jar
+    file:/usr/local/android/extras/android/m2repository/com/android/support/recyclerview-v7/23.4.0/recyclerview-v7-23.4.0.pom
+    file:/usr/local/android/extras/android/m2repository/com/android/support/recyclerview-v7/23.4.0/recyclerview-v7-23.4.0.jar
+    file:/usr/local/android/extras/google/m2repository/com/android/support/recyclerview-v7/23.4.0/recyclerview-v7-23.4.0.pom
+    file:/usr/local/android/extras/google/m2repository/com/android/support/recyclerview-v7/23.4.0/recyclerview-v7-23.4.0.jar
+Required by:
+    workspace:app:unspecified &gt; com.android.support:design:23.1.1
+</code></pre><p>然后我就跟运维的胖哥搜索教程,第一步去Github上面下载了<a href="https://github.com/getlantern/lantern" target="_blank" rel="external">lantern</a> (Lantern都有付费版本了),然后去谷歌搜索Linux update Android SDK,然后找到了官方的<a href="http://tools.android.com/recent/updatingsdkfromcommand-line" target="_blank" rel="external">教程</a>,在GFW的帮助下,并没有什么用.<img src="http://tools.android.com/recent/updatingsdkfromcommand-line/2011-08-19%20tools%20screenshot%20r12%20install%20no-ui%20b.png?attredirects=0" alt="Official Guidance"></p>
+<p>第二步,想在运维那里直接使用云梯翻墙更新(这里吐槽一下,云梯实在很不稳定,建议自己买VPS+Shadowsocks才是王道).跟预料的一样,根本连不上.</p>
+<p>第三步,其实一开始思路就是错的,用什么谷歌搜索,只有少数的被国家保护的公民才有这种问题啊,所以直接使用百度搜索即可.果然还是自家人懂得自家事,找到了很多<a href="https://segmentfault.com/a/1190000004639481" target="_blank" rel="external">内容</a>.</p>
+<pre><code>//step 0:cd 到你安装SDK目录的Tools目录下(例如:/Volumes/work/sdk/tools)
+
+//step 1:设置代理获取可更新列表
+./android list sdk --extended --proxy-host android-mirror.bugly.qq.com --proxy-port 8080 -s
+
+//step 2:设置更新代理并选择下载文件,我这里选择的所有 -a
+./android update sdk --proxy-host android-mirror.bugly.qq.com --proxy-port 8080 -s -u -a        
+
+
+//当然你也可以自定义参数
+ Updates the SDK by suggesting new platforms to install if available.
+Options:
+  -f --force     : Forces replacement of a package or its parts, even if
+                   something has been modified.
+  -n --dry-mode  : Simulates the update but does not download or install
+                   anything.
+     --proxy-host: HTTP/HTTPS proxy host (overrides settings if defined)
+  -s --no-https  : Uses HTTP instead of HTTPS (the default) for downloads.
+  -t --filter    : A filter that limits the update to the specified types of
+                   packages in the form of a comma-separated list of
+                   [platform, system-image, tool, platform-tool, doc, sample,
+                   source]. This also accepts the identifiers returned by
+                   &apos;list sdk --extended&apos;.
+  -u --no-ui     : Updates from command-line (does not display the GUI)
+     --proxy-port: HTTP/HTTPS proxy port (overrides settings if defined)
+  -p --obsolete  : Deprecated. Please use --all instead.
+  -a --all       : Includes all packages (such as obsolete and non-dependent
+                   ones.)
+
+
+
+//step 3:同意license内容,反正你也没的选,然后就会自动下载并解压
+Do you accept the license &apos;android-sdk-preview-license-52d11cd2&apos; [y/n]:
+</code></pre><p>这里代理服务器其实蛮多的,参考<a href="http://www.androiddevtools.cn/" target="_blank" rel="external">AndroidDev</a>,不懂翻墙人士的福音.深圳地区设置腾讯代理以后下载速度基本上都是2-3M起,速度非常快.</p>
+<p><strong>使用上面命令行是因为Linux Server没有可用图形操作界面,如果有图形操作界面的话还是不要使用这种方式了</strong>,把时间花在更有用的地方吧!毕竟我们是一群需求没定好就能把项目做完的码农!</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;前段时间因为新版本需求更新了一下项目的Recycleview版本,对应的SDK也更新了.项目组的几位同事的项目全都因为找不到对应的SDK报错了,后面把自己的SDK拷贝一份给他们才OK(实在想吐槽一下,我觉得做为一个Android程序员翻墙是一项基本的技能).&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+      <category term="自动构建" scheme="http://yoursite.com/tags/%E8%87%AA%E5%8A%A8%E6%9E%84%E5%BB%BA/"/>
+    
+      <category term="Jenkins" scheme="http://yoursite.com/tags/Jenkins/"/>
+    
+  </entry>
   
   <entry>
     <title>Android拷贝文件Buff Size最佳实践</title>
