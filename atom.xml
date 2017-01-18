@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-01-17T13:29:24.000Z</updated>
+  <updated>2017-01-18T04:31:17.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2017/01/16/article-title/"/>
     <id>http://yoursite.com/2017/01/16/article-title/</id>
     <published>2017-01-16T14:15:59.000Z</published>
-    <updated>2017-01-17T13:29:24.000Z</updated>
+    <updated>2017-01-18T04:31:17.000Z</updated>
     
     <content type="html"><![CDATA[<p>/etc/profile；/etc/bashrc 是针对系统所有用户的全局变量，只有root用户才能修改这两个文件，对一般用户来说是他们是只读的。一般用户要想修改它们，可以在命令前加sudo，意思是以Root身份执行，比如：sudo vi /etc/profile  ，然后按照提示输入密码即可。(以上是针对使用默认shell的用户,如果使用zsh的话则对应的修改文件是.zshrc)</p>
 <p>因此，对于一般用户而言，通常我们建议去修改~/.bash_profile来设置环境变量，它是用户级的设置，只对当前用户有效。<br>操作步骤:</p>
@@ -38,6 +38,8 @@
     
     </summary>
     
+      <category term="programming" scheme="http://yoursite.com/categories/programming/"/>
+    
     
   </entry>
   
@@ -46,7 +48,7 @@
     <link href="http://yoursite.com/2017/01/16/hello-world/"/>
     <id>http://yoursite.com/2017/01/16/hello-world/</id>
     <published>2017-01-16T14:11:26.000Z</published>
-    <updated>2017-01-16T14:11:26.000Z</updated>
+    <updated>2017-01-18T04:29:48.000Z</updated>
     
     <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
@@ -65,6 +67,8 @@
     
     </summary>
     
+    
+      <category term="life" scheme="http://yoursite.com/tags/life/"/>
     
   </entry>
   
