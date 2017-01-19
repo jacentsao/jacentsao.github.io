@@ -2,11 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Silence of Heart</title>
   <subtitle>最怕彷徨无前</subtitle>
-  <link href="/silenceofheart/atom.xml" rel="self"/>
+  <link href="/atom.xml" rel="self"/>
   
-  <link href="https://jacentsao.github.io/silenceofheart/"/>
+  <link href="http://yoursite.com/"/>
   <updated>2017-01-18T17:00:29.000Z</updated>
-  <id>https://jacentsao.github.io/silenceofheart/</id>
+  <id>http://yoursite.com/</id>
   
   <author>
     <name>JacenTsao</name>
@@ -17,8 +17,8 @@
   
   <entry>
     <title>Linux服务端更新Android SDK</title>
-    <link href="https://jacentsao.github.io/silenceofheart/2017/01/19/Linux%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%9B%B4%E6%96%B0Android-SDK/"/>
-    <id>https://jacentsao.github.io/silenceofheart/2017/01/19/Linux服务端更新Android-SDK/</id>
+    <link href="http://yoursite.com/2017/01/19/Linux%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%9B%B4%E6%96%B0Android-SDK/"/>
+    <id>http://yoursite.com/2017/01/19/Linux服务端更新Android-SDK/</id>
     <published>2017-01-18T16:57:39.000Z</published>
     <updated>2017-01-18T17:00:29.000Z</updated>
     
@@ -95,21 +95,21 @@ Do you accept the license &apos;android-sdk-preview-license-52d11cd2&apos; [y/n]
     
     </summary>
     
-      <category term="Android" scheme="https://jacentsao.github.io/silenceofheart/categories/Android/"/>
+      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
     
     
-      <category term="Android" scheme="https://jacentsao.github.io/silenceofheart/tags/Android/"/>
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
     
-      <category term="自动构建" scheme="https://jacentsao.github.io/silenceofheart/tags/%E8%87%AA%E5%8A%A8%E6%9E%84%E5%BB%BA/"/>
+      <category term="自动构建" scheme="http://yoursite.com/tags/%E8%87%AA%E5%8A%A8%E6%9E%84%E5%BB%BA/"/>
     
-      <category term="Jenkins" scheme="https://jacentsao.github.io/silenceofheart/tags/Jenkins/"/>
+      <category term="Jenkins" scheme="http://yoursite.com/tags/Jenkins/"/>
     
   </entry>
   
   <entry>
     <title>Android拷贝文件Buff Size最佳实践</title>
-    <link href="https://jacentsao.github.io/silenceofheart/2017/01/18/Android%E6%8B%B7%E8%B4%9D%E6%96%87%E4%BB%B6Buff-Size%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/"/>
-    <id>https://jacentsao.github.io/silenceofheart/2017/01/18/Android拷贝文件Buff-Size最佳实践/</id>
+    <link href="http://yoursite.com/2017/01/18/Android%E6%8B%B7%E8%B4%9D%E6%96%87%E4%BB%B6Buff-Size%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/"/>
+    <id>http://yoursite.com/2017/01/18/Android拷贝文件Buff-Size最佳实践/</id>
     <published>2017-01-18T14:25:42.000Z</published>
     <updated>2017-01-18T16:45:28.000Z</updated>
     
@@ -161,17 +161,17 @@ Galaxy Note    1549    799     404     220     127     75      58      54      5
     
     </summary>
     
-      <category term="Android" scheme="https://jacentsao.github.io/silenceofheart/categories/Android/"/>
+      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
     
     
-      <category term="Android" scheme="https://jacentsao.github.io/silenceofheart/tags/Android/"/>
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
     
   </entry>
   
   <entry>
     <title>搭建跨平台go编译环境</title>
-    <link href="https://jacentsao.github.io/silenceofheart/2017/01/18/%E6%90%AD%E5%BB%BA%E8%B7%A8%E5%B9%B3%E5%8F%B0go%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83/"/>
-    <id>https://jacentsao.github.io/silenceofheart/2017/01/18/搭建跨平台go编译环境/</id>
+    <link href="http://yoursite.com/2017/01/18/%E6%90%AD%E5%BB%BA%E8%B7%A8%E5%B9%B3%E5%8F%B0go%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83/"/>
+    <id>http://yoursite.com/2017/01/18/搭建跨平台go编译环境/</id>
     <published>2017-01-18T12:12:15.000Z</published>
     <updated>2017-01-18T12:30:06.000Z</updated>
     
@@ -383,21 +383,21 @@ cd /data/local/tmp
     
     </summary>
     
-      <category term="Golang" scheme="https://jacentsao.github.io/silenceofheart/categories/Golang/"/>
+      <category term="Golang" scheme="http://yoursite.com/categories/Golang/"/>
     
     
-      <category term="Android" scheme="https://jacentsao.github.io/silenceofheart/tags/Android/"/>
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
     
-      <category term="Golang" scheme="https://jacentsao.github.io/silenceofheart/tags/Golang/"/>
+      <category term="Golang" scheme="http://yoursite.com/tags/Golang/"/>
     
-      <category term="CrossCompile" scheme="https://jacentsao.github.io/silenceofheart/tags/CrossCompile/"/>
+      <category term="CrossCompile" scheme="http://yoursite.com/tags/CrossCompile/"/>
     
   </entry>
   
   <entry>
     <title>Android Library中的R文件不是常量</title>
-    <link href="https://jacentsao.github.io/silenceofheart/2017/01/18/Android-Library%E4%B8%AD%E7%9A%84R%E6%96%87%E4%BB%B6/"/>
-    <id>https://jacentsao.github.io/silenceofheart/2017/01/18/Android-Library中的R文件/</id>
+    <link href="http://yoursite.com/2017/01/18/Android-Library%E4%B8%AD%E7%9A%84R%E6%96%87%E4%BB%B6/"/>
+    <id>http://yoursite.com/2017/01/18/Android-Library中的R文件/</id>
     <published>2017-01-18T11:59:40.000Z</published>
     <updated>2017-01-18T12:02:51.000Z</updated>
     
@@ -465,15 +465,15 @@ Fix: @OnPageChange listener binding now uses the &apos;add&apos;/&apos;remove&ap
     
     </summary>
     
-      <category term="Android" scheme="https://jacentsao.github.io/silenceofheart/categories/Android/"/>
+      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
     
     
   </entry>
   
   <entry>
     <title>搭建gomobile开发环境</title>
-    <link href="https://jacentsao.github.io/silenceofheart/2017/01/18/%E6%90%AD%E5%BB%BAgomobile%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"/>
-    <id>https://jacentsao.github.io/silenceofheart/2017/01/18/搭建gomobile开发环境/</id>
+    <link href="http://yoursite.com/2017/01/18/%E6%90%AD%E5%BB%BAgomobile%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"/>
+    <id>http://yoursite.com/2017/01/18/搭建gomobile开发环境/</id>
     <published>2017-01-18T07:24:21.000Z</published>
     <updated>2017-01-18T12:27:55.000Z</updated>
     
@@ -525,15 +525,15 @@ $ gomobile init //安装NDK之类的
     
     </summary>
     
-      <category term="Golang" scheme="https://jacentsao.github.io/silenceofheart/categories/Golang/"/>
+      <category term="Golang" scheme="http://yoursite.com/categories/Golang/"/>
     
     
   </entry>
   
   <entry>
     <title>常用的hexo指令</title>
-    <link href="https://jacentsao.github.io/silenceofheart/2017/01/18/%E5%B8%B8%E7%94%A8%E7%9A%84hexo%E6%8C%87%E4%BB%A4/"/>
-    <id>https://jacentsao.github.io/silenceofheart/2017/01/18/常用的hexo指令/</id>
+    <link href="http://yoursite.com/2017/01/18/%E5%B8%B8%E7%94%A8%E7%9A%84hexo%E6%8C%87%E4%BB%A4/"/>
+    <id>http://yoursite.com/2017/01/18/常用的hexo指令/</id>
     <published>2017-01-18T06:15:47.000Z</published>
     <updated>2017-01-18T08:12:23.000Z</updated>
     
@@ -563,15 +563,15 @@ hexo s --debu
     
     </summary>
     
-      <category term="博客编写" scheme="https://jacentsao.github.io/silenceofheart/categories/%E5%8D%9A%E5%AE%A2%E7%BC%96%E5%86%99/"/>
+      <category term="博客编写" scheme="http://yoursite.com/categories/%E5%8D%9A%E5%AE%A2%E7%BC%96%E5%86%99/"/>
     
     
   </entry>
   
   <entry>
     <title>Mac OS X 配置环境变量</title>
-    <link href="https://jacentsao.github.io/silenceofheart/2017/01/16/article-title/"/>
-    <id>https://jacentsao.github.io/silenceofheart/2017/01/16/article-title/</id>
+    <link href="http://yoursite.com/2017/01/16/article-title/"/>
+    <id>http://yoursite.com/2017/01/16/article-title/</id>
     <published>2017-01-16T14:15:59.000Z</published>
     <updated>2017-01-18T12:03:57.000Z</updated>
     
@@ -591,15 +591,15 @@ hexo s --debu
     
     </summary>
     
-      <category term="Shell" scheme="https://jacentsao.github.io/silenceofheart/categories/Shell/"/>
+      <category term="Shell" scheme="http://yoursite.com/categories/Shell/"/>
     
     
   </entry>
   
   <entry>
     <title>Hello World</title>
-    <link href="https://jacentsao.github.io/silenceofheart/2017/01/16/hello-world/"/>
-    <id>https://jacentsao.github.io/silenceofheart/2017/01/16/hello-world/</id>
+    <link href="http://yoursite.com/2017/01/16/hello-world/"/>
+    <id>http://yoursite.com/2017/01/16/hello-world/</id>
     <published>2017-01-16T14:11:26.000Z</published>
     <updated>2017-01-18T06:03:43.000Z</updated>
     
