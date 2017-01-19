@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Silence of Heart</title>
   <subtitle>最怕彷徨无前</subtitle>
-  <link href="/atom.xml" rel="self"/>
+  <link href="/silenceofheart/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
   <updated>2017-01-18T17:00:29.000Z</updated>
@@ -98,9 +98,9 @@ Do you accept the license &apos;android-sdk-preview-license-52d11cd2&apos; [y/n]
       <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
     
     
-      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
-    
       <category term="自动构建" scheme="http://yoursite.com/tags/%E8%87%AA%E5%8A%A8%E6%9E%84%E5%BB%BA/"/>
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
     
       <category term="Jenkins" scheme="http://yoursite.com/tags/Jenkins/"/>
     
