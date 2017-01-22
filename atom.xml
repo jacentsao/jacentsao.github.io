@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-01-22T05:00:43.000Z</updated>
+  <updated>2017-01-22T05:08:07.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,12 +20,12 @@
     <link href="http://yoursite.com/2017/01/22/%E4%B8%80%E4%BA%9B%E5%A5%BD%E7%9A%84%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"/>
     <id>http://yoursite.com/2017/01/22/一些好的技术文章/</id>
     <published>2017-01-22T04:58:08.000Z</published>
-    <updated>2017-01-22T05:00:43.000Z</updated>
+    <updated>2017-01-22T05:08:07.000Z</updated>
     
     <content type="html"><![CDATA[<p>本文旨在收集一些个人比较感兴趣的技术类的文章,希望更多的成长学习.</p>
 <h3 id="Linux类"><a href="#Linux类" class="headerlink" title="Linux类"></a>Linux类</h3><ol>
-<li><a href="https://mp.weixin.qq.com/s?__biz=MzAxODI5ODMwOA==&amp;mid=2666540033&amp;idx=1&amp;sn=46161c1502dd44e17e2d47aebb597e6a&amp;chksm=80dce8aab7ab61bce531c67b9883e2060851e26b967230dec668f7b0a6771363dca38e0e68df&amp;mpshare=1&amp;scene=24&amp;srcid=0122lpVtQtP9XiLOfHgQRtVF&amp;key=786667f767602dac800bd18bb183352c755dee20d3dc6d369b6282c58c4cdddf70c814c5984f630d8e5ecd00e89271c0850c7d759c7b1542f29e864b8302342b662fcd47c1bf8e375109e83cb28dc30f&amp;ascene=0&amp;uin=MTk1NzM2Njg2MA%3D%3D&amp;devicetype=iMac+MacBookPro12%2C1+OSX+OSX+10.12.2+build(16C67" target="_blank" rel="external">Linux系统中“动态库”和“静态库”那点事儿</a>&amp;version=12020001&amp;nettype=WIFI&amp;fontScale=100&amp;pass_ticket=aNdaV22spp3AgauUAqNwcygKlE86fQIKX1TB1Fm0FwqPaUqjZYWbzuE69p0%2BvDcM),链接<a href="http://blog.chinaunix.net/uid-23069658-id-3142046.html" target="_blank" rel="external">2</a>. </li>
-<li></li>
+<li><a href="http://blog.chinaunix.net/uid-23069658-id-3142046.html" target="_blank" rel="external">Linux系统中“动态库”和“静态库”那点事儿</a>.  </li>
+<li><a href="https://www.gitbook.com/book/leon_lizi/-framework-/details" target="_blank" rel="external">静态库与动态库的使用</a></li>
 </ol>
 ]]></content>
     
