@@ -92,7 +92,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/01/24/Docker学习-常用指令/index.html">
 <meta property="og:site_name" content="Silence of Heart">
 <meta property="og:description" content="DockerDocker 使用 Google 公司推出的 Go 语言 进行开发实现，基于 Linux 内核的 cgroup，namespace，以及 AUFS 类的 Union FS 等技术，对进程进行封装隔离， 属于操作系统层面的虚拟化技术。">
-<meta property="og:updated_time" content="2017-01-24T05:19:29.000Z">
+<meta property="og:updated_time" content="2017-01-25T13:54:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker学习,常用指令">
 <meta name="twitter:description" content="DockerDocker 使用 Google 公司推出的 Go 语言 进行开发实现，基于 Linux 内核的 cgroup，namespace，以及 AUFS 类的 Union FS 等技术，对进程进行封装隔离， 属于操作系统层面的虚拟化技术。">
@@ -392,7 +392,8 @@
         <h4 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h4><p>Docker 使用 Google 公司推出的 Go 语言 进行开发实现，基于 Linux 内核的 cgroup，namespace，以及 AUFS 类的 Union FS 等技术，对进程进行封装隔离， 属于操作系统层面的虚拟化技术。</p>
 <a id="more"></a>
 <h4 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h4><ul>
-<li>docker run imagename //运行改image做为container,不存在则会从Docker hub获取并运行</li>
+<li>docker run -p 2222:22 imagename //运行改image做为container,不存在则会从Docker hub获取并运行; -p 指定本地映射关系,前面是访问地址端口,后面是映射的容器端口</li>
+<li>docker exec -it goofy_banach /bin/bash 对比于attach方式,会立即显示进入,并且退出不会导致容器关闭</li>
 <li>docker ps //获取正在运行的镜像 -a 所有的镜像</li>
 <li>touch Dockerfile //创建docker脚本</li>
 <li>cat Dockerfile //查看脚本</li>
@@ -405,7 +406,7 @@
 <li>docker images 查看所有镜像</li>
 <li>docker rmi $(docker images -q -f dangling=true) 删除无用的悬浮镜像 </li>
 <li>docker exec  -it webserver bash 运行命令行并启动</li>
-<li>docker commit [选项] &lt;容器ID或容器名&gt; [&lt;仓库名&gt;[:&lt;标签&gt;]] 提交更新,创建镜像<strong>谨慎使用,因为会对容器环境照成较大影响</strong> //docker commit  –author “Tao Wang <a href="&#x6d;&#x61;&#105;&#x6c;&#116;&#x6f;&#x3a;&#x74;&#x77;&#97;&#110;&#x67;&#x32;&#50;&#49;&#x38;&#64;&#103;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#109;">&#x74;&#x77;&#97;&#110;&#x67;&#x32;&#50;&#49;&#x38;&#64;&#103;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#109;</a>“  –message “修改了默认网页” webserver  nginx:v2</li>
+<li>docker commit [选项] &lt;容器ID或容器名&gt; [&lt;仓库名&gt;[:&lt;标签&gt;]] 提交更新,创建镜像<strong>谨慎使用,因为会对容器环境照成较大影响</strong> //docker commit  –author “Tao Wang <a href="&#x6d;&#97;&#105;&#x6c;&#116;&#x6f;&#58;&#116;&#119;&#x61;&#x6e;&#x67;&#x32;&#50;&#49;&#x38;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#99;&#111;&#x6d;">&#116;&#119;&#x61;&#x6e;&#x67;&#x32;&#50;&#49;&#x38;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#99;&#111;&#x6d;</a>“  –message “修改了默认网页” webserver  nginx:v2</li>
 <li>docer diff NAMES 查看永久性更新</li>
 <li>docker history nginx:v2 查看历史更新</li>
 <li>docker rm  删除容器</li>
@@ -413,6 +414,9 @@
 <li>docker run -it -v /Volumes/Work/go/src/golang.org:/src golang/mobile /bin/bash 挂载宿主机目录到容器</li>
 <li>sudo yum upgrade docker 更新docker</li>
 <li>docker cp 2e8a06b7cff6:/gopath/src/golang.org/x/mobile/example/GoHello/app/src  Storage-2e8a06b7cff6/</li>
+<li>docker logs id/names 查看操作日志</li>
+<li>docker top 显示容器进程</li>
+<li>docker stats 查看容器进程状态</li>
 </ul>
 <p>####tag本地镜像并提交到docker仓库<br>step1——找到本地镜像的ID：docker images</p>
 <p>step2——登陆Hub：docker login –username=username –password=password –email=email</p>
@@ -429,6 +433,7 @@
 <li>COPY  package.json /usr/src/app/ ||  hom?.txt /mydir/</li>
 <li>ADD  ubuntu-xenial-core-cloudimg-amd64-root.tar.gz /  src可以是url,加强版的COPY,还可移植性解压缩</li>
 <li>docker build -t docker-whale . docker build [选项] &lt;上下文路径/URL/-&gt; .代表当前目录 -t代表tag</li>
+<li>ENTRYPOINT 只有最后一个生效 run的时候通过–entrypoint使其生效</li>
 </ol>
 <h3 id="Docker基本概念"><a href="#Docker基本概念" class="headerlink" title="Docker基本概念"></a>Docker基本概念</h3><p>Docker包括三个基本概念,包含了Docker的整个生命周期</p>
 <ul>
@@ -483,6 +488,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/26/2017年度flag/" rel="prev" title="2017年度flag">
+                2017年度flag <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -556,7 +565,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
