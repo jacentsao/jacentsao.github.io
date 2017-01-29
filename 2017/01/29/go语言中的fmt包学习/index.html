@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Golang," />
 
 
 
@@ -86,16 +86,28 @@
 
 
 
-<meta name="description" content="这是我的个人测试小站">
+<meta name="description" content="go doc fmt list all the data belowprintThe verbs:
+General:
+%v    the value in a default format
+    when printing structs, the plus flag (%+v) adds field names
+%#v    a Go-syntax representation of the">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2017阅读记录">
-<meta property="og:url" content="http://yoursite.com/2017/01/24/2017阅读记录/index.html">
+<meta property="og:title" content="go语言中的fmt包学习">
+<meta property="og:url" content="http://yoursite.com/2017/01/29/go语言中的fmt包学习/index.html">
 <meta property="og:site_name" content="Silence of Heart">
-<meta property="og:description" content="这是我的个人测试小站">
-<meta property="og:updated_time" content="2017-01-23T23:44:53.000Z">
+<meta property="og:description" content="go doc fmt list all the data belowprintThe verbs:
+General:
+%v    the value in a default format
+    when printing structs, the plus flag (%+v) adds field names
+%#v    a Go-syntax representation of the">
+<meta property="og:updated_time" content="2017-01-29T03:03:31.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="2017阅读记录">
-<meta name="twitter:description" content="这是我的个人测试小站">
+<meta name="twitter:title" content="go语言中的fmt包学习">
+<meta name="twitter:description" content="go doc fmt list all the data belowprintThe verbs:
+General:
+%v    the value in a default format
+    when printing structs, the plus flag (%+v) adds field names
+%#v    a Go-syntax representation of the">
 
 
 
@@ -123,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/01/24/2017阅读记录/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/01/29/go语言中的fmt包学习/"/>
 
 
 
 
 
-  <title> 2017阅读记录 | Silence of Heart </title>
+  <title> go语言中的fmt包学习 | Silence of Heart </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -282,7 +294,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/24/2017阅读记录/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/29/go语言中的fmt包学习/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="JacenTsao">
@@ -306,7 +318,7 @@
             
             
               
-                2017阅读记录
+                go语言中的fmt包学习
               
             
           </h1>
@@ -321,8 +333,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-24T07:44:39+08:00">
-                2017-01-24
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-29T10:55:38+08:00">
+                2017-01-29
               </time>
             
 
@@ -332,6 +344,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Golang/" itemprop="url" rel="index">
+                    <span itemprop="name">Golang</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -340,8 +374,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/01/24/2017阅读记录/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/24/2017阅读记录/" itemprop="commentCount"></span>
+                <a href="/2017/01/29/go语言中的fmt包学习/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/29/go语言中的fmt包学习/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -367,7 +401,58 @@
       
 
       
-        
+        <h3 id="go-doc-fmt-list-all-the-data-below"><a href="#go-doc-fmt-list-all-the-data-below" class="headerlink" title="go doc fmt list all the data below"></a>go doc fmt list all the data below</h3><h4 id="print"><a href="#print" class="headerlink" title="print"></a>print</h4><p>The verbs:</p>
+<p>General:</p>
+<pre><code>%v    the value in a default format
+    when printing structs, the plus flag (%+v) adds field names
+%#v    a Go-syntax representation of the value
+%T    a Go-syntax representation of the type of the value
+%%    a literal percent sign; consumes no value
+</code></pre><p>Boolean:</p>
+<pre><code>%t    the word true or false
+</code></pre><p>Integer:</p>
+<pre><code>%b    base 2
+%c    the character represented by the corresponding Unicode code point
+%d    base 10
+%o    base 8
+%q    a single-quoted character literal safely escaped with Go syntax.
+%x    base 16, with lower-case letters for a-f
+%X    base 16, with upper-case letters for A-F
+%U    Unicode format: U+1234; same as &quot;U+%04X&quot;
+</code></pre><p>Floating-point and complex constituents:</p>
+<pre><code>%b    decimalless scientific notation with exponent a power of two,
+    in the manner of strconv.FormatFloat with the &apos;b&apos; format,
+    e.g. -123456p-78
+%e    scientific notation, e.g. -1.234456e+78
+%E    scientific notation, e.g. -1.234456E+78
+%f    decimal point but no exponent, e.g. 123.456
+%F    synonym for %f
+%g    %e for large exponents, %f otherwise
+%G    %E for large exponents, %F otherwise
+</code></pre><p>String and slice of bytes (treated equivalently with these verbs):</p>
+<pre><code>%s    the uninterpreted bytes of the string or slice
+%q    a double-quoted string safely escaped with Go syntax
+%x    base 16, lower-case, two characters per byte
+%X    base 16, upper-case, two characters per byte
+</code></pre><p>Pointer:</p>
+<pre><code>%p    base 16 notation, with leading 0x
+</code></pre><p>There is no ‘u’ flag. Integers are printed unsigned if they have unsigned<br>type. Similarly, there is no need to specify the size of the operand (int8,<br>int64).</p>
+<p>The default format for %v is:</p>
+<pre><code>bool:                    %t
+int, int8 etc.:          %d
+uint, uint8 etc.:        %d, %x if printed with %#v
+float32, complex64, etc: %g
+string:                  %s
+chan:                    %p
+pointer:                 %p
+</code></pre><p>Control width and precision:</p>
+<pre><code> %f     default width, default precision
+%9f    width 9, default precision
+%.2f   default width, precision 2
+%9.2f  width 9, precision 2
+%9.f   width 9, precision 0
+</code></pre><h4 id="一些小区别"><a href="#一些小区别" class="headerlink" title="一些小区别"></a>一些小区别</h4><p>函数 fmt.Sprintf 与 Printf 的作⽤是完全相同的，不过前者将格式化后的字符串以返 回值的形式返回给调⽤者，因此你可以在程序中使⽤包含变量的字符串</p>
+
       
     </div>
 
@@ -388,13 +473,19 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Golang/" rel="tag"># Golang</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/01/22/一些好的技术文章/" rel="next" title="一些好的技术文章">
-                <i class="fa fa-chevron-left"></i> 一些好的技术文章
+              <a href="/2017/01/29/go语言中的init-函数/" rel="next" title="go语言中的init()函数">
+                <i class="fa fa-chevron-left"></i> go语言中的init()函数
               </a>
             
           </div>
@@ -402,10 +493,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/01/24/Docker学习-常用指令/" rel="prev" title="Docker学习,常用指令">
-                Docker学习,常用指令 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -431,8 +518,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2017/01/24/2017阅读记录/"
-           data-title="2017阅读记录" data-url="http://yoursite.com/2017/01/24/2017阅读记录/">
+      <div class="ds-thread" data-thread-key="2017/01/29/go语言中的fmt包学习/"
+           data-title="go语言中的fmt包学习" data-url="http://yoursite.com/2017/01/29/go语言中的fmt包学习/">
       </div>
     
   </div>
@@ -456,8 +543,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -520,6 +616,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#go-doc-fmt-list-all-the-data-below"><span class="nav-number">1.</span> <span class="nav-text">go doc fmt list all the data below</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#print"><span class="nav-number">1.1.</span> <span class="nav-text">print</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一些小区别"><span class="nav-number">1.2.</span> <span class="nav-text">一些小区别</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
     </div>
