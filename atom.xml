@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-02-06T01:39:15.000Z</updated>
+  <updated>2017-02-06T01:40:30.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,10 +20,11 @@
     <link href="http://yoursite.com/2017/02/05/%E4%BA%92%E8%81%94%E7%BD%91%E5%8D%8F%E8%AE%AE%E5%85%A5%E9%97%A8/"/>
     <id>http://yoursite.com/2017/02/05/互联网协议入门/</id>
     <published>2017-02-05T07:02:41.000Z</published>
-    <updated>2017-02-06T01:39:15.000Z</updated>
+    <updated>2017-02-06T01:40:30.000Z</updated>
     
     <content type="html"><![CDATA[<p><strong>本文转载自阮一峰的网络日志<a href="http://www.ruanyifeng.com/blog/2012/05/internet_protocol_suite_part_i.html" target="_blank" rel="external">互联网协议入门</a>.</strong></p>
 <p>互联网的核心是一系列的协议,总称为”互联网协议”(Internet Protocol Suite)。它们对电脑如何连接和组网，做出了详尽的规定。理解了这些协议，就理解了互联网的原理。</p>
+<a id="more"></a>
 <h3 id="互联网入门"><a href="#互联网入门" class="headerlink" title="互联网入门"></a>互联网入门</h3><h4 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h4><h5 id="1-1-五层模型"><a href="#1-1-五层模型" class="headerlink" title="1.1 五层模型"></a>1.1 五层模型</h5><p>互联网的实现，分为很多层次。没一层都有自己的功能，就像建筑物一样，每一层都靠下一层支持。</p>
 <p>正常来说，用户接触到的，是最上面的一层，而无法感知到下面的层。要理解互联网，就必须从最下层开始，自下而上理解每一层的功能。</p>
 <p>互联网的分层有不同的模型，有<a href="https://zh.wikipedia.org/zh-hans/OSI%E6%A8%A1%E5%9E%8B" target="_blank" rel="external">OSI七层模型</a>,有的分四层<a href="https://zh.wikipedia.org/wiki/TCP/IP%E5%8D%8F%E8%AE%AE%E6%97%8F" target="_blank" rel="external">TCP/IP协议簇</a>，按照作者的理解将互联网分为五层。</p>
@@ -113,7 +114,8 @@
     
     <summary type="html">
     
-      &lt;p&gt;&lt;strong&gt;本文转载自阮一峰的网络日志&lt;a href=&quot;http://www.ruanyifeng.com/blog/2012/05/internet_protocol_suite_part_i.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;
+      &lt;p&gt;&lt;strong&gt;本文转载自阮一峰的网络日志&lt;a href=&quot;http://www.ruanyifeng.com/blog/2012/05/internet_protocol_suite_part_i.html&quot;&gt;互联网协议入门&lt;/a&gt;.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;互联网的核心是一系列的协议,总称为”互联网协议”(Internet Protocol Suite)。它们对电脑如何连接和组网，做出了详尽的规定。理解了这些协议，就理解了互联网的原理。&lt;/p&gt;
     
     </summary>
     
@@ -268,7 +270,7 @@ pointer:                 %p
 <li>docker images 查看所有镜像</li>
 <li>docker rmi $(docker images -q -f dangling=true) 删除无用的悬浮镜像 </li>
 <li>docker exec  -it webserver bash 运行命令行并启动</li>
-<li>docker commit [选项] &lt;容器ID或容器名&gt; [&lt;仓库名&gt;[:&lt;标签&gt;]] 提交更新,创建镜像<strong>谨慎使用,因为会对容器环境照成较大影响</strong> //docker commit  –author “Tao Wang <a href="&#x6d;&#97;&#x69;&#108;&#116;&#111;&#58;&#x74;&#x77;&#97;&#110;&#103;&#50;&#x32;&#x31;&#56;&#64;&#x67;&#109;&#x61;&#x69;&#108;&#46;&#x63;&#111;&#109;">&#x74;&#x77;&#97;&#110;&#103;&#50;&#x32;&#x31;&#56;&#64;&#x67;&#109;&#x61;&#x69;&#108;&#46;&#x63;&#111;&#109;</a>“  –message “修改了默认网页” webserver  nginx:v2</li>
+<li>docker commit [选项] &lt;容器ID或容器名&gt; [&lt;仓库名&gt;[:&lt;标签&gt;]] 提交更新,创建镜像<strong>谨慎使用,因为会对容器环境照成较大影响</strong> //docker commit  –author “Tao Wang <a href="&#109;&#x61;&#105;&#x6c;&#116;&#x6f;&#x3a;&#x74;&#119;&#x61;&#x6e;&#103;&#50;&#x32;&#x31;&#x38;&#x40;&#103;&#x6d;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#109;">&#x74;&#119;&#x61;&#x6e;&#103;&#50;&#x32;&#x31;&#x38;&#x40;&#103;&#x6d;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#109;</a>“  –message “修改了默认网页” webserver  nginx:v2</li>
 <li>docer diff NAMES 查看永久性更新</li>
 <li>docker history nginx:v2 查看历史更新</li>
 <li>docker rm  删除容器</li>
