@@ -143,11 +143,11 @@
   </entry>
   
   <entry>
-    <title>互联网协议入门</title>
+    <title>互联网协议入门（一）</title>
     <link href="http://yoursite.com/2017/02/05/%E4%BA%92%E8%81%94%E7%BD%91%E5%8D%8F%E8%AE%AE%E5%85%A5%E9%97%A8%EF%BC%88%E4%B8%80%EF%BC%89/"/>
     <id>http://yoursite.com/2017/02/05/互联网协议入门（一）/</id>
     <published>2017-02-05T07:02:41.000Z</published>
-    <updated>2017-02-06T01:56:28.000Z</updated>
+    <updated>2017-02-06T09:42:42.000Z</updated>
     
     <content type="html"><![CDATA[<p><strong>本文转载自阮一峰的网络日志<a href="http://www.ruanyifeng.com/blog/2012/05/internet_protocol_suite_part_i.html" target="_blank" rel="external">互联网协议入门</a>.</strong></p>
 <p>互联网的核心是一系列的协议,总称为”互联网协议”(Internet Protocol Suite)。它们对电脑如何连接和组网，做出了详尽的规定。理解了这些协议，就理解了互联网的原理。</p>
@@ -397,7 +397,7 @@ pointer:                 %p
 <li>docker images 查看所有镜像</li>
 <li>docker rmi $(docker images -q -f dangling=true) 删除无用的悬浮镜像 </li>
 <li>docker exec  -it webserver bash 运行命令行并启动</li>
-<li>docker commit [选项] &lt;容器ID或容器名&gt; [&lt;仓库名&gt;[:&lt;标签&gt;]] 提交更新,创建镜像<strong>谨慎使用,因为会对容器环境照成较大影响</strong> //docker commit  –author “Tao Wang <a href="&#109;&#97;&#105;&#x6c;&#x74;&#111;&#58;&#x74;&#119;&#97;&#x6e;&#x67;&#x32;&#x32;&#49;&#56;&#x40;&#x67;&#109;&#97;&#x69;&#x6c;&#x2e;&#x63;&#111;&#109;">&#x74;&#119;&#97;&#x6e;&#x67;&#x32;&#x32;&#49;&#56;&#x40;&#x67;&#109;&#97;&#x69;&#x6c;&#x2e;&#x63;&#111;&#109;</a>“  –message “修改了默认网页” webserver  nginx:v2</li>
+<li>docker commit [选项] &lt;容器ID或容器名&gt; [&lt;仓库名&gt;[:&lt;标签&gt;]] 提交更新,创建镜像<strong>谨慎使用,因为会对容器环境照成较大影响</strong> //docker commit  –author “Tao Wang <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#x6f;&#58;&#x74;&#x77;&#97;&#110;&#103;&#x32;&#50;&#49;&#x38;&#64;&#x67;&#109;&#x61;&#105;&#x6c;&#46;&#x63;&#111;&#109;">&#x74;&#x77;&#97;&#110;&#103;&#x32;&#50;&#49;&#x38;&#64;&#x67;&#109;&#x61;&#105;&#x6c;&#46;&#x63;&#111;&#109;</a>“  –message “修改了默认网页” webserver  nginx:v2</li>
 <li>docer diff NAMES 查看永久性更新</li>
 <li>docker history nginx:v2 查看历史更新</li>
 <li>docker rm  删除容器</li>
