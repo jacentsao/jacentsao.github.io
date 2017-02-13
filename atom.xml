@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-02-13T14:04:58.000Z</updated>
+  <updated>2017-02-13T14:11:34.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Comparator与Comparable的区别</title>
+    <link href="http://yoursite.com/2017/02/13/Comparator%E4%B8%8EComparable%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
+    <id>http://yoursite.com/2017/02/13/Comparator与Comparable的区别/</id>
+    <published>2017-02-13T14:06:34.000Z</published>
+    <updated>2017-02-13T14:11:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>参考StackOverFlowp<a href="http://stackoverflow.com/questions/4108604/java-comparable-vs-comparator" target="_blank" rel="external">答案</a>:</p>
+<p>Comparable相当于“内部比较器”，而Comparator相当于“外部比较器”。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;参考StackOverFlowp&lt;a href=&quot;http://stackoverflow.com/questions/4108604/java-comparable-vs-comparator&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;答案&lt;/a&gt;:
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Java时间比较</title>
@@ -431,7 +451,7 @@ pointer:                 %p
 <li>docker images 查看所有镜像</li>
 <li>docker rmi $(docker images -q -f dangling=true) 删除无用的悬浮镜像 </li>
 <li>docker exec  -it webserver bash 运行命令行并启动</li>
-<li>docker commit [选项] &lt;容器ID或容器名&gt; [&lt;仓库名&gt;[:&lt;标签&gt;]] 提交更新,创建镜像<strong>谨慎使用,因为会对容器环境照成较大影响</strong> //docker commit  –author “Tao Wang <a href="&#109;&#x61;&#x69;&#x6c;&#116;&#x6f;&#58;&#116;&#x77;&#97;&#110;&#x67;&#50;&#x32;&#x31;&#56;&#64;&#x67;&#x6d;&#97;&#x69;&#108;&#46;&#x63;&#x6f;&#109;">&#116;&#x77;&#97;&#110;&#x67;&#50;&#x32;&#x31;&#56;&#64;&#x67;&#x6d;&#97;&#x69;&#108;&#46;&#x63;&#x6f;&#109;</a>“  –message “修改了默认网页” webserver  nginx:v2</li>
+<li>docker commit [选项] &lt;容器ID或容器名&gt; [&lt;仓库名&gt;[:&lt;标签&gt;]] 提交更新,创建镜像<strong>谨慎使用,因为会对容器环境照成较大影响</strong> //docker commit  –author “Tao Wang <a href="&#x6d;&#97;&#x69;&#108;&#116;&#111;&#58;&#116;&#x77;&#97;&#110;&#x67;&#50;&#x32;&#49;&#x38;&#64;&#103;&#x6d;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#x6d;">&#116;&#x77;&#97;&#110;&#x67;&#50;&#x32;&#49;&#x38;&#64;&#103;&#x6d;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#x6d;</a>“  –message “修改了默认网页” webserver  nginx:v2</li>
 <li>docer diff NAMES 查看永久性更新</li>
 <li>docker history nginx:v2 查看历史更新</li>
 <li>docker rm  删除容器</li>
@@ -1334,34 +1354,6 @@ hexo s --debu
     </summary>
     
       <category term="博客编写" scheme="http://yoursite.com/categories/%E5%8D%9A%E5%AE%A2%E7%BC%96%E5%86%99/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Mac OS X 配置环境变量</title>
-    <link href="http://yoursite.com/2017/01/16/article-title/"/>
-    <id>http://yoursite.com/2017/01/16/article-title/</id>
-    <published>2017-01-16T14:15:59.000Z</published>
-    <updated>2017-01-18T12:03:57.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>/etc/bashrc 是针对系统所有用户的全局变量，只有root用户才能修改这两个文件，对一般用户来说是他们是只读的。一般用户要想修改它们，可以在命令前加sudo，意思是以Root身份执行，比如：sudo vi /etc/profile  ，然后按照提示输入密码即可。(以上是针对使用默认shell的用户,如果使用zsh的话则对应的修改文件是.zshrc)</p>
-<p>因此，对于一般用户而言，通常我们建议去修改~/.bash_profile来设置环境变量，它是用户级的设置，只对当前用户有效。<br>操作步骤:</p>
-<pre><code>1、打开Terminal（终端）
-2、输入：vi ~/.bash_profile
-3、设置PATH：export PATH=/usr/local/mysql/bin:$PATH
-4、输入：:wq    //保存并退出vi
-5、修改立即生效：source ~/.bash_profile
-6、查看环境变量的值：echo $PATH
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;/etc/bashrc 是针对系统所有用户的全局变量，只有root用户才能修改这两个文件，对一般用户来说是他们是只读的。一般用户要想修改它们，可以在命令前加sudo，意思是以Root身份执行，比如：sudo vi /etc/profile  ，然后按照提示输入密码即可。(以
-    
-    </summary>
-    
-      <category term="Shell" scheme="http://yoursite.com/categories/Shell/"/>
     
     
   </entry>
