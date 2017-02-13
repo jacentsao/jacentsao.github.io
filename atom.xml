@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-02-06T09:45:47.000Z</updated>
+  <updated>2017-02-13T14:04:58.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java时间比较</title>
+    <link href="http://yoursite.com/2017/02/13/Java%E6%97%B6%E9%97%B4%E6%AF%94%E8%BE%83/"/>
+    <id>http://yoursite.com/2017/02/13/Java时间比较/</id>
+    <published>2017-02-13T13:58:02.000Z</published>
+    <updated>2017-02-13T14:04:58.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>在java中比较两个时间的大小: </p>
+<pre><code>DateFormat df = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);
+Date start = df.parse(&quot;1991-12-25&quot;);
+Date end = df.parse(&quot;1990-12-23&quot;);
+int result = start.compareTo(end);
+</code></pre><p>如果result &gt; 0 说明 start &gt; end; 如果result &lt; 0，则 start &lt; end;如果result = 0,则 start = end;    </p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在java中比较两个时间的大小: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;DateFormat df = new SimpleDateFormat(&amp;quot;yyyy-MM-dd&amp;quot;);
+Date start = df.parse(&amp;quot;1991-12-25&amp;quo
+    
+    </summary>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+  </entry>
   
   <entry>
     <title>互联网协议入门（二）</title>
@@ -403,7 +431,7 @@ pointer:                 %p
 <li>docker images 查看所有镜像</li>
 <li>docker rmi $(docker images -q -f dangling=true) 删除无用的悬浮镜像 </li>
 <li>docker exec  -it webserver bash 运行命令行并启动</li>
-<li>docker commit [选项] &lt;容器ID或容器名&gt; [&lt;仓库名&gt;[:&lt;标签&gt;]] 提交更新,创建镜像<strong>谨慎使用,因为会对容器环境照成较大影响</strong> //docker commit  –author “Tao Wang <a href="&#x6d;&#x61;&#x69;&#108;&#x74;&#x6f;&#x3a;&#116;&#119;&#x61;&#x6e;&#x67;&#x32;&#50;&#49;&#x38;&#x40;&#x67;&#109;&#97;&#x69;&#108;&#x2e;&#99;&#x6f;&#x6d;">&#116;&#119;&#x61;&#x6e;&#x67;&#x32;&#50;&#49;&#x38;&#x40;&#x67;&#109;&#97;&#x69;&#108;&#x2e;&#99;&#x6f;&#x6d;</a>“  –message “修改了默认网页” webserver  nginx:v2</li>
+<li>docker commit [选项] &lt;容器ID或容器名&gt; [&lt;仓库名&gt;[:&lt;标签&gt;]] 提交更新,创建镜像<strong>谨慎使用,因为会对容器环境照成较大影响</strong> //docker commit  –author “Tao Wang <a href="&#109;&#x61;&#x69;&#x6c;&#116;&#x6f;&#58;&#116;&#x77;&#97;&#110;&#x67;&#50;&#x32;&#x31;&#56;&#64;&#x67;&#x6d;&#97;&#x69;&#108;&#46;&#x63;&#x6f;&#109;">&#116;&#x77;&#97;&#110;&#x67;&#50;&#x32;&#x31;&#56;&#64;&#x67;&#x6d;&#97;&#x69;&#108;&#46;&#x63;&#x6f;&#109;</a>“  –message “修改了默认网页” webserver  nginx:v2</li>
 <li>docer diff NAMES 查看永久性更新</li>
 <li>docker history nginx:v2 查看历史更新</li>
 <li>docker rm  删除容器</li>
@@ -705,9 +733,9 @@ adb shell ps | grep packagename //获取指定app的进程信息
       <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
     
     
-      <category term="Shell" scheme="http://yoursite.com/tags/Shell/"/>
-    
       <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+      <category term="Shell" scheme="http://yoursite.com/tags/Shell/"/>
     
       <category term="命令行" scheme="http://yoursite.com/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/"/>
     
@@ -1334,33 +1362,6 @@ hexo s --debu
     </summary>
     
       <category term="Shell" scheme="http://yoursite.com/categories/Shell/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="http://yoursite.com/2017/01/16/hello-world/"/>
-    <id>http://yoursite.com/2017/01/16/hello-world/</id>
-    <published>2017-01-16T14:11:26.000Z</published>
-    <updated>2017-01-18T06:03:43.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
-    
-    </summary>
     
     
   </entry>
