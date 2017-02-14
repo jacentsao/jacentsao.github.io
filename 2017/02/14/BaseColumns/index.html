@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Android," />
 
 
 
@@ -86,16 +86,16 @@
 
 
 
-<meta name="description" content="private">
+<meta name="description" content="准备开始看Google官方的Android Architecture系列了，一方面是提升代码质量，另一方面是学习一下新的app架构。由于目前项目的代码基本上技术可以归属到上古遗迹之中，所以很有必要学习一下新的东西为未来做准备。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2017年度flag">
-<meta property="og:url" content="http://yoursite.com/2017/01/26/2017年度flag/index.html">
+<meta property="og:title" content="BaseColumns">
+<meta property="og:url" content="http://yoursite.com/2017/02/14/BaseColumns/index.html">
 <meta property="og:site_name" content="Silence of Heart">
-<meta property="og:description" content="private">
-<meta property="og:updated_time" content="2017-01-29T02:48:19.000Z">
+<meta property="og:description" content="准备开始看Google官方的Android Architecture系列了，一方面是提升代码质量，另一方面是学习一下新的app架构。由于目前项目的代码基本上技术可以归属到上古遗迹之中，所以很有必要学习一下新的东西为未来做准备。">
+<meta property="og:updated_time" content="2017-02-14T14:51:21.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="2017年度flag">
-<meta name="twitter:description" content="private">
+<meta name="twitter:title" content="BaseColumns">
+<meta name="twitter:description" content="准备开始看Google官方的Android Architecture系列了，一方面是提升代码质量，另一方面是学习一下新的app架构。由于目前项目的代码基本上技术可以归属到上古遗迹之中，所以很有必要学习一下新的东西为未来做准备。">
 
 
 
@@ -123,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/01/26/2017年度flag/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/02/14/BaseColumns/"/>
 
 
 
 
 
-  <title> 2017年度flag | Silence of Heart </title>
+  <title> BaseColumns | Silence of Heart </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -282,7 +282,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/26/2017年度flag/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/14/BaseColumns/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="JacenTsao">
@@ -306,7 +306,7 @@
             
             
               
-                2017年度flag
+                BaseColumns
               
             
           </h1>
@@ -321,8 +321,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-26T09:12:59+08:00">
-                2017-01-26
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-14T22:44:07+08:00">
+                2017-02-14
               </time>
             
 
@@ -332,6 +332,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -340,8 +362,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/01/26/2017年度flag/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/26/2017年度flag/" itemprop="commentCount"></span>
+                <a href="/2017/02/14/BaseColumns/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/14/BaseColumns/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -367,8 +389,53 @@
       
 
       
-        <p>private </p>
+        <p>准备开始看Google官方的Android Architecture系列了，一方面是提升代码质量，另一方面是学习一下新的app架构。由于目前项目的代码基本上技术可以归属到上古遗迹之中，所以很有必要学习一下新的东西为未来做准备。</p>
+<a id="more"></a>
+<p>首先看到的就是在数据库操作方面的一个接口，如下所示：</p>
+<pre><code>package android.provider;
 
+public interface BaseColumns
+{
+    /**
+     * The unique ID for a row.
+     * &lt;P&gt;Type: INTEGER (long)&lt;/P&gt;
+     */
+    public static final String _ID = &quot;_id&quot;;
+
+    /**
+     * The count of rows in a directory.
+     * &lt;P&gt;Type: INTEGER&lt;/P&gt;
+     */
+    public static final String _COUNT = &quot;_count&quot;;
+}
+</code></pre><p>这个类主要是配合SQLiteOpenHelper进行Android的数据库管理，_ID做为主键，而_COUNT可以返回数据库行数。典型应用如下所示：</p>
+<pre><code>public final class TasksPersistenceContract {
+
+// To prevent someone from accidentally instantiating the contract class,
+// give it an empty constructor.
+private TasksPersistenceContract() {}
+
+/* Inner class that defines the table contents */
+public static abstract class TaskEntry implements BaseColumns {
+    public static final String TABLE_NAME = &quot;task&quot;;
+    public static final String COLUMN_NAME_ENTRY_ID = &quot;entryid&quot;;
+    public static final String COLUMN_NAME_TITLE = &quot;title&quot;;
+    public static final String COLUMN_NAME_DESCRIPTION = &quot;description&quot;;
+    public static final String COLUMN_NAME_COMPLETED = &quot;completed&quot;;
+}
+}
+
+
+//在SQLiteOpenHelper中创建表的语句
+   private static final String SQL_CREATE_ENTRIES =
+        &quot;CREATE TABLE &quot; + TasksPersistenceContract.TaskEntry.TABLE_NAME + &quot; (&quot; +
+                TasksPersistenceContract.TaskEntry._ID + TEXT_TYPE + &quot; PRIMARY KEY,&quot; +
+                TasksPersistenceContract.TaskEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
+                TasksPersistenceContract.TaskEntry.COLUMN_NAME_TITLE + TEXT_TYPE + COMMA_SEP +
+                TasksPersistenceContract.TaskEntry.COLUMN_NAME_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
+                TasksPersistenceContract.TaskEntry.COLUMN_NAME_COMPLETED + BOOLEAN_TYPE +
+        &quot; )&quot;;
+</code></pre>
       
     </div>
 
@@ -389,13 +456,19 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/01/24/Docker学习-常用指令/" rel="next" title="Docker学习,常用指令">
-                <i class="fa fa-chevron-left"></i> Docker学习,常用指令
+              <a href="/2017/02/13/Comparator与Comparable的区别/" rel="next" title="Comparator与Comparable的区别">
+                <i class="fa fa-chevron-left"></i> Comparator与Comparable的区别
               </a>
             
           </div>
@@ -403,10 +476,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/01/29/go语言中的init-函数/" rel="prev" title="go语言中的init()函数">
-                go语言中的init()函数 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -432,8 +501,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2017/01/26/2017年度flag/"
-           data-title="2017年度flag" data-url="http://yoursite.com/2017/01/26/2017年度flag/">
+      <div class="ds-thread" data-thread-key="2017/02/14/BaseColumns/"
+           data-title="BaseColumns" data-url="http://yoursite.com/2017/02/14/BaseColumns/">
       </div>
     
   </div>

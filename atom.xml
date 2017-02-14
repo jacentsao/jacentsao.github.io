@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-02-13T14:11:34.000Z</updated>
+  <updated>2017-02-14T14:51:21.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,74 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>BaseColumns</title>
+    <link href="http://yoursite.com/2017/02/14/BaseColumns/"/>
+    <id>http://yoursite.com/2017/02/14/BaseColumns/</id>
+    <published>2017-02-14T14:44:07.000Z</published>
+    <updated>2017-02-14T14:51:21.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>准备开始看Google官方的Android Architecture系列了，一方面是提升代码质量，另一方面是学习一下新的app架构。由于目前项目的代码基本上技术可以归属到上古遗迹之中，所以很有必要学习一下新的东西为未来做准备。</p>
+<a id="more"></a>
+<p>首先看到的就是在数据库操作方面的一个接口，如下所示：</p>
+<pre><code>package android.provider;
+
+public interface BaseColumns
+{
+    /**
+     * The unique ID for a row.
+     * &lt;P&gt;Type: INTEGER (long)&lt;/P&gt;
+     */
+    public static final String _ID = &quot;_id&quot;;
+
+    /**
+     * The count of rows in a directory.
+     * &lt;P&gt;Type: INTEGER&lt;/P&gt;
+     */
+    public static final String _COUNT = &quot;_count&quot;;
+}
+</code></pre><p>这个类主要是配合SQLiteOpenHelper进行Android的数据库管理，_ID做为主键，而_COUNT可以返回数据库行数。典型应用如下所示：</p>
+<pre><code>public final class TasksPersistenceContract {
+
+// To prevent someone from accidentally instantiating the contract class,
+// give it an empty constructor.
+private TasksPersistenceContract() {}
+
+/* Inner class that defines the table contents */
+public static abstract class TaskEntry implements BaseColumns {
+    public static final String TABLE_NAME = &quot;task&quot;;
+    public static final String COLUMN_NAME_ENTRY_ID = &quot;entryid&quot;;
+    public static final String COLUMN_NAME_TITLE = &quot;title&quot;;
+    public static final String COLUMN_NAME_DESCRIPTION = &quot;description&quot;;
+    public static final String COLUMN_NAME_COMPLETED = &quot;completed&quot;;
+}
+}
+
+
+//在SQLiteOpenHelper中创建表的语句
+   private static final String SQL_CREATE_ENTRIES =
+        &quot;CREATE TABLE &quot; + TasksPersistenceContract.TaskEntry.TABLE_NAME + &quot; (&quot; +
+                TasksPersistenceContract.TaskEntry._ID + TEXT_TYPE + &quot; PRIMARY KEY,&quot; +
+                TasksPersistenceContract.TaskEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
+                TasksPersistenceContract.TaskEntry.COLUMN_NAME_TITLE + TEXT_TYPE + COMMA_SEP +
+                TasksPersistenceContract.TaskEntry.COLUMN_NAME_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
+                TasksPersistenceContract.TaskEntry.COLUMN_NAME_COMPLETED + BOOLEAN_TYPE +
+        &quot; )&quot;;
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;准备开始看Google官方的Android Architecture系列了，一方面是提升代码质量，另一方面是学习一下新的app架构。由于目前项目的代码基本上技术可以归属到上古遗迹之中，所以很有必要学习一下新的东西为未来做准备。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+  </entry>
   
   <entry>
     <title>Comparator与Comparable的区别</title>
@@ -451,7 +519,7 @@ pointer:                 %p
 <li>docker images 查看所有镜像</li>
 <li>docker rmi $(docker images -q -f dangling=true) 删除无用的悬浮镜像 </li>
 <li>docker exec  -it webserver bash 运行命令行并启动</li>
-<li>docker commit [选项] &lt;容器ID或容器名&gt; [&lt;仓库名&gt;[:&lt;标签&gt;]] 提交更新,创建镜像<strong>谨慎使用,因为会对容器环境照成较大影响</strong> //docker commit  –author “Tao Wang <a href="&#x6d;&#97;&#x69;&#108;&#116;&#111;&#58;&#116;&#x77;&#97;&#110;&#x67;&#50;&#x32;&#49;&#x38;&#64;&#103;&#x6d;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#x6d;">&#116;&#x77;&#97;&#110;&#x67;&#50;&#x32;&#49;&#x38;&#64;&#103;&#x6d;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#x6d;</a>“  –message “修改了默认网页” webserver  nginx:v2</li>
+<li>docker commit [选项] &lt;容器ID或容器名&gt; [&lt;仓库名&gt;[:&lt;标签&gt;]] 提交更新,创建镜像<strong>谨慎使用,因为会对容器环境照成较大影响</strong> //docker commit  –author “Tao Wang <a href="&#x6d;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#116;&#119;&#x61;&#110;&#103;&#x32;&#50;&#x31;&#56;&#64;&#103;&#x6d;&#97;&#105;&#x6c;&#46;&#x63;&#111;&#109;">&#116;&#119;&#x61;&#110;&#103;&#x32;&#50;&#x31;&#56;&#64;&#103;&#x6d;&#97;&#105;&#x6c;&#46;&#x63;&#111;&#109;</a>“  –message “修改了默认网页” webserver  nginx:v2</li>
 <li>docer diff NAMES 查看永久性更新</li>
 <li>docker history nginx:v2 查看历史更新</li>
 <li>docker rm  删除容器</li>
@@ -1316,44 +1384,6 @@ $ gomobile init //安装NDK之类的
     </summary>
     
       <category term="Golang" scheme="http://yoursite.com/categories/Golang/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>常用的hexo指令</title>
-    <link href="http://yoursite.com/2017/01/18/%E5%B8%B8%E7%94%A8%E7%9A%84hexo%E6%8C%87%E4%BB%A4/"/>
-    <id>http://yoursite.com/2017/01/18/常用的hexo指令/</id>
-    <published>2017-01-18T06:15:47.000Z</published>
-    <updated>2017-01-18T08:12:23.000Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>hexo new post &quot;article title&quot;  //创建新的post,创建目录为: /source/_posts/
-hexo d  //deploy 发布
-hexo s //
-hexo clean
-hexo s --debug
-
-
-hexo new page categories
-hexo new page about
-hexo new page commonweal
-hexo new page sitemap
-hexo new page tags
-hexo new page archives
-hexo new page tags
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;hexo new post &amp;quot;article title&amp;quot;  //创建新的post,创建目录为: /source/_posts/
-hexo d  //deploy 发布
-hexo s //
-hexo clean
-hexo s --debu
-    
-    </summary>
-    
-      <category term="博客编写" scheme="http://yoursite.com/categories/%E5%8D%9A%E5%AE%A2%E7%BC%96%E5%86%99/"/>
     
     
   </entry>
