@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-02-14T14:51:21.000Z</updated>
+  <updated>2017-02-21T06:11:56.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,58 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>判断Library处于release或者debug模式</title>
+    <link href="http://yoursite.com/2017/02/21/%E5%88%A4%E6%96%ADLibrary%E5%A4%84%E4%BA%8Erelease%E6%88%96%E8%80%85debug%E6%A8%A1%E5%BC%8F/"/>
+    <id>http://yoursite.com/2017/02/21/判断Library处于release或者debug模式/</id>
+    <published>2017-02-21T06:05:30.000Z</published>
+    <updated>2017-02-21T06:11:56.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>如何在Library中判断是否是release包:</p>
+<ol>
+<li><p>在Library的gradle文件中添加一个变量标记和设置没有默认发布类型</p>
+<pre><code>Android{
+        release {
+        buildConfigField &quot;boolean&quot;, &quot;RELEASE_MODE&quot;, &quot;true&quot;
+        minifyEnabled false
+        proguardFiles getDefaultProguardFile(&apos;proguard-android.txt&apos;), &apos;proguard-rules.pro&apos;
+        }
+        debug {
+            buildConfigField &quot;boolean&quot;, &quot;RELEASE_MODE&quot;, &quot;false&quot;
+        }
+
+        publishNonDefault true   //设置没有默认发布类型
+}
+</code></pre></li>
+<li><p>在app module的gradle文件中新增对应Library的release依赖和debug依赖</p>
+</li>
+</ol>
+<pre><code>releaseCompile project(path: &apos;:app&apos;, configuration: &apos;release&apos;)
+debugCompile project(path: &apos;:app&apos;, configuration: &apos;debug&apos;)    
+</code></pre><ol>
+<li>在Library中引用</li>
+</ol>
+<pre><code>if (BuildConfig.RELEASE_MODE == true) {}    
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;如何在Library中判断是否是release包:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;在Library的gradle文件中添加一个变量标记和设置没有默认发布类型&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Android{
+        release {
+        buildCo
+    
+    </summary>
+    
+      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+  </entry>
   
   <entry>
     <title>BaseColumns</title>
@@ -519,7 +571,7 @@ pointer:                 %p
 <li>docker images 查看所有镜像</li>
 <li>docker rmi $(docker images -q -f dangling=true) 删除无用的悬浮镜像 </li>
 <li>docker exec  -it webserver bash 运行命令行并启动</li>
-<li>docker commit [选项] &lt;容器ID或容器名&gt; [&lt;仓库名&gt;[:&lt;标签&gt;]] 提交更新,创建镜像<strong>谨慎使用,因为会对容器环境照成较大影响</strong> //docker commit  –author “Tao Wang <a href="&#x6d;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#116;&#119;&#x61;&#110;&#103;&#x32;&#50;&#x31;&#56;&#64;&#103;&#x6d;&#97;&#105;&#x6c;&#46;&#x63;&#111;&#109;">&#116;&#119;&#x61;&#110;&#103;&#x32;&#50;&#x31;&#56;&#64;&#103;&#x6d;&#97;&#105;&#x6c;&#46;&#x63;&#111;&#109;</a>“  –message “修改了默认网页” webserver  nginx:v2</li>
+<li>docker commit [选项] &lt;容器ID或容器名&gt; [&lt;仓库名&gt;[:&lt;标签&gt;]] 提交更新,创建镜像<strong>谨慎使用,因为会对容器环境照成较大影响</strong> //docker commit  –author “Tao Wang <a href="&#109;&#x61;&#x69;&#x6c;&#116;&#x6f;&#58;&#x74;&#x77;&#x61;&#x6e;&#103;&#50;&#50;&#x31;&#56;&#64;&#103;&#109;&#97;&#x69;&#x6c;&#46;&#x63;&#x6f;&#109;">&#x74;&#x77;&#x61;&#x6e;&#103;&#50;&#50;&#x31;&#56;&#64;&#103;&#109;&#97;&#x69;&#x6c;&#46;&#x63;&#x6f;&#109;</a>“  –message “修改了默认网页” webserver  nginx:v2</li>
 <li>docer diff NAMES 查看永久性更新</li>
 <li>docker history nginx:v2 查看历史更新</li>
 <li>docker rm  删除容器</li>
@@ -821,9 +873,9 @@ adb shell ps | grep packagename //获取指定app的进程信息
       <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
     
     
-      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
-    
       <category term="Shell" scheme="http://yoursite.com/tags/Shell/"/>
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
     
       <category term="命令行" scheme="http://yoursite.com/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/"/>
     
@@ -1324,66 +1376,6 @@ Fix: @OnPageChange listener binding now uses the &apos;add&apos;/&apos;remove&ap
     </summary>
     
       <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>搭建gomobile开发环境</title>
-    <link href="http://yoursite.com/2017/01/18/%E6%90%AD%E5%BB%BAgomobile%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"/>
-    <id>http://yoursite.com/2017/01/18/搭建gomobile开发环境/</id>
-    <published>2017-01-18T07:24:21.000Z</published>
-    <updated>2017-01-18T12:27:55.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>gomobile是谷歌开发的一种跨平台技术解决方案,可以针对iOS和Android平台进行直接开发或者进行Library开发.<br><a id="more"></a></p>
-<h3 id="配置gomobile开发环境"><a href="#配置gomobile开发环境" class="headerlink" title="配置gomobile开发环境"></a>配置gomobile开发环境</h3><ol>
-<li>设置终端http,https代理</li>
-<li>配置git,及环境变量</li>
-<li>配置golang及gopath环境及环境变量</li>
-<li>配置gomobile及环境变量</li>
-</ol>
-<h3 id="gomobile的优缺点"><a href="#gomobile的优缺点" class="headerlink" title="gomobile的优缺点"></a>gomobile的优缺点</h3><h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ul>
-<li>直接构建用于ios的framework文件,可以直接调用生成的类</li>
-<li>直接构建用于Android的aar文件,使用jni直接调用</li>
-<li>统一三端规则,避免重复开发和一些错误</li>
-</ul>
-<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点:"></a>缺点:</h4><h5 id="数据类型限制"><a href="#数据类型限制" class="headerlink" title="数据类型限制"></a>数据类型限制</h5><ul>
-<li>int and float;</li>
-<li>string and boolean;</li>
-<li>byte[]. The current implementation doesn’t allow to use []byte as the     function argument (<a href="https://golang.org/issues/12113" target="_blank" rel="external">https://golang.org/issues/12113</a>);</li>
-<li>function has to return only supported types, it may not return the result, it may return one or two types wherein the second type should be an error;</li>
-<li>interfaces could be used if they are exported to files of any supported type;</li>
-<li>struct type, only in case all fields meet the constraints.</li>
-</ul>
-<p>]</p>
-<h3 id="环境搭建流程"><a href="#环境搭建流程" class="headerlink" title="环境搭建流程"></a>环境搭建流程</h3><h4 id="官方教程"><a href="#官方教程" class="headerlink" title="官方教程"></a>官方教程</h4><ol>
-<li><a href="https://godoc.org/golang.org/x/mobile/cmd/gomobile" target="_blank" rel="external">官网地址</a>,安装gomobile,当然首先得安装golang才能够使用go命令</li>
-</ol>
-<pre><code>$ go get golang.org/x/mobile/cmd/gomobile
-$ gomobile init
-//然后就可以通过gomobile指令查看了
-$ gomobile
-</code></pre><ol>
-<li>前面地址进不去的话有个<a href="https://github.com/golang/mobile" target="_blank" rel="external">Github地址</a></li>
-</ol>
-<h4 id="使用Github镜像安装"><a href="#使用Github镜像安装" class="headerlink" title="使用Github镜像安装"></a>使用Github镜像安装</h4><p>由于使用谷歌的官网资源需要在命令行翻墙,比较麻烦,所以直接使用Github的镜像进行安装.</p>
-<pre><code>$ mkdir -p $GOPATH/src/github.com/golang
-$ cd $GOPATH/src/github.com/golang
-$ git clone https://github.com/golang/mobile.git
-$ mkdir -p $GOPATH/src/golang.org/x    
-$ cp -r $GOPATH/src/github.com/golang/mobile $GOPATH/src/golang.org/x 
-$ cd $GOPATH/src/golang.org/x/mobile/cmd/gomobile
-$ go install  //会在$GOPATH/src/bin 目录下生成gomobile  
-$ gomobile init //安装NDK之类的
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;gomobile是谷歌开发的一种跨平台技术解决方案,可以针对iOS和Android平台进行直接开发或者进行Library开发.&lt;br&gt;
-    
-    </summary>
-    
-      <category term="Golang" scheme="http://yoursite.com/categories/Golang/"/>
     
     
   </entry>
