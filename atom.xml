@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-02-26T13:13:49.000Z</updated>
+  <updated>2017-03-11T08:54:31.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,147 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Android中获取文件的md5值</title>
+    <link href="http://yoursite.com/2017/03/11/Android%E4%B8%AD%E8%8E%B7%E5%8F%96%E6%96%87%E4%BB%B6%E7%9A%84md5%E5%80%BC/"/>
+    <id>http://yoursite.com/2017/03/11/Android中获取文件的md5值/</id>
+    <published>2017-03-11T08:53:26.000Z</published>
+    <updated>2017-03-11T08:54:31.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>在Android中获取文件的MD5值，来自CM</p>
+<pre><code>/*
+ * Copyright (C) 2012 The CyanogenMod Project
+ *
+ * * Licensed under the GNU GPLv2 license
+ *
+ * The text of the license can be found in the LICENSE file
+ * or at https://www.gnu.org/licenses/gpl-2.0.txt
+ */
+
+package com.cyanogenmod.updater.utils;
+
+import android.text.TextUtils;
+import android.util.Log;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+public class MD5 {
+    private static final String TAG = &quot;MD5&quot;;
+
+    public static boolean checkMD5(String md5, File updateFile) {
+        if (TextUtils.isEmpty(md5) || updateFile == null) {
+            Log.e(TAG, &quot;MD5 string empty or updateFile null&quot;);
+            return false;
+        }
+
+        String calculatedDigest = calculateMD5(updateFile);
+        if (calculatedDigest == null) {
+            Log.e(TAG, &quot;calculatedDigest null&quot;);
+            return false;
+        }
+
+        Log.v(TAG, &quot;Calculated digest: &quot; + calculatedDigest);
+        Log.v(TAG, &quot;Provided digest: &quot; + md5);
+
+        return calculatedDigest.equalsIgnoreCase(md5);
+    }
+
+    public static String calculateMD5(File updateFile) {
+        MessageDigest digest;
+        try {
+            digest = MessageDigest.getInstance(&quot;MD5&quot;);
+        } catch (NoSuchAlgorithmException e) {
+            Log.e(TAG, &quot;Exception while getting digest&quot;, e);
+            return null;
+        }
+
+        InputStream is;
+        try {
+            is = new FileInputStream(updateFile);
+        } catch (FileNotFoundException e) {
+            Log.e(TAG, &quot;Exception while getting FileInputStream&quot;, e);
+            return null;
+        }
+
+        byte[] buffer = new byte[8192];
+        int read;
+        try {
+            while ((read = is.read(buffer)) &gt; 0) {
+                digest.update(buffer, 0, read);
+            }
+            byte[] md5sum = digest.digest();
+            BigInteger bigInt = new BigInteger(1, md5sum);
+            String output = bigInt.toString(16);
+            // Fill to 32 chars
+            output = String.format(&quot;%32s&quot;, output).replace(&apos; &apos;, &apos;0&apos;);
+            return output;
+        } catch (IOException e) {
+            throw new RuntimeException(&quot;Unable to process file for MD5&quot;, e);
+        } finally {
+            try {
+                is.close();
+            } catch (IOException e) {
+                Log.e(TAG, &quot;Exception on closing MD5 input stream&quot;, e);
+            }
+        }
+    }
+}
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在Android中获取文件的MD5值，来自CM&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;/*
+ * Copyright (C) 2012 The CyanogenMod Project
+ *
+ * * Licensed under the GNU GPLv2 license
+ *
+ 
+    
+    </summary>
+    
+      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>uuid通用唯一识别码</title>
+    <link href="http://yoursite.com/2017/03/03/uuid%E9%80%9A%E7%94%A8%E5%94%AF%E4%B8%80%E8%AF%86%E5%88%AB%E7%A0%81/"/>
+    <id>http://yoursite.com/2017/03/03/uuid通用唯一识别码/</id>
+    <published>2017-03-03T13:11:41.000Z</published>
+    <updated>2017-03-11T08:55:40.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://zh.wikipedia.org/wiki/%E9%80%9A%E7%94%A8%E5%94%AF%E4%B8%80%E8%AF%86%E5%88%AB%E7%A0%81" target="_blank" rel="external">通用唯一识别码</a>（Universal Unique Identifier简称UUID）是一种软件建构的标准。</p>
+<p>UUID的目的，是让分布式系统中的所有元素，都能有唯一的辨识信息，而不需要通过中央控制端来辨识信息的指定。如此依赖，每个人都可以穿件捕鱼其他人冲突的UUID。这样的情况下，就不需要考虑数据库创建时的名称重复问题。目前最广泛应用的UUID，是微软的<a href="https://zh.wikipedia.org/wiki/%E5%85%A8%E5%B1%80%E5%94%AF%E4%B8%80%E6%A0%87%E8%AF%86%E7%AC%A6" target="_blank" rel="external">全局统一标识符</a>（GUID）。</p>
+<h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p>UUID是由一组32位数的16进制数字所构成，是故UUID理论上的总数为1632=2128，约等于3.4 x 1038。也就是说若每纳秒产生1兆个UUID，要花100亿年才会将所有UUID用完。</p>
+<p>UUID的标准型式包含32个16进制数字，以连字号分为五段，形式为8-4-4-4-12的32个字符。示例：</p>
+<p>550e8400-e29b-41d4-a716-446655440000</p>
+<p>UUID亦可刻意重复以表示同类。例如说微软的COM中，所有组件皆必须实现出IUnknown接口，方法是产生一个代表IUnknown的UUID。无论是程序试图访问组件中的IUnknown接口，或是实现IUnknown接口的组件，只要IUnknown一被使用，皆会被参考至同一个ID：00000000-0000-0000-C000-000000000046。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://zh.wikipedia.org/wiki/%E9%80%9A%E7%94%A8%E5%94%AF%E4%B8%80%E8%AF%86%E5%88%AB%E7%A0%81&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;通用
+    
+    </summary>
+    
+      <category term="计算机基础" scheme="http://yoursite.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"/>
+    
+    
+      <category term="计算机基础" scheme="http://yoursite.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
   
   <entry>
     <title>序列化</title>
@@ -470,9 +611,9 @@ Date start = df.parse(&amp;quot;1991-12-25&amp;quo
       <category term="网络" scheme="http://yoursite.com/categories/%E7%BD%91%E7%BB%9C/"/>
     
     
-      <category term="网络" scheme="http://yoursite.com/tags/%E7%BD%91%E7%BB%9C/"/>
-    
       <category term="计算机基础" scheme="http://yoursite.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"/>
+    
+      <category term="网络" scheme="http://yoursite.com/tags/%E7%BD%91%E7%BB%9C/"/>
     
   </entry>
   
@@ -583,9 +724,9 @@ Date start = df.parse(&amp;quot;1991-12-25&amp;quo
       <category term="网络" scheme="http://yoursite.com/categories/%E7%BD%91%E7%BB%9C/"/>
     
     
-      <category term="网络" scheme="http://yoursite.com/tags/%E7%BD%91%E7%BB%9C/"/>
-    
       <category term="计算机基础" scheme="http://yoursite.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"/>
+    
+      <category term="网络" scheme="http://yoursite.com/tags/%E7%BD%91%E7%BB%9C/"/>
     
   </entry>
   
@@ -731,7 +872,7 @@ pointer:                 %p
 <li>docker images 查看所有镜像</li>
 <li>docker rmi $(docker images -q -f dangling=true) 删除无用的悬浮镜像 </li>
 <li>docker exec  -it webserver bash 运行命令行并启动</li>
-<li>docker commit [选项] &lt;容器ID或容器名&gt; [&lt;仓库名&gt;[:&lt;标签&gt;]] 提交更新,创建镜像<strong>谨慎使用,因为会对容器环境照成较大影响</strong> //docker commit  –author “Tao Wang <a href="&#x6d;&#x61;&#105;&#x6c;&#116;&#x6f;&#x3a;&#x74;&#119;&#x61;&#x6e;&#103;&#50;&#x32;&#49;&#x38;&#x40;&#x67;&#109;&#97;&#x69;&#108;&#x2e;&#99;&#111;&#x6d;">&#x74;&#119;&#x61;&#x6e;&#103;&#50;&#x32;&#49;&#x38;&#x40;&#x67;&#109;&#97;&#x69;&#108;&#x2e;&#99;&#111;&#x6d;</a>“  –message “修改了默认网页” webserver  nginx:v2</li>
+<li>docker commit [选项] &lt;容器ID或容器名&gt; [&lt;仓库名&gt;[:&lt;标签&gt;]] 提交更新,创建镜像<strong>谨慎使用,因为会对容器环境照成较大影响</strong> //docker commit  –author “Tao Wang <a href="&#x6d;&#97;&#x69;&#x6c;&#116;&#111;&#x3a;&#x74;&#x77;&#97;&#110;&#x67;&#50;&#50;&#49;&#56;&#64;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#46;&#x63;&#x6f;&#109;">&#x74;&#x77;&#97;&#110;&#x67;&#50;&#50;&#49;&#56;&#64;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#46;&#x63;&#x6f;&#109;</a>“  –message “修改了默认网页” webserver  nginx:v2</li>
 <li>docer diff NAMES 查看永久性更新</li>
 <li>docker history nginx:v2 查看历史更新</li>
 <li>docker rm  删除容器</li>
@@ -1038,141 +1179,6 @@ adb shell ps | grep packagename //获取指定app的进程信息
       <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
     
       <category term="命令行" scheme="http://yoursite.com/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Root Nexus 6 Android 7.1 官方镜像</title>
-    <link href="http://yoursite.com/2017/01/19/Root-Nexus-6-Android-7-1-%E5%AE%98%E6%96%B9%E9%95%9C%E5%83%8F/"/>
-    <id>http://yoursite.com/2017/01/19/Root-Nexus-6-Android-7-1-官方镜像/</id>
-    <published>2017-01-19T06:03:12.000Z</published>
-    <updated>2017-01-19T06:31:38.000Z</updated>
-    
-    <content type="html"><![CDATA[<p> 本教程适用于Android7.1官方系统的Nexus 6 Root, 使用于Android 7.1.1 N6F26Q Nougat,请确保你将要root的是该设备. 原文<a href="http://www.teamandroid.com/2017/01/11/root-nexus-6-android-7-1-1-n6f26q-nougat-official-factory-image/2/" target="_blank" rel="external">地址</a>,可自行查看.<br> <a id="more"></a></p>
-<h5 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h5><ul>
-<li>本教程仅适用于安装 Android 7.1.1 (N6F26Q) 的Nexus 6设备,我自己的美版型号root正常.</li>
-<li>手机需要解锁bootloader<a href="http://www.teamandroid.com/2014/12/11/unlock-bootloader-nexus-6/" target="_blank" rel="external">教程</a></li>
-<li>系统必须为Android 7.1.1 N6F26Q Nougat官方镜像 <a href="http://www.teamandroid.com/2017/01/11/update-nexus-6-android-7-1-1-n6f26q-nougat-official-factory-image/" target="_blank" rel="external">教程</a></li>
-</ul>
-<h5 id="详细步骤"><a href="#详细步骤" class="headerlink" title="详细步骤"></a>详细步骤</h5><ol>
-<li>下载Android SDK工具<a href="https://developer.android.com/studio/index.html#downloads" target="_blank" rel="external">地址</a>,仅获取命令行工具即可.这个地址需要翻墙</li>
-<li>打开开发者选项里面的USB调试</li>
-<li>下载<a href="http://www.devfiles.co/download/XYcfXURV/SuperSU-v2.78-201609011115.zip" target="_blank" rel="external">SuperSU</a></li>
-<li>拷贝到手机存储空间根目录</li>
-<li>下载<a href="http://www.devfiles.co/download/BWxptq2J/twrp-3.0.2-0-shamu.img" target="_blank" rel="external">TWRP</a></li>
-<li><p>关机后按音量- 和 关机键进入bootloader模式,使用下载的命令行工具刷入twrp(如果没有添加命令行工具路径到环境变量则需要在放置命令行工具):</p>
-<p> fastboot flash recovery twrp-3.0.2-0-shamu.img</p>
-</li>
-<li><p>刷入完成后,选择RECOVERY模式进入</p>
-</li>
-<li>选择flash zip from SD card,选中前面的SuperSU XX文件,按电源键确认刷入</li>
-<li>最后选择reboot system,重启以后如果有了SuperSU这个app说明root成功了.</li>
-</ol>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt; 本教程适用于Android7.1官方系统的Nexus 6 Root, 使用于Android 7.1.1 N6F26Q Nougat,请确保你将要root的是该设备. 原文&lt;a href=&quot;http://www.teamandroid.com/2017/01/11/root-nexus-6-android-7-1-1-n6f26q-nougat-official-factory-image/2/&quot;&gt;地址&lt;/a&gt;,可自行查看.&lt;br&gt;
-    
-    </summary>
-    
-      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
-    
-    
-      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
-    
-      <category term="Root" scheme="http://yoursite.com/tags/Root/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Linux服务端更新Android SDK</title>
-    <link href="http://yoursite.com/2017/01/19/Linux%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%9B%B4%E6%96%B0Android-SDK/"/>
-    <id>http://yoursite.com/2017/01/19/Linux服务端更新Android-SDK/</id>
-    <published>2017-01-18T16:57:39.000Z</published>
-    <updated>2017-01-18T17:00:29.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>前段时间因为新版本需求更新了一下项目的Recycleview版本,对应的SDK也更新了.项目组的几位同事的项目全都因为找不到对应的SDK报错了,后面把自己的SDK拷贝一份给他们才OK(实在想吐槽一下,我觉得做为一个Android程序员翻墙是一项基本的技能).<br><a id="more"></a><br>然而就在今天根据新的安排,后续打包统一走运维.而运维使用的是jenkins集成打包,然后上传到<a href="http://fir.im/" target="_blank" rel="external">fir</a>,测试人员直接下载安装然后进行测试.结果服务端果然出现了同样的错误.</p>
-<pre><code>   Could not resolve all dependencies for configuration &apos;:app:_debugCompile&apos;.
-   &gt; Could not find com.android.support:recyclerview-v7:23.4.0.
-Searched in the following locations:
-    https://jcenter.bintray.com/com/android/support/recyclerview-v7/23.4.0/recyclerview-v7-23.4.0.pom
-    https://jcenter.bintray.com/com/android/support/recyclerview-v7/23.4.0/recyclerview-v7-23.4.0.jar
-    file:/root/.jenkins/jobs_android/workspace/appbs/recyclerview-v7-23.4.0.jar
-    file:/root/.jenkins/jobs_android/workspace/appbs/recyclerview-v7.jar
-    file:/usr/local/android/extras/android/m2repository/com/android/support/recyclerview-v7/23.4.0/recyclerview-v7-23.4.0.pom
-    file:/usr/local/android/extras/android/m2repository/com/android/support/recyclerview-v7/23.4.0/recyclerview-v7-23.4.0.jar
-    file:/usr/local/android/extras/google/m2repository/com/android/support/recyclerview-v7/23.4.0/recyclerview-v7-23.4.0.pom
-    file:/usr/local/android/extras/google/m2repository/com/android/support/recyclerview-v7/23.4.0/recyclerview-v7-23.4.0.jar
-Required by:
-    workspace:app:unspecified
-    workspace:app:unspecified &gt; com.yanzhenjie:recyclerview-swipe:1.0.1
-    &gt; Could not find com.android.support:recyclerview-v7:23.4.0.
-Searched in the following locations:
-    https://jcenter.bintray.com/com/android/support/recyclerview-v7/23.4.0/recyclerview-v7-23.4.0.pom
-    https://jcenter.bintray.com/com/android/support/recyclerview-v7/23.4.0/recyclerview-v7-23.4.0.jar
-    file:/root/.jenkins/jobs_android/workspace/appbs/recyclerview-v7-23.4.0.jar
-    file:/root/.jenkins/jobs_android/workspace/appbs/recyclerview-v7.jar
-    file:/usr/local/android/extras/android/m2repository/com/android/support/recyclerview-v7/23.4.0/recyclerview-v7-23.4.0.pom
-    file:/usr/local/android/extras/android/m2repository/com/android/support/recyclerview-v7/23.4.0/recyclerview-v7-23.4.0.jar
-    file:/usr/local/android/extras/google/m2repository/com/android/support/recyclerview-v7/23.4.0/recyclerview-v7-23.4.0.pom
-    file:/usr/local/android/extras/google/m2repository/com/android/support/recyclerview-v7/23.4.0/recyclerview-v7-23.4.0.jar
-Required by:
-    workspace:app:unspecified &gt; com.android.support:design:23.1.1
-</code></pre><p>然后我就跟运维的胖哥搜索教程,第一步去Github上面下载了<a href="https://github.com/getlantern/lantern" target="_blank" rel="external">lantern</a> (Lantern都有付费版本了),然后去谷歌搜索Linux update Android SDK,然后找到了官方的<a href="http://tools.android.com/recent/updatingsdkfromcommand-line" target="_blank" rel="external">教程</a>,在GFW的帮助下,并没有什么用.<img src="http://tools.android.com/recent/updatingsdkfromcommand-line/2011-08-19%20tools%20screenshot%20r12%20install%20no-ui%20b.png?attredirects=0" alt="Official Guidance"></p>
-<p>第二步,想在运维那里直接使用云梯翻墙更新(这里吐槽一下,云梯实在很不稳定,建议自己买VPS+Shadowsocks才是王道).跟预料的一样,根本连不上.</p>
-<p>第三步,其实一开始思路就是错的,用什么谷歌搜索,只有少数的被国家保护的公民才有这种问题啊,所以直接使用百度搜索即可.果然还是自家人懂得自家事,找到了很多<a href="https://segmentfault.com/a/1190000004639481" target="_blank" rel="external">内容</a>.</p>
-<pre><code>//step 0:cd 到你安装SDK目录的Tools目录下(例如:/Volumes/work/sdk/tools)
-
-//step 1:设置代理获取可更新列表
-./android list sdk --extended --proxy-host android-mirror.bugly.qq.com --proxy-port 8080 -s
-
-//step 2:设置更新代理并选择下载文件,我这里选择的所有 -a
-./android update sdk --proxy-host android-mirror.bugly.qq.com --proxy-port 8080 -s -u -a        
-
-
-//当然你也可以自定义参数
- Updates the SDK by suggesting new platforms to install if available.
-Options:
-  -f --force     : Forces replacement of a package or its parts, even if
-                   something has been modified.
-  -n --dry-mode  : Simulates the update but does not download or install
-                   anything.
-     --proxy-host: HTTP/HTTPS proxy host (overrides settings if defined)
-  -s --no-https  : Uses HTTP instead of HTTPS (the default) for downloads.
-  -t --filter    : A filter that limits the update to the specified types of
-                   packages in the form of a comma-separated list of
-                   [platform, system-image, tool, platform-tool, doc, sample,
-                   source]. This also accepts the identifiers returned by
-                   &apos;list sdk --extended&apos;.
-  -u --no-ui     : Updates from command-line (does not display the GUI)
-     --proxy-port: HTTP/HTTPS proxy port (overrides settings if defined)
-  -p --obsolete  : Deprecated. Please use --all instead.
-  -a --all       : Includes all packages (such as obsolete and non-dependent
-                   ones.)
-
-
-
-//step 3:同意license内容,反正你也没的选,然后就会自动下载并解压
-Do you accept the license &apos;android-sdk-preview-license-52d11cd2&apos; [y/n]:
-</code></pre><p>这里代理服务器其实蛮多的,参考<a href="http://www.androiddevtools.cn/" target="_blank" rel="external">AndroidDev</a>,不懂翻墙人士的福音.深圳地区设置腾讯代理以后下载速度基本上都是2-3M起,速度非常快.</p>
-<p><strong>使用上面命令行是因为Linux Server没有可用图形操作界面,如果有图形操作界面的话还是不要使用这种方式了</strong>,把时间花在更有用的地方吧!毕竟我们是一群需求没定好就能把项目做完的码农!</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;前段时间因为新版本需求更新了一下项目的Recycleview版本,对应的SDK也更新了.项目组的几位同事的项目全都因为找不到对应的SDK报错了,后面把自己的SDK拷贝一份给他们才OK(实在想吐槽一下,我觉得做为一个Android程序员翻墙是一项基本的技能).&lt;br&gt;
-    
-    </summary>
-    
-      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
-    
-    
-      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
-    
-      <category term="自动构建" scheme="http://yoursite.com/tags/%E8%87%AA%E5%8A%A8%E6%9E%84%E5%BB%BA/"/>
-    
-      <category term="Jenkins" scheme="http://yoursite.com/tags/Jenkins/"/>
     
   </entry>
   
