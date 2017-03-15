@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2017/03/11/Android-Studio%E5%BF%AB%E6%8D%B7%E9%94%AE/</loc>
+    
+    <lastmod>2017-03-14T11:33:11.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2017/03/13/Android-LeakCanary%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    
+    <lastmod>2017-03-13T08:30:35.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2017/03/03/uuid%E9%80%9A%E7%94%A8%E5%94%AF%E4%B8%80%E8%AF%86%E5%88%AB%E7%A0%81/</loc>
     
     <lastmod>2017-03-11T08:55:40.000Z</lastmod>
