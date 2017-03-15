@@ -283,6 +283,178 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/22/Linux系统中动态库和静态库/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="JacenTsao">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Silence of Heart">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Silence of Heart" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/01/22/Linux系统中动态库和静态库/" itemprop="url">
+                  Linux系统中动态库和静态库
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-22T08:40:53+08:00">
+                2017-01-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/01/22/Linux系统中动态库和静态库/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/22/Linux系统中动态库和静态库/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h5 id="原文转载自wjlkoorey的博客"><a href="#原文转载自wjlkoorey的博客" class="headerlink" title="原文转载自wjlkoorey的博客"></a>原文转载自<a href="http://blog.chinaunix.net/uid-23069658-id-3142046.html" target="_blank" rel="external">wjlkoorey的博客</a></h5><p>最近一直在学习go语言跨平台编译,在这个过程中也学习了其它很多的内容,今天回顾一下Linux系统下动态库(.so)和静态(.a)的程序那些猫腻.在这之前，我们需要了解一下源代码到可执行程序之间到底发生了什么神奇而美妙的事情。</p>
+<p>在Linux操作系统中，普遍使用ELF格式作为可执行程序或者程序生成过程中的中间格式。ELF（Executable and Linking Format，可执行连接格式）是UNIX系统实验室（USL）作为应用程序二进制接口（Application BinaryInterface，ABI）而开发和发布的。工具接口标准委员会（TIS）选择了正在发展中的ELF标准作为工作在32位Intel体系上不同操作系统之间可移植的二进制文件格式。源代码到可执行程序的转换时需要经历如下图所示的过程：</p>
+<p><img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRVaYfvML9MiCHmqr9KBqadX6_DbW8XIiJXlUttBvbfuwWG4Wv3" alt="image"></p>
+<ul>
+<li>编译是把高级语言编写的程序转换为对应处理器的汇编语言的过程.从本质上来说,编译是一个文本转换的过程.对嵌入式系统而言,一般要把用C语言编写的程序转换成处理器的会变代码.编译过程包含了C语言的语法解析和汇编代码的生成两个步骤.编译一般是逐个文件进行的,对于一个C语言编写的文件,可能还需要进行预处理.</li>
+<li>汇编是从会变语言程序生成目标系统的二进制代码(机器码)的过程,机器码的生成和处理器有密切的关系.相对于编译过程的语法解析,汇编的过程相对简单.这是因为对于一款特定的处理器,其汇编语言和二进制的机器代码是一一对应的.汇编过程的输入是汇编代码,这个汇编代码可能来源于编译过程的输出,也可以是直接使用汇编语言书写的程序.</li>
+<li>连接是指将汇编生成的多段机器代码组合成一个可执行程序.一般来说,通过汇编和汇编过程,每个源文件将生成一个目标文件.连接器的作用是将这些目标文件组合起来,组合的过程包括了代码段,数据段等部分的合并,以及添加相应的头文件</li>
+</ul>
+<p>GCC是Linux下主要的程序生成工具,它除了汇编器,编译器,连接器外,还包括一些辅助工具.在下面的分析过程中我会教大家这些工具的基本使用方法.</p>
+<p> 作为UNIX操作系统的一种，Linux的操作系统提供了一系列的接口，这些接口被称为系统调用（System Call）。在UNIX的理念中，系统调用“提供的是机制，而不是策略“。C语言的库函数通过调用系统调用来实现，库函数对上层提供了C语言库文件的接口。在应用程序层，通过调用C语言库函数和系统调用来实现功能。一般来说，应用程序大多使用C语言库函数实现其功能，较少使用系统调用。</p>
+<p> 那么最后的可执行文件到底是什么样子呢？前面已经说过，这里我们不深入分析ELF文件的格式，只是给出它的一个结构图和一些简单的说明，以方便大家理解。</p>
+<p>ELF文件格式包括三种主要的类型：可执行文件、可重定向文件、共享库。</p>
+<h4 id="1-可执行文件"><a href="#1-可执行文件" class="headerlink" title="1.可执行文件"></a>1.可执行文件</h4><p>可执行文件包含了代码和数据，是可以直接运行的程序。</p>
+<h4 id="2-可重定向文件"><a href="#2-可重定向文件" class="headerlink" title="2.可重定向文件"></a>2.可重定向文件</h4><p>可重定向文件又称为目标文件，它包含了代码和数据（这些数据是和其他重定位文件和共享的object文件一起连接时使用的）。</p>
+<p>*.o文件参与程序的连接（创建一个程序）和程序的执行（运行一个程序），它提供了一个方便有效的方法来用并行的视角看待文件的内容，这些*.o文件的活动可以反映出不同的需要。</p>
+<p>Linux下，我们可以用gcc -c编译源文件时可将其编译成*.o格式。</p>
+<h4 id="3-共享库"><a href="#3-共享库" class="headerlink" title="3.共享库"></a>3.共享库</h4><p>也称为动态库文件，它包含了代码和数据（这些数据是在连接时候被连接器ld和运行时动态连接器使用的）。动态连接器可能称为ld.so.1，libc.so.1或者 ld-linux.so.1。</p>
+<p>一个ELF文件从连接器（Linker）的角度看，是一些节的集合；从程序加载器（Loader）的角度看，它是一些段（Segments）的集合。ELF格式的程序和共享库具有相同的结构，只是段的集合和节的集合上有些不同。</p>
+<h3 id="那么到底什么是库呢？"><a href="#那么到底什么是库呢？" class="headerlink" title="那么到底什么是库呢？"></a>那么到底什么是库呢？</h3><p>库从本质上来说是一种可执行代码的二进制格式，可以被载入内存中执行。库分静态库和动态库两种。</p>
+<p>静态库：这类库的名字一般是libxxx.a，xxx为库的名字。利用静态函数库编译成的文件比较大，因为整个函数库的所有数据都会被整合进目标代码中，他的优点就显而易见了，即编译后的执行程序不需要外部的函数库支持，因为所有使用的函数都已经被编译进去了。当然这也会成为他的缺点，因为如果静态函数库改变了，那么你的程序必须重新编译。</p>
+<p>动态库：这类库的名字一般是libxxx.M.N.so，同样的xxx为库的名字，M是库的主版本号，N是库的副版本号。当然也可以不要版本号，但名字必须有。相对于静态函数库，动态函数库在编译的时候并没有被编译进目标代码中，你的程序执行到相关函数时才调用该函数库里的相应函数，因此动态函数库所产生的可执行文件比较小。由于函数库没有被整合进你的程序，而是程序运行时动态的申请并调用，所以程序的运行环境中必须提供相应的库。动态函数库的改变并不影响你的程序，所以动态函数库的升级比较方便。linux系统有几个重要的目录存放相应的函数库，如/lib /usr/lib。</p>
+<p>当要使用静态的程序库时，连接器会找出程序所需的函数，然后将它们拷贝到执行文件，由于这种拷贝是完整的，所以一旦连接成功，静态程序库也就不再需要了。然而，对动态库而言，就不是这样。动态库会在执行程序内留下一个标记指明当程序执行时，首先必须载入这个库。由于动态库节省空间，linux下进行连接的缺省操作是首先连接动态库，也就是说，如果同时存在静态和动态库，不特别指定的话，将与动态库相连接。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/19/Android数据持久化/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1682,164 +1854,6 @@ hexo new page tags
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/16/article-title/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="JacenTsao">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Silence of Heart">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Silence of Heart" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/01/16/article-title/" itemprop="url">
-                  Mac OS X 配置环境变量
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-16T22:15:59+08:00">
-                2017-01-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Shell/" itemprop="url" rel="index">
-                    <span itemprop="name">Shell</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/01/16/article-title/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/16/article-title/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>/etc/bashrc 是针对系统所有用户的全局变量，只有root用户才能修改这两个文件，对一般用户来说是他们是只读的。一般用户要想修改它们，可以在命令前加sudo，意思是以Root身份执行，比如：sudo vi /etc/profile  ，然后按照提示输入密码即可。(以上是针对使用默认shell的用户,如果使用zsh的话则对应的修改文件是.zshrc)</p>
-<p>因此，对于一般用户而言，通常我们建议去修改~/.bash_profile来设置环境变量，它是用户级的设置，只对当前用户有效。<br>操作步骤:</p>
-<pre><code>1、打开Terminal（终端）
-2、输入：vi ~/.bash_profile
-3、设置PATH：export PATH=/usr/local/mysql/bin:$PATH
-4、输入：:wq    //保存并退出vi
-5、修改立即生效：source ~/.bash_profile
-6、查看环境变量的值：echo $PATH
-</code></pre>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1887,7 +1901,7 @@ hexo new page tags
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-count">32</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1905,7 +1919,7 @@ hexo new page tags
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
