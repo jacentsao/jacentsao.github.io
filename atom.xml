@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-03-15T08:50:03.000Z</updated>
+  <updated>2017-04-08T13:19:01.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,250 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>IPC传递数据的大小限制</title>
+    <link href="http://yoursite.com/2017/04/08/IPC%E4%BC%A0%E9%80%92%E6%95%B0%E6%8D%AE%E7%9A%84%E5%A4%A7%E5%B0%8F%E9%99%90%E5%88%B6/"/>
+    <id>http://yoursite.com/2017/04/08/IPC传递数据的大小限制/</id>
+    <published>2017-04-08T13:12:40.000Z</published>
+    <updated>2017-04-08T13:19:01.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近碰到一个用户在使用app的某个功能的时候老是出现闪退情况，但是又没有别的用户反馈过这个问题。所以找用户拿数据过来看了一下，借过还真是用户的数据比较特殊：</p>
+<p>用户在A界面传递一个LIST的对象到B界面，一个正常的使用Intent携带数据的情况，结果出现了闪退的情况。通过日志发现是：</p>
+<pre><code>android.os.TransactionTooLargeException: data parcel size 4915644 bytes
+</code></pre><p>然后查阅资料发现，现在的IPC机制其实是对传递的数据有大小限制的，一般来说是1MB，而我们传递的List中有483个对象，累积下来的大小远远超过1MB，故出现了这种问题。同样的如果我们传递一个Bitmap大小超过这个限制也会出现这种问题，所以我们在开发中要注意这些问题。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近碰到一个用户在使用app的某个功能的时候老是出现闪退情况，但是又没有别的用户反馈过这个问题。所以找用户拿数据过来看了一下，借过还真是用户的数据比较特殊：&lt;/p&gt;
+&lt;p&gt;用户在A界面传递一个LIST的对象到B界面，一个正常的使用Intent携带数据的情况，结果出现了闪退的
+    
+    </summary>
+    
+      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+      <category term="BUG修复" scheme="http://yoursite.com/tags/BUG%E4%BF%AE%E5%A4%8D/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>sql学习</title>
+    <link href="http://yoursite.com/2017/03/20/sql%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://yoursite.com/2017/03/20/sql学习/</id>
+    <published>2017-03-20T12:53:53.000Z</published>
+    <updated>2017-03-20T13:25:31.000Z</updated>
+    
+    <content type="html"><![CDATA[<ol>
+<li>left join是以左表为准的，right join以右表为准，inner join不以谁为准，以条件为准</li>
+<li>on条件是在生成临时表时使用的条件，它不管on中的条件是否为真，都会返回左边表中的记录。where条件是在临时表生成好后，再对临时表进行过滤的条件。这时已经没有left join的含义（必须返回左边表的记录）了，条件不为真的就全部过滤掉。</li>
+<li>primary key(id, name) 复合主键，所有参数一致，才认为是一个相同的主键</li>
+<li>CREATE INDEX 语句用于在表中创建索引。在不读取整个表的情况下，索引使数据库应用程序可以更快地查找数据。更新一个包含索引的表需要比更新一个没有索引的表更多的时间，这是由于索引本身也需要更新。因此，理想的做法是仅仅在常常被搜索的列（以及表）上面创建索引。</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;left join是以左表为准的，right join以右表为准，inner join不以谁为准，以条件为准&lt;/li&gt;
+&lt;li&gt;on条件是在生成临时表时使用的条件，它不管on中的条件是否为真，都会返回左边表中的记录。where条件是在临时表生成好后，再对临时表进
+    
+    </summary>
+    
+      <category term="后端" scheme="http://yoursite.com/categories/%E5%90%8E%E7%AB%AF/"/>
+    
+    
+      <category term="SQL" scheme="http://yoursite.com/tags/SQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MVP模式学习</title>
+    <link href="http://yoursite.com/2017/03/17/MVP%E6%A8%A1%E5%BC%8F%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://yoursite.com/2017/03/17/MVP模式学习/</id>
+    <published>2017-03-17T01:31:11.000Z</published>
+    <updated>2017-03-18T11:00:38.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>MVP模式是基于MVC模式在Android上面的一个变种，可以参考谷歌的官方架构项目<a href="https://github.com/googlesamples/android-architecture" target="_blank" rel="external">Android-Architecture</a>。在 MVC 模式中，Activity 应该是属于 View 这一层。而实质上，它既承担了 View，同时也包含一些 Controller 的东西在里面。这对于开发与维护来说不太友好，耦合度大高了。把 Activity 的 View 和 Controller 抽离出来就变成了 View 和 Presenter，这就是 MVP 模式。</p>
+<p>View只负责处理视图状态<br>Presenter处理逻辑<br>Contract 连接View和Presenter</p>
+<p>针对各个界面：</p>
+<pre><code>public interface BasePresenter {
+
+    void subscribe();
+
+    void unsubscribe();
+
+}
+
+public interface BaseView&lt;T&gt; {
+
+    void setPresenter(T presenter);
+
+}
+
+
+
+
+public interface AddEditTaskContract {
+
+    interface View extends BaseView&lt;Presenter&gt; {
+
+        void showEmptyTaskError();
+
+        void showTasksList();
+
+        void setTitle(String title);
+
+        void setDescription(String description);
+
+        boolean isActive();
+    }
+
+    interface Presenter extends BasePresenter {
+
+        void saveTask(String title, String description);
+
+        void populateTask();
+
+        boolean isDataMissing();
+    }
+}
+
+
+    public class AddEditTaskPresenter implements AddEditTaskContract.Presenter {
+
+    @NonNull
+    private final TasksDataSource mTasksRepository;
+
+    @NonNull
+    private final AddEditTaskContract.View mAddTaskView;
+
+    @NonNull
+    private final BaseSchedulerProvider mSchedulerProvider;
+
+    @Nullable
+    private String mTaskId;
+
+    private boolean mIsDataMissing;
+
+    @NonNull
+    private CompositeSubscription mSubscriptions;
+
+    /**
+     * Creates a presenter for the add/edit view.
+     *
+     * @param taskId                 ID of the task to edit or null for a new task
+     * @param tasksRepository        a repository of data for tasks
+     * @param addTaskView            the add/edit view
+     * @param shouldLoadDataFromRepo whether data needs to be loaded or not (for config changes)
+     */
+    public AddEditTaskPresenter(@Nullable String taskId, @NonNull TasksDataSource tasksRepository,
+                                @NonNull AddEditTaskContract.View addTaskView, boolean shouldLoadDataFromRepo,
+                                @NonNull BaseSchedulerProvider schedulerProvider) {
+        mTaskId = taskId;
+        mTasksRepository = checkNotNull(tasksRepository);
+        mAddTaskView = checkNotNull(addTaskView);
+        mIsDataMissing = shouldLoadDataFromRepo;
+
+        mSchedulerProvider = checkNotNull(schedulerProvider, &quot;schedulerProvider cannot be null!&quot;);
+
+        mSubscriptions = new CompositeSubscription();
+        mAddTaskView.setPresenter(this);
+    }
+
+    @Override
+    public void subscribe() {
+        if (!isNewTask() &amp;&amp; mIsDataMissing) {
+            populateTask();
+        }
+    }
+
+    @Override
+    public void unsubscribe() {
+        mSubscriptions.clear();
+    }
+
+    @Override
+    public void saveTask(String title, String description) {
+        if (isNewTask()) {
+            createTask(title, description);
+        } else {
+            updateTask(title, description);
+        }
+    }
+
+    @Override
+    public void populateTask() {
+        if (isNewTask()) {
+            throw new RuntimeException(&quot;populateTask() was called but task is new.&quot;);
+        }
+        mSubscriptions.add(mTasksRepository
+                .getTask(mTaskId)
+                .subscribeOn(mSchedulerProvider.computation())
+                .observeOn(mSchedulerProvider.ui())
+                .subscribe(
+                        // onNext
+                        task -&gt; {
+                            if (mAddTaskView.isActive()) {
+                                mAddTaskView.setTitle(task.getTitle());
+                                mAddTaskView.setDescription(task.getDescription());
+
+                                mIsDataMissing = false;
+                            }
+                        }, // onError
+                        __ -&gt; {
+                            if (mAddTaskView.isActive()) {
+                                mAddTaskView.showEmptyTaskError();
+                            }
+                        }));
+    }
+
+    @Override
+    public boolean isDataMissing() {
+        return mIsDataMissing;
+    }
+
+    private boolean isNewTask() {
+        return mTaskId == null;
+    }
+
+    private void createTask(String title, String description) {
+        Task newTask = new Task(title, description);
+        if (newTask.isEmpty()) {
+            mAddTaskView.showEmptyTaskError();
+        } else {
+            mTasksRepository.saveTask(newTask);
+            mAddTaskView.showTasksList();
+        }
+    }
+
+    private void updateTask(String title, String description) {
+        if (isNewTask()) {
+            throw new RuntimeException(&quot;updateTask() was called but task is new.&quot;);
+        }
+        mTasksRepository.saveTask(new Task(title, description, mTaskId));
+        mAddTaskView.showTasksList(); // After an edit, go back to the list.
+    }
+}
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;MVP模式是基于MVC模式在Android上面的一个变种，可以参考谷歌的官方架构项目&lt;a href=&quot;https://github.com/googlesamples/android-architecture&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;
+    
+    </summary>
+    
+      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+      <category term="设计模式" scheme="http://yoursite.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
   
   <entry>
     <title>Duplicate files copied in APK META-INF/LICENSE</title>
@@ -75,11 +319,11 @@
       <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
     
     
+      <category term="工具" scheme="http://yoursite.com/tags/%E5%B7%A5%E5%85%B7/"/>
+    
       <category term="Andriod" scheme="http://yoursite.com/tags/Andriod/"/>
     
       <category term="内存优化" scheme="http://yoursite.com/tags/%E5%86%85%E5%AD%98%E4%BC%98%E5%8C%96/"/>
-    
-      <category term="工具" scheme="http://yoursite.com/tags/%E5%B7%A5%E5%85%B7/"/>
     
   </entry>
   
@@ -994,125 +1238,6 @@ pointer:                 %p
     
       &lt;p&gt;private &lt;/p&gt;
 
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Docker学习,常用指令</title>
-    <link href="http://yoursite.com/2017/01/24/Docker%E5%AD%A6%E4%B9%A0-%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/"/>
-    <id>http://yoursite.com/2017/01/24/Docker学习-常用指令/</id>
-    <published>2017-01-24T04:29:04.000Z</published>
-    <updated>2017-01-25T13:54:50.000Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h4><p>Docker 使用 Google 公司推出的 Go 语言 进行开发实现，基于 Linux 内核的 cgroup，namespace，以及 AUFS 类的 Union FS 等技术，对进程进行封装隔离， 属于操作系统层面的虚拟化技术。</p>
-<a id="more"></a>
-<h4 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h4><ul>
-<li>docker run -p 2222:22 imagename //运行改image做为container,不存在则会从Docker hub获取并运行; -p 指定本地映射关系,前面是访问地址端口,后面是映射的容器端口</li>
-<li>docker exec -it goofy_banach /bin/bash 对比于attach方式,会立即显示进入,并且退出不会导致容器关闭</li>
-<li>docker ps //获取正在运行的镜像 -a 所有的镜像</li>
-<li>touch Dockerfile //创建docker脚本</li>
-<li>cat Dockerfile //查看脚本</li>
-<li>docker build -t docker-whale . //创建镜像, -t打tag,后面的.(表示当前目录)不能少</li>
-<li>docker tag 7d9495d03763 maryatdocker/docker-whale:latest 标记docker镜像</li>
-<li>docker login 登录</li>
-<li>docker push maryatdocker/docker-whale 上传到docker hub</li>
-<li>docker rmi -f 7d9495d03763/imagename 移除镜像</li>
-<li>docker run yourusername/docker-whale</li>
-<li>docker images 查看所有镜像</li>
-<li>docker rmi $(docker images -q -f dangling=true) 删除无用的悬浮镜像 </li>
-<li>docker exec  -it webserver bash 运行命令行并启动</li>
-<li>docker commit [选项] &lt;容器ID或容器名&gt; [&lt;仓库名&gt;[:&lt;标签&gt;]] 提交更新,创建镜像<strong>谨慎使用,因为会对容器环境照成较大影响</strong> //docker commit  –author “Tao Wang <a href="&#109;&#97;&#x69;&#108;&#116;&#111;&#58;&#x74;&#119;&#x61;&#110;&#103;&#50;&#x32;&#x31;&#56;&#x40;&#103;&#x6d;&#x61;&#x69;&#x6c;&#46;&#x63;&#111;&#109;">&#x74;&#119;&#x61;&#110;&#103;&#50;&#x32;&#x31;&#56;&#x40;&#103;&#x6d;&#x61;&#x69;&#x6c;&#46;&#x63;&#111;&#109;</a>“  –message “修改了默认网页” webserver  nginx:v2</li>
-<li>docer diff NAMES 查看永久性更新</li>
-<li>docker history nginx:v2 查看历史更新</li>
-<li>docker rm  删除容器</li>
-<li>docker run -it -–entrypoint /bin/bash  karalabe/xgo-latest 强制使用bash启动docker镜像</li>
-<li>docker run -it -v /Volumes/Work/go/src/golang.org:/src golang/mobile /bin/bash 挂载宿主机目录到容器</li>
-<li>sudo yum upgrade docker 更新docker</li>
-<li>docker cp 2e8a06b7cff6:/gopath/src/golang.org/x/mobile/example/GoHello/app/src  Storage-2e8a06b7cff6/</li>
-<li>docker logs id/names 查看操作日志</li>
-<li>docker top 显示容器进程</li>
-<li>docker stats 查看容器进程状态</li>
-</ul>
-<p>####tag本地镜像并提交到docker仓库<br>step1——找到本地镜像的ID：docker images</p>
-<p>step2——登陆Hub：docker login –username=username –password=password –email=email</p>
-<p>step3——tag：docker tag <imageid> <namespace>/<image name="">:<version tag="" eg="" latest=""></version></image></namespace></imageid></p>
-<p>step4——push镜像：docker push <namespace>/<image name=""></image></namespace></p>
-<h3 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h3><h4 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h4><ul>
-<li>mkdir test</li>
-<li>cd test</li>
-<li>touch Dockerfile</li>
-</ul>
-<h4 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h4><ol>
-<li>FROM nginx 指定基础镜像,这个是必须的(可以指定一个空白镜像名为scratch)</li>
-<li>RUN  没一个RUN代表一层,因此同一个目的的RUN通过&amp;&amp;合并命令,浓缩到一层 (层数限制旧版42,新版127)</li>
-<li>COPY  package.json /usr/src/app/ ||  hom?.txt /mydir/</li>
-<li>ADD  ubuntu-xenial-core-cloudimg-amd64-root.tar.gz /  src可以是url,加强版的COPY,还可移植性解压缩</li>
-<li>docker build -t docker-whale . docker build [选项] &lt;上下文路径/URL/-&gt; .代表当前目录 -t代表tag</li>
-<li>ENTRYPOINT 只有最后一个生效 run的时候通过–entrypoint使其生效</li>
-</ol>
-<h3 id="Docker基本概念"><a href="#Docker基本概念" class="headerlink" title="Docker基本概念"></a>Docker基本概念</h3><p>Docker包括三个基本概念,包含了Docker的整个生命周期</p>
-<ul>
-<li>镜像(Image)</li>
-<li>容器(Container)</li>
-<li>仓库(Repository)</li>
-</ul>
-<h4 id="Docker镜像"><a href="#Docker镜像" class="headerlink" title="Docker镜像"></a>Docker镜像</h4><p>Docker镜像,相当于一个root文件系统(操作系统分为内核和用户空间,内核启动后,会挂载root文件系统为用户空间提供支持),镜像不包含任何<strong>动态数据</strong>.提供容器运行时所需的程序、库、资 源、配置等文件外,还包含了一些为运行时准备的一些配置参数（如匿名卷、环境 变量、用户等）.</p>
-<h5 id="分层存储"><a href="#分层存储" class="headerlink" title="分层存储"></a>分层存储</h5><p>镜像包含操作系统完整的root文件系统,体积较大,Docker设计时,采用了<a href="https://en.wikipedia.org/wiki/Union_mount" target="_blank" rel="external">Union FS</a>技术,分层存储的架构.</p>
-<p>镜像构建时，会一层层构建，前一层是后一层的基础。每一层构建完就不会再发生 改变，后一层上的任何改变只发生在自己这一层,任何额外的东西应该在该层构建结束前清理掉。</p>
-<h4 id="Docker容器"><a href="#Docker容器" class="headerlink" title="Docker容器"></a>Docker容器</h4><p>类比于面向对象程序设计中 的 类 和 实例 一样，镜像是静态的定义，容器是镜像运行时的实体。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h4 id=&quot;Docker&quot;&gt;&lt;a href=&quot;#Docker&quot; class=&quot;headerlink&quot; title=&quot;Docker&quot;&gt;&lt;/a&gt;Docker&lt;/h4&gt;&lt;p&gt;Docker 使用 Google 公司推出的 Go 语言 进行开发实现，基于 Linux 内核的 cgroup，namespace，以及 AUFS 类的 Union FS 等技术，对进程进行封装隔离， 属于操作系统层面的虚拟化技术。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Docker" scheme="http://yoursite.com/categories/Docker/"/>
-    
-    
-      <category term="Docker" scheme="http://yoursite.com/tags/Docker/"/>
-    
-      <category term="运维" scheme="http://yoursite.com/tags/%E8%BF%90%E7%BB%B4/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>2017阅读记录</title>
-    <link href="http://yoursite.com/2017/01/24/2017%E9%98%85%E8%AF%BB%E8%AE%B0%E5%BD%95/"/>
-    <id>http://yoursite.com/2017/01/24/2017阅读记录/</id>
-    <published>2017-01-23T23:44:39.000Z</published>
-    <updated>2017-01-23T23:44:53.000Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>一些好的技术文章</title>
-    <link href="http://yoursite.com/2017/01/22/%E4%B8%80%E4%BA%9B%E5%A5%BD%E7%9A%84%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"/>
-    <id>http://yoursite.com/2017/01/22/一些好的技术文章/</id>
-    <published>2017-01-22T04:58:08.000Z</published>
-    <updated>2017-01-22T05:08:07.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>本文旨在收集一些个人比较感兴趣的技术类的文章,希望更多的成长学习.</p>
-<h3 id="Linux类"><a href="#Linux类" class="headerlink" title="Linux类"></a>Linux类</h3><ol>
-<li><a href="http://blog.chinaunix.net/uid-23069658-id-3142046.html" target="_blank" rel="external">Linux系统中“动态库”和“静态库”那点事儿</a>.  </li>
-<li><a href="https://www.gitbook.com/book/leon_lizi/-framework-/details" target="_blank" rel="external">静态库与动态库的使用</a></li>
-</ol>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本文旨在收集一些个人比较感兴趣的技术类的文章,希望更多的成长学习.&lt;/p&gt;
-&lt;h3 id=&quot;Linux类&quot;&gt;&lt;a href=&quot;#Linux类&quot; class=&quot;headerlink&quot; title=&quot;Linux类&quot;&gt;&lt;/a&gt;Linux类&lt;/h3&gt;&lt;ol&gt;
-&lt;li&gt;&lt;a href
     
     </summary>
     
