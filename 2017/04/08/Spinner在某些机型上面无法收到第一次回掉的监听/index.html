@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Android,BUG修复," />
 
 
 
@@ -86,43 +86,16 @@
 
 
 
-<meta name="description" content="hexo new post &amp;quot;article title&amp;quot;  //创建新的post,创建目录为: /source/_posts/
-hexo d  //deploy 发布
-hexo s //
-hexo clean
-hexo s --debug
-
-
-hexo new page categories
-hexo new page about
-hexo new page commonwe">
+<meta name="description" content="最近碰到一个很奇怪的问题，同样的一组数据在不同的手机上面显示就是不一样。通过debug发现，在一些手机上，给Spinner设置默认值的时候并不会触发它的监听回掉，而在某些机型上面又是会触发的。所以需要给第一次回掉加一个flag，默认阻止第一次回掉的后续逻辑。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="常用的hexo指令">
-<meta property="og:url" content="http://yoursite.com/2017/01/18/常用的hexo指令/index.html">
+<meta property="og:title" content="Spinner在某些机型上面无法收到第一次回掉的监听">
+<meta property="og:url" content="http://yoursite.com/2017/04/08/Spinner在某些机型上面无法收到第一次回掉的监听/index.html">
 <meta property="og:site_name" content="Silence of Heart">
-<meta property="og:description" content="hexo new post &amp;quot;article title&amp;quot;  //创建新的post,创建目录为: /source/_posts/
-hexo d  //deploy 发布
-hexo s //
-hexo clean
-hexo s --debug
-
-
-hexo new page categories
-hexo new page about
-hexo new page commonwe">
-<meta property="og:updated_time" content="2017-01-18T08:12:23.000Z">
+<meta property="og:description" content="最近碰到一个很奇怪的问题，同样的一组数据在不同的手机上面显示就是不一样。通过debug发现，在一些手机上，给Spinner设置默认值的时候并不会触发它的监听回掉，而在某些机型上面又是会触发的。所以需要给第一次回掉加一个flag，默认阻止第一次回掉的后续逻辑。">
+<meta property="og:updated_time" content="2017-04-08T14:27:00.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="常用的hexo指令">
-<meta name="twitter:description" content="hexo new post &amp;quot;article title&amp;quot;  //创建新的post,创建目录为: /source/_posts/
-hexo d  //deploy 发布
-hexo s //
-hexo clean
-hexo s --debug
-
-
-hexo new page categories
-hexo new page about
-hexo new page commonwe">
+<meta name="twitter:title" content="Spinner在某些机型上面无法收到第一次回掉的监听">
+<meta name="twitter:description" content="最近碰到一个很奇怪的问题，同样的一组数据在不同的手机上面显示就是不一样。通过debug发现，在一些手机上，给Spinner设置默认值的时候并不会触发它的监听回掉，而在某些机型上面又是会触发的。所以需要给第一次回掉加一个flag，默认阻止第一次回掉的后续逻辑。">
 
 
 
@@ -150,13 +123,13 @@ hexo new page commonwe">
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/01/18/常用的hexo指令/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/04/08/Spinner在某些机型上面无法收到第一次回掉的监听/"/>
 
 
 
 
 
-  <title> 常用的hexo指令 | Silence of Heart </title>
+  <title> Spinner在某些机型上面无法收到第一次回掉的监听 | Silence of Heart </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -309,7 +282,7 @@ hexo new page commonwe">
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/18/常用的hexo指令/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/08/Spinner在某些机型上面无法收到第一次回掉的监听/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="JacenTsao">
@@ -333,7 +306,7 @@ hexo new page commonwe">
             
             
               
-                常用的hexo指令
+                Spinner在某些机型上面无法收到第一次回掉的监听
               
             
           </h1>
@@ -348,8 +321,8 @@ hexo new page commonwe">
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-18T14:15:47+08:00">
-                2017-01-18
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-08T22:22:16+08:00">
+                2017-04-08
               </time>
             
 
@@ -371,8 +344,8 @@ hexo new page commonwe">
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/博客编写/" itemprop="url" rel="index">
-                    <span itemprop="name">博客编写</span>
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
                   </a>
                 </span>
 
@@ -389,8 +362,8 @@ hexo new page commonwe">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/01/18/常用的hexo指令/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/18/常用的hexo指令/" itemprop="commentCount"></span>
+                <a href="/2017/04/08/Spinner在某些机型上面无法收到第一次回掉的监听/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/04/08/Spinner在某些机型上面无法收到第一次回掉的监听/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -416,21 +389,8 @@ hexo new page commonwe">
       
 
       
-        <pre><code>hexo new post &quot;article title&quot;  //创建新的post,创建目录为: /source/_posts/
-hexo d  //deploy 发布
-hexo s //
-hexo clean
-hexo s --debug
+        <p>最近碰到一个很奇怪的问题，同样的一组数据在不同的手机上面显示就是不一样。通过debug发现，在一些手机上，给Spinner设置默认值的时候并不会触发它的监听回掉，而在某些机型上面又是会触发的。所以需要给第一次回掉加一个flag，默认阻止第一次回掉的后续逻辑。</p>
 
-
-hexo new page categories
-hexo new page about
-hexo new page commonweal
-hexo new page sitemap
-hexo new page tags
-hexo new page archives
-hexo new page tags
-</code></pre>
       
     </div>
 
@@ -451,13 +411,21 @@ hexo new page tags
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/BUG修复/" rel="tag"># BUG修复</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/01/16/article-title/" rel="next" title="Mac OS X 配置环境变量">
-                <i class="fa fa-chevron-left"></i> Mac OS X 配置环境变量
+              <a href="/2017/04/08/Volley中出现的java-io-InterruptedIOException-thread-interrupted/" rel="next" title="Volley中出现的java.io.InterruptedIOException: thread interrupted">
+                <i class="fa fa-chevron-left"></i> Volley中出现的java.io.InterruptedIOException: thread interrupted
               </a>
             
           </div>
@@ -465,10 +433,6 @@ hexo new page tags
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/01/18/搭建gomobile开发环境/" rel="prev" title="搭建gomobile开发环境">
-                搭建gomobile开发环境 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -494,8 +458,8 @@ hexo new page tags
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2017/01/18/常用的hexo指令/"
-           data-title="常用的hexo指令" data-url="http://yoursite.com/2017/01/18/常用的hexo指令/">
+      <div class="ds-thread" data-thread-key="2017/04/08/Spinner在某些机型上面无法收到第一次回掉的监听/"
+           data-title="Spinner在某些机型上面无法收到第一次回掉的监听" data-url="http://yoursite.com/2017/04/08/Spinner在某些机型上面无法收到第一次回掉的监听/">
       </div>
     
   </div>
