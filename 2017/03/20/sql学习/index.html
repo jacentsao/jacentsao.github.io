@@ -96,7 +96,7 @@ primary key(id, name) 复合">
 <meta property="og:description" content="left join是以左表为准的，right join以右表为准，inner join不以谁为准，以条件为准
 on条件是在生成临时表时使用的条件，它不管on中的条件是否为真，都会返回左边表中的记录。where条件是在临时表生成好后，再对临时表进行过滤的条件。这时已经没有left join的含义（必须返回左边表的记录）了，条件不为真的就全部过滤掉。
 primary key(id, name) 复合">
-<meta property="og:updated_time" content="2017-03-20T13:25:31.000Z">
+<meta property="og:updated_time" content="2017-06-07T02:13:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="sql学习">
 <meta name="twitter:description" content="left join是以左表为准的，right join以右表为准，inner join不以谁为准，以条件为准
@@ -400,6 +400,7 @@ primary key(id, name) 复合">
 <li>on条件是在生成临时表时使用的条件，它不管on中的条件是否为真，都会返回左边表中的记录。where条件是在临时表生成好后，再对临时表进行过滤的条件。这时已经没有left join的含义（必须返回左边表的记录）了，条件不为真的就全部过滤掉。</li>
 <li>primary key(id, name) 复合主键，所有参数一致，才认为是一个相同的主键</li>
 <li>CREATE INDEX 语句用于在表中创建索引。在不读取整个表的情况下，索引使数据库应用程序可以更快地查找数据。更新一个包含索引的表需要比更新一个没有索引的表更多的时间，这是由于索引本身也需要更新。因此，理想的做法是仅仅在常常被搜索的列（以及表）上面创建索引。</li>
+<li>union all 的表必须有相同的列数，列名字可以不一致，如果缺少列的话需要补齐，比如说null as code, 0 as rece_amt</li>
 </ol>
 
       
@@ -510,7 +511,7 @@ primary key(id, name) 复合">
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-count">54</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -519,7 +520,7 @@ primary key(id, name) 复合">
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -528,7 +529,7 @@ primary key(id, name) 复合">
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">34</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

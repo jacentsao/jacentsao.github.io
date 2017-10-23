@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-05-15T02:53:43.000Z</updated>
+  <updated>2017-10-23T01:55:32.328Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,14 +16,621 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Android Studio 代理设置</title>
+    <link href="http://yoursite.com/2017/10/22/Android-Studio-%E4%BB%A3%E7%90%86%E8%AE%BE%E7%BD%AE/"/>
+    <id>http://yoursite.com/2017/10/22/Android-Studio-代理设置/</id>
+    <published>2017-10-22T08:16:15.000Z</published>
+    <updated>2017-10-23T01:55:32.328Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近因为Lantern老是出问题，又买了一个搬瓦工的，搭建好后速度还是可以的，Youtube上面1080P没有卡顿现象。但是各种工具的是使用又出现了问题，所以特意记录一下，节省下次切换工具配置的时间。</p>
+<h4 id="git配置"><a href="#git配置" class="headerlink" title="git配置"></a>git配置</h4><p>首先是配置git的代理，以下是http(s)配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git config --global https.proxy &apos;http://127.0.0.1:1080&apos;</div><div class="line">git config --global http.proxy &apos;http://127.0.0.1:1087&apos;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git config --global https.proxy &apos;http://127.0.0.1: 65322&apos;</div><div class="line">git config --global http.proxy &apos;http://127.0.0.1: 65322&apos;</div></pre></td></tr></table></figure>
+<h4 id="Gradle配置"><a href="#Gradle配置" class="headerlink" title="Gradle配置"></a>Gradle配置</h4><p>在全局的gradle.properties中添加以下配置，这样子每个项目的gradle同步都回使用ss代理了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">systemProp.http.proxyHost=127.0.0.1</div><div class="line">systemProp.http.proxyPort=1087</div><div class="line">systemProp.https.proxyHost=127.0.0.1</div><div class="line">systemProp.https.proxyPort=1087</div></pre></td></tr></table></figure>
+<h4 id="Android-Studio代理设置"><a href="#Android-Studio代理设置" class="headerlink" title="Android Studio代理设置"></a>Android Studio代理设置</h4><p>目前来看启用自动代理即可</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近因为Lantern老是出问题，又买了一个搬瓦工的，搭建好后速度还是可以的，Youtube上面1080P没有卡顿现象。但是各种工具的是使用又出现了问题，所以特意记录一下，节省下次切换工具配置的时间。&lt;/p&gt;
+&lt;h4 id=&quot;git配置&quot;&gt;&lt;a href=&quot;#git配置&quot; 
+    
+    </summary>
+    
+      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+      <category term="Proxy" scheme="http://yoursite.com/tags/Proxy/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ssh免登录</title>
+    <link href="http://yoursite.com/2017/10/22/ssh%E5%85%8D%E7%99%BB%E5%BD%95/"/>
+    <id>http://yoursite.com/2017/10/22/ssh免登录/</id>
+    <published>2017-10-22T00:47:53.000Z</published>
+    <updated>2017-10-22T01:41:37.906Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h4><p><a href="https://zh.wikipedia.org/wiki/Secure_Shell" target="_blank" rel="external">Secure Shell</a>（缩写为SSH），由IETF的网络工作小组（Network Working Group）所制定；SSH为一项创建在应用层和传输层基础上的安全协议，为计算机上的Shell（壳层）提供安全的传输和使用环境。</p>
+<p>平时我们会通过ssh远程登录我们的主机来进行管理，在Mac下面一般我会通过自带的Terminal或者<a href="https://www.iterm2.com/" target="_blank" rel="external">iterm2</a>直接登录，而在Windows下面的话通常会使用<a href="http://www.putty.org/" target="_blank" rel="external">Putty</a>进行登录。                </p>
+<h4 id="登录流程"><a href="#登录流程" class="headerlink" title="登录流程"></a>登录流程</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">基本登录</div><div class="line">ssh user@host (用户名+主机地址)</div><div class="line"></div><div class="line">如果本机用户名跟远程的主机用户名一致，可以省略掉用户</div><div class="line">ssh host</div><div class="line"></div><div class="line">ssh默认端口是22，如果端口不是默认值则需要指定端口登录</div><div class="line">ssh user@host -p 1111 指定端口1111，使用用户user登录到主机</div><div class="line"></div><div class="line">在输入完上面的指令以后接下来就是输入密码了，此处就不再累述了</div></pre></td></tr></table></figure>
+<h4 id="公钥登录"><a href="#公钥登录" class="headerlink" title="公钥登录"></a>公钥登录</h4><p>在上面的流程中，我们每次都需要重新输入密码才能够进行登录，那么可不可以免密码直接登录了，答案当然是可以的了。</p>
+<p>通过公钥登录可以实现免密码登录，首先在客户端生成一对公钥私钥，然后将公钥添加到远程主机的<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">具体流程如下：</div></pre></td></tr></table></figure></p>
+<ol>
+<li>在客户端生成一对公钥私钥<br> ssh-keygen<br>这个时候在目录~/.ssh/下面就会生成id_rsa.pub（公钥），id_rsa（私钥）</li>
+<li>将公钥拷贝到远程主机<br> ssh-copy-id user@host<br>```</li>
+</ol>
+<p>经过上述流程我们就实现了ssh免密码登录的流程了。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;基本知识&quot;&gt;&lt;a href=&quot;#基本知识&quot; class=&quot;headerlink&quot; title=&quot;基本知识&quot;&gt;&lt;/a&gt;基本知识&lt;/h4&gt;&lt;p&gt;&lt;a href=&quot;https://zh.wikipedia.org/wiki/Secure_Shell&quot; target=&quot;_
+    
+    </summary>
+    
+      <category term="shell" scheme="http://yoursite.com/categories/shell/"/>
+    
+    
+      <category term="shell" scheme="http://yoursite.com/tags/shell/"/>
+    
+      <category term="ssh" scheme="http://yoursite.com/tags/ssh/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android - 性能优化第五季</title>
+    <link href="http://yoursite.com/2017/09/12/Android-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E7%AC%AC%E4%BA%94%E5%AD%A3/"/>
+    <id>http://yoursite.com/2017/09/12/Android-性能优化第五季/</id>
+    <published>2017-09-12T14:13:01.000Z</published>
+    <updated>2017-09-12T15:10:57.000Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="Android-Performance-Pattern-Season-5"><a href="#Android-Performance-Pattern-Season-5" class="headerlink" title="Android Performance Pattern Season 5"></a>Android Performance Pattern Season 5</h4><h5 id="1-Thread-Performance"><a href="#1-Thread-Performance" class="headerlink" title="1. Thread Performance"></a>1. Thread Performance</h5><p>The main process(UI Thread) does this:</p>
+<ul>
+<li>System Events</li>
+<li>Input Events</li>
+<li>Application</li>
+<li>Service</li>
+<li>Alarm</li>
+<li>UI Drawing</li>
+</ul>
+<p>If there is a large chunk of work between an input event and its callback, then the user will have to wait a longer than expected to see results. If render is not finished in 16ms(60frame/s), and it will cause dropped frame. </p>
+<p>So android provide lot of solution to this heavy task:</p>
+<ul>
+<li>AsyncTask support serial single progress and parallel on a pool of threads managed by AsyncTask</li>
+<li>HandlerThread</li>
+<li>ThreadPool</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;Android-Performance-Pattern-Season-5&quot;&gt;&lt;a href=&quot;#Android-Performance-Pattern-Season-5&quot; class=&quot;headerlink&quot; title=&quot;Android Performance 
+    
+    </summary>
+    
+      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+      <category term="Performance" scheme="http://yoursite.com/tags/Performance/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android - 通过hierarchy View来分析布局</title>
+    <link href="http://yoursite.com/2017/08/28/Android-%E9%80%9A%E8%BF%87hierarchy-View%E6%9D%A5%E5%88%86%E6%9E%90%E5%B8%83%E5%B1%80/"/>
+    <id>http://yoursite.com/2017/08/28/Android-通过hierarchy-View来分析布局/</id>
+    <published>2017-08-28T12:49:49.000Z</published>
+    <updated>2017-08-28T13:41:52.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Hierarchy Viewer是Android device monitor内嵌的一个工具，可以通过这个工具来检查你的层次视图的属性和Layout的速度。他能够帮你找到层次布局结构的性能瓶颈，帮助你简化层次布局减少过度绘制。</p>
+<h4 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h4><p>如果使用Android模拟器的话可以略过这一段。否则的话，需要对你的设备进行如下的配置：</p>
+<p>注意：你的设备需要时Android4.1及以上API版本</p>
+<ol>
+<li>打开设备的开发者模式</li>
+<li>在你的开发电脑上设置环境变ANDROID_HVPROTO=ddm，这个变量告诉Hierarchy Viewer使用和DDMS协议一致的ddm协议来连接你的设备。但是host只能够有一个进程连接到设备，所以你必须关闭其他通过Hierarchy Viewer运行的DDMS会话</li>
+</ol>
+<h4 id="开始使用Hierarchy-Viewer"><a href="#开始使用Hierarchy-Viewer" class="headerlink" title="开始使用Hierarchy Viewer"></a>开始使用Hierarchy Viewer</h4><p>打开Android device monitor后如下图所示：</p>
+<ol>
+<li>连接你的设备到电脑。</li>
+<li>打开Android Studio，运行一个软件到你的设备</li>
+<li>在Android Studio-Tools-Android-Android device monitor。</li>
+<li>选择Hierarchy View</li>
+<li>在左边的窗口双击你的包名。</li>
+</ol>
+<p><img src="https://developer.android.com/images/tools/performance/hierarchy-viewer/gettingstarted_image005.png" alt=""></p>
+<h4 id="熟悉工具"><a href="#熟悉工具" class="headerlink" title="熟悉工具"></a>熟悉工具</h4><p>下图是Hierarchy Viewer的面板:</p>
+<p><img src="https://developer.android.com/images/tools/performance/hierarchy-viewer/gettingstarted_image008.png" alt=""></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Hierarchy Viewer是Android device monitor内嵌的一个工具，可以通过这个工具来检查你的层次视图的属性和Layout的速度。他能够帮你找到层次布局结构的性能瓶颈，帮助你简化层次布局减少过度绘制。&lt;/p&gt;
+&lt;h4 id=&quot;开始&quot;&gt;&lt;a href
+    
+    </summary>
+    
+      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+      <category term="Performance" scheme="http://yoursite.com/tags/Performance/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android - Performance and View Hierarchies</title>
+    <link href="http://yoursite.com/2017/08/27/Android-Performance-and-View-Hierarchies/"/>
+    <id>http://yoursite.com/2017/08/27/Android-Performance-and-View-Hierarchies/</id>
+    <published>2017-08-27T13:10:02.000Z</published>
+    <updated>2017-08-28T12:48:23.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>布局的层次对于应用的性能影响也是很显著的。</p>
+<h4 id="布局和测量性能"><a href="#布局和测量性能" class="headerlink" title="布局和测量性能"></a>布局和测量性能</h4><p>渲染本身包含了Layout和Measure两个过程，系统在这两个过程中确定View hierarchy的具体位置。Measure过程确定了View的尺寸和边界，Layout过程则确定了View在屏幕的位置。</p>
+<p>这两个过程本身会占用一些系统的资源。当然，大多数时候，这个过程占用的系统资源较少，不会对性能造成显著的影响。但是，如果你的应用需要添加或者移除View对象就会显著开销更多的资源，例如Recycleview回收或者复用。或者当一个View对象需要重绘来满足它的约束的时候，也会占用更多的资源。例如，给一个WRAP_CONTENT的View对象设置文本，会导致重绘。</p>
+<p>如果一个渲染过程过长，就会导致无法在16ms内渲染完一帧，这就会导致掉帧，动画也会变得卡顿。</p>
+<p>由于UI的绘制是处于主线程的，所以对于这些导致卡顿的问题需要优化，从而让我们的应用变得流畅。</p>
+<h5 id="管理复杂度：Layout相关"><a href="#管理复杂度：Layout相关" class="headerlink" title="管理复杂度：Layout相关"></a>管理复杂度：Layout相关</h5><p>Android布局允许你嵌套UI对象，这种嵌套经常会导致额外的开销。当你的应用渲染一个Layout的对象，应用同时需要渲染它的所有的子View。对于一个复杂的Layout，有时候系统只有在第一次加载的时候会比较占用系统资源。例如，你的应用中有一个复杂的复用过的Recycleview，系统需要加载所有的对象。其他例子，一个微不足道的变化可能会导致视图层次的一系列的重绘。</p>
+<p>Layout过程中视图层次的嵌套会显著导致绘制的时间增加。因此，越少层次的嵌套，Layout过程花费的时间就越少。</p>
+<p>如果你使用RelativeLayout，但是你也可能在不使用weight属性的情况下，通过使用LinearLayout实现。另外，如果你的target版本是Android7.0的话，你还可以使用ConstraintLayout，这是一个用于替换RelativeLayout的布局，它是一个功能类似，性能更好的RelativeLayout。</p>
+<h5 id="“双重税收”"><a href="#“双重税收”" class="headerlink" title="“双重税收”"></a>“双重税收”</h5><p>一般来说，系统执行Layout或者Measure过程是非常快的。但是，对于一些很复杂的Layout，系统可能需要多次绘制才能够最终确定所有对象的位置。这种超过一次的Layout和Measure过程就是所谓的双重税收。</p>
+<p>例如，当你使用一个可以通过一个View对象确定另一个View对象的位置的RelativeLayout容器。系统会执行以下步骤：</p>
+<ol>
+<li>根据每一个子View的约束条件，逐个执行Layout和Measure过程</li>
+<li>使用前面的数据，同时计算View的weight，来给相对的View找到一个合适的位置</li>
+<li>再次执行Layout过程来确定这些相对位置的View</li>
+<li>执行下一个渲染过程</li>
+</ol>
+<p>如果你的视图层次越多，那么潜在性能问题就越多。</p>
+<p>除了RelativeLayout其他容器也会导致双重税收。例如：</p>
+<ul>
+<li>水平的线性布局会导致两次Layout和Measure过程。如果你给线性布局添加了<a href="https://developer.android.com/reference/android/widget/LinearLayout.html#attr_android:measureWithLargestChild" target="_blank" rel="external">measureWithLargestChild</a>（其实是由于使用了weight属性的View的尺寸等于最大的子View的最小尺寸）也有可能由于要进行第二次Layout和Measure来确定每一个View对象的大小。</li>
+<li>GridLayout同样也有类似的问题。这个容器同样允许相对位置，正常情况下，GridLayout会通过预处理确定号子View的相对关系来避免双重税收。但是，如果Layout使用了weight或者Gravity的时候，它的预处理就没了，当容器是RelativeLayout的时候系统可能需要多次执行这个过程。</li>
+</ul>
+<p>多次的Layout和Measure过程本身并不是一个性能负担。但是，他们会在某些场景下成为一种负担。我们应该对以下的情况保持足够的警惕：</p>
+<ul>
+<li>布局层次的根布局</li>
+<li>布局层次过多</li>
+<li>一个界面产生很多的实例，例如ListView</li>
+</ul>
+<h4 id="诊断布局层次问题"><a href="#诊断布局层次问题" class="headerlink" title="诊断布局层次问题"></a>诊断布局层次问题</h4><p>布局性能问题受到很多因素的影响而变成了一个复杂的问题。以下是一些帮助你找到性能瓶颈的工具。当然也有一些其他的，没有那么确定性的工具，但也能提供一些提示帮助我们找到问题。</p>
+<h5 id="Systrace"><a href="#Systrace" class="headerlink" title="Systrace"></a>Systrace</h5><p><a href="https://developer.android.com/studio/profile/systrace.html" target="_blank" rel="external">Systrace</a>是一个Android SDK内嵌的诊断性能问题的工具。这个工具允许我们查看整个设备的时间信息，允许你查看什么时候会因为Layout的性能问题影响到设备的性能。</p>
+<h5 id="GPU呈现模式"><a href="#GPU呈现模式" class="headerlink" title="GPU呈现模式"></a>GPU呈现模式</h5><h5 id="lint检查"><a href="#lint检查" class="headerlink" title="lint检查"></a>lint检查</h5><h5 id="Hierarchy-Viewer"><a href="#Hierarchy-Viewer" class="headerlink" title="Hierarchy Viewer"></a>Hierarchy Viewer</h5><h4 id="解决布局层次问题"><a href="#解决布局层次问题" class="headerlink" title="解决布局层次问题"></a>解决布局层次问题</h4><h5 id="减少无用的嵌套"><a href="#减少无用的嵌套" class="headerlink" title="减少无用的嵌套"></a>减少无用的嵌套</h5><h5 id="使用merge-include标签"><a href="#使用merge-include标签" class="headerlink" title="使用merge/include标签"></a>使用merge/include标签</h5><h5 id="整体替换新的Layout"><a href="#整体替换新的Layout" class="headerlink" title="整体替换新的Layout"></a>整体替换新的Layout</h5>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;布局的层次对于应用的性能影响也是很显著的。&lt;/p&gt;
+&lt;h4 id=&quot;布局和测量性能&quot;&gt;&lt;a href=&quot;#布局和测量性能&quot; class=&quot;headerlink&quot; title=&quot;布局和测量性能&quot;&gt;&lt;/a&gt;布局和测量性能&lt;/h4&gt;&lt;p&gt;渲染本身包含了Layout和Measure
+    
+    </summary>
+    
+      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+      <category term="performance" scheme="http://yoursite.com/tags/performance/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android-性能优化-overdraw</title>
+    <link href="http://yoursite.com/2017/08/22/Android-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96-overdraw/"/>
+    <id>http://yoursite.com/2017/08/22/Android-性能优化-overdraw/</id>
+    <published>2017-08-22T15:15:59.000Z</published>
+    <updated>2017-08-27T12:33:55.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>现在项目的性能之差令人发指，其实主要原因在于：</p>
+<ol>
+<li>开发人员本身能力有限，同时架构闻所未闻，见所未见。总而言之，搞不定。</li>
+<li>产品设计从来都是乱搞，没有整体性的设计(感觉我们的app真是业界毒瘤之典范)</li>
+</ol>
+<p>不过，我们还是要把能做好的做好了才行。</p>
+<h3 id="性能优化-OverDraw"><a href="#性能优化-OverDraw" class="headerlink" title="性能优化-OverDraw"></a>性能优化-OverDraw</h3><p>所谓<strong><a href="https://developer.android.com/topic/performance/rendering/overdraw.html" target="_blank" rel="external">overdraw</a></strong>(过度绘制)就是在一个点上进行了超过一次的绘制。过渡绘制是无意义的，需要我们去优化的，它会浪费GPU资源去渲染一些用户不可见的无意义的图层。关于如何查看过渡绘制，应该都是有所了解的。接下来是关于过度绘制：过度绘制是什么，怎么诊断过度绘制，你该采取何种方式取消除或者减轻过渡绘制。</p>
+<h4 id="理解过度绘制"><a href="#理解过度绘制" class="headerlink" title="理解过度绘制"></a>理解过度绘制</h4><p>过渡绘制指的是系统在一个像素点是那个进行了多次的渲染。例如，我们一些堆叠的UI卡片，每一张卡片又隐藏了它的一部分。</p>
+<p>当然，系统仍然需要绘制这叠卡片的隐藏部分，因为卡片的绘制是根据<a href="https://zh.wikipedia.org/wiki/%E7%94%BB%E5%AE%B6%E7%AE%97%E6%B3%95" target="_blank" rel="external">画家算法</a>（<strong>“画家算法”表示头脑简单的画家首先绘制距离较远的场景，然后用绘制距离较近的场景覆盖较远的部分。</strong>）。这就是从下到上的顺序。这种渲染顺序允许系统增加合适的透明度给半透明的物体，例如阴影。</p>
+<h4 id="查找过度绘制"><a href="#查找过度绘制" class="headerlink" title="查找过度绘制"></a>查找过度绘制</h4><p>Android提供了几种工具帮助你查找影响到你的app性能的过度绘制。这些工具在你的设备上打开<strong>开发者模式</strong>就可以找到。关于更多开发者选项，可以参见<a href="https://developer.android.com/studio/run/device.html#developer-device-options" target="_blank" rel="external">Run Apps on a Hardware Device</a>。</p>
+<h4 id="调试GPU过度绘制工具"><a href="#调试GPU过度绘制工具" class="headerlink" title="调试GPU过度绘制工具"></a>调试GPU过度绘制工具</h4><p>调试GPU过度绘制工具使用颜色来代表你的应用在一个像素点上渲染的次数。渲染次数越多，过度绘制就越会影响你的应用性能。</p>
+<p>关于如何使用这些工具，请继续往下看：</p>
+<h5 id="调试GPU过度绘制查验"><a href="#调试GPU过度绘制查验" class="headerlink" title="调试GPU过度绘制查验"></a>调试GPU过度绘制查验</h5><p>这种检查方法是通过颜色来形象化手机中的过度绘制，有如下好处：</p>
+<ul>
+<li>显现出应用做了哪些无用的渲染工作</li>
+<li>帮助你找到可能能够减少渲染的天花板</li>
+</ul>
+<p>在开发者选项 - 调试GPU过度绘制 - 选用显示过度绘制区域，然后回到你的应用，这时候你看到的颜色</p>
+<ul>
+<li>原色：没有过度绘制</li>
+<li>蓝色：一次过度绘制</li>
+<li>绿色： 两次过度绘制</li>
+<li>粉红色： 三次过度绘制</li>
+<li>红色：四次或者四次以上的过度绘制</li>
+</ul>
+<p><img src="https://developer.android.com/images/tools/performance/debug-gpu-overdraw/gettingstarted_image03.png" alt=""> </p>
+<p>有时候过度绘制是不可避免的。当你调试你的UI的时候，你的界面应该尽量是原色或者蓝色。</p>
+<h5 id="GPU呈现模式分析"><a href="#GPU呈现模式分析" class="headerlink" title="GPU呈现模式分析"></a>GPU呈现模式分析</h5><p>GPU呈现模式会在屏幕显示一个滚动的柱状图，每一个长方形都代表一帧的绘制</p>
+<p>在一些低性能的GPU设备上，GPU填满帧缓存区的速度会变得很慢。当很多像素需要绘制的时候，GPU需要花很长的时间来执行新的命令，这就会导致系统对于其它的请求反应变得很慢。</p>
+<h4 id="优化过度绘制"><a href="#优化过度绘制" class="headerlink" title="优化过度绘制"></a>优化过度绘制</h4><ol>
+<li>减少不必要的背景</li>
+<li>扁平化布局，减少布局的层次</li>
+<li>少使用transparency属性</li>
+</ol>
+<h5 id="减少不必要的背景"><a href="#减少不必要的背景" class="headerlink" title="减少不必要的背景"></a>减少不必要的背景</h5><p>布局本身是没有背景的，这就意味着他本身并不需要渲染背景。当布局本身有了背景以后，就意味着她可能会导致过度绘制。</p>
+<p>移除不必要的背景是一种快速修复渲染问题的手段。当绘制的背景对于用户来说完全不可见的时候就可以取移除掉这些背景了。例如一个设置了背景色的app，那么定义在Activity中的任意一个容易本身是不需要背景的。</p>
+<p>如果需要知道为什么你的app会出现过度绘制，你可以使用<a href="https://developer.android.com/studio/profile/hierarchy-viewer.html" target="_blank" rel="external">Hierarchy View</a>工具。当你使用这个工具的时候，消除所有对于用户不可见的背景。当然，我们可以通过设置一个通用的背景来达到消除不必要的背景的目的，这样子绘制的容器就可以不再定义自己的背景而使用app的通用背景（windowbackgroud）。</p>
+<h5 id="减少布局的层次"><a href="#减少布局的层次" class="headerlink" title="减少布局的层次"></a>减少布局的层次</h5><p>不局的过多嵌套同样也会导致过度绘制，同时也会因为节点过深导致视图的加载变慢。我们应该减少UI的重叠绘制，详情参见<a href="https://developer.android.com/topic/performance/optimizing-view-hierarchies.html" target="_blank" rel="external">Optimizing View Hierarchies</a></p>
+<h5 id="使用transparency"><a href="#使用transparency" class="headerlink" title="使用transparency"></a>使用transparency</h5><p>使用Alpha值的时候，同捕鱼常规的过度绘制即在同一像素点多次绘制，transparent属性的对象首先需要已经存在的像素进行绘制，然后进行等价的混合。例如，一个黑色字体的TextView通过添加Alpha值来达到灰色的效果，当然这个时候可以直接使用灰色来替换。 transparent animations, fade-outs, 以及 drop shadows以及其他的半透明效果，都会显著导致过度绘制。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;现在项目的性能之差令人发指，其实主要原因在于：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;开发人员本身能力有限，同时架构闻所未闻，见所未见。总而言之，搞不定。&lt;/li&gt;
+&lt;li&gt;产品设计从来都是乱搞，没有整体性的设计(感觉我们的app真是业界毒瘤之典范)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;不过，
+    
+    </summary>
+    
+      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+      <category term="Performance" scheme="http://yoursite.com/tags/Performance/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>git-常用命令</title>
+    <link href="http://yoursite.com/2017/08/07/git-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
+    <id>http://yoursite.com/2017/08/07/git-常用命令/</id>
+    <published>2017-08-07T14:22:27.000Z</published>
+    <updated>2017-09-19T14:11:37.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h3><ol>
+<li>git clone <a href="http://xx/zhj_android.git" target="_blank" rel="external">http://xx/zhj_android.git</a></li>
+<li>添加.gitignore到根目录，<a href="https://github.com/github/gitignore" target="_blank" rel="external">参考资料</a></li>
+<li>git add .gitignore 添加该文件到版本控制，提交到暂存区</li>
+<li>git commit -m “add .gitignore file” 从暂存区提交到当前分支</li>
+<li>git push 提交到远程仓库</li>
+</ol>
+<h3 id="常用的git命令"><a href="#常用的git命令" class="headerlink" title="常用的git命令"></a>常用的git命令</h3><ol>
+<li>git rm -r xx 从版本控制中移除xx目录及子目录</li>
+<li>rm -rf xx 如果xx中还有git的子模块，需要使用该命令删除</li>
+<li>git reset –hard HEAD 重置未提交的记录到HEAD Version，HEAD^回滚到上个版本,HEAD^^上上个版本，依次类推，或者指定回退HEAD~xx,xx个版本,或者指定log 提交的id</li>
+<li>git init 初始化一个目录为git仓库</li>
+<li>git status 查看仓库状态</li>
+<li>git diff 查看变更，同时也可以指定xx文件或者目录</li>
+<li>git add xx 添加xx到git版本控制，每一次修改文件以后都需要添加到版本控制系统</li>
+<li>git commit -m “xx” 提交到本地仓库，提交信息为xx (每次修改，如果不add到暂存区，那就不会加入到commit中。)</li>
+<li>git log 查看提交日志</li>
+<li>git log –pretty=oneline git log的美化版</li>
+<li>git reflog 查看每一次的git提交命令</li>
+<li>git checkout -b branchname 新建分支</li>
+<li>git checkout branchname 切换到分支</li>
+<li>git branch 列举所有分支，带*号的为当前都在分支，加上 -r参数则是列举的远程分支</li>
+<li>git merge branchname 合并分支到当前分支，合并模式有FAST_FORWARD 无冲突自动合并，</li>
+<li>git branch -d branchname 删除分支</li>
+<li>git log –pretty=oneline –abbrev-commit</li>
+<li>git tag v0.9 6224937</li>
+<li>git push origin v5.0.1 创建远程tag或者分支，前提是这个要存在</li>
+<li>git checkout – xxx 回滚xxx</li>
+<li>git remote add origin <a href="http://192.168.204.42/ZHJ/zhj_kernel.git" target="_blank" rel="external">http://192.168.204.42/ZHJ/zhj_kernel.git</a> 添加远程</li>
+</ol>
+<h4 id="暂存当前更改"><a href="#暂存当前更改" class="headerlink" title="暂存当前更改"></a>暂存当前更改</h4><ol>
+<li>git stash   存储</li>
+<li>git stash list  存储列表</li>
+<li>git stash apply  取出存储的内容不删除缓存</li>
+<li>git stash pop  去除存储的内容并删除缓存</li>
+<li>git stash clear 清除所有的存储内容</li>
+</ol>
+<h4 id="合并指定commit"><a href="#合并指定commit" class="headerlink" title="合并指定commit"></a>合并指定commit</h4><ol>
+<li>git cherry-pick log-hash</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;开始&quot;&gt;&lt;a href=&quot;#开始&quot; class=&quot;headerlink&quot; title=&quot;开始&quot;&gt;&lt;/a&gt;开始&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;git clone &lt;a href=&quot;http://xx/zhj_android.git&quot; target=&quot;_blank&quot; re
+    
+    </summary>
+    
+      <category term="工具" scheme="http://yoursite.com/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="命令行" scheme="http://yoursite.com/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/"/>
+    
+      <category term="git" scheme="http://yoursite.com/tags/git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android-导入Sample Code</title>
+    <link href="http://yoursite.com/2017/07/19/Android-%E5%AF%BC%E5%85%A5Sample-Code/"/>
+    <id>http://yoursite.com/2017/07/19/Android-导入Sample-Code/</id>
+    <published>2017-07-19T14:25:21.000Z</published>
+    <updated>2017-07-19T14:33:43.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Android Studio提供了很多的模板和sample用于提升我们的开发速度，如何利用好这些工具来提升我们的开发效率就是一个很值得学习的问题了。</p>
+<h5 id="导入Sample-Code"><a href="#导入Sample-Code" class="headerlink" title="导入Sample Code"></a>导入Sample Code</h5><ol>
+<li>选择File &gt; New &gt; Import Sample</li>
+<li>使用搜索框查找你想要的内容,如下图所示： <img src="https://developer.android.com/studio/images/write/browse-samples_2x.png" alt=""> </li>
+<li>选择你想要的内容，选中点击next &gt; finish</li>
+</ol>
+<h5 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h5><p>由于总所周知的问题，我们在第一步的时候可能会出现找不到资源的问题，这个时候我们就需要在翻墙的情况下设置Android Studio的代理了。 Preference &gt; Appearance &amp; Behavior &gt; System Setting &gt; Http Proxy &gt; Auto-detect proxy settings勾选即可，下方的URL无需勾选和填写。这里是我的lantern推荐码 <strong>Use my code MFST5N and get 3 months free when you sign up!</strong></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Android Studio提供了很多的模板和sample用于提升我们的开发速度，如何利用好这些工具来提升我们的开发效率就是一个很值得学习的问题了。&lt;/p&gt;
+&lt;h5 id=&quot;导入Sample-Code&quot;&gt;&lt;a href=&quot;#导入Sample-Code&quot; class=&quot;hea
+    
+    </summary>
+    
+      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+      <category term="基础" scheme="http://yoursite.com/tags/%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android-通过不同的res目录指定不同的资源文件</title>
+    <link href="http://yoursite.com/2017/07/19/Android-%E9%80%9A%E8%BF%87%E4%B8%8D%E5%90%8C%E7%9A%84res%E7%9B%AE%E5%BD%95%E6%8C%87%E5%AE%9A%E4%B8%8D%E5%90%8C%E7%9A%84%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6/"/>
+    <id>http://yoursite.com/2017/07/19/Android-通过不同的res目录指定不同的资源文件/</id>
+    <published>2017-07-19T14:12:55.000Z</published>
+    <updated>2017-08-23T01:45:51.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>在Android开发中，我们可能会遇到针对不同的版本进行不同的配置，比如说使用不同的资源文件。<a href="https://developer.android.com/studio/write/add-resources.html" target="_blank" rel="external">官网传送门</a>。</p>
+<h5 id="自定义资源文件夹路径"><a href="#自定义资源文件夹路径" class="headerlink" title="自定义资源文件夹路径"></a>自定义资源文件夹路径</h5><p>默认的资源文件实在  <figure class="highlight plain"><figcaption><span>例如：main的资源文件就在src/main/res/目录下。</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">不过我们也可以通过自定义的方式指定资源文件目录，如下所示：</div></pre></td></tr></table></figure></p>
+<pre><code>android {
+    sourceSets {
+        main {
+            res.srcDirs = [&apos;resources/main&apos;]
+        }
+
+        debug {
+            res.srcDirs = [&apos;resources/debug&apos;]
+        }
+    }
+}
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">当然我们也可以指定多个资源文件目录：</div></pre></td></tr></table></figure>
+<pre><code>android {
+    sourceSets {
+        main {
+            res.srcDirs = [&apos;resources/main&apos;, &apos;resources/test&apos;]
+        }
+
+        debug {
+            res.srcDirs = [&apos;resources/debug&apos;]
+        }
+    }
+}
+</code></pre><p>```</p>
+<p>不过要注意的是同时指定多个资源文件夹的时候文件不能重复，否则在后续构建<a href="https://developer.android.com/studio/write/add-resources.html#resource_merging" target="_blank" rel="external">合并资源文件</a>的时候会出现重复的错误。</p>
+<p>#####资源合并</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在Android开发中，我们可能会遇到针对不同的版本进行不同的配置，比如说使用不同的资源文件。&lt;a href=&quot;https://developer.android.com/studio/write/add-resources.html&quot; target=&quot;_blank&quot; re
+    
+    </summary>
+    
+      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+      <category term="基础" scheme="http://yoursite.com/tags/%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android-应用认领---空包写入签名</title>
+    <link href="http://yoursite.com/2017/07/12/Android-%E5%BA%94%E7%94%A8%E8%AE%A4%E9%A2%86-%E7%A9%BA%E5%8C%85%E5%86%99%E5%85%A5%E7%AD%BE%E5%90%8D/"/>
+    <id>http://yoursite.com/2017/07/12/Android-应用认领-空包写入签名/</id>
+    <published>2017-07-12T08:10:58.000Z</published>
+    <updated>2017-08-23T01:46:06.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近公司项目在百度进行认领，需要将自己的签名写入百度的空包上传，过程如下：</p>
+<p>1.执行如下命令<br><figure class="highlight plain"><figcaption><span>-verbose -keystore appkey.keystore -signedjar sign.apk Baidu_Claim_unsigned.apk keyAlias```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">其中appkey.keystore：自己的签名文件，可以加上绝对路径</div><div class="line"></div><div class="line">sign.apk：输出文件</div><div class="line"></div><div class="line">Baidu_Claim_unsigned.apk：原始文件</div><div class="line"></div><div class="line">keyAlias: 密玥的别名</div><div class="line"></div><div class="line">此过程需要输入密玥的密码，然后按enter即会执行。</div><div class="line"></div><div class="line">2.执行过程中的输出</div></pre></td></tr></table></figure></p>
+<p>Enter Passphrase for keystore:<br>adding: META-INF/MANIFEST.MF<br>adding: META-INF/<strong><em>.SF<br>adding: META-INF/</em></strong>.RSA<br>signing: AndroidManifest.xml<br>signing: res/drawable/ic_launcher.png<br>signing: res/layout/activity_main.xml<br>signing: resources.arsc<br>signing: classes.dex<br>jar signed.</p>
+<p>Warning:<br>No -tsa or -tsacert is provided and this jar is not timestamped. Without a timestamp, users may not be able to validate this jar after the signer certificate’s expiration date (2043-11-01) or after any future revocation date.<br>```</p>
+<p>3.执行完毕会在当前目录生成一个新的apk，用这个apk上传即可</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近公司项目在百度进行认领，需要将自己的签名写入百度的空包上传，过程如下：&lt;/p&gt;
+&lt;p&gt;1.执行如下命令&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;figcaption&gt;&lt;span&gt;-verbose -keystore appkey.keys
+    
+    </summary>
+    
+      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+      <category term="日常" scheme="http://yoursite.com/tags/%E6%97%A5%E5%B8%B8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>今天雨好大</title>
+    <link href="http://yoursite.com/2017/06/20/%E4%BB%8A%E5%A4%A9%E9%9B%A8%E5%A5%BD%E5%A4%A7/"/>
+    <id>http://yoursite.com/2017/06/20/今天雨好大/</id>
+    <published>2017-06-20T00:58:35.000Z</published>
+    <updated>2017-06-20T00:58:35.000Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Google IoSched 代码阅读笔记</title>
+    <link href="http://yoursite.com/2017/06/19/Google-IoSched-%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/"/>
+    <id>http://yoursite.com/2017/06/19/Google-IoSched-代码阅读笔记/</id>
+    <published>2017-06-19T14:37:35.000Z</published>
+    <updated>2017-06-30T13:34:47.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近做项目做的越来越烦人了，可以说近一年以来基本上没什么长进，反而有所退步。以往的激情已经被业务磨灭，真的真的该重新做点什么了。人无近虑，必有远忧。一直逃不开自己的舒适区，让自己在放纵，另一方面也是担忧自己当下的技能能否适应新的环境，总而言之，真的该认真学习好好看书了。否则的话，自己会被淘汰的。</p>
+<h2 id="一、代码目录结构"><a href="#一、代码目录结构" class="headerlink" title="一、代码目录结构"></a>一、代码目录结构</h2><p>本项目是一个比较传统的目录结构(其实还是有一些向MVP方向发展了)，即根据功能点进行分包，如下所示:</p>
+<p><img src="/2017/06/19/Google-IoSched-代码阅读笔记/iosched_package_tree.png" alt="image"></p>
+<h3 id="1、我的日程"><a href="#1、我的日程" class="headerlink" title="1、我的日程"></a>1、我的日程</h3><p>界面组成元素：TabLayout + ViewPager + ListFragment</p>
+<h4 id="1-1、在Activity中的内部类"><a href="#1-1、在Activity中的内部类" class="headerlink" title="1.1、在Activity中的内部类"></a>1.1、在Activity中的内部类</h4><p>标准的使用流程如下，通过弱引用的方式持有Activity，防止由于内部类持有外部类导致的内存泄露</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * If in conference day, redraw the day&apos;s UI every @&#123;link #INTERVAL_TO_REDRAW_UI&#125; ms, so</div><div class="line"> * that time sensitive widgets, like &quot;now&quot;, &quot;ended&quot; and appropriate styles are updated.</div><div class="line"> *</div><div class="line"> * @param today the index in the conference days array that corresponds to the current day.</div><div class="line"> */</div><div class="line">private void setTimerToUpdateUI(final int today) &#123;</div><div class="line">    new UpdateUIRunnable(this, today, new Handler()).scheduleNextRun();</div><div class="line">&#125;</div><div class="line"></div><div class="line">boolean hasBeenDestroyed() &#123;</div><div class="line">    return mDestroyed;</div><div class="line">&#125;</div><div class="line"></div><div class="line">static final class UpdateUIRunnable implements Runnable &#123;</div><div class="line"></div><div class="line">    final WeakReference&lt;MyScheduleActivity&gt; weakRefToParent;</div><div class="line">    final Handler handler;</div><div class="line">    final int today;</div><div class="line"></div><div class="line">    public UpdateUIRunnable(MyScheduleActivity activity, int today, Handler handler) &#123;</div><div class="line">        weakRefToParent = new WeakReference&lt;MyScheduleActivity&gt;(activity);</div><div class="line">        this.handler = handler;</div><div class="line">        this.today = today;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void scheduleNextRun() &#123;</div><div class="line">        handler.postDelayed(this, INTERVAL_TO_REDRAW_UI);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void run() &#123;</div><div class="line">        MyScheduleActivity activity = weakRefToParent.get();</div><div class="line">        if (activity == null || activity.hasBeenDestroyed()) &#123;</div><div class="line">            LOGD(TAG, &quot;Ativity is not valid anymore. Stopping UI Updater&quot;);</div><div class="line">            return;</div><div class="line">        &#125;</div><div class="line">        LOGD(TAG, &quot;Running MySchedule UI updater (now=&quot; +</div><div class="line">                new Date(UIUtils.getCurrentTime(activity)) + &quot;)&quot;);</div><div class="line">        if (activity.mScheduleAdapters != null</div><div class="line">                &amp;&amp; activity.mScheduleAdapters.length &gt; today</div><div class="line">                &amp;&amp; activity.mScheduleAdapters[today] != null) &#123;</div><div class="line">            try &#123;</div><div class="line">                activity.mScheduleAdapters[today].forceUpdate();</div><div class="line">            &#125; finally &#123;</div><div class="line">                // schedule again</div><div class="line">                this.scheduleNextRun();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="1-2、在XML文件中利用tools属性"><a href="#1-2、在XML文件中利用tools属性" class="headerlink" title="1.2、在XML文件中利用tools属性"></a>1.2、在XML文件中利用tools属性</h4><p>可能我们已经习惯了在编写代码的时候设置一个默认的android:text=”这是一个XXX”之类的文本用于预览，但实际上我们可以通过tools:text=”这才是正确的使用方式”，当然硬编码的方式也是错误的。首先附上<a href="https://developer.android.com/studio/write/tool-attributes.html" target="_blank" rel="external">官方教程</a>，官网永远是我们学习的最佳来源。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&lt;RootTag xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">    xmlns:tools=&quot;http://schemas.android.com/tools&quot; &gt;</div><div class="line"></div><div class="line">&lt;TextView</div><div class="line">    android:id=&quot;@+id/slot_description&quot;</div><div class="line">    android:layout_width=&quot;match_parent&quot;</div><div class="line">    android:layout_height=&quot;wrap_content&quot;</div><div class="line">    android:layout_marginTop=&quot;4dp&quot;</div><div class="line">    android:layout_marginEnd=&quot;8dp&quot;</div><div class="line">    android:layout_marginRight=&quot;8dp&quot;</div><div class="line">    android:textSize=&quot;@dimen/text_size_medium&quot;</div><div class="line">    tools:text=&quot;9:00 AM - 11:30 AM / Room 1&quot;</div><div class="line">    style=&quot;@style/Body1Text&quot; /&gt;</div><div class="line">    &lt;/RootTag&gt;</div><div class="line">```    </div><div class="line">##### 1.2.1、tools:ignore</div><div class="line">在任何元素中使用，主要是用于lint检查的时候忽略，例如：</div></pre></td></tr></table></figure>
+<p>&lt;string name=”show_all_apps” tools:ignore=”MissingTranslation&gt;All<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">##### 1.2.2、tools:targetApi</div><div class="line">在任何元素中使用，主要是用于lint检查的时候忽略，此属性和java中的注释代码[@TargetAPi](https://developer.android.com/reference/android/annotation/TargetApi.html)类似，通过这个属性你能指定元素所能运行的API版本，例如下面这个，指定了这个GridLayout只能用于API版本14以上的版本：</div></pre></td></tr></table></figure></p>
+<p><gridlayout xlmns:android="http://schemas.android.com/apk/res/android" xlmns:tools="http://schemas.android.com/tools" tools:targetapi="14"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">##### 1.2.3、tools:locale</div><div class="line">在任何元素中使用，主要是用于lint检查的时候忽略，此属性和java中的注释代码[@TargetAPi](https://developer.android.com/reference/android/annotation/TargetApi.html)类似，通过这个属性你能指定元素所能运行的API版本，例如下面这个，指定了这个GridLayout只能用于API版本14以上的版本：</div></pre></td></tr></table></figure></gridlayout></p>
+<p><gridlayout xlmns:android="http://schemas.android.com/apk/res/android" xlmns:tools="http://schemas.android.com/tools" tools:targetapi="14"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">##### 1.2.4、tools:instead of android</div><div class="line">在View中使用，主要是用于Android Studio layout editor，如本节开始所示。</div><div class="line"></div><div class="line">##### 1.2.5、tools:context</div><div class="line">在xml文件的跟布局中使用，主要是用于Android Studio layout editor，可以指定该xml文件预览时的主题以及类似于onClick属性使用QuickFix快捷生成对应方法所在的Activity。</div><div class="line"></div><div class="line">![image](./images/tools-attribute-context_2x.png)</div></pre></td></tr></table></figure></gridlayout></p>
+<p><android.support.constraint.constraintlayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" tools:context=".MainAcivity"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">##### 1.2.6、tools:layout</div><div class="line">在xml文件的跟布局中使用，主要是用于Android Studio layout editor，可以指定该Fragment预览时候的布局。</div><div class="line"></div><div class="line">![image](./images/tools-attribute-context_2x.png)</div></pre></td></tr></table></figure></android.support.constraint.constraintlayout></p>
+<fragment android:name="com.example.master.ItemListFragment" tools:layout="@layout/list_content">
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">##### 1.2.7、还有更多需要去学习</div><div class="line"></div><div class="line">#### 1.3、处理Fragment中的生命周期</div><div class="line">大家都知道，在Fragment使用过程中，有时候会出现getActivity()=null的情况，这时候就会导致NullPointException(**注意：如需 Fragment 内的某个 Context 对象，可以调用 getActivity()。但要注意，请仅在片段附加到 Activity 时调用 getActivity()。如果片段尚未附加，或在其生命周期结束期间分离，则 getActivity() 将返回 null**)。因此，我们可以在onAttach()的时候传入Activity，如下所示：</div><div class="line"></div><div class="line">```    @Override</div><div class="line">    public void onAttach(Activity activity) &#123;</div><div class="line">        super.onAttach(activity);</div><div class="line">        LOGD(TAG, &quot;Attaching to activity&quot;);</div><div class="line">        mActivity = activity;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onDetach() &#123;</div><div class="line">        super.onDetach();</div><div class="line">        mActivity = null;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>高版本API</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">public void onAttach(Context context) &#123;</div><div class="line">    super.onAttach(context);</div><div class="line">    LOGD(TAG, &quot;Attaching to activity&quot;);</div><div class="line">    mActivity = (Activity)context;</div><div class="line">&#125;</div><div class="line"></div><div class="line">@Override</div><div class="line">public void onDetach() &#123;</div><div class="line">    super.onDetach();</div><div class="line">    mActivity = null;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="2、探索"><a href="#2、探索" class="headerlink" title="2、探索"></a>2、探索</h3><h4 id="2-1、"><a href="#2-1、" class="headerlink" title="2.1、"></a>2.1、</h4><h3 id="3、地图"><a href="#3、地图" class="headerlink" title="3、地图"></a>3、地图</h3><h3 id="4、社交"><a href="#4、社交" class="headerlink" title="4、社交"></a>4、社交</h3><h3 id="5、视频"><a href="#5、视频" class="headerlink" title="5、视频"></a>5、视频</h3><h3 id="6、设置"><a href="#6、设置" class="headerlink" title="6、设置"></a>6、设置</h3><h4 id="6-1、使用PreferenceFragment"><a href="#6-1、使用PreferenceFragment" class="headerlink" title="6.1、使用PreferenceFragment"></a>6.1、使用PreferenceFragment</h4><h3 id="7、关于"><a href="#7、关于" class="headerlink" title="7、关于"></a>7、关于</h3><h4 id="7-1、加载HTML资源"><a href="#7-1、加载HTML资源" class="headerlink" title="7.1、加载HTML资源"></a>7.1、加载HTML资源</h4><pre><code>···Html.fromHtml(getString(&lt;![CDATA[
+    &lt;b&gt;Google I/O 2015&lt;/b&gt;&lt;br&gt;
+    Version %s
+]]&gt;,&quot;xxx&quot;))```
+</code></pre><h4 id="7-2"><a href="#7-2" class="headerlink" title="7.2"></a>7.2</h4><h3 id="8、调试"><a href="#8、调试" class="headerlink" title="8、调试"></a>8、调试</h3><h4 id="8-1、使用PreferenceFragment"><a href="#8-1、使用PreferenceFragment" class="headerlink" title="8.1、使用PreferenceFragment"></a>8.1、使用PreferenceFragment</h4></fragment>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近做项目做的越来越烦人了，可以说近一年以来基本上没什么长进，反而有所退步。以往的激情已经被业务磨灭，真的真的该重新做点什么了。人无近虑，必有远忧。一直逃不开自己的舒适区，让自己在放纵，另一方面也是担忧自己当下的技能能否适应新的环境，总而言之，真的该认真学习好好看书了。否则
+    
+    </summary>
+    
+      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据库语法学习</title>
+    <link href="http://yoursite.com/2017/06/16/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://yoursite.com/2017/06/16/数据库语法学习/</id>
+    <published>2017-06-16T15:15:05.000Z</published>
+    <updated>2017-06-16T15:17:18.000Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="一、基本语法"><a href="#一、基本语法" class="headerlink" title="一、基本语法"></a>一、基本语法</h4><h5 id="1-select-1-vs-select-效率区分"><a href="#1-select-1-vs-select-效率区分" class="headerlink" title="1. select 1 vs select * 效率区分"></a>1. select 1 vs select * 效率区分</h5><p>select 1 from table;与select anycol(目的表集合中的任意一行） from table;与select <em> from table 从作用上来说是没有差别的，都是查看是否有记录，一般是作条件查询用的。select 1 from 中的1是一常量（可以为任意数值），查到的所有行的值都是它，但从效率上来说，1&gt;anycol&gt;</em>，因为不用查字典表。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;一、基本语法&quot;&gt;&lt;a href=&quot;#一、基本语法&quot; class=&quot;headerlink&quot; title=&quot;一、基本语法&quot;&gt;&lt;/a&gt;一、基本语法&lt;/h4&gt;&lt;h5 id=&quot;1-select-1-vs-select-效率区分&quot;&gt;&lt;a href=&quot;#1-select-1-v
+    
+    </summary>
+    
+      <category term="数据库" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+      <category term="数据库" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+      <category term="基础知识" scheme="http://yoursite.com/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
+    
+      <category term="开发" scheme="http://yoursite.com/tags/%E5%BC%80%E5%8F%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Shell学习</title>
+    <link href="http://yoursite.com/2017/06/05/Shell%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://yoursite.com/2017/06/05/Shell学习/</id>
+    <published>2017-06-05T13:16:05.000Z</published>
+    <updated>2017-06-05T13:28:17.000Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="初学遇到的一些问题"><a href="#初学遇到的一些问题" class="headerlink" title="初学遇到的一些问题"></a>初学遇到的一些问题</h4><ol>
+<li>Shell脚本第一行不能直接申明<a href="https://zh.wikipedia.org/wiki/Shebang" target="_blank" rel="external">Shebang</a>，第一行写备注。否则会出现：<code>bad interpreter: bin/zsh: no such file or directory（使用zsh如上提示，使用bash则是bin/bash）</code></li>
+<li></li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;初学遇到的一些问题&quot;&gt;&lt;a href=&quot;#初学遇到的一些问题&quot; class=&quot;headerlink&quot; title=&quot;初学遇到的一些问题&quot;&gt;&lt;/a&gt;初学遇到的一些问题&lt;/h4&gt;&lt;ol&gt;
+&lt;li&gt;Shell脚本第一行不能直接申明&lt;a href=&quot;https://zh.
+    
+    </summary>
+    
+      <category term="Shell" scheme="http://yoursite.com/categories/Shell/"/>
+    
+    
+      <category term="Shell" scheme="http://yoursite.com/tags/Shell/"/>
+    
+      <category term="命令行" scheme="http://yoursite.com/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux 命令行学习</title>
+    <link href="http://yoursite.com/2017/05/24/Linux-%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://yoursite.com/2017/05/24/Linux-命令行学习/</id>
+    <published>2017-05-24T13:57:27.000Z</published>
+    <updated>2017-06-11T13:38:10.000Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="1-别名"><a href="#1-别名" class="headerlink" title="1: 别名"></a>1: 别名</h4><p>alias 别名<br>列表展示： alias<br>设置： alias name=’string’ eg: alias foo=’ls -al’<br>取消设置: unalias foo</p>
+<h4 id="2：I-O重定向"><a href="#2：I-O重定向" class="headerlink" title="2：I/O重定向"></a>2：I/O重定向</h4><ul>
+<li>cat - Concatenate files /连接文件</li>
+<li>sort - Sort lines of text /排序文件</li>
+<li>uniq - Report or omit repeated lines /报道或省略重复行 </li>
+<li>grep - Print lines matching a pattern /打印匹配行</li>
+<li>wc - Pring newline, word, and byte counts for each file /打印文件中的换行符，字，和字节个数 </li>
+<li>head - Output the first part of a file /输出文件开头部分</li>
+<li>tail - Output the last part of a file /输出文件结尾部分</li>
+<li>tee - Read from standard input and write to standard output and files /读取标准输入，写入标准输出和文件</li>
+</ul>
+<h4 id="3：echo"><a href="#3：echo" class="headerlink" title="3：echo"></a>3：echo</h4><ul>
+<li>echo - Diaplay a line of text / 显示一行文本</li>
+</ul>
+<h4 id="4：进程"><a href="#4：进程" class="headerlink" title="4：进程"></a>4：进程</h4><ul>
+<li>sof -i tcp:port 查看端口占用，显示PID</li>
+<li>kill -9 pid 干掉占用的进程</li>
+<li>netstat -an | grep port</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;1-别名&quot;&gt;&lt;a href=&quot;#1-别名&quot; class=&quot;headerlink&quot; title=&quot;1: 别名&quot;&gt;&lt;/a&gt;1: 别名&lt;/h4&gt;&lt;p&gt;alias 别名&lt;br&gt;列表展示： alias&lt;br&gt;设置： alias name=’string’ eg: alias
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://yoursite.com/categories/Linux/"/>
+    
+    
+      <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
+    
+      <category term="Command" scheme="http://yoursite.com/tags/Command/"/>
+    
+  </entry>
+  
+  <entry>
     <title>RecyclerView学习笔记</title>
     <link href="http://yoursite.com/2017/04/26/RecyclerView%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     <id>http://yoursite.com/2017/04/26/RecyclerView学习笔记/</id>
     <published>2017-04-26T11:26:26.000Z</published>
-    <updated>2017-05-15T02:53:43.000Z</updated>
+    <updated>2017-07-19T12:07:04.000Z</updated>
     
     <content type="html"><![CDATA[<p>####自适应高度</p>
-<p>继承LinearLayout，重写onMeasure（）方法：</p>
+<p>继承LinearLayoutManager，重写onMeasure（）方法：</p>
 <pre><code>if (getItemCount() == 0) {
     setMeasuredDimension(0, 0);
 } else {
@@ -40,15 +647,14 @@
     <summary type="html">
     
       &lt;p&gt;####自适应高度&lt;/p&gt;
-&lt;p&gt;继承LinearLayout，重写onMeasure（）方法：&lt;/p&gt;
+&lt;p&gt;继承LinearLayoutManager，重写onMeasure（）方法：&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;if (getItemCount() == 0) {
     setMeasuredDimension(0, 0);
-} else {
-    V
+} else 
     
     </summary>
     
-      <category term="Andriod" scheme="http://yoursite.com/categories/Andriod/"/>
+      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
     
     
       <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
@@ -225,975 +831,6 @@
       <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
     
       <category term="BUG修复" scheme="http://yoursite.com/tags/BUG%E4%BF%AE%E5%A4%8D/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>sql学习</title>
-    <link href="http://yoursite.com/2017/03/20/sql%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://yoursite.com/2017/03/20/sql学习/</id>
-    <published>2017-03-20T12:53:53.000Z</published>
-    <updated>2017-03-20T13:25:31.000Z</updated>
-    
-    <content type="html"><![CDATA[<ol>
-<li>left join是以左表为准的，right join以右表为准，inner join不以谁为准，以条件为准</li>
-<li>on条件是在生成临时表时使用的条件，它不管on中的条件是否为真，都会返回左边表中的记录。where条件是在临时表生成好后，再对临时表进行过滤的条件。这时已经没有left join的含义（必须返回左边表的记录）了，条件不为真的就全部过滤掉。</li>
-<li>primary key(id, name) 复合主键，所有参数一致，才认为是一个相同的主键</li>
-<li>CREATE INDEX 语句用于在表中创建索引。在不读取整个表的情况下，索引使数据库应用程序可以更快地查找数据。更新一个包含索引的表需要比更新一个没有索引的表更多的时间，这是由于索引本身也需要更新。因此，理想的做法是仅仅在常常被搜索的列（以及表）上面创建索引。</li>
-</ol>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;ol&gt;
-&lt;li&gt;left join是以左表为准的，right join以右表为准，inner join不以谁为准，以条件为准&lt;/li&gt;
-&lt;li&gt;on条件是在生成临时表时使用的条件，它不管on中的条件是否为真，都会返回左边表中的记录。where条件是在临时表生成好后，再对临时表进
-    
-    </summary>
-    
-      <category term="后端" scheme="http://yoursite.com/categories/%E5%90%8E%E7%AB%AF/"/>
-    
-    
-      <category term="SQL" scheme="http://yoursite.com/tags/SQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MVP模式学习</title>
-    <link href="http://yoursite.com/2017/03/17/MVP%E6%A8%A1%E5%BC%8F%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://yoursite.com/2017/03/17/MVP模式学习/</id>
-    <published>2017-03-17T01:31:11.000Z</published>
-    <updated>2017-03-18T11:00:38.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>MVP模式是基于MVC模式在Android上面的一个变种，可以参考谷歌的官方架构项目<a href="https://github.com/googlesamples/android-architecture" target="_blank" rel="external">Android-Architecture</a>。在 MVC 模式中，Activity 应该是属于 View 这一层。而实质上，它既承担了 View，同时也包含一些 Controller 的东西在里面。这对于开发与维护来说不太友好，耦合度大高了。把 Activity 的 View 和 Controller 抽离出来就变成了 View 和 Presenter，这就是 MVP 模式。</p>
-<p>View只负责处理视图状态<br>Presenter处理逻辑<br>Contract 连接View和Presenter</p>
-<p>针对各个界面：</p>
-<pre><code>public interface BasePresenter {
-
-    void subscribe();
-
-    void unsubscribe();
-
-}
-
-public interface BaseView&lt;T&gt; {
-
-    void setPresenter(T presenter);
-
-}
-
-
-
-
-public interface AddEditTaskContract {
-
-    interface View extends BaseView&lt;Presenter&gt; {
-
-        void showEmptyTaskError();
-
-        void showTasksList();
-
-        void setTitle(String title);
-
-        void setDescription(String description);
-
-        boolean isActive();
-    }
-
-    interface Presenter extends BasePresenter {
-
-        void saveTask(String title, String description);
-
-        void populateTask();
-
-        boolean isDataMissing();
-    }
-}
-
-
-    public class AddEditTaskPresenter implements AddEditTaskContract.Presenter {
-
-    @NonNull
-    private final TasksDataSource mTasksRepository;
-
-    @NonNull
-    private final AddEditTaskContract.View mAddTaskView;
-
-    @NonNull
-    private final BaseSchedulerProvider mSchedulerProvider;
-
-    @Nullable
-    private String mTaskId;
-
-    private boolean mIsDataMissing;
-
-    @NonNull
-    private CompositeSubscription mSubscriptions;
-
-    /**
-     * Creates a presenter for the add/edit view.
-     *
-     * @param taskId                 ID of the task to edit or null for a new task
-     * @param tasksRepository        a repository of data for tasks
-     * @param addTaskView            the add/edit view
-     * @param shouldLoadDataFromRepo whether data needs to be loaded or not (for config changes)
-     */
-    public AddEditTaskPresenter(@Nullable String taskId, @NonNull TasksDataSource tasksRepository,
-                                @NonNull AddEditTaskContract.View addTaskView, boolean shouldLoadDataFromRepo,
-                                @NonNull BaseSchedulerProvider schedulerProvider) {
-        mTaskId = taskId;
-        mTasksRepository = checkNotNull(tasksRepository);
-        mAddTaskView = checkNotNull(addTaskView);
-        mIsDataMissing = shouldLoadDataFromRepo;
-
-        mSchedulerProvider = checkNotNull(schedulerProvider, &quot;schedulerProvider cannot be null!&quot;);
-
-        mSubscriptions = new CompositeSubscription();
-        mAddTaskView.setPresenter(this);
-    }
-
-    @Override
-    public void subscribe() {
-        if (!isNewTask() &amp;&amp; mIsDataMissing) {
-            populateTask();
-        }
-    }
-
-    @Override
-    public void unsubscribe() {
-        mSubscriptions.clear();
-    }
-
-    @Override
-    public void saveTask(String title, String description) {
-        if (isNewTask()) {
-            createTask(title, description);
-        } else {
-            updateTask(title, description);
-        }
-    }
-
-    @Override
-    public void populateTask() {
-        if (isNewTask()) {
-            throw new RuntimeException(&quot;populateTask() was called but task is new.&quot;);
-        }
-        mSubscriptions.add(mTasksRepository
-                .getTask(mTaskId)
-                .subscribeOn(mSchedulerProvider.computation())
-                .observeOn(mSchedulerProvider.ui())
-                .subscribe(
-                        // onNext
-                        task -&gt; {
-                            if (mAddTaskView.isActive()) {
-                                mAddTaskView.setTitle(task.getTitle());
-                                mAddTaskView.setDescription(task.getDescription());
-
-                                mIsDataMissing = false;
-                            }
-                        }, // onError
-                        __ -&gt; {
-                            if (mAddTaskView.isActive()) {
-                                mAddTaskView.showEmptyTaskError();
-                            }
-                        }));
-    }
-
-    @Override
-    public boolean isDataMissing() {
-        return mIsDataMissing;
-    }
-
-    private boolean isNewTask() {
-        return mTaskId == null;
-    }
-
-    private void createTask(String title, String description) {
-        Task newTask = new Task(title, description);
-        if (newTask.isEmpty()) {
-            mAddTaskView.showEmptyTaskError();
-        } else {
-            mTasksRepository.saveTask(newTask);
-            mAddTaskView.showTasksList();
-        }
-    }
-
-    private void updateTask(String title, String description) {
-        if (isNewTask()) {
-            throw new RuntimeException(&quot;updateTask() was called but task is new.&quot;);
-        }
-        mTasksRepository.saveTask(new Task(title, description, mTaskId));
-        mAddTaskView.showTasksList(); // After an edit, go back to the list.
-    }
-}
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;MVP模式是基于MVC模式在Android上面的一个变种，可以参考谷歌的官方架构项目&lt;a href=&quot;https://github.com/googlesamples/android-architecture&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;
-    
-    </summary>
-    
-      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
-    
-    
-      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
-    
-      <category term="设计模式" scheme="http://yoursite.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Duplicate files copied in APK META-INF/LICENSE</title>
-    <link href="http://yoursite.com/2017/03/15/Duplicate-files-copied-in-APK-META-INF-LICENSE/"/>
-    <id>http://yoursite.com/2017/03/15/Duplicate-files-copied-in-APK-META-INF-LICENSE/</id>
-    <published>2017-03-15T08:46:54.000Z</published>
-    <updated>2017-03-15T08:50:03.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>今天使用jackson的时候碰到了如下错误：</p>
-<pre><code>Error:Execution failed for task &apos;:app:transformResourcesWithMergeJavaResForDebug&apos;.
-&gt; com.android.build.api.transform.TransformException: com.android.builder.packaging.DuplicateFileException: Duplicate files copied in APK META-INF/LICENSE
-      File1: /Users/Eveee/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.7.2/8b8310381b690e317f5f0574e9b2dd7034778b4c/jackson-core-2.7.2.jar
-      File2: /Users/Eveee/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.7.0/19f42c154ffc689f40a77613bc32caeb17d744e3/jackson-annotations-2.7.0.jar
-      File3: /Users/Eveee/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.7.2/84ffa765dd258dbab8695963c41308b054f3a1cb/jackson-databind-2.7.2.jarError:Execution failed for task &apos;:app:transformResourcesWithMergeJavaResForDebug&apos;.
-&gt; com.android.build.api.transform.TransformException: com.android.builder.packaging.DuplicateFileException: Duplicate files copied in APK META-INF/LICENSE
-      File1: /Users/Eveee/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.7.2/8b8310381b690e317f5f0574e9b2dd7034778b4c/jackson-core-2.7.2.jar
-      File2: /Users/Eveee/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.7.0/19f42c154ffc689f40a77613bc32caeb17d744e3/jackson-annotations-2.7.0.jar
-      File3: /Users/Eveee/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.7.2/84ffa765dd258dbab8695963c41308b054f3a1cb/jackson-databind-2.7.2.jar
-</code></pre><p>在module的gradle文件中添加如下代码即可:</p>
-<pre><code>Android{
-    packagingOptions {
-            exclude &apos;META-INF/DEPENDENCIES&apos;
-            exclude &apos;META-INF/NOTICE&apos;
-            exclude &apos;META-INF/LICENSE&apos;
-            exclude &apos;META-INF/LICENSE.txt&apos;
-            exclude &apos;META-INF/NOTICE.txt&apos;
-        }
-}      
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;今天使用jackson的时候碰到了如下错误：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;Error:Execution failed for task &amp;apos;:app:transformResourcesWithMergeJavaResForDebug&amp;apos;.
-&amp;gt; c
-    
-    </summary>
-    
-      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
-    
-    
-      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
-    
-      <category term="错误" scheme="http://yoursite.com/tags/%E9%94%99%E8%AF%AF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android LeakCanary学习笔记</title>
-    <link href="http://yoursite.com/2017/03/13/Android-LeakCanary%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    <id>http://yoursite.com/2017/03/13/Android-LeakCanary学习笔记/</id>
-    <published>2017-03-13T08:29:32.000Z</published>
-    <updated>2017-03-13T08:30:35.000Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
-    
-    
-      <category term="Andriod" scheme="http://yoursite.com/tags/Andriod/"/>
-    
-      <category term="内存优化" scheme="http://yoursite.com/tags/%E5%86%85%E5%AD%98%E4%BC%98%E5%8C%96/"/>
-    
-      <category term="工具" scheme="http://yoursite.com/tags/%E5%B7%A5%E5%85%B7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android Studio快捷键</title>
-    <link href="http://yoursite.com/2017/03/11/Android-Studio%E5%BF%AB%E6%8D%B7%E9%94%AE/"/>
-    <id>http://yoursite.com/2017/03/11/Android-Studio快捷键/</id>
-    <published>2017-03-11T14:23:30.000Z</published>
-    <updated>2017-03-14T11:33:11.000Z</updated>
-    
-    <content type="html"><![CDATA[<ol>
-<li><p>一般IDE通过option + 方向键对光标进行单词的跳动，java中使用驼峰命名法较多，可以通过勾选 Editor - General - Smart Keys - 勾选Use “CamelHumps” words设置按单词跳动</p>
-</li>
-<li><p>由于设置了第一条进行单词跳动，双击鼠标的时候我们会发现选中的也只是驼峰命名法单词的其中的一个，所以我们需要取消勾选设置 Editor - General - Honor “CamelHumps” words settings when selecting on double click</p>
-</li>
-<li><p>Command + shift + e 打开最近编辑的文件，配合Control + tab 键切换文件</p>
-</li>
-<li><p>Command + e 打开最近文件</p>
-</li>
-<li><p>Command + o 查找类文件，按两次可以选择 include non-projcet classes </p>
-</li>
-<li><p>Command + shift + o 查找文件，按两次同样可以选择项目外的文件</p>
-</li>
-<li><p>Shift 点击两次，搜索所有地方,再点击两次可以同上</p>
-</li>
-<li><p>Command + [ – 后退   Command +  ] – 前进</p>
-</li>
-<li><p>Command + shift + 方向键  移动行</p>
-</li>
-<li><p>option + F7 检查方法是在哪里被引用</p>
-</li>
-<li><p>Command + B类似于Command + 点击跳转到方法内部，如果是一个方法则检查引用</p>
-</li>
-<li><p>Command + P获取方法的参数，F1可以选择查看文档</p>
-</li>
-<li><p>Command + D复制行</p>
-</li>
-<li><p>alt + 鼠标 多行选择编辑，超极酷炫的小功能，别的文档编辑工具也支持</p>
-</li>
-<li><p>alt + shift + 鼠标可以创建一个光标，这样子就可以跨行选择了</p>
-</li>
-<li><p>command + shift + enter行尾补全</p>
-<ul>
-<li>方法体大括号的添加</li>
-<li>行尾分号的添加</li>
-<li>自动格式化改行操作等    </li>
-</ul>
-</li>
-<li><p>option + enter 快速生成变量</p>
-</li>
-<li><p>Command + +/- 展开/折叠代码    </p>
-</li>
-<li><p>Command + Y 预览代码 </p>
-</li>
-<li><p>Command + shift + v 查看最近复制的内容</p>
-</li>
-<li><p>Command + F12 预览一个类的结构    </p>
-</li>
-<li><p>Control + T 快速重构</p>
-</li>
-<li><p>Command + J 缩写</p>
-</li>
-<li><p>Command + 方向键直接跳转到行首或者行尾</p>
-</li>
-<li><p>Shift + f6 重命名</p>
-</li>
-</ol>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;ol&gt;
-&lt;li&gt;&lt;p&gt;一般IDE通过option + 方向键对光标进行单词的跳动，java中使用驼峰命名法较多，可以通过勾选 Editor - General - Smart Keys - 勾选Use “CamelHumps” words设置按单词跳动&lt;/p&gt;
-&lt;/li&gt;
-&lt;l
-    
-    </summary>
-    
-      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
-    
-    
-      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
-    
-      <category term="工具" scheme="http://yoursite.com/tags/%E5%B7%A5%E5%85%B7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android中获取文件的md5值</title>
-    <link href="http://yoursite.com/2017/03/11/Android%E4%B8%AD%E8%8E%B7%E5%8F%96%E6%96%87%E4%BB%B6%E7%9A%84md5%E5%80%BC/"/>
-    <id>http://yoursite.com/2017/03/11/Android中获取文件的md5值/</id>
-    <published>2017-03-11T08:53:26.000Z</published>
-    <updated>2017-03-11T08:54:31.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>在Android中获取文件的MD5值，来自CM</p>
-<pre><code>/*
- * Copyright (C) 2012 The CyanogenMod Project
- *
- * * Licensed under the GNU GPLv2 license
- *
- * The text of the license can be found in the LICENSE file
- * or at https://www.gnu.org/licenses/gpl-2.0.txt
- */
-
-package com.cyanogenmod.updater.utils;
-
-import android.text.TextUtils;
-import android.util.Log;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
-public class MD5 {
-    private static final String TAG = &quot;MD5&quot;;
-
-    public static boolean checkMD5(String md5, File updateFile) {
-        if (TextUtils.isEmpty(md5) || updateFile == null) {
-            Log.e(TAG, &quot;MD5 string empty or updateFile null&quot;);
-            return false;
-        }
-
-        String calculatedDigest = calculateMD5(updateFile);
-        if (calculatedDigest == null) {
-            Log.e(TAG, &quot;calculatedDigest null&quot;);
-            return false;
-        }
-
-        Log.v(TAG, &quot;Calculated digest: &quot; + calculatedDigest);
-        Log.v(TAG, &quot;Provided digest: &quot; + md5);
-
-        return calculatedDigest.equalsIgnoreCase(md5);
-    }
-
-    public static String calculateMD5(File updateFile) {
-        MessageDigest digest;
-        try {
-            digest = MessageDigest.getInstance(&quot;MD5&quot;);
-        } catch (NoSuchAlgorithmException e) {
-            Log.e(TAG, &quot;Exception while getting digest&quot;, e);
-            return null;
-        }
-
-        InputStream is;
-        try {
-            is = new FileInputStream(updateFile);
-        } catch (FileNotFoundException e) {
-            Log.e(TAG, &quot;Exception while getting FileInputStream&quot;, e);
-            return null;
-        }
-
-        byte[] buffer = new byte[8192];
-        int read;
-        try {
-            while ((read = is.read(buffer)) &gt; 0) {
-                digest.update(buffer, 0, read);
-            }
-            byte[] md5sum = digest.digest();
-            BigInteger bigInt = new BigInteger(1, md5sum);
-            String output = bigInt.toString(16);
-            // Fill to 32 chars
-            output = String.format(&quot;%32s&quot;, output).replace(&apos; &apos;, &apos;0&apos;);
-            return output;
-        } catch (IOException e) {
-            throw new RuntimeException(&quot;Unable to process file for MD5&quot;, e);
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                Log.e(TAG, &quot;Exception on closing MD5 input stream&quot;, e);
-            }
-        }
-    }
-}
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在Android中获取文件的MD5值，来自CM&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;/*
- * Copyright (C) 2012 The CyanogenMod Project
- *
- * * Licensed under the GNU GPLv2 license
- *
- 
-    
-    </summary>
-    
-      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
-    
-    
-      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>uuid通用唯一识别码</title>
-    <link href="http://yoursite.com/2017/03/03/uuid%E9%80%9A%E7%94%A8%E5%94%AF%E4%B8%80%E8%AF%86%E5%88%AB%E7%A0%81/"/>
-    <id>http://yoursite.com/2017/03/03/uuid通用唯一识别码/</id>
-    <published>2017-03-03T13:11:41.000Z</published>
-    <updated>2017-03-11T08:55:40.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://zh.wikipedia.org/wiki/%E9%80%9A%E7%94%A8%E5%94%AF%E4%B8%80%E8%AF%86%E5%88%AB%E7%A0%81" target="_blank" rel="external">通用唯一识别码</a>（Universal Unique Identifier简称UUID）是一种软件建构的标准。</p>
-<p>UUID的目的，是让分布式系统中的所有元素，都能有唯一的辨识信息，而不需要通过中央控制端来辨识信息的指定。如此依赖，每个人都可以穿件捕鱼其他人冲突的UUID。这样的情况下，就不需要考虑数据库创建时的名称重复问题。目前最广泛应用的UUID，是微软的<a href="https://zh.wikipedia.org/wiki/%E5%85%A8%E5%B1%80%E5%94%AF%E4%B8%80%E6%A0%87%E8%AF%86%E7%AC%A6" target="_blank" rel="external">全局统一标识符</a>（GUID）。</p>
-<h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p>UUID是由一组32位数的16进制数字所构成，是故UUID理论上的总数为1632=2128，约等于3.4 x 1038。也就是说若每纳秒产生1兆个UUID，要花100亿年才会将所有UUID用完。</p>
-<p>UUID的标准型式包含32个16进制数字，以连字号分为五段，形式为8-4-4-4-12的32个字符。示例：</p>
-<p>550e8400-e29b-41d4-a716-446655440000</p>
-<p>UUID亦可刻意重复以表示同类。例如说微软的COM中，所有组件皆必须实现出IUnknown接口，方法是产生一个代表IUnknown的UUID。无论是程序试图访问组件中的IUnknown接口，或是实现IUnknown接口的组件，只要IUnknown一被使用，皆会被参考至同一个ID：00000000-0000-0000-C000-000000000046。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;https://zh.wikipedia.org/wiki/%E9%80%9A%E7%94%A8%E5%94%AF%E4%B8%80%E8%AF%86%E5%88%AB%E7%A0%81&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;通用
-    
-    </summary>
-    
-      <category term="计算机基础" scheme="http://yoursite.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"/>
-    
-    
-      <category term="计算机基础" scheme="http://yoursite.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>序列化</title>
-    <link href="http://yoursite.com/2017/02/26/%E5%BA%8F%E5%88%97%E5%8C%96/"/>
-    <id>http://yoursite.com/2017/02/26/序列化/</id>
-    <published>2017-02-26T12:18:04.000Z</published>
-    <updated>2017-02-26T13:13:49.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>在Android中我们经常使用到序列化来进行数据传递,比如Intent和Binder,或者将对象持久化到存储设备或者通过网络传输到其他设备的时候.通常我们会有两种方式来实现序列化: 1.Serializable 2.Parcelable </p>
-<h5 id="1-Serializable方式实现序列化"><a href="#1-Serializable方式实现序列化" class="headerlink" title="1. Serializable方式实现序列化"></a>1. Serializable方式实现序列化</h5><p>Serializable是java中所提供的一个序列化接口，它是空接口。通常我们可以通过实现Serializable接口来实现序列化，为对象提供标准的序列化和反序列化操作。同时我们注意到在实现该接口的时候我们会有一个long型的serialVersionUID，这个serialVersionUID主要是用于反序列化。如下所示：</p>
-<pre><code>public class User implements Serializable {
-    private static final long serialVersionUID = 7990301608074625143L;
-    public static int GENDAT_FEMALE = 0;
-    public static int GENDAT_MALE = 1;
-    private String name;
-
-    private int age;
-
-    private int gendar;
-
-    transient //序列化的时候忽略该字段
-    private int test;
-}
-</code></pre><p>以上面的User类为例，将其一个对象写入文件以后再从文件读取：</p>
-<pre><code>User user = new User(&quot;Max&quot;, 0, 0, 0);
-ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(path));
-outputStream.writeObject(user);
-outputStream.close();
-
-ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(path));
-User reader = (User) inputStream.readObject();
-Toast.makeText(this, reader.toString(), Toast.LENGTH_LONG).show();
-</code></pre><p>当把对象user写入到文件中的时候，同时会写入对象的serialVersionUID，在从文件中读取对象的时候，    </p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在Android中我们经常使用到序列化来进行数据传递,比如Intent和Binder,或者将对象持久化到存储设备或者通过网络传输到其他设备的时候.通常我们会有两种方式来实现序列化: 1.Serializable 2.Parcelable &lt;/p&gt;
-&lt;h5 id=&quot;1-Ser
-    
-    </summary>
-    
-      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
-    
-    
-      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android里面的几种倒计时方式</title>
-    <link href="http://yoursite.com/2017/02/24/Android%E9%87%8C%E9%9D%A2%E7%9A%84%E5%87%A0%E7%A7%8D%E5%80%92%E8%AE%A1%E6%97%B6%E6%96%B9%E5%BC%8F/"/>
-    <id>http://yoursite.com/2017/02/24/Android里面的几种倒计时方式/</id>
-    <published>2017-02-24T13:40:24.000Z</published>
-    <updated>2017-02-24T13:46:22.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>Android常见的一些及时方式:TimeTask,CounterDownTimer,Handler.postDelay().a</p>
-<ol>
-<li>TimeTask </li>
-</ol>
-<pre><code>final Handler handler = new Handler() {
-    public void handleMessage(Message msg) {
-        switch (msg.what) {
-            case 1:
-                if (timerCount &gt; 0) {
-                    btnGetVerifyCode.setEnabled(false);
-                    btnGetVerifyCode.setText(&quot;重新获取(&quot; + String.valueOf(timerCount) + &quot;s)&quot;);
-                    timerCount--;
-                } else {
-                    btnGetVerifyCode.setEnabled(true);
-                    btnGetVerifyCode.setText(&quot;重新获取&quot;);
-                    if (task != null) {
-                        task.cancel();
-                    }
-                }
-                break;
-        }
-        super.handleMessage(msg);
-    }
-    };
-
-
-class MyTimerTask extends TimerTask {
-
-    @Override
-    public void run() {
-        Message message = new Message();
-        message.what = 1;
-        handler.sendMessage(message);
-    }
-}
-
-    timerCount = 60;
- task = new MyTimerTask();
- timer.schedule(task, 0, 1000); //延时1000ms后执行，1000ms执行一次
-</code></pre><ol>
-<li><p>CountDownTimer</p>
-<pre><code>new CountDownTimer(60000, 1000) {
-
-public void onTick(long millisUntilFinished) {
-    mTextField.setText(&quot;seconds remaining: &quot; + millisUntilFinished / 1000);
- }
-
- public void onFinish() {
-     mTextField.setText(&quot;done!&quot;);
- }
-  }.start();
-</code></pre></li>
-<li><p>不做详细说明了</p>
-</li>
-</ol>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Android常见的一些及时方式:TimeTask,CounterDownTimer,Handler.postDelay().a&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;TimeTask &lt;/li&gt;
-&lt;/ol&gt;
-&lt;pre&gt;&lt;code&gt;final Handler handler = new
-    
-    </summary>
-    
-      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
-    
-    
-      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android下面如何改变文件权限</title>
-    <link href="http://yoursite.com/2017/02/24/Android%E4%B8%8B%E9%9D%A2%E5%A6%82%E4%BD%95%E6%94%B9%E5%8F%98%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90/"/>
-    <id>http://yoursite.com/2017/02/24/Android下面如何改变文件权限/</id>
-    <published>2017-02-24T11:55:40.000Z</published>
-    <updated>2017-02-24T11:59:24.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>如何在Android系统下面改变我们的文件权限,实现某些目的:</p>
-<pre><code>String command = &quot;chmod 777 &quot; + filePath;
-Runtime runtime = Runtime.getRuntime();
-runtime.exec(command);
-</code></pre><p>如上所示,获取文件的绝对路劲,通过Runtime去执行该文件,777代表可读可写可执行,这里不做更多说明.    </p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;如何在Android系统下面改变我们的文件权限,实现某些目的:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;String command = &amp;quot;chmod 777 &amp;quot; + filePath;
-Runtime runtime = Runtime.getRuntime()
-    
-    </summary>
-    
-      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
-    
-    
-      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
-    
-      <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>判断Library处于release或者debug模式</title>
-    <link href="http://yoursite.com/2017/02/21/%E5%88%A4%E6%96%ADLibrary%E5%A4%84%E4%BA%8Erelease%E6%88%96%E8%80%85debug%E6%A8%A1%E5%BC%8F/"/>
-    <id>http://yoursite.com/2017/02/21/判断Library处于release或者debug模式/</id>
-    <published>2017-02-21T06:05:30.000Z</published>
-    <updated>2017-02-21T06:11:56.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>如何在Library中判断是否是release包:</p>
-<ol>
-<li><p>在Library的gradle文件中添加一个变量标记和设置没有默认发布类型</p>
-<pre><code>Android{
-        release {
-        buildConfigField &quot;boolean&quot;, &quot;RELEASE_MODE&quot;, &quot;true&quot;
-        minifyEnabled false
-        proguardFiles getDefaultProguardFile(&apos;proguard-android.txt&apos;), &apos;proguard-rules.pro&apos;
-        }
-        debug {
-            buildConfigField &quot;boolean&quot;, &quot;RELEASE_MODE&quot;, &quot;false&quot;
-        }
-
-        publishNonDefault true   //设置没有默认发布类型
-}
-</code></pre></li>
-<li><p>在app module的gradle文件中新增对应Library的release依赖和debug依赖</p>
-</li>
-</ol>
-<pre><code>releaseCompile project(path: &apos;:app&apos;, configuration: &apos;release&apos;)
-debugCompile project(path: &apos;:app&apos;, configuration: &apos;debug&apos;)    
-</code></pre><ol>
-<li>在Library中引用</li>
-</ol>
-<pre><code>if (BuildConfig.RELEASE_MODE == true) {}    
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;如何在Library中判断是否是release包:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;在Library的gradle文件中添加一个变量标记和设置没有默认发布类型&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;Android{
-        release {
-        buildCo
-    
-    </summary>
-    
-      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
-    
-    
-      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>BaseColumns</title>
-    <link href="http://yoursite.com/2017/02/14/BaseColumns/"/>
-    <id>http://yoursite.com/2017/02/14/BaseColumns/</id>
-    <published>2017-02-14T14:44:07.000Z</published>
-    <updated>2017-02-14T14:51:21.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>准备开始看Google官方的Android Architecture系列了，一方面是提升代码质量，另一方面是学习一下新的app架构。由于目前项目的代码基本上技术可以归属到上古遗迹之中，所以很有必要学习一下新的东西为未来做准备。</p>
-<a id="more"></a>
-<p>首先看到的就是在数据库操作方面的一个接口，如下所示：</p>
-<pre><code>package android.provider;
-
-public interface BaseColumns
-{
-    /**
-     * The unique ID for a row.
-     * &lt;P&gt;Type: INTEGER (long)&lt;/P&gt;
-     */
-    public static final String _ID = &quot;_id&quot;;
-
-    /**
-     * The count of rows in a directory.
-     * &lt;P&gt;Type: INTEGER&lt;/P&gt;
-     */
-    public static final String _COUNT = &quot;_count&quot;;
-}
-</code></pre><p>这个类主要是配合SQLiteOpenHelper进行Android的数据库管理，_ID做为主键，而_COUNT可以返回数据库行数。典型应用如下所示：</p>
-<pre><code>public final class TasksPersistenceContract {
-
-// To prevent someone from accidentally instantiating the contract class,
-// give it an empty constructor.
-private TasksPersistenceContract() {}
-
-/* Inner class that defines the table contents */
-public static abstract class TaskEntry implements BaseColumns {
-    public static final String TABLE_NAME = &quot;task&quot;;
-    public static final String COLUMN_NAME_ENTRY_ID = &quot;entryid&quot;;
-    public static final String COLUMN_NAME_TITLE = &quot;title&quot;;
-    public static final String COLUMN_NAME_DESCRIPTION = &quot;description&quot;;
-    public static final String COLUMN_NAME_COMPLETED = &quot;completed&quot;;
-}
-}
-
-
-//在SQLiteOpenHelper中创建表的语句
-   private static final String SQL_CREATE_ENTRIES =
-        &quot;CREATE TABLE &quot; + TasksPersistenceContract.TaskEntry.TABLE_NAME + &quot; (&quot; +
-                TasksPersistenceContract.TaskEntry._ID + TEXT_TYPE + &quot; PRIMARY KEY,&quot; +
-                TasksPersistenceContract.TaskEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
-                TasksPersistenceContract.TaskEntry.COLUMN_NAME_TITLE + TEXT_TYPE + COMMA_SEP +
-                TasksPersistenceContract.TaskEntry.COLUMN_NAME_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
-                TasksPersistenceContract.TaskEntry.COLUMN_NAME_COMPLETED + BOOLEAN_TYPE +
-        &quot; )&quot;;
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;准备开始看Google官方的Android Architecture系列了，一方面是提升代码质量，另一方面是学习一下新的app架构。由于目前项目的代码基本上技术可以归属到上古遗迹之中，所以很有必要学习一下新的东西为未来做准备。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
-    
-    
-      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Comparator与Comparable的区别</title>
-    <link href="http://yoursite.com/2017/02/13/Comparator%E4%B8%8EComparable%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
-    <id>http://yoursite.com/2017/02/13/Comparator与Comparable的区别/</id>
-    <published>2017-02-13T14:06:34.000Z</published>
-    <updated>2017-02-13T14:11:34.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>参考StackOverFlowp<a href="http://stackoverflow.com/questions/4108604/java-comparable-vs-comparator" target="_blank" rel="external">答案</a>:</p>
-<p>Comparable相当于“内部比较器”，而Comparator相当于“外部比较器”。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;参考StackOverFlowp&lt;a href=&quot;http://stackoverflow.com/questions/4108604/java-comparable-vs-comparator&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;答案&lt;/a&gt;:
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Java时间比较</title>
-    <link href="http://yoursite.com/2017/02/13/Java%E6%97%B6%E9%97%B4%E6%AF%94%E8%BE%83/"/>
-    <id>http://yoursite.com/2017/02/13/Java时间比较/</id>
-    <published>2017-02-13T13:58:02.000Z</published>
-    <updated>2017-02-13T14:04:58.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>在java中比较两个时间的大小: </p>
-<pre><code>DateFormat df = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);
-Date start = df.parse(&quot;1991-12-25&quot;);
-Date end = df.parse(&quot;1990-12-23&quot;);
-int result = start.compareTo(end);
-</code></pre><p>如果result &gt; 0 说明 start &gt; end; 如果result &lt; 0，则 start &lt; end;如果result = 0,则 start = end;    </p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在java中比较两个时间的大小: &lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;DateFormat df = new SimpleDateFormat(&amp;quot;yyyy-MM-dd&amp;quot;);
-Date start = df.parse(&amp;quot;1991-12-25&amp;quo
-    
-    </summary>
-    
-    
-      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>互联网协议入门（二）</title>
-    <link href="http://yoursite.com/2017/02/06/%E4%BA%92%E8%81%94%E7%BD%91%E5%8D%8F%E8%AE%AE%E5%85%A5%E9%97%A8%EF%BC%88%E4%BA%8C%EF%BC%89/"/>
-    <id>http://yoursite.com/2017/02/06/互联网协议入门（二）/</id>
-    <published>2017-02-06T01:54:29.000Z</published>
-    <updated>2017-02-06T09:45:47.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://jacentsao.github.io/2017/02/05/%E4%BA%92%E8%81%94%E7%BD%91%E5%8D%8F%E8%AE%AE%E5%85%A5%E9%97%A8%EF%BC%88%E4%B8%80%EF%BC%89/" target="_blank" rel="external">上一篇文章</a>分析了互联网的总体构思，从下至上，没一层协议的设计思想。</p>
-<p>这是从设计者的角度看问题，今天我想切换到用户的角度，看看用户是如何从上至下，与这些协议互动的。</p>
-<a id="more"></a>
-<h3 id="互联网协议入门（二）"><a href="#互联网协议入门（二）" class="headerlink" title="互联网协议入门（二）"></a>互联网协议入门（二）</h3><h4 id="七、一个小结"><a href="#七、一个小结" class="headerlink" title="七、一个小结"></a>七、一个小结</h4><p>先对前面的内容，做一个小结。</p>
-<p>我们已经知道，网络通信就是交换数据包。电脑A向电脑B发送一个数据包，后则会收到了，回复一个数据包，从而实现两台电脑时间的通信，数据包的结构，基本上是下面这样：</p>
-<p><img src="http://image.beekka.com/blog/201205/bg2012052913.png" alt="image"></p>
-<p>发送这个包，需要知道两个地址：</p>
-<ul>
-<li>对方的MAC地址</li>
-<li>对方的IP地址</li>
-</ul>
-<p>有了折两个地址，数据包才能准确送到接收者中。但是，前面说过，MAC地址又局限性，如果两台电脑不在同一个局域网，就无法知道对方的MAC地址，必须通过网关转发。</p>
-<p><img src="http://image.beekka.com/blog/201206/bg2012061101.jpg" alt="image"></p>
-<p>上图中，1号电脑要向4号电脑发送一个数据包。它先判断4号电脑是否在同一个子网络，借过发现不是（后文会介绍判断方法），于是就把这个数据包发到网关A。网关A通过路由协议，发现4号电脑位于局域网B，又把数据包发送给网关B，网关B再转发到4号电脑。</p>
-<p>1号电脑把数据包发到网关A，必须知道网关A的MAC地址。所以，数据包的目标地址，实际上分成两种情况：</p>
-<table>
-<thead>
-<tr>
-<th>场景</th>
-<th style="text-align:center">数据包地址</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>同一个局域网</td>
-<td style="text-align:center">对方的MAC地址，对方的IP地址</td>
-</tr>
-<tr>
-<td>不同局域网</td>
-<td style="text-align:center">网关的MAC地址，对方的IP地址</td>
-</tr>
-</tbody>
-</table>
-<p>发送数据包之前，电脑必须判断对方是否在同一个局域网，然后选择对应的MAC地址。接下来，我们就来看，实际使用中，这个过程是怎么完成的。</p>
-<h4 id="八、用户的上网设置"><a href="#八、用户的上网设置" class="headerlink" title="八、用户的上网设置"></a>八、用户的上网设置</h4><h5 id="8-1-静态IP地址"><a href="#8-1-静态IP地址" class="headerlink" title="8.1 静态IP地址"></a>8.1 静态IP地址</h5><p>通常购买了一台电脑后需要做一些设置。有时，管理员（或者ISP）会告诉你下面四个参数，你把它们呢填入操作系统，计算机就能上网了。</p>
-<ul>
-<li>本机的IP地址</li>
-<li>子网掩码</li>
-<li>网关的IP地址</li>
-<li>DNS的IP地址</li>
-</ul>
-<p>下图是Windows系统的设置窗口。</p>
-<p><img src="http://image.beekka.com/blog/201206/bg2012061111.png" alt="image"></p>
-<p>这四个参数缺一不可，后文会解释为什么需要知道它们才能上网，由于它们是给定的，计算机每次开机，都回分到同样的IP地址，所以这种状况称作“静态IP地址上网”。</p>
-<h5 id="8-2-动态IP地址"><a href="#8-2-动态IP地址" class="headerlink" title="8.2 动态IP地址"></a>8.2 动态IP地址</h5><p>所谓“动态IP地址”，指计算机开机后，会自动分配到一个IP地址，不同认为设定。它使用的协议叫做<a href="https://zh.wikipedia.org/zh/%E5%8A%A8%E6%80%81%E4%B8%BB%E6%9C%BA%E8%AE%BE%E7%BD%AE%E5%8D%8F%E8%AE%AE" target="_blank" rel="external">DHCP协议</a></p>
-<p>这个协议规定，每一个局域网中，有一台计算机负责管理本网络的所有IP地址，它叫做“DHCP服务器”。新的计算机加入网络，必须向“DHCP服务器”发送一个“DHCP请求”数据包，申请IP地址和相关的网络参数。</p>
-<p>前面说过，如果两台计算机在同一个局域网，必须知道对方的MAC地址和IP地址，才能发送数据包。但是，新加入的计算机不知道这两个地址，怎么发送数据包呢？</p>
-<p>DHCP协议做了一些巧妙的规定。</p>
-<h5 id="8-3-DHCP协议"><a href="#8-3-DHCP协议" class="headerlink" title="8.3 DHCP协议"></a>8.3 DHCP协议</h5><p>首先，它是一种应用层协议，建立在UDP协议之上，所以整个数据包是这样的L</p>
-<p><img src="http://image.beekka.com/blog/201206/bg2012061102.png" alt="image"></p>
-<ol>
-<li>最前面的“以太网标头”，设置发出方（本机）的MAC地址和接收方（DHCP服务器）的MAC地址。前者就是本机网卡的MAC地址，后者这时不知道，就填入一个广播地址：FF-FF-FF-FF-FF-FF.</li>
-<li>后面的“IP标头”，设置发出方的IP地址和接收方的IP地址。这时，对于这两者，本机都不知道。于是，发出方的IP地址就设为0.0.0.0，接收方地址设置为255.255.255.255。</li>
-<li>最后的“UDP标头”，设置发出方的端口和接收方的端口。这一部分是DHCP协议规定好的，发出方是68端口，接收方是67端口。</li>
-</ol>
-<p>这个数据包构造完成后，就可以发出了。以太网是广播发送，同一个局域网的每台计算机都收到了这个包。因为接收方的MAC地址是FF-FF-FF-FF-FF-FF，看不出是发给谁的，每台接收到这个包的计算机，都必须解析这个包的IP地址，才能确定是不是发给自己的。当看到发送方是0.0.0.0，接收方是255.255.255.255，于是DHCP服务器就知道“这个包是发给我的”，而其他计算机就可以丢弃这个包。</p>
-<p>接下来，DHCP服务器读出这个包的数据内容，分配好IP地址，发送会去一个“DHCP响应”数据包。这个响应包的结构也是类似的，以太网标头的MAC地址是双方的网卡地址，IP标头的IP地址是DHCP服务器的IP地址（发出放）和255.255.255.255（接收方），UDP标头的端口是67（发出放）和68（接收方），分配给请求端的IP地址和本网络的具体参数则包含在“数据”部分。</p>
-<p>新加入的计算机收到这个响应包，于是就知道了自己的IP地址、子网掩码、网关地址、DNS服务器等等参数。</p>
-<h5 id="8-4-上网设置：小结"><a href="#8-4-上网设置：小结" class="headerlink" title="8.4 上网设置：小结"></a>8.4 上网设置：小结</h5><p>这个部分，需要记住的就是一点：不管是“静态IP地址”还是“动态IP地址”，电脑上网的首要步奏，是确定四个参数。这四个参数很重要，值得重复一遍：</p>
-<ul>
-<li>本机的IP地址</li>
-<li>子网掩码</li>
-<li>网关的IP地址</li>
-<li>DNS的IP地址</li>
-</ul>
-<p>有了这几个数值，电脑就可以上网“冲浪”了。接下来，我们来看一个实例，当用户访问网页的时候，互联网协议是怎么运作的。</p>
-<h4 id="九、一个实例：访问网页"><a href="#九、一个实例：访问网页" class="headerlink" title="九、一个实例：访问网页"></a>九、一个实例：访问网页</h4><h5 id="9-1-本机参数"><a href="#9-1-本机参数" class="headerlink" title="9.1 本机参数"></a>9.1 本机参数</h5><p>我们假定，经过上一节的步奏，用户设置好了自己的网络参数：</p>
-<ul>
-<li>本机的IP地址：192.168.1.100</li>
-<li>子网掩码：255.255.255.0</li>
-<li>网关的IP地址：192.168.1.1</li>
-<li>DNS的IP地址：8.8.8.8</li>
-</ul>
-<p>然后他打开浏览器，想要访问Google，在地址栏输入了网址：www.google.com。</p>
-<p><a href="http://image.beekka.com/blog/201206/bg2012061103.png" target="_blank" rel="external">http://image.beekka.com/blog/201206/bg2012061103.png</a></p>
-<h5 id="9-2-DNS协议"><a href="#9-2-DNS协议" class="headerlink" title="9.2 DNS协议"></a>9.2 DNS协议</h5><p>我们知道，发送数据包，必须知道对方的IP地址。但是，现在，我们知道的网址是www.google.com，不知道它的IP地址。</p>
-<p><a href="https://zh.wikipedia.org/wiki/%E5%9F%9F%E5%90%8D%E7%B3%BB%E7%BB%9F" target="_blank" rel="external">DNS协议</a>可以帮助我们，将这个网址转换成IP地址。已知DNS服务器为8.8.8.8，于是我们向这个地址发送一个DNS数据包（53端口）。</p>
-<p><img src="http://image.beekka.com/blog/201206/bg2012061105.png" alt="image"></p>
-<p>然后，DNS服务器做出响应，告诉我们Google的IP地址是172.194.72.105。于是，我们知道了对方的IP地址。</p>
-<h5 id="9-3-子网掩码"><a href="#9-3-子网掩码" class="headerlink" title="9.3 子网掩码"></a>9.3 子网掩码</h5><p>接下来，我们要判断，这个IP地址是不是在同一个子网络，这就要用到子网掩码。</p>
-<p>已知子网掩码是255.255.255.0，本机用它对自己的IP地址192.168.1.100，做一个二进制的AND运算（两个数位都为1，结果为1，否则为0），计算结果为192.168.1.0；然后对Google的IP地址172.194.72.105也做一个AND运算，计算结果为172.194.72.0。这两个结果不相等，所以结论是，Google与本机不在同一个子网络。</p>
-<p>因此，我们要向Google发送数据包，必须通过网关192.168.1.1转发，也就是说，接收方的MAC地址将是网关的MAC地址。</p>
-<h5 id="9-4-应用层协议"><a href="#9-4-应用层协议" class="headerlink" title="9.4 应用层协议"></a>9.4 应用层协议</h5><p>浏览网页用的是HTTP协议，它的整个数据包构造是这样的：</p>
-<p><img src="http://image.beekka.com/blog/201206/bg2012061106.png" alt="image"></p>
-<p>HTTP部分的内容，类似于下面这样：</p>
-<pre><code>GET / HTTP/1.1
-　　Host: www.google.com
-　　Connection: keep-alive
-　　User-Agent: Mozilla/5.0 (Windows NT 6.1) ......
-　　Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
-　　Accept-Encoding: gzip,deflate,sdch
-　　Accept-Language: zh-CN,zh;q=0.8
-　　Accept-Charset: GBK,utf-8;q=0.7,*;q=0.3
-　　Cookie: ... ...
-　　
-</code></pre><p>我们假定这个部分的长度为4960字节，它会被嵌在TCP数据包之中。</p>
-<h5 id="9-5-TCP协议"><a href="#9-5-TCP协议" class="headerlink" title="9.5 TCP协议"></a>9.5 TCP协议</h5><p>TCP数据包需要设置端口，接收方（Google）的HTTP端口默认是80，发送方（本机）的端口是一个随机生成的1024-65535之间的整数，假定为51775。</p>
-<p>TCP数据包的标头长度为20字节，加上嵌入HTTP的数据包，总长度变为4980字节。</p>
-<h5 id="9-6-IP协议"><a href="#9-6-IP协议" class="headerlink" title="9.6 IP协议"></a>9.6 IP协议</h5><p>然后，TCP数据包再嵌入IP数据包。IP数据包需要设置双方的IP地址，这是已知的，发送方是192.168.1.100（本机），接收方是172.194.72.105（Google）。</p>
-<p>IP数据包的标头长度为20字节，加上嵌入的TCP数据包，总长度变为5000字节。</p>
-<h5 id="9-7-以太网协议"><a href="#9-7-以太网协议" class="headerlink" title="9.7 以太网协议"></a>9.7 以太网协议</h5><p>最后，IP数据包嵌入以太网数据包。以太网数据包需要设置双方的MAC地址，发送方为本机的网卡MAC地址，接收方为网关192.168.1.1的MAC地址（通过ARP协议得到）。</p>
-<p>以太网数据包的数据部分，最大长度为1500字节，而现在的IP数据包长度为5000字节。因此，IP数据包必须分割成四个包。因为每个包都有自己的IP标头（20字节），所以四个包的IP数据包的长度分别为1500、1500、1500、560。</p>
-<p><img src="http://image.beekka.com/blog/201206/bg2012061107.png" alt="image"></p>
-<h5 id="9-8-服务器端响应"><a href="#9-8-服务器端响应" class="headerlink" title="9.8 服务器端响应"></a>9.8 服务器端响应</h5><p>经过多个网关的转发，Google的服务器172.194.72.105，收到了这四个以太网数据包。</p>
-<p>根据IP标头的序号，Google将四个包拼起来，取出完整的TCP数据包，然后读出里面的”HTTP请求”，接着做出”HTTP响应”，再用TCP协议发回来。</p>
-<p>本机收到HTTP响应以后，就可以将网页显示出来，完成一次网络通信。</p>
-<p><img src="http://image.beekka.com/blog/201206/bg2012061104.jpg" alt="iamge"></p>
-<p>这个例子就到此为止，虽然经过了简化，但它大致上反映了互联网协议的整个通信过程。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;https://jacentsao.github.io/2017/02/05/%E4%BA%92%E8%81%94%E7%BD%91%E5%8D%8F%E8%AE%AE%E5%85%A5%E9%97%A8%EF%BC%88%E4%B8%80%EF%BC%89/&quot;&gt;上一篇文章&lt;/a&gt;分析了互联网的总体构思，从下至上，没一层协议的设计思想。&lt;/p&gt;
-&lt;p&gt;这是从设计者的角度看问题，今天我想切换到用户的角度，看看用户是如何从上至下，与这些协议互动的。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="网络" scheme="http://yoursite.com/categories/%E7%BD%91%E7%BB%9C/"/>
-    
-    
-      <category term="计算机基础" scheme="http://yoursite.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"/>
-    
-      <category term="网络" scheme="http://yoursite.com/tags/%E7%BD%91%E7%BB%9C/"/>
     
   </entry>
   
