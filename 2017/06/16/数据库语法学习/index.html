@@ -92,7 +92,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/06/16/数据库语法学习/index.html">
 <meta property="og:site_name" content="Silence of Heart">
 <meta property="og:description" content="一、基本语法1. select 1 vs select * 效率区分select 1 from table;与select anycol(目的表集合中的任意一行） from table;与select  from table 从作用上来说是没有差别的，都是查看是否有记录，一般是作条件查询用的。select 1 from 中的1是一常量（可以为任意数值），查到的所有行的值都是它，但从效率上来说，1&amp;">
-<meta property="og:updated_time" content="2017-06-16T15:17:18.000Z">
+<meta property="og:updated_time" content="2017-12-31T13:32:44.124Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据库语法学习">
 <meta name="twitter:description" content="一、基本语法1. select 1 vs select * 效率区分select 1 from table;与select anycol(目的表集合中的任意一行） from table;与select  from table 从作用上来说是没有差别的，都是查看是否有记录，一般是作条件查询用的。select 1 from 中的1是一常量（可以为任意数值），查到的所有行的值都是它，但从效率上来说，1&amp;">
@@ -255,9 +255,32 @@
       
 
       
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
     </ul>
   
 
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
   
 </nav>
 
@@ -390,7 +413,13 @@
 
       
         <h4 id="一、基本语法"><a href="#一、基本语法" class="headerlink" title="一、基本语法"></a>一、基本语法</h4><h5 id="1-select-1-vs-select-效率区分"><a href="#1-select-1-vs-select-效率区分" class="headerlink" title="1. select 1 vs select * 效率区分"></a>1. select 1 vs select * 效率区分</h5><p>select 1 from table;与select anycol(目的表集合中的任意一行） from table;与select <em> from table 从作用上来说是没有差别的，都是查看是否有记录，一般是作条件查询用的。select 1 from 中的1是一常量（可以为任意数值），查到的所有行的值都是它，但从效率上来说，1&gt;anycol&gt;</em>，因为不用查字典表。</p>
-
+<h5 id="2-创建视图"><a href="#2-创建视图" class="headerlink" title="2. 创建视图"></a>2. 创建视图</h5><p>视图是一种简单的数据查询机制，不涉及数据的存储。视图的字段名称可以与select的表不一致,视图创建以后可以跟其他的业务表进行关联，也可以正常的使用group by, having 和order by 之类的语法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">create view products_vw(id,name,code,init_amt,init_prc,init_stock,current_stock)</div><div class="line">as </div><div class="line">select id,name,code,init_amt,init_prc,init_stock,cur_stock</div><div class="line">from products</div></pre></td></tr></table></figure>
+<p>那么使用视图的意义在哪里了。</p>
+<h6 id="2-1-数据安全"><a href="#2-1-数据安全" class="headerlink" title="2.1 数据安全"></a>2.1 数据安全</h6><p>在创建视图的时候将敏感数据不引入视图，这样子提供视图给终端用户使用就达到了保护数据的目的了</p>
+<h6 id="2-2-数据聚合"><a href="#2-2-数据聚合" class="headerlink" title="2.2 数据聚合"></a>2.2 数据聚合</h6><p>数据汇总，辅助创建新表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">create table products_new </div><div class="line">as </div><div class="line">select * from products_vw</div><div class="line"></div><div class="line"></div><div class="line">create or replace products_vw (id,name,code,init_amt,init_prc,init_stock,current_stock)</div><div class="line">as</div><div class="line">select id,name,code,init_amt,init_prc,init_stock,current_stock from products_new</div></pre></td></tr></table></figure>
+<h6 id="2-3-隐藏复杂性"><a href="#2-3-隐藏复杂性" class="headerlink" title="2.3 隐藏复杂性"></a>2.3 隐藏复杂性</h6><h6 id="2-4-连接分区数据"><a href="#2-4-连接分区数据" class="headerlink" title="2.4 连接分区数据"></a>2.4 连接分区数据</h6>
       
     </div>
 
@@ -512,7 +541,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">54</span>
+                <span class="site-state-item-count">62</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -521,7 +550,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -530,7 +559,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">34</span>
+                <span class="site-state-item-count">36</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -546,7 +575,11 @@
             </a>
           </div>
         
-
+        <div id="music163player">
+           <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=86 src="//music.163.com/outchain/player?type=2&id=3951066&auto=0&height=66">
+           </iframe>
+        </div>
+        </div>
         <div class="links-of-author motion-element">
           
         </div>
@@ -572,7 +605,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、基本语法"><span class="nav-number">1.</span> <span class="nav-text">一、基本语法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-select-1-vs-select-效率区分"><span class="nav-number">1.1.</span> <span class="nav-text">1. select 1 vs select * 效率区分</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、基本语法"><span class="nav-number">1.</span> <span class="nav-text">一、基本语法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-select-1-vs-select-效率区分"><span class="nav-number">1.1.</span> <span class="nav-text">1. select 1 vs select * 效率区分</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-创建视图"><span class="nav-number">1.2.</span> <span class="nav-text">2. 创建视图</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#2-1-数据安全"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 数据安全</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-2-数据聚合"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 数据聚合</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-3-隐藏复杂性"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 隐藏复杂性</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-4-连接分区数据"><span class="nav-number">1.2.4.</span> <span class="nav-text">2.4 连接分区数据</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -593,7 +626,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -735,6 +768,130 @@
 
   
   
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
 
   
 
@@ -744,6 +901,9 @@
 
   
 
+					
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/js/src/click-love.js"></script>
 
 </body>
 </html>

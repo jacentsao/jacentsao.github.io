@@ -1,0 +1,665 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[数据库学习2 - 语法]]></title>
+    <url>%2F2018%2F01%2F07%2F%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A02-%E8%AF%AD%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[基础语法 如果查询的列名在用到的两个或者多个表中不重复，则对这一列的引用不用加表名限制 视图和基表数据是同步更新的，视图不能创建索引]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>数据库</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Kotlin学习笔记1]]></title>
+    <url>%2F2017%2F12%2F30%2FKotlin%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01%2F</url>
+    <content type="text"><![CDATA[随着Kotlin的越来越火热，对于Android开发者而言学习Kotlin也变成了一个必要的过程了。 基础语法定义一个类1class User(name: String, age: Int) &#123;&#125; //如果类没有内容则大括号可以省略掉 构造函数的函数体，即下列代码的init块中 12345class User(name: String, age: Int) &#123; init &#123; ... &#125;&#125; 类继承默认任何类都是继承基础类Any（类似于java中的Object），但是我们可以继承其它类。所有的类默认都是final的，因此如果我们要让别的类继承的话就需要声明open或者abstract关键字。 123class User(name: String, age: Int)class Max(name: String, age: Int, gender: String) : User(name, age) 如上所示，如果只有单个构造器时，需要从父类继承下来的构造器中指定需要的参数，类似于java super关键字 函数函数使用fun声明: 1234567fun add(x: Int, y: Int): Int &#123; return x + y &#125; func add(x: Int, y: Int) : Int = x+y 无返回值的函数，会返回Unit，于java中的void类似，但是Unit是一个真正的对象 构造方法和函数参数1234567toast(&quot;hell&quot;) //使用默认的Toast.LENGTH_LONGtoast(&quot;hell&quot;,Toast.LENGTH_LONG)fun toast(msg: String, length: Int = Toast.LENGTH_LONG) &#123;//执行函数默认值，避免方法重载 Toast.makeText(this,msg, length).show() &#125;]]></content>
+      <categories>
+        <category>Kotlin</category>
+      </categories>
+      <tags>
+        <tag>Kotlin</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[gomobile相关的错误处理]]></title>
+    <url>%2F2017%2F12%2F19%2Fgomobile%E7%9B%B8%E5%85%B3%E7%9A%84%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%2F</url>
+    <content type="text"><![CDATA[务必确认在构建非Windows包的时候，根目录下面无syso版本信息文件，否则各种各样的奇葩错误 seq_android.c:213:3: errorgo build -pkgdir=/Users/Eveee/Storage/go/pkg/gomobile/pkg_android_arm64 -buildmode=c-shared -o=/var/folders/w4/75xgx41n2bb7mm3m0dxbp0d40000gn/T/gomobile-work-159245723/android/src/main/jniLibs/arm64-v8a/libgojni.sofailed: exit status 2123# _/var/folders/w4/75xgx41n2bb7mm3m0dxbp0d40000gn/T/gomobile-work-159245723/gomobile_bindseq_android.c:213:3: error: implicitly declaring library function &apos;memcpy&apos; with type &apos;void *(void *, const void *, unsigned long)&apos; [-Werror,-Wimplicit-function-declaration]seq_android.c:213:3: note: include the header &lt;string.h&gt; or explicitly provide a declaration for &apos;memcpy&apos; 解决方案 https://github.com/golang/go/issues/22766 seq_android.c:213:3: error]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[Go语言实战阅读笔记2]]></title>
+    <url>%2F2017%2F12%2F11%2FGo%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B02%2F</url>
+    <content type="text"><![CDATA[&amp;符号的意思是对变量取地址*符号的意思是对指针取值 *和 &amp; 可以互相抵消,同时注意，*&amp;可以抵消掉，但&amp;*是不可以抵消的]]></content>
+      <categories>
+        <category>Golang</category>
+      </categories>
+      <tags>
+        <tag>Golang</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Go语言实战阅读笔记1]]></title>
+    <url>%2F2017%2F12%2F11%2FGo%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B01%2F</url>
+    <content type="text"><![CDATA[1.1 Go语言的特性1.1.1 高效的开发速度和编译速度Golang编译没有从编译代码到执行代码的中间过程，用动态语言编写应用程序可以快速看到输出。代价是，动态语言不提供静态语言提供的类型安全特性，不得不大量使用测试套件来避免在运行的时候出现类型错误这类bug 1.1.2 天然的并发支持1.1.2.1 goroutine不同于java和C需要编写大量额外的代码来使用线程，Golang在同一个线程中并行多个goroutine，net/http库直接使用了内置的goroutine，每个接收到的请求都在自己的goroutine中运行。goroutine使用的内存相对于线程而言更少，Go语言在运行时会自动在配置的一组逻辑处理器上调度执行goroutine。每个逻辑处理器绑定到一个操作系统上。这样子让用户的应用程序执行效率更高，而开发工作量显著减少。 1.1.2.1 通道通道是一种在goroutine中进行安全的数据通信的数据结构，帮助用户避免其它语言里面常见的共享内存访问的问题 并发最难得部分就是要确保其他并发运行的进行、线程或goroutine不会以外修改用户的数据。在线程不安全的情况下访问和修改共享变量往往会带来灾难性的后果，在其它语言中，通常要通过复杂的锁规则来防止对一个全局变量或者共享内存造成不同步的修改]]></content>
+      <categories>
+        <category>Golang</category>
+      </categories>
+      <tags>
+        <tag>Golang</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[数据库学习1]]></title>
+    <url>%2F2017%2F12%2F01%2F%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A01%2F</url>
+    <content type="text"><![CDATA[使用Navicat连接Mamp Pro 新建mysql连接 输入端口号，用户名和密码（默认都是root） use socket，打勾。输入/Applications/MAMP/tmp/mysql/mysql.sock 使用命令行操作mysql 执行 /Applications/MAMP/Library/bin 目录下的mysql即可进入命令行操作界面 使用golang连接数据库 db, err := sql.Open(&quot;mysql&quot;, &quot;root:root@unix(/Applications/MAMP/tmp/mysql/mysql.sock)/mysql&quot;)]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>数据库</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[ssh使用之文件拷贝]]></title>
+    <url>%2F2017%2F11%2F30%2Fssh%E4%BD%BF%E7%94%A8%E4%B9%8B%E6%96%87%E4%BB%B6%E6%8B%B7%E8%B4%9D%2F</url>
+    <content type="text"><![CDATA[最近想学习一下Golang,自己买了一个188一年的京东云服务器，准备丢点东西上去，过程实在是各种折腾，门外汉的痛苦。 ssh传输文件上传文件 scp /path/filename username@servername:/path 下载文件 scp username@servername:/path/filename /var/www/local_dir（本地目录） 下载目录 scp -r username@servername:/var/www/remote_dir/（远程目录） /var/www/local_dir（本地目录） 上传目录 scp -r local_dir username@servername:remote_dir]]></content>
+      <categories>
+        <category>SSH</category>
+      </categories>
+      <tags>
+        <tag>ssh</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Android-基础-FileProvider使用]]></title>
+    <url>%2F2017%2F10%2F27%2FAndroid-%E5%9F%BA%E7%A1%80-FileProvider%E4%BD%BF%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[移动平台对于安全和隐私是越来越注重了，Android在权限方面也在不断的收紧，一定程度上对于流氓软件还是有克制作用的。 今天学习了一下FileProvider和文档)的基本使用： 1.定义Provider首先要在MManifest文件中定义一个Provider，其中authorities=包名.fileprovider。 12345678910111213141516&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; package=&quot;com.example.myapp&quot;&gt; &lt;application ...&gt; &lt;provider android:name=&quot;android.support.v4.content.FileProvider&quot; android:authorities=&quot;com.example.myapp.fileprovider&quot; android:grantUriPermissions=&quot;true&quot; android:exported=&quot;false&quot;&gt; &lt;meta-data android:name=&quot;android.support.FILE_PROVIDER_PATHS&quot; android:resource=&quot;@xml/filepaths&quot; /&gt; &lt;/provider&gt; ... &lt;/application&gt;&lt;/manifest&gt; 2.创建filepaths文件在res目录下面新建一个xml目录，并在新建的xml目录下面创建一个filepaths的文件，内容如下所示： 1234&lt;paths xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt; &lt;files-path name=&quot;my_images&quot; path=&quot;images/&quot;/&gt; ...&lt;/paths&gt; 定义的路径又分为如下几种，分别对应内部存储和外部存储 12345&lt;files-path name=&quot;name&quot; path=&quot;path&quot; /&gt; Context.getFilesDir().&lt;cache-path name=&quot;name&quot; path=&quot;path&quot; /&gt; getCacheDir().&lt;external-path name=&quot;name&quot; path=&quot;path&quot; /&gt; Environment.getExternalStorageDirectory().&lt;external-files-path name=&quot;name&quot; path=&quot;path&quot; /&gt;Context#getExternalFilesDir(String) Context.getExternalFilesDir(null).&lt;external-cache-path name=&quot;name&quot; path=&quot;path&quot; /&gt; Context.getExternalCacheDir(). 其中，name是出于安全考虑用于替换path显示的，path则是真实的次级目录 3.创建一个可分享的Uri123File imagePath = new File(Context.getFilesDir(), &quot;images&quot;);File newFile = new File(imagePath, &quot;default_image.jpg&quot;);Uri contentUri = FileProvider.getUriForFile(getContext(), &quot;com.mydomain.fileprovider&quot;, newFile); 最终获取到的Uri是content://com.mydomain.fileprovider/my_images/default_image.jpg，可以看到实际的images路径被替换为my_images了。]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>FileProdvider</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Android Studio 代理设置]]></title>
+    <url>%2F2017%2F10%2F22%2FAndroid-Studio-%E4%BB%A3%E7%90%86%E8%AE%BE%E7%BD%AE%2F</url>
+    <content type="text"><![CDATA[最近因为Lantern老是出问题，又买了一个搬瓦工的，搭建好后速度还是可以的，Youtube上面1080P没有卡顿现象。但是各种工具的是使用又出现了问题，所以特意记录一下，节省下次切换工具配置的时间。 git配置首先是配置git的代理，以下是http(s)配置 12git config --global https.proxy &apos;http://127.0.0.1:1080&apos;git config --global http.proxy &apos;http://127.0.0.1:1087&apos; 12git config --global https.proxy &apos;http://127.0.0.1: 65322&apos;git config --global http.proxy &apos;http://127.0.0.1: 65322&apos; 12export http_proxy=http://127.0.0.1:1087;export https_proxy=http://127.0.0.1:1087; Gradle配置在全局的gradle.properties中添加以下配置，这样子每个项目的gradle同步都回使用ss代理了。 1234systemProp.http.proxyHost=127.0.0.1systemProp.http.proxyPort=1087systemProp.https.proxyHost=127.0.0.1systemProp.https.proxyPort=1087 Android Studio代理设置目前来看启用自动代理即可]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>Proxy</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[ssh免登录]]></title>
+    <url>%2F2017%2F10%2F22%2Fssh%E5%85%8D%E7%99%BB%E5%BD%95%2F</url>
+    <content type="text"><![CDATA[基本知识Secure Shell（缩写为SSH），由IETF的网络工作小组（Network Working Group）所制定；SSH为一项创建在应用层和传输层基础上的安全协议，为计算机上的Shell（壳层）提供安全的传输和使用环境。 平时我们会通过ssh远程登录我们的主机来进行管理，在Mac下面一般我会通过自带的Terminal或者iterm2直接登录，而在Windows下面的话通常会使用Putty进行登录。 登录流程12345678910基本登录ssh user@host (用户名+主机地址)如果本机用户名跟远程的主机用户名一致，可以省略掉用户ssh hostssh默认端口是22，如果端口不是默认值则需要指定端口登录ssh user@host -p 1111 指定端口1111，使用用户user登录到主机在输入完上面的指令以后接下来就是输入密码了，此处就不再累述了 公钥登录在上面的流程中，我们每次都需要重新输入密码才能够进行登录，那么可不可以免密码直接登录了，答案当然是可以的了。 通过公钥登录可以实现免密码登录，首先在客户端生成一对公钥私钥，然后将公钥添加到远程主机的12具体流程如下： 在客户端生成一对公钥私钥 ssh-keygen这个时候在目录~/.ssh/下面就会生成id_rsa.pub（公钥），id_rsa（私钥） 将公钥拷贝到远程主机 ssh-copy-id user@host``` 经过上述流程我们就实现了ssh免密码登录的流程了。]]></content>
+      <categories>
+        <category>shell</category>
+      </categories>
+      <tags>
+        <tag>shell</tag>
+        <tag>ssh</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Android - 性能优化第五季]]></title>
+    <url>%2F2017%2F09%2F12%2FAndroid-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E7%AC%AC%E4%BA%94%E5%AD%A3%2F</url>
+    <content type="text"><![CDATA[Android Performance Pattern Season 51. Thread PerformanceThe main process(UI Thread) does this: System Events Input Events Application Service Alarm UI Drawing If there is a large chunk of work between an input event and its callback, then the user will have to wait a longer than expected to see results. If render is not finished in 16ms(60frame/s), and it will cause dropped frame. So android provide lot of solution to this heavy task: AsyncTask support serial single progress and parallel on a pool of threads managed by AsyncTask HandlerThread ThreadPool]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>Performance</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Android - 通过hierarchy View来分析布局]]></title>
+    <url>%2F2017%2F08%2F28%2FAndroid-%E9%80%9A%E8%BF%87hierarchy-View%E6%9D%A5%E5%88%86%E6%9E%90%E5%B8%83%E5%B1%80%2F</url>
+    <content type="text"><![CDATA[Hierarchy Viewer是Android device monitor内嵌的一个工具，可以通过这个工具来检查你的层次视图的属性和Layout的速度。他能够帮你找到层次布局结构的性能瓶颈，帮助你简化层次布局减少过度绘制。 开始如果使用Android模拟器的话可以略过这一段。否则的话，需要对你的设备进行如下的配置： 注意：你的设备需要时Android4.1及以上API版本 打开设备的开发者模式 在你的开发电脑上设置环境变ANDROID_HVPROTO=ddm，这个变量告诉Hierarchy Viewer使用和DDMS协议一致的ddm协议来连接你的设备。但是host只能够有一个进程连接到设备，所以你必须关闭其他通过Hierarchy Viewer运行的DDMS会话 开始使用Hierarchy Viewer打开Android device monitor后如下图所示： 连接你的设备到电脑。 打开Android Studio，运行一个软件到你的设备 在Android Studio-Tools-Android-Android device monitor。 选择Hierarchy View 在左边的窗口双击你的包名。 熟悉工具下图是Hierarchy Viewer的面板:]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>Performance</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Android - Performance and View Hierarchies]]></title>
+    <url>%2F2017%2F08%2F27%2FAndroid-Performance-and-View-Hierarchies%2F</url>
+    <content type="text"><![CDATA[布局的层次对于应用的性能影响也是很显著的。 布局和测量性能渲染本身包含了Layout和Measure两个过程，系统在这两个过程中确定View hierarchy的具体位置。Measure过程确定了View的尺寸和边界，Layout过程则确定了View在屏幕的位置。 这两个过程本身会占用一些系统的资源。当然，大多数时候，这个过程占用的系统资源较少，不会对性能造成显著的影响。但是，如果你的应用需要添加或者移除View对象就会显著开销更多的资源，例如Recycleview回收或者复用。或者当一个View对象需要重绘来满足它的约束的时候，也会占用更多的资源。例如，给一个WRAP_CONTENT的View对象设置文本，会导致重绘。 如果一个渲染过程过长，就会导致无法在16ms内渲染完一帧，这就会导致掉帧，动画也会变得卡顿。 由于UI的绘制是处于主线程的，所以对于这些导致卡顿的问题需要优化，从而让我们的应用变得流畅。 管理复杂度：Layout相关Android布局允许你嵌套UI对象，这种嵌套经常会导致额外的开销。当你的应用渲染一个Layout的对象，应用同时需要渲染它的所有的子View。对于一个复杂的Layout，有时候系统只有在第一次加载的时候会比较占用系统资源。例如，你的应用中有一个复杂的复用过的Recycleview，系统需要加载所有的对象。其他例子，一个微不足道的变化可能会导致视图层次的一系列的重绘。 Layout过程中视图层次的嵌套会显著导致绘制的时间增加。因此，越少层次的嵌套，Layout过程花费的时间就越少。 如果你使用RelativeLayout，但是你也可能在不使用weight属性的情况下，通过使用LinearLayout实现。另外，如果你的target版本是Android7.0的话，你还可以使用ConstraintLayout，这是一个用于替换RelativeLayout的布局，它是一个功能类似，性能更好的RelativeLayout。 “双重税收”一般来说，系统执行Layout或者Measure过程是非常快的。但是，对于一些很复杂的Layout，系统可能需要多次绘制才能够最终确定所有对象的位置。这种超过一次的Layout和Measure过程就是所谓的双重税收。 例如，当你使用一个可以通过一个View对象确定另一个View对象的位置的RelativeLayout容器。系统会执行以下步骤： 根据每一个子View的约束条件，逐个执行Layout和Measure过程 使用前面的数据，同时计算View的weight，来给相对的View找到一个合适的位置 再次执行Layout过程来确定这些相对位置的View 执行下一个渲染过程 如果你的视图层次越多，那么潜在性能问题就越多。 除了RelativeLayout其他容器也会导致双重税收。例如： 水平的线性布局会导致两次Layout和Measure过程。如果你给线性布局添加了measureWithLargestChild（其实是由于使用了weight属性的View的尺寸等于最大的子View的最小尺寸）也有可能由于要进行第二次Layout和Measure来确定每一个View对象的大小。 GridLayout同样也有类似的问题。这个容器同样允许相对位置，正常情况下，GridLayout会通过预处理确定号子View的相对关系来避免双重税收。但是，如果Layout使用了weight或者Gravity的时候，它的预处理就没了，当容器是RelativeLayout的时候系统可能需要多次执行这个过程。 多次的Layout和Measure过程本身并不是一个性能负担。但是，他们会在某些场景下成为一种负担。我们应该对以下的情况保持足够的警惕： 布局层次的根布局 布局层次过多 一个界面产生很多的实例，例如ListView 诊断布局层次问题布局性能问题受到很多因素的影响而变成了一个复杂的问题。以下是一些帮助你找到性能瓶颈的工具。当然也有一些其他的，没有那么确定性的工具，但也能提供一些提示帮助我们找到问题。 SystraceSystrace是一个Android SDK内嵌的诊断性能问题的工具。这个工具允许我们查看整个设备的时间信息，允许你查看什么时候会因为Layout的性能问题影响到设备的性能。 GPU呈现模式lint检查Hierarchy Viewer解决布局层次问题减少无用的嵌套使用merge/include标签整体替换新的Layout]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>performance</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Android-性能优化-overdraw]]></title>
+    <url>%2F2017%2F08%2F22%2FAndroid-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96-overdraw%2F</url>
+    <content type="text"><![CDATA[现在项目的性能之差令人发指，其实主要原因在于： 开发人员本身能力有限，同时架构闻所未闻，见所未见。总而言之，搞不定。 产品设计从来都是乱搞，没有整体性的设计(感觉我们的app真是业界毒瘤之典范) 不过，我们还是要把能做好的做好了才行。 性能优化-OverDraw所谓overdraw(过度绘制)就是在一个点上进行了超过一次的绘制。过渡绘制是无意义的，需要我们去优化的，它会浪费GPU资源去渲染一些用户不可见的无意义的图层。关于如何查看过渡绘制，应该都是有所了解的。接下来是关于过度绘制：过度绘制是什么，怎么诊断过度绘制，你该采取何种方式取消除或者减轻过渡绘制。 理解过度绘制过渡绘制指的是系统在一个像素点是那个进行了多次的渲染。例如，我们一些堆叠的UI卡片，每一张卡片又隐藏了它的一部分。 当然，系统仍然需要绘制这叠卡片的隐藏部分，因为卡片的绘制是根据画家算法（“画家算法”表示头脑简单的画家首先绘制距离较远的场景，然后用绘制距离较近的场景覆盖较远的部分。）。这就是从下到上的顺序。这种渲染顺序允许系统增加合适的透明度给半透明的物体，例如阴影。 查找过度绘制Android提供了几种工具帮助你查找影响到你的app性能的过度绘制。这些工具在你的设备上打开开发者模式就可以找到。关于更多开发者选项，可以参见Run Apps on a Hardware Device。 调试GPU过度绘制工具调试GPU过度绘制工具使用颜色来代表你的应用在一个像素点上渲染的次数。渲染次数越多，过度绘制就越会影响你的应用性能。 关于如何使用这些工具，请继续往下看： 调试GPU过度绘制查验这种检查方法是通过颜色来形象化手机中的过度绘制，有如下好处： 显现出应用做了哪些无用的渲染工作 帮助你找到可能能够减少渲染的天花板 在开发者选项 - 调试GPU过度绘制 - 选用显示过度绘制区域，然后回到你的应用，这时候你看到的颜色 原色：没有过度绘制 蓝色：一次过度绘制 绿色： 两次过度绘制 粉红色： 三次过度绘制 红色：四次或者四次以上的过度绘制 有时候过度绘制是不可避免的。当你调试你的UI的时候，你的界面应该尽量是原色或者蓝色。 GPU呈现模式分析GPU呈现模式会在屏幕显示一个滚动的柱状图，每一个长方形都代表一帧的绘制 在一些低性能的GPU设备上，GPU填满帧缓存区的速度会变得很慢。当很多像素需要绘制的时候，GPU需要花很长的时间来执行新的命令，这就会导致系统对于其它的请求反应变得很慢。 优化过度绘制 减少不必要的背景 扁平化布局，减少布局的层次 少使用transparency属性 减少不必要的背景布局本身是没有背景的，这就意味着他本身并不需要渲染背景。当布局本身有了背景以后，就意味着她可能会导致过度绘制。 移除不必要的背景是一种快速修复渲染问题的手段。当绘制的背景对于用户来说完全不可见的时候就可以取移除掉这些背景了。例如一个设置了背景色的app，那么定义在Activity中的任意一个容易本身是不需要背景的。 如果需要知道为什么你的app会出现过度绘制，你可以使用Hierarchy View工具。当你使用这个工具的时候，消除所有对于用户不可见的背景。当然，我们可以通过设置一个通用的背景来达到消除不必要的背景的目的，这样子绘制的容器就可以不再定义自己的背景而使用app的通用背景（windowbackgroud）。 减少布局的层次不局的过多嵌套同样也会导致过度绘制，同时也会因为节点过深导致视图的加载变慢。我们应该减少UI的重叠绘制，详情参见Optimizing View Hierarchies 使用transparency使用Alpha值的时候，同捕鱼常规的过度绘制即在同一像素点多次绘制，transparent属性的对象首先需要已经存在的像素进行绘制，然后进行等价的混合。例如，一个黑色字体的TextView通过添加Alpha值来达到灰色的效果，当然这个时候可以直接使用灰色来替换。 transparent animations, fade-outs, 以及 drop shadows以及其他的半透明效果，都会显著导致过度绘制。]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>Performance</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[git-常用命令]]></title>
+    <url>%2F2017%2F08%2F07%2Fgit-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%2F</url>
+    <content type="text"><![CDATA[开始 git clone http://xx/zhj_android.git 添加.gitignore到根目录，参考资料 git add .gitignore 添加该文件到版本控制，提交到暂存区 git commit -m “add .gitignore file” 从暂存区提交到当前分支 git push 提交到远程仓库 常用的git命令 git rm -r xx 从版本控制中移除xx目录及子目录 rm -rf xx 如果xx中还有git的子模块，需要使用该命令删除 git reset –hard HEAD 重置未提交的记录到HEAD Version，HEAD^回滚到上个版本,HEAD^^上上个版本，依次类推，或者指定回退HEAD~xx,xx个版本,或者指定log 提交的id git init 初始化一个目录为git仓库 git status 查看仓库状态 git diff 查看变更，同时也可以指定xx文件或者目录 git add xx 添加xx到git版本控制，每一次修改文件以后都需要添加到版本控制系统 git commit -m “xx” 提交到本地仓库，提交信息为xx (每次修改，如果不add到暂存区，那就不会加入到commit中。) git log 查看提交日志 git log –pretty=oneline git log的美化版 git reflog 查看每一次的git提交命令 git checkout -b branchname 新建分支 git checkout branchname 切换到分支 git branch 列举所有分支，带*号的为当前都在分支，加上 -r参数则是列举的远程分支 git merge branchname 合并分支到当前分支，合并模式有FAST_FORWARD 无冲突自动合并， git branch -d branchname 删除分支 git log –pretty=oneline –abbrev-commit git tag v0.9 6224937 git push origin v5.0.1 创建远程tag或者分支，前提是这个要存在 git checkout – xxx 回滚xxx git remote add origin http://192.168.204.42/ZHJ/zhj_kernel.git 添加远程 暂存当前更改 git stash 存储 git stash list 存储列表 git stash apply 取出存储的内容不删除缓存 git stash pop 去除存储的内容并删除缓存 git stash clear 清除所有的存储内容 合并指定commit git cherry-pick log-hash]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>命令行</tag>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Android-导入Sample Code]]></title>
+    <url>%2F2017%2F07%2F19%2FAndroid-%E5%AF%BC%E5%85%A5Sample-Code%2F</url>
+    <content type="text"><![CDATA[Android Studio提供了很多的模板和sample用于提升我们的开发速度，如何利用好这些工具来提升我们的开发效率就是一个很值得学习的问题了。 导入Sample Code 选择File &gt; New &gt; Import Sample 使用搜索框查找你想要的内容,如下图所示： 选择你想要的内容，选中点击next &gt; finish 注意由于总所周知的问题，我们在第一步的时候可能会出现找不到资源的问题，这个时候我们就需要在翻墙的情况下设置Android Studio的代理了。 Preference &gt; Appearance &amp; Behavior &gt; System Setting &gt; Http Proxy &gt; Auto-detect proxy settings勾选即可，下方的URL无需勾选和填写。这里是我的lantern推荐码 Use my code MFST5N and get 3 months free when you sign up!]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Android-通过不同的res目录指定不同的资源文件]]></title>
+    <url>%2F2017%2F07%2F19%2FAndroid-%E9%80%9A%E8%BF%87%E4%B8%8D%E5%90%8C%E7%9A%84res%E7%9B%AE%E5%BD%95%E6%8C%87%E5%AE%9A%E4%B8%8D%E5%90%8C%E7%9A%84%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6%2F</url>
+    <content type="text"><![CDATA[在Android开发中，我们可能会遇到针对不同的版本进行不同的配置，比如说使用不同的资源文件。官网传送门。 自定义资源文件夹路径默认的资源文件实在 例如：main的资源文件就在src/main/res/目录下。12不过我们也可以通过自定义的方式指定资源文件目录，如下所示： android { sourceSets { main { res.srcDirs = [&apos;resources/main&apos;] } debug { res.srcDirs = [&apos;resources/debug&apos;] } } } 12当然我们也可以指定多个资源文件目录： android { sourceSets { main { res.srcDirs = [&apos;resources/main&apos;, &apos;resources/test&apos;] } debug { res.srcDirs = [&apos;resources/debug&apos;] } } } ``` 不过要注意的是同时指定多个资源文件夹的时候文件不能重复，否则在后续构建合并资源文件的时候会出现重复的错误。 #####资源合并]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Android-应用认领---空包写入签名]]></title>
+    <url>%2F2017%2F07%2F12%2FAndroid-%E5%BA%94%E7%94%A8%E8%AE%A4%E9%A2%86-%E7%A9%BA%E5%8C%85%E5%86%99%E5%85%A5%E7%AD%BE%E5%90%8D%2F</url>
+    <content type="text"><![CDATA[最近公司项目在百度进行认领，需要将自己的签名写入百度的空包上传，过程如下： 1.执行如下命令-verbose -keystore appkey.keystore -signedjar sign.apk Baidu_Claim_unsigned.apk keyAlias```123456789101112其中appkey.keystore：自己的签名文件，可以加上绝对路径sign.apk：输出文件Baidu_Claim_unsigned.apk：原始文件keyAlias: 密玥的别名此过程需要输入密玥的密码，然后按enter即会执行。2.执行过程中的输出 Enter Passphrase for keystore:adding: META-INF/MANIFEST.MFadding: META-INF/.SFadding: META-INF/.RSAsigning: AndroidManifest.xmlsigning: res/drawable/ic_launcher.pngsigning: res/layout/activity_main.xmlsigning: resources.arscsigning: classes.dexjar signed. Warning:No -tsa or -tsacert is provided and this jar is not timestamped. Without a timestamp, users may not be able to validate this jar after the signer certificate’s expiration date (2043-11-01) or after any future revocation date.``` 3.执行完毕会在当前目录生成一个新的apk，用这个apk上传即可]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>日常</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[今天雨好大]]></title>
+    <url>%2F2017%2F06%2F20%2F%E4%BB%8A%E5%A4%A9%E9%9B%A8%E5%A5%BD%E5%A4%A7%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[Google IoSched 代码阅读笔记]]></title>
+    <url>%2F2017%2F06%2F19%2FGoogle-IoSched-%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%2F</url>
+    <content type="text"><![CDATA[最近做项目做的越来越烦人了，可以说近一年以来基本上没什么长进，反而有所退步。以往的激情已经被业务磨灭，真的真的该重新做点什么了。人无近虑，必有远忧。一直逃不开自己的舒适区，让自己在放纵，另一方面也是担忧自己当下的技能能否适应新的环境，总而言之，真的该认真学习好好看书了。否则的话，自己会被淘汰的。 一、代码目录结构本项目是一个比较传统的目录结构(其实还是有一些向MVP方向发展了)，即根据功能点进行分包，如下所示: 1、我的日程界面组成元素：TabLayout + ViewPager + ListFragment 1.1、在Activity中的内部类标准的使用流程如下，通过弱引用的方式持有Activity，防止由于内部类持有外部类导致的内存泄露 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051/** * If in conference day, redraw the day&apos;s UI every @&#123;link #INTERVAL_TO_REDRAW_UI&#125; ms, so * that time sensitive widgets, like &quot;now&quot;, &quot;ended&quot; and appropriate styles are updated. * * @param today the index in the conference days array that corresponds to the current day. */private void setTimerToUpdateUI(final int today) &#123; new UpdateUIRunnable(this, today, new Handler()).scheduleNextRun();&#125;boolean hasBeenDestroyed() &#123; return mDestroyed;&#125;static final class UpdateUIRunnable implements Runnable &#123; final WeakReference&lt;MyScheduleActivity&gt; weakRefToParent; final Handler handler; final int today; public UpdateUIRunnable(MyScheduleActivity activity, int today, Handler handler) &#123; weakRefToParent = new WeakReference&lt;MyScheduleActivity&gt;(activity); this.handler = handler; this.today = today; &#125; public void scheduleNextRun() &#123; handler.postDelayed(this, INTERVAL_TO_REDRAW_UI); &#125; @Override public void run() &#123; MyScheduleActivity activity = weakRefToParent.get(); if (activity == null || activity.hasBeenDestroyed()) &#123; LOGD(TAG, &quot;Ativity is not valid anymore. Stopping UI Updater&quot;); return; &#125; LOGD(TAG, &quot;Running MySchedule UI updater (now=&quot; + new Date(UIUtils.getCurrentTime(activity)) + &quot;)&quot;); if (activity.mScheduleAdapters != null &amp;&amp; activity.mScheduleAdapters.length &gt; today &amp;&amp; activity.mScheduleAdapters[today] != null) &#123; try &#123; activity.mScheduleAdapters[today].forceUpdate(); &#125; finally &#123; // schedule again this.scheduleNextRun(); &#125; &#125; &#125;&#125; 1.2、在XML文件中利用tools属性可能我们已经习惯了在编写代码的时候设置一个默认的android:text=”这是一个XXX”之类的文本用于预览，但实际上我们可以通过tools:text=”这才是正确的使用方式”，当然硬编码的方式也是错误的。首先附上官方教程，官网永远是我们学习的最佳来源。 1234567891011121314151617&lt;RootTag xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; xmlns:tools=&quot;http://schemas.android.com/tools&quot; &gt;&lt;TextView android:id=&quot;@+id/slot_description&quot; android:layout_width=&quot;match_parent&quot; android:layout_height=&quot;wrap_content&quot; android:layout_marginTop=&quot;4dp&quot; android:layout_marginEnd=&quot;8dp&quot; android:layout_marginRight=&quot;8dp&quot; android:textSize=&quot;@dimen/text_size_medium&quot; tools:text=&quot;9:00 AM - 11:30 AM / Room 1&quot; style=&quot;@style/Body1Text&quot; /&gt; &lt;/RootTag&gt;``` ##### 1.2.1、tools:ignore在任何元素中使用，主要是用于lint检查的时候忽略，例如： &lt;string name=”show_all_apps” tools:ignore=”MissingTranslation&gt;All12##### 1.2.2、tools:targetApi在任何元素中使用，主要是用于lint检查的时候忽略，此属性和java中的注释代码[@TargetAPi](https://developer.android.com/reference/android/annotation/TargetApi.html)类似，通过这个属性你能指定元素所能运行的API版本，例如下面这个，指定了这个GridLayout只能用于API版本14以上的版本： 12##### 1.2.3、tools:locale在任何元素中使用，主要是用于lint检查的时候忽略，此属性和java中的注释代码[@TargetAPi](https://developer.android.com/reference/android/annotation/TargetApi.html)类似，通过这个属性你能指定元素所能运行的API版本，例如下面这个，指定了这个GridLayout只能用于API版本14以上的版本： 12345678##### 1.2.4、tools:instead of android在View中使用，主要是用于Android Studio layout editor，如本节开始所示。##### 1.2.5、tools:context在xml文件的跟布局中使用，主要是用于Android Studio layout editor，可以指定该xml文件预览时的主题以及类似于onClick属性使用QuickFix快捷生成对应方法所在的Activity。![image](./images/tools-attribute-context_2x.png) 1234##### 1.2.6、tools:layout在xml文件的跟布局中使用，主要是用于Android Studio layout editor，可以指定该Fragment预览时候的布局。![image](./images/tools-attribute-context_2x.png) 1234567891011121314151617##### 1.2.7、还有更多需要去学习#### 1.3、处理Fragment中的生命周期大家都知道，在Fragment使用过程中，有时候会出现getActivity()=null的情况，这时候就会导致NullPointException(**注意：如需 Fragment 内的某个 Context 对象，可以调用 getActivity()。但要注意，请仅在片段附加到 Activity 时调用 getActivity()。如果片段尚未附加，或在其生命周期结束期间分离，则 getActivity() 将返回 null**)。因此，我们可以在onAttach()的时候传入Activity，如下所示：``` @Override public void onAttach(Activity activity) &#123; super.onAttach(activity); LOGD(TAG, &quot;Attaching to activity&quot;); mActivity = activity; &#125; @Override public void onDetach() &#123; super.onDetach(); mActivity = null; &#125; 高版本API 1234567891011public void onAttach(Context context) &#123; super.onAttach(context); LOGD(TAG, &quot;Attaching to activity&quot;); mActivity = (Activity)context;&#125;@Overridepublic void onDetach() &#123; super.onDetach(); mActivity = null;&#125; 2、探索2.1、3、地图4、社交5、视频6、设置6.1、使用PreferenceFragment7、关于7.1、加载HTML资源···Html.fromHtml(getString(&lt;![CDATA[ &lt;b&gt;Google I/O 2015&lt;/b&gt;&lt;br&gt; Version %s ]]&gt;,&quot;xxx&quot;))``` 7.28、调试8.1、使用PreferenceFragment]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[数据库语法学习]]></title>
+    <url>%2F2017%2F06%2F16%2F%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0%2F</url>
+    <content type="text"><![CDATA[一、基本语法1. select 1 vs select * 效率区分select 1 from table;与select anycol(目的表集合中的任意一行） from table;与select from table 从作用上来说是没有差别的，都是查看是否有记录，一般是作条件查询用的。select 1 from 中的1是一常量（可以为任意数值），查到的所有行的值都是它，但从效率上来说，1&gt;anycol&gt;，因为不用查字典表。 2. 创建视图视图是一种简单的数据查询机制，不涉及数据的存储。视图的字段名称可以与select的表不一致,视图创建以后可以跟其他的业务表进行关联，也可以正常的使用group by, having 和order by 之类的语法。 1234create view products_vw(id,name,code,init_amt,init_prc,init_stock,current_stock)as select id,name,code,init_amt,init_prc,init_stock,cur_stockfrom products 那么使用视图的意义在哪里了。 2.1 数据安全在创建视图的时候将敏感数据不引入视图，这样子提供视图给终端用户使用就达到了保护数据的目的了 2.2 数据聚合数据汇总，辅助创建新表 12345678create table products_new as select * from products_vwcreate or replace products_vw (id,name,code,init_amt,init_prc,init_stock,current_stock)asselect id,name,code,init_amt,init_prc,init_stock,current_stock from products_new 2.3 隐藏复杂性2.4 连接分区数据]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>数据库</tag>
+        <tag>基础知识</tag>
+        <tag>开发</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Shell学习]]></title>
+    <url>%2F2017%2F06%2F05%2FShell%E5%AD%A6%E4%B9%A0%2F</url>
+    <content type="text"><![CDATA[初学遇到的一些问题 Shell脚本第一行不能直接申明Shebang，第一行写备注。否则会出现：bad interpreter: bin/zsh: no such file or directory（使用zsh如上提示，使用bash则是bin/bash）]]></content>
+      <categories>
+        <category>Shell</category>
+      </categories>
+      <tags>
+        <tag>Shell</tag>
+        <tag>命令行</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Linux 命令行学习]]></title>
+    <url>%2F2017%2F05%2F24%2FLinux-%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%AD%A6%E4%B9%A0%2F</url>
+    <content type="text"><![CDATA[1: 别名alias 别名列表展示： alias设置： alias name=’string’ eg: alias foo=’ls -al’取消设置: unalias foo 2：I/O重定向 cat - Concatenate files /连接文件 sort - Sort lines of text /排序文件 uniq - Report or omit repeated lines /报道或省略重复行 grep - Print lines matching a pattern /打印匹配行 wc - Pring newline, word, and byte counts for each file /打印文件中的换行符，字，和字节个数 head - Output the first part of a file /输出文件开头部分 tail - Output the last part of a file /输出文件结尾部分 tee - Read from standard input and write to standard output and files /读取标准输入，写入标准输出和文件 3：echo echo - Diaplay a line of text / 显示一行文本 4：进程 sof -i tcp:port 查看端口占用，显示PID kill -9 pid 干掉占用的进程 netstat -an | grep port]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Command</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[RecyclerView学习笔记]]></title>
+    <url>%2F2017%2F04%2F26%2FRecyclerView%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%2F</url>
+    <content type="text"><![CDATA[####自适应高度 继承LinearLayoutManager，重写onMeasure（）方法： if (getItemCount() == 0) { setMeasuredDimension(0, 0); } else { View view = recycler.getViewForPosition(0); if (view != null) { measureChild(view, widthSpec, heightSpec); int measuredWidth = View.MeasureSpec.getSize(widthSpec); int measuredHeight = getItemCount() * view.getMeasuredHeight(); setMeasuredDimension(measuredWidth, measuredHeight); } }]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Read godoc from very begain]]></title>
+    <url>%2F2017%2F04%2F19%2FRead-godoc-from-very-begain%2F</url>
+    <content type="text"><![CDATA[This is my note of reading godoc, i’ll try hard to improve my English level, keep on moving. How to write go codeWhen using command go get, it will fetch, build, install the package from Git or Mecurial or other revision control system.]]></content>
+      <categories>
+        <category>Golang</category>
+      </categories>
+      <tags>
+        <tag>Golang</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Spinner在某些机型上面无法收到第一次回掉的监听]]></title>
+    <url>%2F2017%2F04%2F08%2FSpinner%E5%9C%A8%E6%9F%90%E4%BA%9B%E6%9C%BA%E5%9E%8B%E4%B8%8A%E9%9D%A2%E6%97%A0%E6%B3%95%E6%94%B6%E5%88%B0%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%9B%9E%E6%8E%89%E7%9A%84%E7%9B%91%E5%90%AC%2F</url>
+    <content type="text"><![CDATA[最近碰到一个很奇怪的问题，同样的一组数据在不同的手机上面显示就是不一样。通过debug发现，在一些手机上，给Spinner设置默认值的时候并不会触发它的监听回掉，而在某些机型上面又是会触发的。所以需要给第一次回掉加一个flag，默认阻止第一次回掉的后续逻辑。]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>BUG修复</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Volley中出现的java.io.InterruptedIOException: thread interrupted]]></title>
+    <url>%2F2017%2F04%2F08%2FVolley%E4%B8%AD%E5%87%BA%E7%8E%B0%E7%9A%84java-io-InterruptedIOException-thread-interrupted%2F</url>
+    <content type="text"><![CDATA[最近碰到一个很奇怪的现象，就是我们的app在启东的时候第一次请求接口的时候很容易出现请求失败的现象，尤其是在清理掉缓存重新安装的时候。由于这个接口是访问的localhost，而这个localhost是我们自己在本地启用的一个服务。所以导致了我一开始就走进了一个死牛角尖，怀疑是不是这个服务没有运行起来，导致无法访问本地服务器，钻了死角。 后面通过查找资料发现，Volley在使用的时候通过RequestQueue添加一个Request是后如果再次调用了RequestQueue的start()方法就会出现这种问题。参考资料，来自stackoverflow。 public static RequestQueue newRequestQueue(Context context, HttpStack stack) { File cacheDir = new File(context.getCacheDir(), DEFAULT_CACHE_DIR); String userAgent = &quot;volley/0&quot;; try { String packageName = context.getPackageName(); PackageInfo info = context.getPackageManager().getPackageInfo(packageName, 0); userAgent = packageName + &quot;/&quot; + info.versionCode; } catch (NameNotFoundException e) { } if (stack == null) { if (Build.VERSION.SDK_INT &gt;= 9) { stack = new HurlStack(); } else { // Prior to Gingerbread, HttpUrlConnection was unreliable. // See: http://android-developers.blogspot.com/2011/09/androids-http-clients.html stack = new HttpClientStack(AndroidHttpClient.newInstance(userAgent)); } } Network network = new BasicNetwork(stack); RequestQueue queue = new RequestQueue(new DiskBasedCache(cacheDir), network); queue.start(); return queue; } 当使用RequestQueue的Start()方法的时候，Volley会调用stop方法确保所有的请求都是停止状态。 public void stop() { if (mCacheDispatcher != null) { mCacheDispatcher.quit(); } for (int i = 0; i &lt; mDispatchers.length; i++) { if (mDispatchers[i] != null) { mDispatchers[i].quit(); } } } 在stop()方法中调用了quit()方法： public void stop() { if (mCacheDispatcher != null) { mCacheDispatcher.quit(); } for (int i = 0; i &lt; mDispatchers.length; i++) { if (mDispatchers[i] != null) { mDispatchers[i].quit(); } } } 最终我们来到了这里，这就是我们为什么会出现thread被interrupte的原因，所以我们在使用RequestQueue的时候是不能调用Start()方法的。 public void interrupt() { // Interrupt this thread before running actions so that other // threads that observe the interrupt as a result of an action // will see that this thread is in the interrupted state. nativeInterrupt(); synchronized (interruptActions) { for (int i = interruptActions.size() - 1; i &gt;= 0; i--) { interruptActions.get(i).run(); } } }]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>BUG修复</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[IPC传递数据的大小限制]]></title>
+    <url>%2F2017%2F04%2F08%2FIPC%E4%BC%A0%E9%80%92%E6%95%B0%E6%8D%AE%E7%9A%84%E5%A4%A7%E5%B0%8F%E9%99%90%E5%88%B6%2F</url>
+    <content type="text"><![CDATA[最近碰到一个用户在使用app的某个功能的时候老是出现闪退情况，但是又没有别的用户反馈过这个问题。所以找用户拿数据过来看了一下，借过还真是用户的数据比较特殊： 用户在A界面传递一个LIST的对象到B界面，一个正常的使用Intent携带数据的情况，结果出现了闪退的情况。通过日志发现是： android.os.TransactionTooLargeException: data parcel size 4915644 bytes 然后查阅资料发现，现在的IPC机制其实是对传递的数据有大小限制的，一般来说是1MB，而我们传递的List中有483个对象，累积下来的大小远远超过1MB，故出现了这种问题。同样的如果我们传递一个Bitmap大小超过这个限制也会出现这种问题，所以我们在开发中要注意这些问题。]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>BUG修复</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[sql学习]]></title>
+    <url>%2F2017%2F03%2F20%2Fsql%E5%AD%A6%E4%B9%A0%2F</url>
+    <content type="text"><![CDATA[left join是以左表为准的，right join以右表为准，inner join不以谁为准，以条件为准 on条件是在生成临时表时使用的条件，它不管on中的条件是否为真，都会返回左边表中的记录。where条件是在临时表生成好后，再对临时表进行过滤的条件。这时已经没有left join的含义（必须返回左边表的记录）了，条件不为真的就全部过滤掉。 primary key(id, name) 复合主键，所有参数一致，才认为是一个相同的主键 CREATE INDEX 语句用于在表中创建索引。在不读取整个表的情况下，索引使数据库应用程序可以更快地查找数据。更新一个包含索引的表需要比更新一个没有索引的表更多的时间，这是由于索引本身也需要更新。因此，理想的做法是仅仅在常常被搜索的列（以及表）上面创建索引。 union all 的表必须有相同的列数，列名字可以不一致，如果缺少列的话需要补齐，比如说null as code, 0 as rece_amt]]></content>
+      <categories>
+        <category>后端</category>
+      </categories>
+      <tags>
+        <tag>SQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[MVP模式学习]]></title>
+    <url>%2F2017%2F03%2F17%2FMVP%E6%A8%A1%E5%BC%8F%E5%AD%A6%E4%B9%A0%2F</url>
+    <content type="text"><![CDATA[MVP模式是基于MVC模式在Android上面的一个变种，可以参考谷歌的官方架构项目Android-Architecture。在 MVC 模式中，Activity 应该是属于 View 这一层。而实质上，它既承担了 View，同时也包含一些 Controller 的东西在里面。这对于开发与维护来说不太友好，耦合度大高了。把 Activity 的 View 和 Controller 抽离出来就变成了 View 和 Presenter，这就是 MVP 模式。 View只负责处理视图状态Presenter处理逻辑Contract 连接View和Presenter 针对各个界面： public interface BasePresenter { void subscribe(); void unsubscribe(); } public interface BaseView&lt;T&gt; { void setPresenter(T presenter); } public interface AddEditTaskContract { interface View extends BaseView&lt;Presenter&gt; { void showEmptyTaskError(); void showTasksList(); void setTitle(String title); void setDescription(String description); boolean isActive(); } interface Presenter extends BasePresenter { void saveTask(String title, String description); void populateTask(); boolean isDataMissing(); } } public class AddEditTaskPresenter implements AddEditTaskContract.Presenter { @NonNull private final TasksDataSource mTasksRepository; @NonNull private final AddEditTaskContract.View mAddTaskView; @NonNull private final BaseSchedulerProvider mSchedulerProvider; @Nullable private String mTaskId; private boolean mIsDataMissing; @NonNull private CompositeSubscription mSubscriptions; /** * Creates a presenter for the add/edit view. * * @param taskId ID of the task to edit or null for a new task * @param tasksRepository a repository of data for tasks * @param addTaskView the add/edit view * @param shouldLoadDataFromRepo whether data needs to be loaded or not (for config changes) */ public AddEditTaskPresenter(@Nullable String taskId, @NonNull TasksDataSource tasksRepository, @NonNull AddEditTaskContract.View addTaskView, boolean shouldLoadDataFromRepo, @NonNull BaseSchedulerProvider schedulerProvider) { mTaskId = taskId; mTasksRepository = checkNotNull(tasksRepository); mAddTaskView = checkNotNull(addTaskView); mIsDataMissing = shouldLoadDataFromRepo; mSchedulerProvider = checkNotNull(schedulerProvider, &quot;schedulerProvider cannot be null!&quot;); mSubscriptions = new CompositeSubscription(); mAddTaskView.setPresenter(this); } @Override public void subscribe() { if (!isNewTask() &amp;&amp; mIsDataMissing) { populateTask(); } } @Override public void unsubscribe() { mSubscriptions.clear(); } @Override public void saveTask(String title, String description) { if (isNewTask()) { createTask(title, description); } else { updateTask(title, description); } } @Override public void populateTask() { if (isNewTask()) { throw new RuntimeException(&quot;populateTask() was called but task is new.&quot;); } mSubscriptions.add(mTasksRepository .getTask(mTaskId) .subscribeOn(mSchedulerProvider.computation()) .observeOn(mSchedulerProvider.ui()) .subscribe( // onNext task -&gt; { if (mAddTaskView.isActive()) { mAddTaskView.setTitle(task.getTitle()); mAddTaskView.setDescription(task.getDescription()); mIsDataMissing = false; } }, // onError __ -&gt; { if (mAddTaskView.isActive()) { mAddTaskView.showEmptyTaskError(); } })); } @Override public boolean isDataMissing() { return mIsDataMissing; } private boolean isNewTask() { return mTaskId == null; } private void createTask(String title, String description) { Task newTask = new Task(title, description); if (newTask.isEmpty()) { mAddTaskView.showEmptyTaskError(); } else { mTasksRepository.saveTask(newTask); mAddTaskView.showTasksList(); } } private void updateTask(String title, String description) { if (isNewTask()) { throw new RuntimeException(&quot;updateTask() was called but task is new.&quot;); } mTasksRepository.saveTask(new Task(title, description, mTaskId)); mAddTaskView.showTasksList(); // After an edit, go back to the list. } }]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Duplicate files copied in APK META-INF/LICENSE]]></title>
+    <url>%2F2017%2F03%2F15%2FDuplicate-files-copied-in-APK-META-INF-LICENSE%2F</url>
+    <content type="text"><![CDATA[今天使用jackson的时候碰到了如下错误： Error:Execution failed for task &apos;:app:transformResourcesWithMergeJavaResForDebug&apos;. &gt; com.android.build.api.transform.TransformException: com.android.builder.packaging.DuplicateFileException: Duplicate files copied in APK META-INF/LICENSE File1: /Users/Eveee/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.7.2/8b8310381b690e317f5f0574e9b2dd7034778b4c/jackson-core-2.7.2.jar File2: /Users/Eveee/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.7.0/19f42c154ffc689f40a77613bc32caeb17d744e3/jackson-annotations-2.7.0.jar File3: /Users/Eveee/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.7.2/84ffa765dd258dbab8695963c41308b054f3a1cb/jackson-databind-2.7.2.jarError:Execution failed for task &apos;:app:transformResourcesWithMergeJavaResForDebug&apos;. &gt; com.android.build.api.transform.TransformException: com.android.builder.packaging.DuplicateFileException: Duplicate files copied in APK META-INF/LICENSE File1: /Users/Eveee/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.7.2/8b8310381b690e317f5f0574e9b2dd7034778b4c/jackson-core-2.7.2.jar File2: /Users/Eveee/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.7.0/19f42c154ffc689f40a77613bc32caeb17d744e3/jackson-annotations-2.7.0.jar File3: /Users/Eveee/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.7.2/84ffa765dd258dbab8695963c41308b054f3a1cb/jackson-databind-2.7.2.jar 在module的gradle文件中添加如下代码即可: Android{ packagingOptions { exclude &apos;META-INF/DEPENDENCIES&apos; exclude &apos;META-INF/NOTICE&apos; exclude &apos;META-INF/LICENSE&apos; exclude &apos;META-INF/LICENSE.txt&apos; exclude &apos;META-INF/NOTICE.txt&apos; } }]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>错误</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Android LeakCanary学习笔记]]></title>
+    <url>%2F2017%2F03%2F13%2FAndroid-LeakCanary%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%2F</url>
+    <content type="text"></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Andriod</tag>
+        <tag>内存优化</tag>
+        <tag>工具</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Android Studio快捷键]]></title>
+    <url>%2F2017%2F03%2F11%2FAndroid-Studio%E5%BF%AB%E6%8D%B7%E9%94%AE%2F</url>
+    <content type="text"><![CDATA[一般IDE通过option + 方向键对光标进行单词的跳动，java中使用驼峰命名法较多，可以通过勾选 Editor - General - Smart Keys - 勾选Use “CamelHumps” words设置按单词跳动 由于设置了第一条进行单词跳动，双击鼠标的时候我们会发现选中的也只是驼峰命名法单词的其中的一个，所以我们需要取消勾选设置 Editor - General - Honor “CamelHumps” words settings when selecting on double click Command + shift + e 打开最近编辑的文件，配合Control + tab 键切换文件 Command + e 打开最近文件 Command + o 查找类文件，按两次可以选择 include non-projcet classes Command + shift + o 查找文件，按两次同样可以选择项目外的文件 Shift 点击两次，搜索所有地方,再点击两次可以同上 Command + [ – 后退 Command + ] – 前进 Command + shift + 方向键 移动行 option + F7 检查方法是在哪里被引用 Command + B类似于Command + 点击跳转到方法内部，如果是一个方法则检查引用 Command + P获取方法的参数，F1可以选择查看文档 Command + D复制行 alt + 鼠标 多行选择编辑，超极酷炫的小功能，别的文档编辑工具也支持 alt + shift + 鼠标可以创建一个光标，这样子就可以跨行选择了 command + shift + enter行尾补全 方法体大括号的添加 行尾分号的添加 自动格式化改行操作等 option + enter 快速生成变量 Command + +/- 展开/折叠代码 Command + Y 预览代码 Command + shift + v 查看最近复制的内容 Command + F12 预览一个类的结构 Control + T 快速重构 Command + J 缩写 Command + 方向键直接跳转到行首或者行尾 Shift + f6 重命名 Command + 1 显示隐藏Project窗口 Command + 6 显示隐藏Android Monitor窗口 Command + 9 显示隐藏Version Control窗口 Command + shift + f12 隐藏所有窗口]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>工具</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Android中获取文件的md5值]]></title>
+    <url>%2F2017%2F03%2F11%2FAndroid%E4%B8%AD%E8%8E%B7%E5%8F%96%E6%96%87%E4%BB%B6%E7%9A%84md5%E5%80%BC%2F</url>
+    <content type="text"><![CDATA[在Android中获取文件的MD5值，来自CM /* * Copyright (C) 2012 The CyanogenMod Project * * * Licensed under the GNU GPLv2 license * * The text of the license can be found in the LICENSE file * or at https://www.gnu.org/licenses/gpl-2.0.txt */ package com.cyanogenmod.updater.utils; import android.text.TextUtils; import android.util.Log; import java.io.File; import java.io.FileInputStream; import java.io.FileNotFoundException; import java.io.IOException; import java.io.InputStream; import java.math.BigInteger; import java.security.MessageDigest; import java.security.NoSuchAlgorithmException; public class MD5 { private static final String TAG = &quot;MD5&quot;; public static boolean checkMD5(String md5, File updateFile) { if (TextUtils.isEmpty(md5) || updateFile == null) { Log.e(TAG, &quot;MD5 string empty or updateFile null&quot;); return false; } String calculatedDigest = calculateMD5(updateFile); if (calculatedDigest == null) { Log.e(TAG, &quot;calculatedDigest null&quot;); return false; } Log.v(TAG, &quot;Calculated digest: &quot; + calculatedDigest); Log.v(TAG, &quot;Provided digest: &quot; + md5); return calculatedDigest.equalsIgnoreCase(md5); } public static String calculateMD5(File updateFile) { MessageDigest digest; try { digest = MessageDigest.getInstance(&quot;MD5&quot;); } catch (NoSuchAlgorithmException e) { Log.e(TAG, &quot;Exception while getting digest&quot;, e); return null; } InputStream is; try { is = new FileInputStream(updateFile); } catch (FileNotFoundException e) { Log.e(TAG, &quot;Exception while getting FileInputStream&quot;, e); return null; } byte[] buffer = new byte[8192]; int read; try { while ((read = is.read(buffer)) &gt; 0) { digest.update(buffer, 0, read); } byte[] md5sum = digest.digest(); BigInteger bigInt = new BigInteger(1, md5sum); String output = bigInt.toString(16); // Fill to 32 chars output = String.format(&quot;%32s&quot;, output).replace(&apos; &apos;, &apos;0&apos;); return output; } catch (IOException e) { throw new RuntimeException(&quot;Unable to process file for MD5&quot;, e); } finally { try { is.close(); } catch (IOException e) { Log.e(TAG, &quot;Exception on closing MD5 input stream&quot;, e); } } } }]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[uuid通用唯一识别码]]></title>
+    <url>%2F2017%2F03%2F03%2Fuuid%E9%80%9A%E7%94%A8%E5%94%AF%E4%B8%80%E8%AF%86%E5%88%AB%E7%A0%81%2F</url>
+    <content type="text"><![CDATA[通用唯一识别码（Universal Unique Identifier简称UUID）是一种软件建构的标准。 UUID的目的，是让分布式系统中的所有元素，都能有唯一的辨识信息，而不需要通过中央控制端来辨识信息的指定。如此依赖，每个人都可以穿件捕鱼其他人冲突的UUID。这样的情况下，就不需要考虑数据库创建时的名称重复问题。目前最广泛应用的UUID，是微软的全局统一标识符（GUID）。 定义UUID是由一组32位数的16进制数字所构成，是故UUID理论上的总数为1632=2128，约等于3.4 x 1038。也就是说若每纳秒产生1兆个UUID，要花100亿年才会将所有UUID用完。 UUID的标准型式包含32个16进制数字，以连字号分为五段，形式为8-4-4-4-12的32个字符。示例： 550e8400-e29b-41d4-a716-446655440000 UUID亦可刻意重复以表示同类。例如说微软的COM中，所有组件皆必须实现出IUnknown接口，方法是产生一个代表IUnknown的UUID。无论是程序试图访问组件中的IUnknown接口，或是实现IUnknown接口的组件，只要IUnknown一被使用，皆会被参考至同一个ID：00000000-0000-0000-C000-000000000046。]]></content>
+      <categories>
+        <category>计算机基础</category>
+      </categories>
+      <tags>
+        <tag>计算机基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[序列化]]></title>
+    <url>%2F2017%2F02%2F26%2F%E5%BA%8F%E5%88%97%E5%8C%96%2F</url>
+    <content type="text"><![CDATA[在Android中我们经常使用到序列化来进行数据传递,比如Intent和Binder,或者将对象持久化到存储设备或者通过网络传输到其他设备的时候.通常我们会有两种方式来实现序列化: 1.Serializable 2.Parcelable 1. Serializable方式实现序列化Serializable是java中所提供的一个序列化接口，它是空接口。通常我们可以通过实现Serializable接口来实现序列化，为对象提供标准的序列化和反序列化操作。同时我们注意到在实现该接口的时候我们会有一个long型的serialVersionUID，这个serialVersionUID主要是用于反序列化。如下所示： public class User implements Serializable { private static final long serialVersionUID = 7990301608074625143L; public static int GENDAT_FEMALE = 0; public static int GENDAT_MALE = 1; private String name; private int age; private int gendar; transient //序列化的时候忽略该字段 private int test; } 以上面的User类为例，将其一个对象写入文件以后再从文件读取： User user = new User(&quot;Max&quot;, 0, 0, 0); ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(path)); outputStream.writeObject(user); outputStream.close(); ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(path)); User reader = (User) inputStream.readObject(); Toast.makeText(this, reader.toString(), Toast.LENGTH_LONG).show(); 当把对象user写入到文件中的时候，同时会写入对象的serialVersionUID，在从文件中读取对象的时候，]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Android里面的几种倒计时方式]]></title>
+    <url>%2F2017%2F02%2F24%2FAndroid%E9%87%8C%E9%9D%A2%E7%9A%84%E5%87%A0%E7%A7%8D%E5%80%92%E8%AE%A1%E6%97%B6%E6%96%B9%E5%BC%8F%2F</url>
+    <content type="text"><![CDATA[Android常见的一些及时方式:TimeTask,CounterDownTimer,Handler.postDelay().a TimeTask final Handler handler = new Handler() { public void handleMessage(Message msg) { switch (msg.what) { case 1: if (timerCount &gt; 0) { btnGetVerifyCode.setEnabled(false); btnGetVerifyCode.setText(&quot;重新获取(&quot; + String.valueOf(timerCount) + &quot;s)&quot;); timerCount--; } else { btnGetVerifyCode.setEnabled(true); btnGetVerifyCode.setText(&quot;重新获取&quot;); if (task != null) { task.cancel(); } } break; } super.handleMessage(msg); } }; class MyTimerTask extends TimerTask { @Override public void run() { Message message = new Message(); message.what = 1; handler.sendMessage(message); } } timerCount = 60; task = new MyTimerTask(); timer.schedule(task, 0, 1000); //延时1000ms后执行，1000ms执行一次 CountDownTimer new CountDownTimer(60000, 1000) { public void onTick(long millisUntilFinished) { mTextField.setText(&quot;seconds remaining: &quot; + millisUntilFinished / 1000); } public void onFinish() { mTextField.setText(&quot;done!&quot;); } }.start(); 不做详细说明了]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Android下面如何改变文件权限]]></title>
+    <url>%2F2017%2F02%2F24%2FAndroid%E4%B8%8B%E9%9D%A2%E5%A6%82%E4%BD%95%E6%94%B9%E5%8F%98%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90%2F</url>
+    <content type="text"><![CDATA[如何在Android系统下面改变我们的文件权限,实现某些目的: String command = &quot;chmod 777 &quot; + filePath; Runtime runtime = Runtime.getRuntime(); runtime.exec(command); 如上所示,获取文件的绝对路劲,通过Runtime去执行该文件,777代表可读可写可执行,这里不做更多说明.]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Android-判断Library处于release或者debug模式]]></title>
+    <url>%2F2017%2F02%2F21%2FAndroid-%E5%88%A4%E6%96%ADLibrary%E5%A4%84%E4%BA%8Erelease%E6%88%96%E8%80%85debug%E6%A8%A1%E5%BC%8F%2F</url>
+    <content type="text"><![CDATA[如何在Library中判断是否是release包: 在Library的gradle文件中添加一个变量标记和设置没有默认发布类型 Android{ release { buildConfigField &quot;boolean&quot;, &quot;RELEASE_MODE&quot;, &quot;true&quot; minifyEnabled false proguardFiles getDefaultProguardFile(&apos;proguard-android.txt&apos;), &apos;proguard-rules.pro&apos; } debug { buildConfigField &quot;boolean&quot;, &quot;RELEASE_MODE&quot;, &quot;false&quot; } publishNonDefault true //设置没有默认发布类型 } 在app module的gradle文件中新增对应Library的release依赖和debug依赖 releaseCompile project(path: &apos;:app&apos;, configuration: &apos;release&apos;) debugCompile project(path: &apos;:app&apos;, configuration: &apos;debug&apos;) 在Library中引用 if (BuildConfig.RELEASE_MODE == true) {}]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[BaseColumns]]></title>
+    <url>%2F2017%2F02%2F14%2FBaseColumns%2F</url>
+    <content type="text"><![CDATA[准备开始看Google官方的Android Architecture系列了，一方面是提升代码质量，另一方面是学习一下新的app架构。由于目前项目的代码基本上技术可以归属到上古遗迹之中，所以很有必要学习一下新的东西为未来做准备。 首先看到的就是在数据库操作方面的一个接口，如下所示： package android.provider; public interface BaseColumns { /** * The unique ID for a row. * &lt;P&gt;Type: INTEGER (long)&lt;/P&gt; */ public static final String _ID = &quot;_id&quot;; /** * The count of rows in a directory. * &lt;P&gt;Type: INTEGER&lt;/P&gt; */ public static final String _COUNT = &quot;_count&quot;; } 这个类主要是配合SQLiteOpenHelper进行Android的数据库管理，_ID做为主键，而_COUNT可以返回数据库行数。典型应用如下所示： public final class TasksPersistenceContract { // To prevent someone from accidentally instantiating the contract class, // give it an empty constructor. private TasksPersistenceContract() {} /* Inner class that defines the table contents */ public static abstract class TaskEntry implements BaseColumns { public static final String TABLE_NAME = &quot;task&quot;; public static final String COLUMN_NAME_ENTRY_ID = &quot;entryid&quot;; public static final String COLUMN_NAME_TITLE = &quot;title&quot;; public static final String COLUMN_NAME_DESCRIPTION = &quot;description&quot;; public static final String COLUMN_NAME_COMPLETED = &quot;completed&quot;; } } //在SQLiteOpenHelper中创建表的语句 private static final String SQL_CREATE_ENTRIES = &quot;CREATE TABLE &quot; + TasksPersistenceContract.TaskEntry.TABLE_NAME + &quot; (&quot; + TasksPersistenceContract.TaskEntry._ID + TEXT_TYPE + &quot; PRIMARY KEY,&quot; + TasksPersistenceContract.TaskEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP + TasksPersistenceContract.TaskEntry.COLUMN_NAME_TITLE + TEXT_TYPE + COMMA_SEP + TasksPersistenceContract.TaskEntry.COLUMN_NAME_DESCRIPTION + TEXT_TYPE + COMMA_SEP + TasksPersistenceContract.TaskEntry.COLUMN_NAME_COMPLETED + BOOLEAN_TYPE + &quot; )&quot;;]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Comparator与Comparable的区别]]></title>
+    <url>%2F2017%2F02%2F13%2FComparator%E4%B8%8EComparable%E7%9A%84%E5%8C%BA%E5%88%AB%2F</url>
+    <content type="text"><![CDATA[参考StackOverFlowp答案: Comparable相当于“内部比较器”，而Comparator相当于“外部比较器”。]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[Java时间比较]]></title>
+    <url>%2F2017%2F02%2F13%2FJava%E6%97%B6%E9%97%B4%E6%AF%94%E8%BE%83%2F</url>
+    <content type="text"><![CDATA[在java中比较两个时间的大小: DateFormat df = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;); Date start = df.parse(&quot;1991-12-25&quot;); Date end = df.parse(&quot;1990-12-23&quot;); int result = start.compareTo(end); 如果result &gt; 0 说明 start &gt; end; 如果result &lt; 0，则 start &lt; end;如果result = 0,则 start = end;]]></content>
+      <tags>
+        <tag>Android</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[互联网协议入门（二）]]></title>
+    <url>%2F2017%2F02%2F06%2F%E4%BA%92%E8%81%94%E7%BD%91%E5%8D%8F%E8%AE%AE%E5%85%A5%E9%97%A8%EF%BC%88%E4%BA%8C%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[上一篇文章分析了互联网的总体构思，从下至上，没一层协议的设计思想。 这是从设计者的角度看问题，今天我想切换到用户的角度，看看用户是如何从上至下，与这些协议互动的。 互联网协议入门（二）七、一个小结先对前面的内容，做一个小结。 我们已经知道，网络通信就是交换数据包。电脑A向电脑B发送一个数据包，后则会收到了，回复一个数据包，从而实现两台电脑时间的通信，数据包的结构，基本上是下面这样： 发送这个包，需要知道两个地址： 对方的MAC地址 对方的IP地址 有了折两个地址，数据包才能准确送到接收者中。但是，前面说过，MAC地址又局限性，如果两台电脑不在同一个局域网，就无法知道对方的MAC地址，必须通过网关转发。 上图中，1号电脑要向4号电脑发送一个数据包。它先判断4号电脑是否在同一个子网络，借过发现不是（后文会介绍判断方法），于是就把这个数据包发到网关A。网关A通过路由协议，发现4号电脑位于局域网B，又把数据包发送给网关B，网关B再转发到4号电脑。 1号电脑把数据包发到网关A，必须知道网关A的MAC地址。所以，数据包的目标地址，实际上分成两种情况： 场景 数据包地址 同一个局域网 对方的MAC地址，对方的IP地址 不同局域网 网关的MAC地址，对方的IP地址 发送数据包之前，电脑必须判断对方是否在同一个局域网，然后选择对应的MAC地址。接下来，我们就来看，实际使用中，这个过程是怎么完成的。 八、用户的上网设置8.1 静态IP地址通常购买了一台电脑后需要做一些设置。有时，管理员（或者ISP）会告诉你下面四个参数，你把它们呢填入操作系统，计算机就能上网了。 本机的IP地址 子网掩码 网关的IP地址 DNS的IP地址 下图是Windows系统的设置窗口。 这四个参数缺一不可，后文会解释为什么需要知道它们才能上网，由于它们是给定的，计算机每次开机，都回分到同样的IP地址，所以这种状况称作“静态IP地址上网”。 8.2 动态IP地址所谓“动态IP地址”，指计算机开机后，会自动分配到一个IP地址，不同认为设定。它使用的协议叫做DHCP协议 这个协议规定，每一个局域网中，有一台计算机负责管理本网络的所有IP地址，它叫做“DHCP服务器”。新的计算机加入网络，必须向“DHCP服务器”发送一个“DHCP请求”数据包，申请IP地址和相关的网络参数。 前面说过，如果两台计算机在同一个局域网，必须知道对方的MAC地址和IP地址，才能发送数据包。但是，新加入的计算机不知道这两个地址，怎么发送数据包呢？ DHCP协议做了一些巧妙的规定。 8.3 DHCP协议首先，它是一种应用层协议，建立在UDP协议之上，所以整个数据包是这样的L 最前面的“以太网标头”，设置发出方（本机）的MAC地址和接收方（DHCP服务器）的MAC地址。前者就是本机网卡的MAC地址，后者这时不知道，就填入一个广播地址：FF-FF-FF-FF-FF-FF. 后面的“IP标头”，设置发出方的IP地址和接收方的IP地址。这时，对于这两者，本机都不知道。于是，发出方的IP地址就设为0.0.0.0，接收方地址设置为255.255.255.255。 最后的“UDP标头”，设置发出方的端口和接收方的端口。这一部分是DHCP协议规定好的，发出方是68端口，接收方是67端口。 这个数据包构造完成后，就可以发出了。以太网是广播发送，同一个局域网的每台计算机都收到了这个包。因为接收方的MAC地址是FF-FF-FF-FF-FF-FF，看不出是发给谁的，每台接收到这个包的计算机，都必须解析这个包的IP地址，才能确定是不是发给自己的。当看到发送方是0.0.0.0，接收方是255.255.255.255，于是DHCP服务器就知道“这个包是发给我的”，而其他计算机就可以丢弃这个包。 接下来，DHCP服务器读出这个包的数据内容，分配好IP地址，发送会去一个“DHCP响应”数据包。这个响应包的结构也是类似的，以太网标头的MAC地址是双方的网卡地址，IP标头的IP地址是DHCP服务器的IP地址（发出放）和255.255.255.255（接收方），UDP标头的端口是67（发出放）和68（接收方），分配给请求端的IP地址和本网络的具体参数则包含在“数据”部分。 新加入的计算机收到这个响应包，于是就知道了自己的IP地址、子网掩码、网关地址、DNS服务器等等参数。 8.4 上网设置：小结这个部分，需要记住的就是一点：不管是“静态IP地址”还是“动态IP地址”，电脑上网的首要步奏，是确定四个参数。这四个参数很重要，值得重复一遍： 本机的IP地址 子网掩码 网关的IP地址 DNS的IP地址 有了这几个数值，电脑就可以上网“冲浪”了。接下来，我们来看一个实例，当用户访问网页的时候，互联网协议是怎么运作的。 九、一个实例：访问网页9.1 本机参数我们假定，经过上一节的步奏，用户设置好了自己的网络参数： 本机的IP地址：192.168.1.100 子网掩码：255.255.255.0 网关的IP地址：192.168.1.1 DNS的IP地址：8.8.8.8 然后他打开浏览器，想要访问Google，在地址栏输入了网址：www.google.com。 http://image.beekka.com/blog/201206/bg2012061103.png 9.2 DNS协议我们知道，发送数据包，必须知道对方的IP地址。但是，现在，我们知道的网址是www.google.com，不知道它的IP地址。 DNS协议可以帮助我们，将这个网址转换成IP地址。已知DNS服务器为8.8.8.8，于是我们向这个地址发送一个DNS数据包（53端口）。 然后，DNS服务器做出响应，告诉我们Google的IP地址是172.194.72.105。于是，我们知道了对方的IP地址。 9.3 子网掩码接下来，我们要判断，这个IP地址是不是在同一个子网络，这就要用到子网掩码。 已知子网掩码是255.255.255.0，本机用它对自己的IP地址192.168.1.100，做一个二进制的AND运算（两个数位都为1，结果为1，否则为0），计算结果为192.168.1.0；然后对Google的IP地址172.194.72.105也做一个AND运算，计算结果为172.194.72.0。这两个结果不相等，所以结论是，Google与本机不在同一个子网络。 因此，我们要向Google发送数据包，必须通过网关192.168.1.1转发，也就是说，接收方的MAC地址将是网关的MAC地址。 9.4 应用层协议浏览网页用的是HTTP协议，它的整个数据包构造是这样的： HTTP部分的内容，类似于下面这样： GET / HTTP/1.1 Host: www.google.com Connection: keep-alive User-Agent: Mozilla/5.0 (Windows NT 6.1) ...... Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8 Accept-Encoding: gzip,deflate,sdch Accept-Language: zh-CN,zh;q=0.8 Accept-Charset: GBK,utf-8;q=0.7,*;q=0.3 Cookie: ... ... 我们假定这个部分的长度为4960字节，它会被嵌在TCP数据包之中。 9.5 TCP协议TCP数据包需要设置端口，接收方（Google）的HTTP端口默认是80，发送方（本机）的端口是一个随机生成的1024-65535之间的整数，假定为51775。 TCP数据包的标头长度为20字节，加上嵌入HTTP的数据包，总长度变为4980字节。 9.6 IP协议然后，TCP数据包再嵌入IP数据包。IP数据包需要设置双方的IP地址，这是已知的，发送方是192.168.1.100（本机），接收方是172.194.72.105（Google）。 IP数据包的标头长度为20字节，加上嵌入的TCP数据包，总长度变为5000字节。 9.7 以太网协议最后，IP数据包嵌入以太网数据包。以太网数据包需要设置双方的MAC地址，发送方为本机的网卡MAC地址，接收方为网关192.168.1.1的MAC地址（通过ARP协议得到）。 以太网数据包的数据部分，最大长度为1500字节，而现在的IP数据包长度为5000字节。因此，IP数据包必须分割成四个包。因为每个包都有自己的IP标头（20字节），所以四个包的IP数据包的长度分别为1500、1500、1500、560。 9.8 服务器端响应经过多个网关的转发，Google的服务器172.194.72.105，收到了这四个以太网数据包。 根据IP标头的序号，Google将四个包拼起来，取出完整的TCP数据包，然后读出里面的”HTTP请求”，接着做出”HTTP响应”，再用TCP协议发回来。 本机收到HTTP响应以后，就可以将网页显示出来，完成一次网络通信。 这个例子就到此为止，虽然经过了简化，但它大致上反映了互联网协议的整个通信过程。]]></content>
+      <categories>
+        <category>网络</category>
+      </categories>
+      <tags>
+        <tag>计算机基础</tag>
+        <tag>网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[互联网协议入门（一）]]></title>
+    <url>%2F2017%2F02%2F05%2F%E4%BA%92%E8%81%94%E7%BD%91%E5%8D%8F%E8%AE%AE%E5%85%A5%E9%97%A8%EF%BC%88%E4%B8%80%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[本文转载自阮一峰的网络日志互联网协议入门. 互联网的核心是一系列的协议,总称为”互联网协议”(Internet Protocol Suite)。它们对电脑如何连接和组网，做出了详尽的规定。理解了这些协议，就理解了互联网的原理。 互联网入门一、概述1.1 五层模型互联网的实现，分为很多层次。每一层都有自己的功能，就像建筑物一样，每一层都靠下一层支持。 正常来说，用户接触到的，是最上面的一层，而无法感知到下面的层。要理解互联网，就必须从最下层开始，自下而上理解每一层的功能。 互联网的分层有不同的模型，有OSI七层模型,有的分四层TCP/IP协议簇，按照作者的理解将互联网分为五层。 如上图所示，最底下的一层叫做”实体层”（Physical Layer），最上面的一层叫做”应用层”（Application Layer），中间的三层（自下而上）分别是”链接层”（Link Layer）、”网络层”（Network Layer）和”传输层”（Transport Layer）。越下面的层，越靠近硬件；越上面的层，越靠近用户。 1.2 层与协议每一层都是为了完成一种功能。为了实现这些功能，就需要大家遵守共同的规则。 大家都遵守的规则，就叫做”协议”（Protocol）。 互联网的每一层，都定义了很多协议。这些协议的总称，就叫做”互联网协议”（Internet Protocol Suite）。它们是互联网的核心，下面介绍每一层的功能，主要是介绍每一层的主要协议。 二、实体层从最下层的实体层开始。 电脑要组网，第一件事要干什么？当然是要把电脑连接起来，可以使用光缆、电缆，双绞线，无线网络等等方式。 这就叫做”实体层”，它就是把电脑连接起来的物理手段。它主要规定了网络的一些电气特性，作用是负责传送0和1的电信号（电磁波）。 三、链接层3.1 定义单纯的0和1是没有任何意义的，必须规定解读方式：多少个电信号算一组？每个信号位有何意义？ 这就是”链接层”的功能，它在”实体层”的上方，确定了0和1的分组方式 3.2 以太网协议早期的时候，每家公司都有自己的电信号分组方式。逐渐地，一种叫做”以太网“（Ethernet）的协议，占据了主导地位。 以太网规定，一组电信号构成一个数据包，叫做”帧”（Frame）。每一帧分成两个部分：标头（Head）和数据（Data） “标头”包好数据包的一些说明项，比如发送者，接收者，数据类型等等；”数据”则是数据包的具体内容。 “标头”的长度，固定为18字节。”数据”的长度，最短为46字节，最长为1500字节。因此，整个”帧”最短为64字节，最长为1518字节。如果数据很长，就必须分割成多个帧进行发送。 3.3 MAC地址上面提到，以太网数据包的”标头”，包含了发送者和接收者的信息。那么，发送者和接收者是如何标识呢？ 以太网规定，连入网络的所有设备，都必须具有”网卡”接口。数据包必须是从一块网卡，传送到另一块网卡。网卡的地址，就是数据包的发送地址和接收地址，这叫做MAC地址(Media Access Control Address)。 每块网卡出厂的时候，都有一个全世界独一无二的MAC地址 ，长度是48个二进制位，通常用12个十六进制数表示。 前6个十六进制数是厂商编号，后6个是该厂商的网卡流水号。有了MAC地址，就可以定位网卡和数据包的路径了。根据Wiki:(MAC地址共48位（6个字节），以十六进制表示。前24位由IEEE决定如何分配，后24位由实际生产该网络设备的厂商自行指定。) 3.4 广播定义地址只是第一步，后面还有更多的步奏。 首先，一块网卡怎么会知道另一块网卡的MAC地址？ 答案就是ARP协议，后面将会介绍。以太网数据包必须知道接收方的MAC地址，然后才能发送。 其次，就算有了MAC地址，系统怎样才能吧数据包准确的送到接收方？ 答案是以太网采用了一种”原始”的方式，它不是把数据包准确送到接收方，而是向局域网内所有计算机发送，让每台计算机自己判断，是否为接收方。 上图中，1号计算机向2号计算机发送一个数据包，同一个局域网的3号、4号、5号计算机都会收到这个包。它们读取这个包的”标头”，找到接收方的MAC地址，然后与自身的MAC地址进行比较，如果两者相同，则接收这个包，做进一步处理，否则就丢弃这个包。这种发送方式叫做”广播”。 有了数据包的定义、网卡的MAC地址、广播的发送方式，”链接层”就可以在多台计算机之间传送数据了。 四、网络层4.1 网络层的由来以太网协议，依靠MAC地址发送数据。理论上，单单依靠MAC地址，上海的网卡就可以找到洛杉矶的网卡了，技术上是可以实现的。 但是，这样做有一个重大的缺点。以太网采用广播的形式发送数据包，所有成员人手一”包”，不仅效率低，而且局限在发送者所在的网络。也就是说，不同局域网之间，广播是无法送达的。这种设计是合理的，否则互联网上的每一台计算机都会收到所有包，那会引起灾难。 互联网是无数局域网共同组成的一个巨型网络，很难想象上海和洛杉矶的电脑会在同一个局域网，这几乎是不可能的。 因此，必须找到一种方法，能够区分哪些MAC地址属于同一个局域网，哪些不是。如果是同一个子网络，就采用广播的形式发送，否则就采用”路由”方式发送。（”路由”的意思，就是指如何向不同的子网络分发数据包）遗憾的是，MAC地址本身无法做到这一点。它只与厂商有关，与所处网络无关。 这就导致了”网络层”的诞生。它的作用是引进一套新的地址，使得我们能够区分不同的计算机是否是属于同一个子网络。这套地址叫做”网络地址”，简称”地址”。 于是，”网络层”出现以后，每台计算机有了两种地址，一种是MAC地址，一种是网络地址。两种地址之间没有任何联系的，MAC地址是绑定在网卡上的，网络地址则是管理员分配的。 网络地址帮助我们确定计算机所在的子网络，MAC地址则将数据包送到该子网络的目标网卡。因此，从逻辑上可以判断，必定是先处理网络地址，然后再处理MAC地址。 4.2 IP协议规定网络地址的协议，叫做IP协议。它所定义的地址，就被称为IP地址。 目前，广泛采用的是IP协议第四版，简称IPv4。这个版本规定，网络地址由32个二进制位组成。 习惯上，我们用分成四段的十进制数表示IP地址，从0.0.0.0一直到255.255.255.255。 互联网上的每一条计算机，都会分配到一个IP地址。这个地址分成两个部分，前一部分代表网络，后一部分代表主机。比如，IP地址172.16.254.1，这是一个32位的地址，假定它的网络部分是前24位，那么主机部分就是后8位。处于同一个子网络的电脑，它们IP地址的网络部分必须是相同的。 但是，问题在于单单从IP地址，我们无法判断网络部分。还是以172.16.254.1为例，它的网络部分，到底是前24位，还是前16位，甚至前28位，从IP地址上是看不出来的。 那么，怎样才能从IP地址，判断两台计算机是否属于同一个子网络呢？这就要用到另一个参数”子网掩码”（subnet mask）。 所谓”子网掩码”，就是表示子网络特征的一个参数。它在形式上等同于IP地址，也是一个32位二进制数字，它的网络部分全部为1，主机部分全部为0。比如，IP地址172.16.254.1，如果已知网络部分是前24位，主机部分是后8位，那么子网络掩码就是11111111.11111111.11111111.00000000，写成十进制就是255.255.255.0。 知道”子网掩码”，我们就能判断，任意两个IP地址是否处在同一个子网络。方法是将两个IP地址与子网掩码分别进行AND运算（两个数位都为1，运算结果为1，否则为0），然后比较结果是否相同，如果是的话，就表明它们在同一个子网络中，否则就不是。 比如，已知IP地址172.16.254.1和172.16.254.233的子网掩码都是255.255.255.0，请问它们是否在同一个子网络？两者与子网掩码分别进行AND运算，结果都是172.16.254.0，因此它们在同一个子网络。 总结一下，IP协议的作用主要有两个，一个是为每一台计算机分配IP地址，另一个是确定哪些地址在同一个子网络。 4.3 IP数据包根据IP协议发送的数据，叫做IP数据包。不难想象，其中必定包括IP地址信息。 但是前面阿说过，以太网数据包只包含MAC地址，并没有IP地质的栏位。那么是否需要修改数据定义，再添加一个栏位呢？ 答案是不需要，我们可以把IP数据包直接放到以太网数据包的”数据”部分，因此完全不用修改以太网的规格。这就是互联网分层结构的好处：上层的变动完全不涉及到下层的结构。 具体来说，IP数据包也分为”标头”和”数据”两个部分。 “标头”部分主要包括版本、长度、IP地址等信息，”数据”部分则是IP数据包的具体内容。它放进以太网数据包后，以太网数据包就变为了下面这样。 IP数据包的”标头”部分的长度为20到60个字节，整个数据包的最大长度为65535字节。因此，理论上一个IP数据包的”数据”部分，最长为65515字节。前面有提到，以太网数据包的”数据”部分，最长只有1500字节。因此，如果IP数据包超过了1500字节，它就需要分割成多个以太网数据包，分开发送了。 4.4 ARP协议关于”网络层”，还有一点需要说明。 因为IP数据包是放在以太网数据包里发送的，所以我们必须同时知道两个地址，一个是对方的MAC地址，另一个是对方的IP地址。通常情况下，对方的IP地址是已知的，但是我们不知道它的MAC地址。 所以，我们需要一种机制，能够从IP地址取到MAC地址。 这里又分为两种状况。第一种状况，如果两台主机不再同一个子网络，那么事实上没有办法去的对方的MAC地址，只能把数据包传送到两个子网络连接处的”网关”，让网关去处理。（当发送主机和目的主机不在同一个局域网中时，即便知道目的主机的MAC地址，两者也不能直接通信，必须经过路由转发才可以。所以此时，发送主机通过ARP协议获得的将不是目的主机的真实MAC地址，而是一台可以通往局域网外的路由器的MAC地址。于是此后发送主机发往目的主机的所有帧，都将发往该路由器，通过它向外发送。） 第二种情况，如果两台主机在同一个子网络，那么我们可以用ARP协议地址解析协议Address Resolution Protocol（注意：在IPv6中已经被邻居发现协议（Neighbor Discovery Protocol）），去的对方的MAC地址。ARP协议也是发出一个数据包（包含在以太网数据包中），其中包含它所要查询诸暨的IP地址，在对方的MAC地址这一栏，填的是FF:FF:FF:FF:FF:FF，表示这是一个”广播”地址。它所在子网络的每一台主机，都会收到这个数据包，从中取出IP地址，与自身的IP地址进行比较。如果两者相同，都做出回复，向对方报告自己的MAC地址，否则就丢弃这个包。 总之，有了ARP协议以后，我们就可以得到同一个子网络内的主机MAC地址，可以把数据包发送到任意一台主机之上了。 五、传输层5.1 传输层的由来有了MAC地址和IP地址，我们已经可以在互联网上任意两台主机上简历通信。 接下来的问题是，同一台主机上又许多程序都需要用到网络。比如，你一边浏览网页，一边与朋友在线聊天，当一个数据包从互联网上发来的时候，你怎么知道，它是表示网页的内容，还是在线聊天的内容？ 也就是说，我们还需要一个参数，表示这个数据包到底供哪个程序（进程）使用。这个参数就叫做”端口”，它其实是没一个使用网卡的程序的编号。每个数据包都发到主机的特定端口，所以不同的程序就能读取到自己所需要的数据。 “端口”是0到65535之间的一个整数，正好是16个二进制位。0到1023的端口被系统占用，用户只能选择大于1023的端口，不管是浏览网页还是在线聊天，应用程序会随机选用一个端口，然后与服务器的相应端口通信。 “传输层”的功能，就是简历“端口到端口”的通信。只有确定主机和端口，我们就能实现程序之间的交流。因此，Unix系统就把主机+端口，叫做“套接字”（Socket）。有了它，就可以进行网络应用程序的开发了。 5.2 UDP协议现在，我们必须在数据包中加入端口信息，这就需要新的协议。最简单的实现叫做UDP协议，它的格式几乎就是在数据前面，加上端口号。 UDP数据包，也是由“标头”和“数据”两部分组成。 “标头”部分主要是定义了发出端口和接收端口，“数据”部分就是具体的内容。然后，把整个UDP数据包放入IP数据包的“数据”部分，而前面说过，IP数据包又是放在以太网数据包中，所以整个以太网数据包就变成了下面这样： UDP数据包非常简单，“标头”部分一共只有8个字节，总长度不超过65535字节，正好放进一个IP数据包。 5.3 TCP协议UDP协议的优点是比较简单，容易实现，但是缺点是可靠性较差，一旦数据包发出，无法知道对方是否收到。 为了解决这个问题，提高网络可靠性，TCP协议就诞生了。这个协议非常复杂，但可以近似人为，它就是有确认机制的UDP协议，每发出一个数据包都要求确认。如果有一个数据包遗失。就收不到确认，发出放就知道有必要重发这个数据包了。 因此，TCP协议能够确保数据不会遗失。它的缺点是过程复杂、实现困难、消耗较多的资源。 TCP数据包和UDP数据包一样，都是内嵌在IP数据包的“数据”部分。TCP数据包没有长度限制，理论上可以无现场，但是为了保证网络效率，通常TCP数据包的长度不会超过IP数据包的长度，以确保单个TCP数据包不必再分割。 六、应用层应用程序收到“传输层”的数据，接下来就要进行解毒。由于互联网是开放架构，数据来源五花八门，必须事先规定好格式，否则根本无法解读。 “应用层”的作用，就是规定应用程序的数据格式 举例来说，TCP协议可以为各种各样的陈旭传递数据，比如Email、WWW、FTP等等。那么，必须有不同协议规定电子邮件、网页、FTP数据的格式，这些应用程序协议就构成了“应用层”。 这是最高的一层，直接面对用户。它的数据就放在TCP数据包的“数据”部分。因此，现在的以太网的数据包就变成下面这样。 至此，整个互联网的五层结构，自下而上全部讲完了。这是从系统的角度，解释互联网是如何构成的。下一篇，我反过来，从用户的角度，自上而下看看这个结构是如何发挥作用，完成一次网络数据交换的。]]></content>
+      <categories>
+        <category>网络</category>
+      </categories>
+      <tags>
+        <tag>计算机基础</tag>
+        <tag>网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[go语言中的fmt包学习]]></title>
+    <url>%2F2017%2F01%2F29%2Fgo%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84fmt%E5%8C%85%E5%AD%A6%E4%B9%A0%2F</url>
+    <content type="text"><![CDATA[go doc fmt list all the data belowprintThe verbs: General: %v the value in a default format when printing structs, the plus flag (%+v) adds field names %#v a Go-syntax representation of the value %T a Go-syntax representation of the type of the value %% a literal percent sign; consumes no value Boolean: %t the word true or false Integer: %b base 2 %c the character represented by the corresponding Unicode code point %d base 10 %o base 8 %q a single-quoted character literal safely escaped with Go syntax. %x base 16, with lower-case letters for a-f %X base 16, with upper-case letters for A-F %U Unicode format: U+1234; same as &quot;U+%04X&quot; Floating-point and complex constituents: %b decimalless scientific notation with exponent a power of two, in the manner of strconv.FormatFloat with the &apos;b&apos; format, e.g. -123456p-78 %e scientific notation, e.g. -1.234456e+78 %E scientific notation, e.g. -1.234456E+78 %f decimal point but no exponent, e.g. 123.456 %F synonym for %f %g %e for large exponents, %f otherwise %G %E for large exponents, %F otherwise String and slice of bytes (treated equivalently with these verbs): %s the uninterpreted bytes of the string or slice %q a double-quoted string safely escaped with Go syntax %x base 16, lower-case, two characters per byte %X base 16, upper-case, two characters per byte Pointer: %p base 16 notation, with leading 0x There is no ‘u’ flag. Integers are printed unsigned if they have unsignedtype. Similarly, there is no need to specify the size of the operand (int8,int64). The default format for %v is: bool: %t int, int8 etc.: %d uint, uint8 etc.: %d, %x if printed with %#v float32, complex64, etc: %g string: %s chan: %p pointer: %p Control width and precision: %f default width, default precision %9f width 9, default precision %.2f default width, precision 2 %9.2f width 9, precision 2 %9.f width 9, precision 0 一些小区别函数 fmt.Sprintf 与 Printf 的作⽤是完全相同的，不过前者将格式化后的字符串以返 回值的形式返回给调⽤者，因此你可以在程序中使⽤包含变量的字符串]]></content>
+      <categories>
+        <category>Golang</category>
+      </categories>
+      <tags>
+        <tag>Golang</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[go语言中的init()函数]]></title>
+    <url>%2F2017%2F01%2F29%2Fgo%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84init-%E5%87%BD%E6%95%B0%2F</url>
+    <content type="text"><![CDATA[在go语言中,有一类比较特殊的函数,不能够被人为的调用,而是在每个包完成初始化动作后自动执行,而且执行优先级比main函数高. 没一个源文件都可以包含一个或者多个init函数.初始化工作是以单线程执行,并且按照包的依赖关系顺序执行.一个可能的用途是在开始执行程序之前对数据进行检验或者修复,以保证程序状态的正确性.]]></content>
+      <categories>
+        <category>Golang</category>
+      </categories>
+      <tags>
+        <tag>Golang</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[2017年度flag]]></title>
+    <url>%2F2017%2F01%2F26%2F2017%E5%B9%B4%E5%BA%A6flag%2F</url>
+    <content type="text"><![CDATA[private]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[Docker学习,常用指令]]></title>
+    <url>%2F2017%2F01%2F24%2FDocker%E5%AD%A6%E4%B9%A0-%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4%2F</url>
+    <content type="text"><![CDATA[DockerDocker 使用 Google 公司推出的 Go 语言 进行开发实现，基于 Linux 内核的 cgroup，namespace，以及 AUFS 类的 Union FS 等技术，对进程进行封装隔离， 属于操作系统层面的虚拟化技术。 常用指令 docker run -p 2222:22 imagename //运行改image做为container,不存在则会从Docker hub获取并运行; -p 指定本地映射关系,前面是访问地址端口,后面是映射的容器端口 docker exec -it goofy_banach /bin/bash 对比于attach方式,会立即显示进入,并且退出不会导致容器关闭 docker ps //获取正在运行的镜像 -a 所有的镜像 touch Dockerfile //创建docker脚本 cat Dockerfile //查看脚本 docker build -t docker-whale . //创建镜像, -t打tag,后面的.(表示当前目录)不能少 docker tag 7d9495d03763 maryatdocker/docker-whale:latest 标记docker镜像 docker login 登录 docker push maryatdocker/docker-whale 上传到docker hub docker rmi -f 7d9495d03763/imagename 移除镜像 docker run yourusername/docker-whale docker images 查看所有镜像 docker rmi $(docker images -q -f dangling=true) 删除无用的悬浮镜像 docker exec -it webserver bash 运行命令行并启动 docker commit [选项] &lt;容器ID或容器名&gt; [&lt;仓库名&gt;[:&lt;标签&gt;]] 提交更新,创建镜像谨慎使用,因为会对容器环境照成较大影响 //docker commit –author “Tao Wang &#116;&#119;&#x61;&#x6e;&#x67;&#50;&#x32;&#x31;&#56;&#x40;&#x67;&#109;&#97;&#105;&#x6c;&#x2e;&#99;&#111;&#109;“ –message “修改了默认网页” webserver nginx:v2 docer diff NAMES 查看永久性更新 docker history nginx:v2 查看历史更新 docker rm 删除容器 docker run -it -–entrypoint /bin/bash karalabe/xgo-latest 强制使用bash启动docker镜像 docker run -it -v /Volumes/Work/go/src/golang.org:/src golang/mobile /bin/bash 挂载宿主机目录到容器 sudo yum upgrade docker 更新docker docker cp 2e8a06b7cff6:/gopath/src/golang.org/x/mobile/example/GoHello/app/src Storage-2e8a06b7cff6/ docker logs id/names 查看操作日志 docker top 显示容器进程 docker stats 查看容器进程状态 ####tag本地镜像并提交到docker仓库step1——找到本地镜像的ID：docker images step2——登陆Hub：docker login –username=username –password=password –email=email step3——tag：docker tag /: step4——push镜像：docker push / Dockerfile创建 mkdir test cd test touch Dockerfile 基本用法 FROM nginx 指定基础镜像,这个是必须的(可以指定一个空白镜像名为scratch) RUN 没一个RUN代表一层,因此同一个目的的RUN通过&amp;&amp;合并命令,浓缩到一层 (层数限制旧版42,新版127) COPY package.json /usr/src/app/ || hom?.txt /mydir/ ADD ubuntu-xenial-core-cloudimg-amd64-root.tar.gz / src可以是url,加强版的COPY,还可移植性解压缩 docker build -t docker-whale . docker build [选项] &lt;上下文路径/URL/-&gt; .代表当前目录 -t代表tag ENTRYPOINT 只有最后一个生效 run的时候通过–entrypoint使其生效 Docker基本概念Docker包括三个基本概念,包含了Docker的整个生命周期 镜像(Image) 容器(Container) 仓库(Repository) Docker镜像Docker镜像,相当于一个root文件系统(操作系统分为内核和用户空间,内核启动后,会挂载root文件系统为用户空间提供支持),镜像不包含任何动态数据.提供容器运行时所需的程序、库、资 源、配置等文件外,还包含了一些为运行时准备的一些配置参数（如匿名卷、环境 变量、用户等）. 分层存储镜像包含操作系统完整的root文件系统,体积较大,Docker设计时,采用了Union FS技术,分层存储的架构. 镜像构建时，会一层层构建，前一层是后一层的基础。每一层构建完就不会再发生 改变，后一层上的任何改变只发生在自己这一层,任何额外的东西应该在该层构建结束前清理掉。 Docker容器类比于面向对象程序设计中 的 类 和 实例 一样，镜像是静态的定义，容器是镜像运行时的实体。]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+        <tag>运维</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[2017阅读记录]]></title>
+    <url>%2F2017%2F01%2F24%2F2017%E9%98%85%E8%AF%BB%E8%AE%B0%E5%BD%95%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[一些好的技术文章]]></title>
+    <url>%2F2017%2F01%2F22%2F%E4%B8%80%E4%BA%9B%E5%A5%BD%E7%9A%84%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0%2F</url>
+    <content type="text"><![CDATA[本文旨在收集一些个人比较感兴趣的技术类的文章,希望更多的成长学习. Linux类 Linux系统中“动态库”和“静态库”那点事儿. 静态库与动态库的使用]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[Linux系统中动态库和静态库]]></title>
+    <url>%2F2017%2F01%2F22%2FLinux%E7%B3%BB%E7%BB%9F%E4%B8%AD%E5%8A%A8%E6%80%81%E5%BA%93%E5%92%8C%E9%9D%99%E6%80%81%E5%BA%93%2F</url>
+    <content type="text"><![CDATA[原文转载自wjlkoorey的博客最近一直在学习go语言跨平台编译,在这个过程中也学习了其它很多的内容,今天回顾一下Linux系统下动态库(.so)和静态(.a)的程序那些猫腻.在这之前，我们需要了解一下源代码到可执行程序之间到底发生了什么神奇而美妙的事情。 在Linux操作系统中，普遍使用ELF格式作为可执行程序或者程序生成过程中的中间格式。ELF（Executable and Linking Format，可执行连接格式）是UNIX系统实验室（USL）作为应用程序二进制接口（Application BinaryInterface，ABI）而开发和发布的。工具接口标准委员会（TIS）选择了正在发展中的ELF标准作为工作在32位Intel体系上不同操作系统之间可移植的二进制文件格式。源代码到可执行程序的转换时需要经历如下图所示的过程： 编译是把高级语言编写的程序转换为对应处理器的汇编语言的过程.从本质上来说,编译是一个文本转换的过程.对嵌入式系统而言,一般要把用C语言编写的程序转换成处理器的会变代码.编译过程包含了C语言的语法解析和汇编代码的生成两个步骤.编译一般是逐个文件进行的,对于一个C语言编写的文件,可能还需要进行预处理. 汇编是从会变语言程序生成目标系统的二进制代码(机器码)的过程,机器码的生成和处理器有密切的关系.相对于编译过程的语法解析,汇编的过程相对简单.这是因为对于一款特定的处理器,其汇编语言和二进制的机器代码是一一对应的.汇编过程的输入是汇编代码,这个汇编代码可能来源于编译过程的输出,也可以是直接使用汇编语言书写的程序. 连接是指将汇编生成的多段机器代码组合成一个可执行程序.一般来说,通过汇编和汇编过程,每个源文件将生成一个目标文件.连接器的作用是将这些目标文件组合起来,组合的过程包括了代码段,数据段等部分的合并,以及添加相应的头文件 GCC是Linux下主要的程序生成工具,它除了汇编器,编译器,连接器外,还包括一些辅助工具.在下面的分析过程中我会教大家这些工具的基本使用方法. 作为UNIX操作系统的一种，Linux的操作系统提供了一系列的接口，这些接口被称为系统调用（System Call）。在UNIX的理念中，系统调用“提供的是机制，而不是策略“。C语言的库函数通过调用系统调用来实现，库函数对上层提供了C语言库文件的接口。在应用程序层，通过调用C语言库函数和系统调用来实现功能。一般来说，应用程序大多使用C语言库函数实现其功能，较少使用系统调用。 那么最后的可执行文件到底是什么样子呢？前面已经说过，这里我们不深入分析ELF文件的格式，只是给出它的一个结构图和一些简单的说明，以方便大家理解。 ELF文件格式包括三种主要的类型：可执行文件、可重定向文件、共享库。 1.可执行文件可执行文件包含了代码和数据，是可以直接运行的程序。 2.可重定向文件可重定向文件又称为目标文件，它包含了代码和数据（这些数据是和其他重定位文件和共享的object文件一起连接时使用的）。 *.o文件参与程序的连接（创建一个程序）和程序的执行（运行一个程序），它提供了一个方便有效的方法来用并行的视角看待文件的内容，这些*.o文件的活动可以反映出不同的需要。 Linux下，我们可以用gcc -c编译源文件时可将其编译成*.o格式。 3.共享库也称为动态库文件，它包含了代码和数据（这些数据是在连接时候被连接器ld和运行时动态连接器使用的）。动态连接器可能称为ld.so.1，libc.so.1或者 ld-linux.so.1。 一个ELF文件从连接器（Linker）的角度看，是一些节的集合；从程序加载器（Loader）的角度看，它是一些段（Segments）的集合。ELF格式的程序和共享库具有相同的结构，只是段的集合和节的集合上有些不同。 那么到底什么是库呢？库从本质上来说是一种可执行代码的二进制格式，可以被载入内存中执行。库分静态库和动态库两种。 静态库：这类库的名字一般是libxxx.a，xxx为库的名字。利用静态函数库编译成的文件比较大，因为整个函数库的所有数据都会被整合进目标代码中，他的优点就显而易见了，即编译后的执行程序不需要外部的函数库支持，因为所有使用的函数都已经被编译进去了。当然这也会成为他的缺点，因为如果静态函数库改变了，那么你的程序必须重新编译。 动态库：这类库的名字一般是libxxx.M.N.so，同样的xxx为库的名字，M是库的主版本号，N是库的副版本号。当然也可以不要版本号，但名字必须有。相对于静态函数库，动态函数库在编译的时候并没有被编译进目标代码中，你的程序执行到相关函数时才调用该函数库里的相应函数，因此动态函数库所产生的可执行文件比较小。由于函数库没有被整合进你的程序，而是程序运行时动态的申请并调用，所以程序的运行环境中必须提供相应的库。动态函数库的改变并不影响你的程序，所以动态函数库的升级比较方便。linux系统有几个重要的目录存放相应的函数库，如/lib /usr/lib。 当要使用静态的程序库时，连接器会找出程序所需的函数，然后将它们拷贝到执行文件，由于这种拷贝是完整的，所以一旦连接成功，静态程序库也就不再需要了。然而，对动态库而言，就不是这样。动态库会在执行程序内留下一个标记指明当程序执行时，首先必须载入这个库。由于动态库节省空间，linux下进行连接的缺省操作是首先连接动态库，也就是说，如果同时存在静态和动态库，不特别指定的话，将与动态库相连接。]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>动态库</tag>
+        <tag>静态库</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Android数据持久化]]></title>
+    <url>%2F2017%2F01%2F19%2FAndroid%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%2F</url>
+    <content type="text"><![CDATA[今天晚上Android项目组的小伙伴一起聊了一下Android数据持久化的几种方式外加一些项目中的总结吧.突然发现一些不怎么用的东西都已经快忘光了,比如说ContentProvider + LoadManger + URIMatcher + CursorAdapter,今天突然提到LoadManager感觉像是一个没接触过的东西,被小伙伴提了一下才记得有这个类的存在,更别提ContentObserver了.有点跑题了还是聊一下Android的数据持久化策略吧! ##Android数据持久化的方式总所周知,Android共有五种数据持久化的方式,这里是官方文档.通过阅读API Guidance可知,这其中方式分别如下: ###1. SharePreference通常用于存储一些本地化的配置文件,主要分为读和取,操作如下: 1.写入操作 // We need an Editor object to make preference changes. // All objects are from android.context.Context SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0); SharedPreferences.Editor editor = settings.edit(); editor.putBoolean(&quot;silentMode&quot;, mSilentMode); // Commit the edits! editor.commit(); //finally we can see these file in data/data/packagename/shared_preference if your device has been rooted; 2.读取操作 // Restore preferences SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0); //false stands for the default value, you can customize yourself boolean silent = settings.getBoolean(&quot;silentMode&quot;, false); ###2. Internal Storage第一点提到的SharePreference存储的方式最终存放的位置就是在Internal Storage中 String FILENAME = &quot;hello_file&quot;; String string = &quot;hello world!&quot;; //finally the file path is data/data/packagename/files/hello_file //and there are kinds of MODE(MODE_PRIVATE,MODE_APPEND,MODE_WORLD_READABLE,MODE_WORLD_WRITABLE) FileOutputStream fos = openFileOutput(FILENAME, Context.MODE_PRIVATE); fos.write(string.getBytes()); fos.close(); 值得注意的是从API 17开MODE_WORLD_READABLE跟MODE_WORLD_WRITABLE已经是deprecated的状态.从API 23开始,由于谷歌收紧了Android系统的权限(Android越来越封闭,苹果越来越开放,目的都是为了体验越来越好!),如果还使用这两个属性会直接抛出异常SecurityException.因此如果你的应用的TargetVersion在API 23,那么如果你想共享应用的内部数据则只能通过主动分享的方式发起共享,详见参考文档. 正如官方文档所提,如果想要存储静态文件,比如说应用的铃声之类的文件,可以放在项目的res/raw/路径下,通过openRawResource(R.raw.fileId)获取对应的资源文件. ####保存Cache文件通过getCacheDir()可以返回app内部的cache文件,该目录即data/data/packagename/cache由系统维护,但是谷歌的官方建议是自行维护1MB左右,该目录会随着应用卸载而被清理掉.其他诸如getFileDir(),getDir()会在后文有个总结性的说明. ###3. External StorageAndroid的外部存储可以分为可卸载的存储例如SD卡,以及不可卸载的内部存储(Internal Storage).通过USB文件传输模式连接的时候,用户可以对外部存储进行操作. 当用户挂载外部存储或者移除外部存储的时候,应用就无法操作外部存储了.同时外部存储的全局可读特性也决定了它本身并没有安全性可言. ####获取访问外部存储的权限如果你的应用需要读写外部存储则需要在manifest文件中配置如下权限: &lt;manifest ...&gt; &lt;uses-permission android:name=&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot; /&gt; ... &lt;/manifest&gt; 如果只需要读取权限只需申明READ_EXTERNAL_STORAGE权限即可;如果需要读写权限只需要申明WRITE_EXTERNAL_STORAGE权限即可,因为系统会同时声明读取权限. 注意:从Android4.4开始,如果只需要读写app内部的文件,则无需申明读写权限. ####检查是否具备读写权限无论在什么地方进行外部存储操作的时候你都应该检查外部存储是否处于可用状态. /*Ckecks if external storage is available for read and write\*/ public boolean isExternalStorageAvailable(){ String state = Environment.getExternalStorageState(); return Environment.MEDIA_MOUNTED.equals(); } 通过Environment.getExternalStorageState()可以获得外部存储的状态,如连接到电脑,彻底移除,不恰当的移除等等;此时你可以通过判断外部存储的状态来决定是否需要访问外部存储的媒体文件.如下所示为外置存储的不同状态: public static final String MEDIA_BAD_REMOVAL = &quot;bad_removal&quot;; public static final String MEDIA_CHECKING = &quot;checking&quot;; public static final String MEDIA_EJECTING = &quot;ejecting&quot;; public static final String MEDIA_MOUNTED = &quot;mounted&quot;; public static final String MEDIA_MOUNTED_READ_ONLY = &quot;mounted_ro&quot;; public static final String MEDIA_NOFS = &quot;nofs&quot;; public static final String MEDIA_REMOVED = &quot;removed&quot;; public static final String MEDIA_SHARED = &quot;shared&quot;; public static final String MEDIA_UNKNOWN = &quot;unknown&quot;; public static final String MEDIA_UNMOUNTABLE = &quot;unmountable&quot;; public static final String MEDIA_UNMOUNTED = &quot;unmounted&quot;; ####保存文件共享给其他应用主要是公共的多媒体库,例如MUSIC,PICTURE等等,通过以下方式获得 Environment.getExternalPublicDirectory(String type) 其中type可分为如下几种,对应到外部存储的不同位置. public static String DIRECTORY_ALARMS; public static String DIRECTORY_DCIM; public static String DIRECTORY_DOCUMENTS; public static String DIRECTORY_DOWNLOADS; public static String DIRECTORY_MOVIES; public static String DIRECTORY_MUSIC; public static String DIRECTORY_NOTIFICATIONS; public static String DIRECTORY_PICTURES; public static String DIRECTORY_PODCASTS; public static String DIRECTORY_RINGTONES; ####保存应用私有文件如果你的应用有一些私有文件,如音效文件,此时可以在外部存储中创建一个私有的文件目录: //if you pass null as the type return the root directory //storage/emulated/0/Android/data/packagename/ //of course you can pass non null type to create a subdirectory Context.getExternalFilesDir(String type) 从Android 4.4开始,读写应用的私有空间的文件并不需要读写权限,因此如果其他地方无需读写权限的情况下可以通过一下方式申明: &lt;manifest ...&gt; &lt;uses-permission android:name=&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot; android:maxSdkVersion=&quot;18&quot; /&gt; ... &lt;/manifest&gt; 这里有个事情需要说明的是,这个应用的私有目录会随着应用的卸载而删除.同时,在媒体库中并不会显示应用的私有文件,因此,如果在你的app中属于用户的文件是不能保存到这个目录的,例如用户购买的音乐. 有些手机会把内置存储划出来一部分做为外置存储使用(我们现在使用的多数都是这种方式),但是的手机还提供了SD卡卡槽.对于Android 4.3及以下的设备,通过getExternalFilesDir()只能获得内置存储中划出来的那一部分,也就是说并不能获得SD卡部分.从Android4.4开始通过getExternalFilesDir()返回的是一个数组.只有在内置存储划分的外置存储不可用或者占用满的情况下才选择使用SD卡做为应用的私有存储空间.如果想要在Android4.3及以下的设备中获取该路径则通过兼容包ContextCompact.getExternalFilesDirs()获取. 需要注意的是,尽管对于媒体中心(MediaStore)而言,应用外部存储的私有空间是不可见的,但是对于其他具有读取或者写入存储权限的软件而言,放在外部存储的文件是可读可写的.因此,如果你不想你的文件被别的软件使用或者更改的话,就只能放到应用的内部空间了. ####保存缓存文件通过如下方式获得缓存文件的保存目录,缓存目录会随着应用的卸载而被删除: getExternalCacheDir(); 跟上面提到的类似,你也可以通过ContextCompact.getExternalCacheDirs()获得SD卡之类的外置存储的缓存路径. 在代码开发的时候我们应该特别注意缓存文件的维护,防止缓存文件占用过多的空间.比如说我们使用一些第三方的框架的时候会让我们配置缓存空间大小. ##Using DatabasesAndroid支持SQLite的所有功能,在应用里面创建的数据库能够被应用的任何一个类访问,但是不能在应用外访问.通常可以配合URIMatcher + ContentProvider + SQLiteOpenHelper进行数据库数据共享,列入联系人的获取. ##Using NetWork Connection即数据存储在服务端,通过网络获取持久化数据. ##总结前面基本上是对于官方文档的一种翻译和理解,后面来说一下自己的总结,首先观察一下现象 ///storage/emulated/0/Android/data/com.max.testuninstall/cache Log.d(TAG, &quot;onCreate: 外部缓存存储&quot; + this.getExternalCacheDir().toString()); //storage/emulated/0/Android/data/com.max.testuninstall/files Log.d(TAG, &quot;onCreate: 外部私有存储&quot; + this.getExternalFilesDir(null).toString()); ///storage/emulated/0 Log.d(TAG, &quot;onCreate: 外部共用存储&quot; + Environment.getExternalStorageDirectory().toString()); ///data/user/0/com.max.testuninstall/cache Log.d(TAG, &quot;onCreate: 内部缓存存储&quot; + this.getCacheDir().toString()); ///data/user/0/com.max.testuninstall/files Log.d(TAG, &quot;onCreate: 内部文件存储&quot; + this.getFilesDir().toString()); ///data/user/0/com.max.testuninstall/app_null Log.d(TAG, &quot;onCreate: 内部文件存储&quot; + this.getDir(null, MODE_PRIVATE).toString()); ///data/user/0/com.max.testuninstall/app_hello_world Log.d(TAG, &quot;onCreate: 内部文件存储&quot; + this.getDir(&quot;hello_world&quot;, MODE_PRIVATE).toString()); ///data/user/0/com.max.testuninstall/files(List) Log.d(TAG, &quot;onCreate: 内部文件存储,返回目录下所有文件&quot; + this.fileList().toString()); String FILENAME = &quot;hello_file&quot;; String string = &quot;hello world!&quot;; //data/data/packagename/files/hello_file FileOutputStream fos = this.openFileOutput(FILENAME, Context.MODE_PRIVATE); fos.write(string.getBytes()); fos.close(); 以上对应前文所说的通过不同方式获取内部,外部文件及缓存路径. ###读写权限Internal Storage本身无需声明任何权限即可进行读写操作.External Storage从Android4.4开始读写应用私有空间无需声明读写权限,Android4.3及以下需要声明读写权限.Android系统中写入External Storage权限包含读取External Storage权限. ###应用卸载通过上面对应的日志结合实际操作发现,Context获取的路径在应用卸载的时候会被同时删除,其实这也是可以理解的,毕竟是属于应用私有的文件.通过Environment获得的路径属于外界环境的,所以不会跟随应用的卸载而被删除掉. ###多用户在/storage/emulated/目录下面会有 0(默认用户),如果新建一个用户则是10,再新建则是11依此类推.]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Android ADB命令大全]]></title>
+    <url>%2F2017%2F01%2F19%2FAndroid-ADB%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8%2F</url>
+    <content type="text"><![CDATA[adb shell dumpsys package packagename //获取所有app的信息 adb shell ps | grep packagename //获取指定app的进程信息]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Shell</tag>
+        <tag>Android</tag>
+        <tag>命令行</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Root Nexus 6 Android 7.1 官方镜像]]></title>
+    <url>%2F2017%2F01%2F19%2FRoot-Nexus-6-Android-7-1-%E5%AE%98%E6%96%B9%E9%95%9C%E5%83%8F%2F</url>
+    <content type="text"><![CDATA[本教程适用于Android7.1官方系统的Nexus 6 Root, 使用于Android 7.1.1 N6F26Q Nougat,请确保你将要root的是该设备. 原文地址,可自行查看. 注意 本教程仅适用于安装 Android 7.1.1 (N6F26Q) 的Nexus 6设备,我自己的美版型号root正常. 手机需要解锁bootloader教程 系统必须为Android 7.1.1 N6F26Q Nougat官方镜像 教程 详细步骤 下载Android SDK工具地址,仅获取命令行工具即可.这个地址需要翻墙 打开开发者选项里面的USB调试 下载SuperSU 拷贝到手机存储空间根目录 下载TWRP 关机后按音量- 和 关机键进入bootloader模式,使用下载的命令行工具刷入twrp(如果没有添加命令行工具路径到环境变量则需要在放置命令行工具): fastboot flash recovery twrp-3.0.2-0-shamu.img 刷入完成后,选择RECOVERY模式进入 选择flash zip from SD card,选中前面的SuperSU XX文件,按电源键确认刷入 最后选择reboot system,重启以后如果有了SuperSU这个app说明root成功了.]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>Root</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Linux服务端更新Android SDK]]></title>
+    <url>%2F2017%2F01%2F19%2FLinux%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%9B%B4%E6%96%B0Android-SDK%2F</url>
+    <content type="text"><![CDATA[前段时间因为新版本需求更新了一下项目的Recycleview版本,对应的SDK也更新了.项目组的几位同事的项目全都因为找不到对应的SDK报错了,后面把自己的SDK拷贝一份给他们才OK(实在想吐槽一下,我觉得做为一个Android程序员翻墙是一项基本的技能).然而就在今天根据新的安排,后续打包统一走运维.而运维使用的是jenkins集成打包,然后上传到fir,测试人员直接下载安装然后进行测试.结果服务端果然出现了同样的错误. Could not resolve all dependencies for configuration &apos;:app:_debugCompile&apos;. &gt; Could not find com.android.support:recyclerview-v7:23.4.0. Searched in the following locations: https://jcenter.bintray.com/com/android/support/recyclerview-v7/23.4.0/recyclerview-v7-23.4.0.pom https://jcenter.bintray.com/com/android/support/recyclerview-v7/23.4.0/recyclerview-v7-23.4.0.jar file:/root/.jenkins/jobs_android/workspace/appbs/recyclerview-v7-23.4.0.jar file:/root/.jenkins/jobs_android/workspace/appbs/recyclerview-v7.jar file:/usr/local/android/extras/android/m2repository/com/android/support/recyclerview-v7/23.4.0/recyclerview-v7-23.4.0.pom file:/usr/local/android/extras/android/m2repository/com/android/support/recyclerview-v7/23.4.0/recyclerview-v7-23.4.0.jar file:/usr/local/android/extras/google/m2repository/com/android/support/recyclerview-v7/23.4.0/recyclerview-v7-23.4.0.pom file:/usr/local/android/extras/google/m2repository/com/android/support/recyclerview-v7/23.4.0/recyclerview-v7-23.4.0.jar Required by: workspace:app:unspecified workspace:app:unspecified &gt; com.yanzhenjie:recyclerview-swipe:1.0.1 &gt; Could not find com.android.support:recyclerview-v7:23.4.0. Searched in the following locations: https://jcenter.bintray.com/com/android/support/recyclerview-v7/23.4.0/recyclerview-v7-23.4.0.pom https://jcenter.bintray.com/com/android/support/recyclerview-v7/23.4.0/recyclerview-v7-23.4.0.jar file:/root/.jenkins/jobs_android/workspace/appbs/recyclerview-v7-23.4.0.jar file:/root/.jenkins/jobs_android/workspace/appbs/recyclerview-v7.jar file:/usr/local/android/extras/android/m2repository/com/android/support/recyclerview-v7/23.4.0/recyclerview-v7-23.4.0.pom file:/usr/local/android/extras/android/m2repository/com/android/support/recyclerview-v7/23.4.0/recyclerview-v7-23.4.0.jar file:/usr/local/android/extras/google/m2repository/com/android/support/recyclerview-v7/23.4.0/recyclerview-v7-23.4.0.pom file:/usr/local/android/extras/google/m2repository/com/android/support/recyclerview-v7/23.4.0/recyclerview-v7-23.4.0.jar Required by: workspace:app:unspecified &gt; com.android.support:design:23.1.1 然后我就跟运维的胖哥搜索教程,第一步去Github上面下载了lantern (Lantern都有付费版本了),然后去谷歌搜索Linux update Android SDK,然后找到了官方的教程,在GFW的帮助下,并没有什么用. 第二步,想在运维那里直接使用云梯翻墙更新(这里吐槽一下,云梯实在很不稳定,建议自己买VPS+Shadowsocks才是王道).跟预料的一样,根本连不上. 第三步,其实一开始思路就是错的,用什么谷歌搜索,只有少数的被国家保护的公民才有这种问题啊,所以直接使用百度搜索即可.果然还是自家人懂得自家事,找到了很多内容. //step 0:cd 到你安装SDK目录的Tools目录下(例如:/Volumes/work/sdk/tools) //step 1:设置代理获取可更新列表 ./android list sdk --extended --proxy-host android-mirror.bugly.qq.com --proxy-port 8080 -s //step 2:设置更新代理并选择下载文件,我这里选择的所有 -a ./android update sdk --proxy-host android-mirror.bugly.qq.com --proxy-port 8080 -s -u -a //当然你也可以自定义参数 Updates the SDK by suggesting new platforms to install if available. Options: -f --force : Forces replacement of a package or its parts, even if something has been modified. -n --dry-mode : Simulates the update but does not download or install anything. --proxy-host: HTTP/HTTPS proxy host (overrides settings if defined) -s --no-https : Uses HTTP instead of HTTPS (the default) for downloads. -t --filter : A filter that limits the update to the specified types of packages in the form of a comma-separated list of [platform, system-image, tool, platform-tool, doc, sample, source]. This also accepts the identifiers returned by &apos;list sdk --extended&apos;. -u --no-ui : Updates from command-line (does not display the GUI) --proxy-port: HTTP/HTTPS proxy port (overrides settings if defined) -p --obsolete : Deprecated. Please use --all instead. -a --all : Includes all packages (such as obsolete and non-dependent ones.) //step 3:同意license内容,反正你也没的选,然后就会自动下载并解压 Do you accept the license &apos;android-sdk-preview-license-52d11cd2&apos; [y/n]: 这里代理服务器其实蛮多的,参考AndroidDev,不懂翻墙人士的福音.深圳地区设置腾讯代理以后下载速度基本上都是2-3M起,速度非常快. 使用上面命令行是因为Linux Server没有可用图形操作界面,如果有图形操作界面的话还是不要使用这种方式了,把时间花在更有用的地方吧!毕竟我们是一群需求没定好就能把项目做完的码农!]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>自动构建</tag>
+        <tag>Jenkins</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Android拷贝文件Buff Size最佳实践]]></title>
+    <url>%2F2017%2F01%2F18%2FAndroid%E6%8B%B7%E8%B4%9D%E6%96%87%E4%BB%B6Buff-Size%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%2F</url>
+    <content type="text"><![CDATA[因为在我们的项目里面有一个大小超过11M的assets可执行文件,所以在app初次安装或者版本升级的时候需要全新拷贝或者升级拷贝.在实际使用中发现在app覆盖安装的时候重新拷贝assets文件很容易出现拷贝不完整的问题,这会导致这个可执行文件运行出现错误,最直观的表现就是界面数据展示异常,且只能通过卸载重装或者清除数据重新生成这个可执行文件解决异常,所以后来我就进行了一些优化. 1.加入文件完整性校验最开始的时候首先想到的是对文件进行完整性校验,即通过文件的MD5值进行对比,观察生成的完整的可执行文件的MD5值是否发生了改变来进行判断.如果MD5值出现改变则提示用户初始化失败,强制关闭app并且重新生成可执行文件.这里有一点补充的是之所以有这个分割成1M文件是因为在Android2.3之前单个assets文件大小不能超过1M,参考资料看这里. 拷贝代码例子如下,当然在我们的项目中还应该有一个分割和合并的过程,具体的代码就不再这里详细的写出来了: File Path = Ctxt.getDir(&quot;Data&quot;, 0); File DBFile = new File(Path, &quot;database.db&quot;); if(!DBFile.exists() || DatabaseNeedsUpgrade) //Need to copy... CopyDatabase(Ctxt, DBFile); static private void CopyDatabase(Context Ctxt, File DBFile) throws IOException { AssetManager assets = Ctxt.getAssets(); OutputStream outstream = new FileOutputStream(DBFile); DBFile.createNewFile(); byte []b = new byte[1024]; int i, r; String []assetfiles = assets.list(&quot;&quot;); Arrays.sort(assetfiles); for(i=1;i&lt;10;i++) //I have definitely less than 10 files; you might have more { String partname = String.format(&quot;%d.db&quot;, i); if(Arrays.binarySearch(assetfiles, partname) &lt; 0) //No such file in assets - time to quit the loop break; InputStream instream = assets.open(partname); while((r = instream.read(b)) != -1) outstream.write(b, 0, r); instream.close(); } outstream.close(); } 2.考虑不分割文件前面有提到其实只有在Android2.3之前才有assets单个文件大小不能超过1M的限制,而拷贝过程通常都是在进行到其中的某个文件时就失败了,所以考虑不分割文件直接进行拷贝.在实际测试中发现并没有什么大的改善,甚至于拷贝速度还下降了. 3.从拷贝的过程入手通常我们拷贝文件的时候都会使用int数组进行缓存加速拷贝过程,但是这个缓存的大小究竟要设置为多大比较合适可能大家都没怎么想过.正常来说在设备允许的情况下当然是越大越好,但实际使用过程中,我们也要考虑增大缓存带来的收益.通过测试和查阅资料发现,在使用32K缓存大小的情况下收益是最好的.大幅度的提升了拷贝速度,后面我们基本上没有遇到过由于文件拷贝不完整导致的启动异常问题.如下表所示,对应不同缓存拷贝20M文件的耗时: 128 256 512 1K 2K 4K 8K 16K 32K 64K 128K 256K 512K 1M 2M 4M 8M 16M Galaxy S 4047 3060 269 155 100 65 64 52 51 45 47 50 49 43 44 46 45 58 Optimus LTE 1178 617 322 172 101 65 47 42 41 35 36 39 44 61 56 51 72 60 HTC EVO 3971 1884 941 480 251 141 95 69 56 50 48 55 50 49 48 48 48 47 Galaxy S2 750 383 210 123 74 50 41 37 35 34 34 37 39 44 46 44 45 44 Galaxy Nexus 2272 1216 659 341 187 108 70 52 41 38 38 45 44 54 56 66 68 58 Galaxy Note 1549 799 404 220 127 75 58 54 52 56 52 45 44 62 43 39 44 46 可以发现,32K缓存拷贝文件的收益是极高的,对手机内存的压力也比较小.]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[搭建跨平台go编译环境]]></title>
+    <url>%2F2017%2F01%2F18%2F%E6%90%AD%E5%BB%BA%E8%B7%A8%E5%B9%B3%E5%8F%B0go%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83%2F</url>
+    <content type="text"><![CDATA[本文主要是为了搭建golang跨平台环境,从而实现一套golang代码运行在多重环境(OSX,Linux,Android,iOS,Windows),实现跨平台共享代码,简化开发流程. 安装Docker 安装golang 安装xgo镜像及编译指令 配置环境变量 1. 安装docker针对Mac和Windows可以直接下载安装包进行安装,其他系统可以使用命令行进行安装.参考链接,最后通过docker version 指令进行查看 # Jacen at EveeedeMacBook-Pro.local in ~ [10:51:52] docker version Client: Version: 1.12.5 API version: 1.24 Go version: go1.6.4 Git commit: 7392c3b Built: Fri Dec 16 06:14:34 2016 OS/Arch: darwin/amd64 Server: Version: 1.12.5 API version: 1.24 Go version: go1.6.4 Git commit: 7392c3b Built: Fri Dec 16 06:14:34 2016 OS/Arch: linux/amd64 2. 安装golang同样的在Windows和Mac下面都有一键安装包,针对其他系统也是通过命令行进行安装.参考链接,安装好以后还需要进行环境变量的配置. 在mac系统和Linux系统下面,Windows配置环境变量 export GOROOT=&quot;/usr/local/go&quot; export GOPATH=&quot;你的工作目录&quot; //这里主要是影响到后面需要安装的xgo 再执行go env查看是否配置成功: GOARCH=&quot;amd64&quot; GOBIN=&quot;&quot; GOEXE=&quot;&quot; GOHOSTARCH=&quot;amd64&quot; GOHOSTOS=&quot;darwin&quot; GOOS=&quot;darwin&quot; GOPATH=&quot;/Volumes/Work/go&quot; GORACE=&quot;&quot; GOROOT=&quot;/usr/local/go&quot; GOTOOLDIR=&quot;/usr/local/go/pkg/tool/darwin_amd64&quot; CC=&quot;clang&quot; GOGCCFLAGS=&quot;-fPIC -m64 -pthread -fno-caret-diagnostics -Qunused-arguments -fmessage-length=0 -fdebug-prefix-map=/var/folders/w4/75xgx41n2bb7mm3m0dxbp0d40000gn/T/go-build003828011=/tmp/go-build -gno-record-gcc-switches -fno-common&quot; CXX=&quot;clang++&quot; CGO_ENABLED=&quot;1&quot; 3. 安装xgo docker镜像xgo的docker镜像是我们真正的编译环境,Github地址 安装xgo docker镜像,这个镜像大概4.xG,需要花较长的时间下载 docker pull karalabe/xgo-latest 这里latest指的最新的编译环境,如果需要的话也可以指定安装具体版本的镜像,在这里,这个版本的差异主要是golang版本的不同,由于编译的时候可以指定golang版本进行编译,所以我们直接安装最新版本即可. 安装xgo go get github.com/karalabe/xgo 安装xgo编译工具,这个工具封装了go build,简化了我们的操作. 4. 配置环境变量如果我们使用的是bash的话可以将环境变量配置到.bash_profile中,免去export的过程 使用bash 在 ~ 目录下编辑.bash_profile 文件,在末尾添加 export GOPATH=”你的工作目录” export GOROOT=”usr/local/go” export PATH=$PATH:$GOPATH/bin export GOROOT_BOOTSTRAP=$GOROOT source .bash_profile使得配置文件生效 使用如zsh shell程序 在~ 目录下编辑.zshrc 文件,添加上面同样的文件 同上source生效 5. 测试xgo交叉编译环境是否OK$ cd $GOPATH/src // If you have multiple (I have at least 3 in there), change into any, doesn&apos;t matter $ mkdir xgo_test $ cd xgo_test $ echo -e &apos;package main\n import &quot;fmt&quot;\n func main(){\nfmt.Println(&quot;Hello&quot;)\n}&apos; &gt; main.go $ xgo . 执行完上述命令后在当前目录查看是否有编译生成的可执行文件 6. 打包 ~ xgo /Volumes/Public\ Storage/go/src/zhjd() ~ xgo --targets=android-14/arm /Volumes/Storage/go/src/zhjd 指定生成Android端专用的会快很多很多,这里的14指的是最小支持SDK版本 Checking docker installation... Client: Version: 1.12.3 API version: 1.24 Go version: go1.6.3 Git commit: 6b644ec Built: Wed Oct 26 23:26:11 2016 OS/Arch: darwin/amd64 Server: Version: 1.12.3 API version: 1.24 Go version: go1.6.3 Git commit: 6b644ec Built: Wed Oct 26 23:26:11 2016 OS/Arch: linux/amd64 Checking for required docker image karalabe/xgo-latest... found. Cross compiling zhjd... Building locally zhjd... Assembling toolchain for android-16/arm... Bootstrapping android-16/arm... Compiling for android-16/arm... Assembling toolchain for android-16/386... Bootstrapping android-16/386... Compiling for android-16/386... No API C header specified, skipping android-16/aar... 重点关注 Compiling for linux/amd64... Compiling for linux/386... Bootstrapping linux/arm-5... Compiling for linux/arm-5... Cleaning up Go runtime for linux/arm-5... Bootstrapping linux/arm-6... Compiling for linux/arm-6... Cleaning up Go runtime for linux/arm-6... Bootstrapping linux/arm-7... Compiling for linux/arm-7... Cleaning up Go runtime for linux/arm-7... Compiling for linux/arm64... Compiling for linux/mips64... Compiling for linux/mips64le... Compiling for windows-4.0/amd64... Compiling for windows-4.0/386... Compiling for darwin-10.6/amd64... Compiling for darwin-10.6/386... Bootstrapping ios-5.0/arm-7... # runtime/cgo ldid.cpp(602): _assert(): Swap(mach_header_-&gt;filetype) == MH_EXECUTE || Swap(mach_header_-&gt;filetype) == MH_DYLIB || Swap(mach_header_-&gt;filetype) == MH_BUNDLE # net ldid.cpp(602): _assert(): Swap(mach_header_-&gt;filetype) == MH_EXECUTE || Swap(mach_header_-&gt;filetype) == MH_DYLIB || Swap(mach_header_-&gt;filetype) == MH_BUNDLE # os/user ldid.cpp(602): _assert(): Swap(mach_header_-&gt;filetype) == MH_EXECUTE || Swap(mach_header_-&gt;filetype) == MH_DYLIB || Swap(mach_header_-&gt;filetype) == MH_BUNDLE Compiling for ios-5.0/arm-7... # github.com/mattn/go-sqlite3 ldid.cpp(602): _assert(): Swap(mach_header_-&gt;filetype) == MH_EXECUTE || Swap(mach_header_-&gt;filetype) == MH_DYLIB || Swap(mach_header_-&gt;filetype) == MH_BUNDLE # github.com/mattn/go-sqlite3 ldid.cpp(602): _assert(): Swap(mach_header_-&gt;filetype) == MH_EXECUTE || Swap(mach_header_-&gt;filetype) == MH_DYLIB || Swap(mach_header_-&gt;filetype) == MH_BUNDLE Cleaning up Go runtime for ios-5.0/arm-7... Bootstrapping ios-5.0/arm64... # runtime/cgo ldid.cpp(602): _assert(): Swap(mach_header_-&gt;filetype) == MH_EXECUTE || Swap(mach_header_-&gt;filetype) == MH_DYLIB || Swap(mach_header_-&gt;filetype) == MH_BUNDLE # net ldid.cpp(602): _assert(): Swap(mach_header_-&gt;filetype) == MH_EXECUTE || Swap(mach_header_-&gt;filetype) == MH_DYLIB || Swap(mach_header_-&gt;filetype) == MH_BUNDLE # os/user ldid.cpp(602): _assert(): Swap(mach_header_-&gt;filetype) == MH_EXECUTE || Swap(mach_header_-&gt;filetype) == MH_DYLIB || Swap(mach_header_-&gt;filetype) == MH_BUNDLE Compiling for ios-5.0/arm64... # github.com/mattn/go-sqlite3 ldid.cpp(602): _assert(): Swap(mach_header_-&gt;filetype) == MH_EXECUTE || Swap(mach_header_-&gt;filetype) == MH_DYLIB || Swap(mach_header_-&gt;filetype) == MH_BUNDLE # github.com/mattn/go-sqlite3 ldid.cpp(602): _assert(): Swap(mach_header_-&gt;filetype) == MH_EXECUTE || Swap(mach_header_-&gt;filetype) == MH_DYLIB || Swap(mach_header_-&gt;filetype) == MH_BUNDLE Cleaning up Go runtime for ios-5.0/arm64... Cleaning up build environment... 查看编译生成的文件 ➜ all ls -al total 427872 drwxr-xr-x 21 silence staff 714 Dec 29 11:37 . drwxr-xr-x+ 29 silence staff 986 Dec 29 11:37 .. -rw-r--r--@ 1 silence staff 6148 Dec 29 11:37 .DS_Store -rwxr-xr-x 1 silence staff 14633608 Dec 29 11:27 zhjd-android-16-386 drwxr-xr-x 5 silence staff 170 Dec 29 11:27 zhjd-android-16-aar -rwxr-xr-x 1 silence staff 14705872 Dec 29 11:26 zhjd-android-16-arm -rwxr-xr-x 1 silence staff 10418780 Dec 29 11:32 zhjd-darwin-10.6-386 -rwxr-xr-x 1 silence staff 11578172 Dec 29 11:31 zhjd-darwin-10.6-amd64 -rwxr-xr-x 1 silence staff 11224720 Dec 29 11:34 zhjd-ios-5.0-arm64 -rwxr-xr-x 1 silence staff 10569184 Dec 29 11:33 zhjd-ios-5.0-armv7 drwxrwxrwx 3 silence staff 102 Dec 29 11:35 zhjd-ios-5.0-framework -rwxr-xr-x 1 silence staff 14611432 Dec 29 11:28 zhjd-linux-386 -rwxr-xr-x 1 silence staff 17246480 Dec 29 11:27 zhjd-linux-amd64 -rwxr-xr-x 1 silence staff 13034956 Dec 29 11:28 zhjd-linux-arm-5 -rwxr-xr-x 1 silence staff 12965808 Dec 29 11:29 zhjd-linux-arm-6 -rwxr-xr-x 1 silence staff 12939788 Dec 29 11:29 zhjd-linux-arm-7 -rwxr-xr-x 1 silence staff 17075720 Dec 29 11:29 zhjd-linux-arm64 -rwxr-xr-x 1 silence staff 18700376 Dec 29 11:30 zhjd-linux-mips64 -rwxr-xr-x 1 silence staff 18699640 Dec 29 11:31 zhjd-linux-mips64le -rwxr-xr-x 1 silence staff 9734407 Dec 29 11:31 zhjd-windows-4.0-386.exe -rwxr-xr-x 1 silence staff 10889885 Dec 29 11:31 zhjd-windows-4.0-amd64.exe 可以发现,针对不同平台生成了不同类型的文件.Android支持生成aar库文件,iOS支持生成Framework库文件 平台实测Android端测试 推送到设备中,之所以不直接推送到app目录下是因为权限问题,这里如果提示adb命令不存在同样的也要把Android SDK中的adb命令配置到环境变量中 //直接推送到app目录下会有权限问题 adb push zhjd-android-16-arm data/data/com,kingdee.zhihuiji adb: error: failed to copy &apos;zhjd-android-16-arm&apos; to &apos;data/data/ com.kingdee.zhihuiji&apos;: Permission denied //所以推送到该目录下 adb push zhjd-android-16-arm data/local/tmp [100%] data/local/tmp/zhjd-android-16-arm 切换到Android设备并执行该文件,这里只能使用已经root的设备 adb shell 进入手机命令行 su 切换超级用户 cd /data/local/tmp ./zhjd-android-16-arm 最后在终端会输出可执行文件的执行结果]]></content>
+      <categories>
+        <category>Golang</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>Golang</tag>
+        <tag>CrossCompile</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Android Library中的R文件不是常量]]></title>
+    <url>%2F2017%2F01%2F18%2FAndroid-Library%E4%B8%AD%E7%9A%84R%E6%96%87%E4%BB%B6%2F</url>
+    <content type="text"><![CDATA[前段时间跟项目老大提了个请求,就是将Butterknife加入到我们的项目中,结合android-butterknife-zelezny使用,这样子不仅代码简洁,也可以减少一些findViewById的繁琐过程,提升我们的开发效率.效果如下图,是不是特别简洁. 经过老大的同意以后,我开始加依赖,下载自动注解插件,进行自动生成代码,一气呵成,神清气爽.But问题立马就暴露出来了,代码如下: @OnClick({R2.id.m_button_pattern, R2.id.m_button_password}) public void onClick(View view) { Log.d(&quot;xx&quot;, &quot;========onClick=========&quot;); Intent intent = new Intent(); switch (view.getId()) { case R2.id.m_button_pattern: intent.setClass(getApplicationContext(),MainActivity.class); Log.d(&quot;xx&quot;, &quot;========onClick====MainActivity=====&quot;); break; case R2.id.m_button_password: intent.setClass(getApplicationContext(),SetPasswordLockActivity.class); Log.d(&quot;xx&quot;, &quot;========onClick=====SetPasswordLockActivity====&quot;); break; } this.startActivity(intent); } 然后问题就出现了.由于我们的项目是在Library中开发(蛋疼得不行,很多限制),问题就是出在这里,请看下面的代码: //Library中生成的R文件 public static int activity_open_exit=0x7f04000d; //Module中生成的R文件 public static final int abc_fade_out=0x7f050001; 所以在Library中无法使用switch语句进而影响到了Butterknife的使用. 至于为什么在Library中无法使用参考谷歌文档.经过阅读我们知道从ADT14开始Library中的R文件才从静态常量变为非常量.因为如果在多个Library中可能出现id冲突的问题.在ADT14以前则采用的是将所有的资源文件和相关的代码重新随着主项目一起重新编译,导致编译速度过慢.因此,从ADT14开始就变成了非常量的id了: int id = view.getId(); switch (id) { case R.id.button1: action1(); break; case R.id.button2: action2(); break; case R.id.button3: action3(); break; } Android Studio也提供了一键转换的快捷方式如下图: 然后就变成了如下所示的代码了. int id = view.getId(); if (id == R.id.button1) { action1(); } else if (id == R.id.button2) { action2(); } else if (id == R.id.button3) { action3(); } 因为找资料的原因又去看了下Github的Butterknife, JakeWharton大神终于在大家的强烈请求下更新了支持Library, 更新日志; Version 8.2.0 (2016-07-10) New: Support for library projects. Requires application of a Butter Knife Gradle plugin. See README for details. New: Generated code now emits R references instead of raw integer IDs. Fix: @OnPageChange listener binding now uses the &apos;add&apos;/&apos;remove&apos; methods on ViewPager instead of &apos;set&apos;. 算是意料之外的惊喜吧,下周一就把Butterknife加入我们的项目!]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[搭建gomobile开发环境]]></title>
+    <url>%2F2017%2F01%2F18%2F%E6%90%AD%E5%BB%BAgomobile%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%2F</url>
+    <content type="text"><![CDATA[gomobile是谷歌开发的一种跨平台技术解决方案,可以针对iOS和Android平台进行直接开发或者进行Library开发. 配置gomobile开发环境 设置终端http,https代理 配置git,及环境变量 配置golang及gopath环境及环境变量 配置gomobile及环境变量 gomobile的优缺点优点 直接构建用于ios的framework文件,可以直接调用生成的类 直接构建用于Android的aar文件,使用jni直接调用 统一三端规则,避免重复开发和一些错误 缺点:数据类型限制 int and float; string and boolean; byte[]. The current implementation doesn’t allow to use []byte as the function argument (https://golang.org/issues/12113); function has to return only supported types, it may not return the result, it may return one or two types wherein the second type should be an error; interfaces could be used if they are exported to files of any supported type; struct type, only in case all fields meet the constraints. ] 环境搭建流程官方教程 官网地址,安装gomobile,当然首先得安装golang才能够使用go命令 $ go get golang.org/x/mobile/cmd/gomobile $ gomobile init //然后就可以通过gomobile指令查看了 $ gomobile 前面地址进不去的话有个Github地址 使用Github镜像安装由于使用谷歌的官网资源需要在命令行翻墙,比较麻烦,所以直接使用Github的镜像进行安装. $ mkdir -p $GOPATH/src/github.com/golang $ cd $GOPATH/src/github.com/golang $ git clone https://github.com/golang/mobile.git $ mkdir -p $GOPATH/src/golang.org/x $ cp -r $GOPATH/src/github.com/golang/mobile $GOPATH/src/golang.org/x $ cd $GOPATH/src/golang.org/x/mobile/cmd/gomobile $ go install //会在$GOPATH/src/bin 目录下生成gomobile $ gomobile init //安装NDK之类的]]></content>
+      <categories>
+        <category>Golang</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[常用的hexo指令]]></title>
+    <url>%2F2017%2F01%2F18%2Fhexo%20-%20%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%9B%B8%E5%85%B3%2F</url>
+    <content type="text"><![CDATA[hexo new post &quot;article title&quot; //创建新的post,创建目录为: /source/_posts/ hexo d //deploy 发布 hexo s // hexo clean hexo s --debug hexo new page categories hexo new page about hexo new page commonweal hexo new page sitemap hexo new page tags hexo new page archives hexo new page tags]]></content>
+      <categories>
+        <category>博客编写</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[Mac OS X 配置环境变量]]></title>
+    <url>%2F2017%2F01%2F16%2Farticle-title%2F</url>
+    <content type="text"><![CDATA[/etc/bashrc 是针对系统所有用户的全局变量，只有root用户才能修改这两个文件，对一般用户来说是他们是只读的。一般用户要想修改它们，可以在命令前加sudo，意思是以Root身份执行，比如：sudo vi /etc/profile ，然后按照提示输入密码即可。(以上是针对使用默认shell的用户,如果使用zsh的话则对应的修改文件是.zshrc) 因此，对于一般用户而言，通常我们建议去修改~/.bash_profile来设置环境变量，它是用户级的设置，只对当前用户有效。操作步骤: 1、打开Terminal（终端） 2、输入：vi ~/.bash_profile 3、设置PATH：export PATH=/usr/local/mysql/bin:$PATH 4、输入：:wq //保存并退出vi 5、修改立即生效：source ~/.bash_profile 6、查看环境变量的值：echo $PATH]]></content>
+      <categories>
+        <category>Shell</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2F2017%2F01%2F16%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+  </entry>
+</search>

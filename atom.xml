@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-10-23T01:55:32.328Z</updated>
+  <updated>2018-01-07T02:13:51.634Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,16 +16,255 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>数据库学习2 - 语法</title>
+    <link href="http://yoursite.com/2018/01/07/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A02-%E8%AF%AD%E6%B3%95/"/>
+    <id>http://yoursite.com/2018/01/07/数据库学习2-语法/</id>
+    <published>2018-01-07T02:05:32.000Z</published>
+    <updated>2018-01-07T02:13:51.634Z</updated>
+    
+    <content type="html"><![CDATA[<h5 id="基础语法"><a href="#基础语法" class="headerlink" title="基础语法"></a>基础语法</h5><ul>
+<li>如果查询的列名在用到的两个或者多个表中不重复，则对这一列的引用不用加表名限制</li>
+<li>视图和基表数据是同步更新的，视图不能创建索引</li>
+<li></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h5 id=&quot;基础语法&quot;&gt;&lt;a href=&quot;#基础语法&quot; class=&quot;headerlink&quot; title=&quot;基础语法&quot;&gt;&lt;/a&gt;基础语法&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;如果查询的列名在用到的两个或者多个表中不重复，则对这一列的引用不用加表名限制&lt;/li&gt;
+&lt;li&gt;视图和基表数据是
+    
+    </summary>
+    
+      <category term="数据库" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+      <category term="数据库" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Kotlin学习笔记1</title>
+    <link href="http://yoursite.com/2017/12/30/Kotlin%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/"/>
+    <id>http://yoursite.com/2017/12/30/Kotlin学习笔记1/</id>
+    <published>2017-12-30T03:47:39.000Z</published>
+    <updated>2017-12-30T05:58:05.627Z</updated>
+    
+    <content type="html"><![CDATA[<p>随着Kotlin的越来越火热，对于Android开发者而言学习Kotlin也变成了一个必要的过程了。</p>
+<h5 id="基础语法"><a href="#基础语法" class="headerlink" title="基础语法"></a>基础语法</h5><h6 id="定义一个类"><a href="#定义一个类" class="headerlink" title="定义一个类"></a>定义一个类</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">class User(name: String, age: Int) &#123;&#125; //如果类没有内容则大括号可以省略掉</div></pre></td></tr></table></figure>
+<p>构造函数的函数体，即下列代码的init块中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">class User(name: String, age: Int) &#123;</div><div class="line">	init &#123;</div><div class="line">		...</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h6 id="类继承"><a href="#类继承" class="headerlink" title="类继承"></a>类继承</h6><p>默认任何类都是继承基础类Any（类似于java中的Object），但是我们可以继承其它类。所有的类默认都是final的，因此如果我们要让别的类继承的话就需要声明open或者abstract关键字。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">class User(name: String, age: Int)</div><div class="line"></div><div class="line">class Max(name: String, age: Int, gender: String) : User(name, age)</div></pre></td></tr></table></figure>
+<p>如上所示，如果只有单个构造器时，需要从父类继承下来的构造器中指定需要的参数，类似于java super关键字</p>
+<h6 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h6><p>函数使用fun声明:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">fun add(x: Int, y: Int): Int &#123;</div><div class="line">       return x + y</div><div class="line">   &#125;</div><div class="line">  </div><div class="line">  func add(x: Int, y: Int) : Int = x+y</div><div class="line">   </div><div class="line"> 无返回值的函数，会返回Unit，于java中的void类似，但是Unit是一个真正的对象</div></pre></td></tr></table></figure>
+<h6 id="构造方法和函数参数"><a href="#构造方法和函数参数" class="headerlink" title="构造方法和函数参数"></a>构造方法和函数参数</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">toast(&quot;hell&quot;) //使用默认的Toast.LENGTH_LONG</div><div class="line">toast(&quot;hell&quot;,Toast.LENGTH_LONG)</div><div class="line"></div><div class="line"></div><div class="line">fun toast(msg: String, length: Int = Toast.LENGTH_LONG) &#123;//执行函数默认值，避免方法重载</div><div class="line">        Toast.makeText(this,msg, length).show()</div><div class="line">    &#125;</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;随着Kotlin的越来越火热，对于Android开发者而言学习Kotlin也变成了一个必要的过程了。&lt;/p&gt;
+&lt;h5 id=&quot;基础语法&quot;&gt;&lt;a href=&quot;#基础语法&quot; class=&quot;headerlink&quot; title=&quot;基础语法&quot;&gt;&lt;/a&gt;基础语法&lt;/h5&gt;&lt;h6 id=
+    
+    </summary>
+    
+      <category term="Kotlin" scheme="http://yoursite.com/categories/Kotlin/"/>
+    
+    
+      <category term="Kotlin" scheme="http://yoursite.com/tags/Kotlin/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>gomobile相关的错误处理</title>
+    <link href="http://yoursite.com/2017/12/19/gomobile%E7%9B%B8%E5%85%B3%E7%9A%84%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/"/>
+    <id>http://yoursite.com/2017/12/19/gomobile相关的错误处理/</id>
+    <published>2017-12-19T04:16:06.000Z</published>
+    <updated>2017-12-19T04:22:17.574Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>务必确认在构建非Windows包的时候，根目录下面无syso版本信息文件，否则各种各样的奇葩错误</strong></p>
+<h5 id="seq-android-c-213-3-error"><a href="#seq-android-c-213-3-error" class="headerlink" title="seq_android.c:213:3: error"></a>seq_android.c:213:3: error</h5><figure class="highlight plain"><figcaption><span>go build -pkgdir=/Users/Eveee/Storage/go/pkg/gomobile/pkg_android_arm64 -buildmode=c-shared -o=/var/folders/w4/75xgx41n2bb7mm3m0dxbp0d40000gn/T/gomobile-work-159245723/android/src/main/jniLibs/arm64-v8a/libgojni.so</span><a href="/var/folders/w4/75xgx41n2bb7mm3m0dxbp0d40000gn/T/gomobile-work-159245723/androidlib/main.go">failed: exit status 2</a></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># _/var/folders/w4/75xgx41n2bb7mm3m0dxbp0d40000gn/T/gomobile-work-159245723/gomobile_bind</div><div class="line">seq_android.c:213:3: error: implicitly declaring library function &apos;memcpy&apos; with type &apos;void *(void *, const void *, unsigned long)&apos; [-Werror,-Wimplicit-function-declaration]</div><div class="line">seq_android.c:213:3: note: include the header &lt;string.h&gt; or explicitly provide a declaration for &apos;memcpy&apos;</div></pre></td></tr></table></figure>
+<p>解决方案</p>
+<p><code>https://github.com/golang/go/issues/22766 seq_android.c:213:3: error</code></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt;务必确认在构建非Windows包的时候，根目录下面无syso版本信息文件，否则各种各样的奇葩错误&lt;/strong&gt;&lt;/p&gt;
+&lt;h5 id=&quot;seq-android-c-213-3-error&quot;&gt;&lt;a href=&quot;#seq-android-c-213-3-er
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Go语言实战阅读笔记2</title>
+    <link href="http://yoursite.com/2017/12/11/Go%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B02/"/>
+    <id>http://yoursite.com/2017/12/11/Go语言实战阅读笔记2/</id>
+    <published>2017-12-11T13:47:03.000Z</published>
+    <updated>2017-12-13T14:35:24.291Z</updated>
+    
+    <content type="html"><![CDATA[<p>&amp;符号的意思是对变量取地址<br>*符号的意思是对指针取值</p>
+<p>*和 &amp; 可以互相抵消,同时注意，*&amp;可以抵消掉，但&amp;*是不可以抵消的</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&amp;amp;符号的意思是对变量取地址&lt;br&gt;*符号的意思是对指针取值&lt;/p&gt;
+&lt;p&gt;*和 &amp;amp; 可以互相抵消,同时注意，*&amp;amp;可以抵消掉，但&amp;amp;*是不可以抵消的&lt;/p&gt;
+
+    
+    </summary>
+    
+      <category term="Golang" scheme="http://yoursite.com/categories/Golang/"/>
+    
+    
+      <category term="Golang" scheme="http://yoursite.com/tags/Golang/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Go语言实战阅读笔记1</title>
+    <link href="http://yoursite.com/2017/12/11/Go%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B01/"/>
+    <id>http://yoursite.com/2017/12/11/Go语言实战阅读笔记1/</id>
+    <published>2017-12-11T13:31:36.000Z</published>
+    <updated>2017-12-11T13:45:00.449Z</updated>
+    
+    <content type="html"><![CDATA[<h5 id="1-1-Go语言的特性"><a href="#1-1-Go语言的特性" class="headerlink" title="1.1 Go语言的特性"></a>1.1 Go语言的特性</h5><h6 id="1-1-1-高效的开发速度和编译速度"><a href="#1-1-1-高效的开发速度和编译速度" class="headerlink" title="1.1.1  高效的开发速度和编译速度"></a>1.1.1  高效的开发速度和编译速度</h6><p>Golang编译没有从编译代码到执行代码的中间过程，用动态语言编写应用程序可以快速看到输出。代价是，动态语言不提供静态语言提供的类型安全特性，不得不大量使用测试套件来避免在运行的时候出现类型错误这类bug</p>
+<h6 id="1-1-2-天然的并发支持"><a href="#1-1-2-天然的并发支持" class="headerlink" title="1.1.2 天然的并发支持"></a>1.1.2 天然的并发支持</h6><h6 id="1-1-2-1-goroutine"><a href="#1-1-2-1-goroutine" class="headerlink" title="1.1.2.1 goroutine"></a>1.1.2.1 goroutine</h6><p>不同于java和C需要编写大量额外的代码来使用线程，Golang在同一个线程中并行多个goroutine，net/http库直接使用了内置的goroutine，每个接收到的请求都在自己的goroutine中运行。goroutine使用的内存相对于线程而言更少，Go语言在运行时会自动在配置的一组逻辑处理器上调度执行goroutine。每个逻辑处理器绑定到一个操作系统上。这样子让用户的应用程序执行效率更高，而开发工作量显著减少。</p>
+<h6 id="1-1-2-1-通道"><a href="#1-1-2-1-通道" class="headerlink" title="1.1.2.1 通道"></a>1.1.2.1 通道</h6><p>通道是一种在goroutine中进行安全的数据通信的数据结构，帮助用户避免其它语言里面常见的共享内存访问的问题</p>
+<p>并发最难得部分就是要确保其他并发运行的进行、线程或goroutine不会以外修改用户的数据。在线程不安全的情况下访问和修改共享变量往往会带来灾难性的后果，在其它语言中，通常要通过复杂的锁规则来防止对一个全局变量或者共享内存造成不同步的修改</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h5 id=&quot;1-1-Go语言的特性&quot;&gt;&lt;a href=&quot;#1-1-Go语言的特性&quot; class=&quot;headerlink&quot; title=&quot;1.1 Go语言的特性&quot;&gt;&lt;/a&gt;1.1 Go语言的特性&lt;/h5&gt;&lt;h6 id=&quot;1-1-1-高效的开发速度和编译速度&quot;&gt;&lt;a href=&quot;
+    
+    </summary>
+    
+      <category term="Golang" scheme="http://yoursite.com/categories/Golang/"/>
+    
+    
+      <category term="Golang" scheme="http://yoursite.com/tags/Golang/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据库学习1</title>
+    <link href="http://yoursite.com/2017/12/01/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A01/"/>
+    <id>http://yoursite.com/2017/12/01/数据库学习1/</id>
+    <published>2017-12-01T13:18:50.000Z</published>
+    <updated>2018-01-07T02:05:11.536Z</updated>
+    
+    <content type="html"><![CDATA[<h5 id="使用Navicat连接Mamp-Pro"><a href="#使用Navicat连接Mamp-Pro" class="headerlink" title="使用Navicat连接Mamp Pro"></a>使用Navicat连接Mamp Pro</h5><ol>
+<li>新建mysql连接</li>
+<li>输入端口号，用户名和密码（默认都是root）</li>
+<li>use socket，打勾。输入/Applications/MAMP/tmp/mysql/mysql.sock</li>
+</ol>
+<h5 id="使用命令行操作mysql"><a href="#使用命令行操作mysql" class="headerlink" title="使用命令行操作mysql"></a>使用命令行操作mysql</h5><ol>
+<li>执行 /Applications/MAMP/Library/bin 目录下的mysql即可进入命令行操作界面</li>
+</ol>
+<h5 id="使用golang连接数据库"><a href="#使用golang连接数据库" class="headerlink" title="使用golang连接数据库"></a>使用golang连接数据库</h5><ol>
+<li><code>db, err := sql.Open(&quot;mysql&quot;, &quot;root:root@unix(/Applications/MAMP/tmp/mysql/mysql.sock)/mysql&quot;)</code></li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h5 id=&quot;使用Navicat连接Mamp-Pro&quot;&gt;&lt;a href=&quot;#使用Navicat连接Mamp-Pro&quot; class=&quot;headerlink&quot; title=&quot;使用Navicat连接Mamp Pro&quot;&gt;&lt;/a&gt;使用Navicat连接Mamp Pro&lt;/h5&gt;&lt;ol&gt;
+
+    
+    </summary>
+    
+      <category term="数据库" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+      <category term="数据库" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ssh使用之文件拷贝</title>
+    <link href="http://yoursite.com/2017/11/30/ssh%E4%BD%BF%E7%94%A8%E4%B9%8B%E6%96%87%E4%BB%B6%E6%8B%B7%E8%B4%9D/"/>
+    <id>http://yoursite.com/2017/11/30/ssh使用之文件拷贝/</id>
+    <published>2017-11-30T12:53:21.000Z</published>
+    <updated>2017-11-30T12:57:48.409Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近想学习一下Golang,自己买了一个188一年的京东云服务器，准备丢点东西上去，过程实在是各种折腾，门外汉的痛苦。</p>
+<h4 id="ssh传输文件"><a href="#ssh传输文件" class="headerlink" title="ssh传输文件"></a>ssh传输文件</h4><pre><code>上传文件
+scp /path/filename username@servername:/path
+下载文件
+scp username@servername:/path/filename /var/www/local_dir（本地目录）
+下载目录
+scp -r username@servername:/var/www/remote_dir/（远程目录） /var/www/local_dir（本地目录）
+上传目录
+scp  -r local_dir username@servername:remote_dir
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近想学习一下Golang,自己买了一个188一年的京东云服务器，准备丢点东西上去，过程实在是各种折腾，门外汉的痛苦。&lt;/p&gt;
+&lt;h4 id=&quot;ssh传输文件&quot;&gt;&lt;a href=&quot;#ssh传输文件&quot; class=&quot;headerlink&quot; title=&quot;ssh传输文件&quot;&gt;&lt;/
+    
+    </summary>
+    
+      <category term="SSH" scheme="http://yoursite.com/categories/SSH/"/>
+    
+    
+      <category term="ssh" scheme="http://yoursite.com/tags/ssh/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android-基础-FileProvider使用</title>
+    <link href="http://yoursite.com/2017/10/27/Android-%E5%9F%BA%E7%A1%80-FileProvider%E4%BD%BF%E7%94%A8/"/>
+    <id>http://yoursite.com/2017/10/27/Android-基础-FileProvider使用/</id>
+    <published>2017-10-27T14:49:48.000Z</published>
+    <updated>2017-10-28T00:47:56.466Z</updated>
+    
+    <content type="html"><![CDATA[<p>移动平台对于安全和隐私是越来越注重了，Android在权限方面也在不断的收紧，一定程度上对于流氓软件还是有克制作用的。</p>
+<p>今天学习了一下<a href="https://developer.android.com/training/secure-file-sharing/setup-sharing.html" target="_blank" rel="external">FileProvider</a>和<a href="https://developer.android.com/reference/android/support/v4/content/FileProvider.html#getUriForFile(android.content.Context, java.lang.String, java.io.File" target="_blank" rel="external">文档</a>)的基本使用：</p>
+<h5 id="1-定义Provider"><a href="#1-定义Provider" class="headerlink" title="1.定义Provider"></a>1.定义Provider</h5><p>首先要在MManifest文件中定义一个Provider，其中authorities=包名.fileprovider。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">    package=&quot;com.example.myapp&quot;&gt;</div><div class="line">    &lt;application</div><div class="line">        ...&gt;</div><div class="line">        &lt;provider</div><div class="line">            android:name=&quot;android.support.v4.content.FileProvider&quot;</div><div class="line">            android:authorities=&quot;com.example.myapp.fileprovider&quot;</div><div class="line">            android:grantUriPermissions=&quot;true&quot;</div><div class="line">            android:exported=&quot;false&quot;&gt;</div><div class="line">            &lt;meta-data</div><div class="line">                android:name=&quot;android.support.FILE_PROVIDER_PATHS&quot;</div><div class="line">                android:resource=&quot;@xml/filepaths&quot; /&gt;</div><div class="line">        &lt;/provider&gt;</div><div class="line">        ...</div><div class="line">    &lt;/application&gt;</div><div class="line">&lt;/manifest&gt;</div></pre></td></tr></table></figure>
+<h5 id="2-创建filepaths文件"><a href="#2-创建filepaths文件" class="headerlink" title="2.创建filepaths文件"></a>2.创建filepaths文件</h5><p>在res目录下面新建一个xml目录，并在新建的xml目录下面创建一个filepaths的文件，内容如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;paths xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;</div><div class="line">    &lt;files-path name=&quot;my_images&quot; path=&quot;images/&quot;/&gt;</div><div class="line">    ...</div><div class="line">&lt;/paths&gt;</div></pre></td></tr></table></figure>
+<p>定义的路径又分为如下几种，分别对应内部存储和外部存储</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;files-path name=&quot;name&quot; path=&quot;path&quot; /&gt;  Context.getFilesDir().</div><div class="line">&lt;cache-path name=&quot;name&quot; path=&quot;path&quot; /&gt;  getCacheDir().</div><div class="line">&lt;external-path name=&quot;name&quot; path=&quot;path&quot; /&gt;  Environment.getExternalStorageDirectory().</div><div class="line">&lt;external-files-path name=&quot;name&quot; path=&quot;path&quot; /&gt;Context#getExternalFilesDir(String) Context.getExternalFilesDir(null).</div><div class="line">&lt;external-cache-path name=&quot;name&quot; path=&quot;path&quot; /&gt; Context.getExternalCacheDir().</div></pre></td></tr></table></figure>
+<p>其中，name是出于安全考虑用于替换path显示的，path则是真实的次级目录</p>
+<h5 id="3-创建一个可分享的Uri"><a href="#3-创建一个可分享的Uri" class="headerlink" title="3.创建一个可分享的Uri"></a>3.创建一个可分享的Uri</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">File imagePath = new File(Context.getFilesDir(), &quot;images&quot;);</div><div class="line">File newFile = new File(imagePath, &quot;default_image.jpg&quot;);</div><div class="line">Uri contentUri = FileProvider.getUriForFile(getContext(), &quot;com.mydomain.fileprovider&quot;, newFile);</div></pre></td></tr></table></figure>
+<p>最终获取到的Uri是<code>content://com.mydomain.fileprovider/my_images/default_image.jpg</code>，可以看到实际的images路径被替换为my_images了。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;移动平台对于安全和隐私是越来越注重了，Android在权限方面也在不断的收紧，一定程度上对于流氓软件还是有克制作用的。&lt;/p&gt;
+&lt;p&gt;今天学习了一下&lt;a href=&quot;https://developer.android.com/training/secure-file-sha
+    
+    </summary>
+    
+      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+      <category term="FileProdvider" scheme="http://yoursite.com/tags/FileProdvider/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Android Studio 代理设置</title>
     <link href="http://yoursite.com/2017/10/22/Android-Studio-%E4%BB%A3%E7%90%86%E8%AE%BE%E7%BD%AE/"/>
     <id>http://yoursite.com/2017/10/22/Android-Studio-代理设置/</id>
     <published>2017-10-22T08:16:15.000Z</published>
-    <updated>2017-10-23T01:55:32.328Z</updated>
+    <updated>2018-01-12T02:11:25.734Z</updated>
     
     <content type="html"><![CDATA[<p>最近因为Lantern老是出问题，又买了一个搬瓦工的，搭建好后速度还是可以的，Youtube上面1080P没有卡顿现象。但是各种工具的是使用又出现了问题，所以特意记录一下，节省下次切换工具配置的时间。</p>
 <h4 id="git配置"><a href="#git配置" class="headerlink" title="git配置"></a>git配置</h4><p>首先是配置git的代理，以下是http(s)配置</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git config --global https.proxy &apos;http://127.0.0.1:1080&apos;</div><div class="line">git config --global http.proxy &apos;http://127.0.0.1:1087&apos;</div></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git config --global https.proxy &apos;http://127.0.0.1: 65322&apos;</div><div class="line">git config --global http.proxy &apos;http://127.0.0.1: 65322&apos;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">export http_proxy=http://127.0.0.1:1087;</div><div class="line">export https_proxy=http://127.0.0.1:1087;</div></pre></td></tr></table></figure>
 <h4 id="Gradle配置"><a href="#Gradle配置" class="headerlink" title="Gradle配置"></a>Gradle配置</h4><p>在全局的gradle.properties中添加以下配置，这样子每个项目的gradle同步都回使用ss代理了。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">systemProp.http.proxyHost=127.0.0.1</div><div class="line">systemProp.http.proxyPort=1087</div><div class="line">systemProp.https.proxyHost=127.0.0.1</div><div class="line">systemProp.https.proxyPort=1087</div></pre></td></tr></table></figure>
 <h4 id="Android-Studio代理设置"><a href="#Android-Studio代理设置" class="headerlink" title="Android Studio代理设置"></a>Android Studio代理设置</h4><p>目前来看启用自动代理即可</p>
@@ -520,317 +759,6 @@
     
     
       <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>数据库语法学习</title>
-    <link href="http://yoursite.com/2017/06/16/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://yoursite.com/2017/06/16/数据库语法学习/</id>
-    <published>2017-06-16T15:15:05.000Z</published>
-    <updated>2017-06-16T15:17:18.000Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="一、基本语法"><a href="#一、基本语法" class="headerlink" title="一、基本语法"></a>一、基本语法</h4><h5 id="1-select-1-vs-select-效率区分"><a href="#1-select-1-vs-select-效率区分" class="headerlink" title="1. select 1 vs select * 效率区分"></a>1. select 1 vs select * 效率区分</h5><p>select 1 from table;与select anycol(目的表集合中的任意一行） from table;与select <em> from table 从作用上来说是没有差别的，都是查看是否有记录，一般是作条件查询用的。select 1 from 中的1是一常量（可以为任意数值），查到的所有行的值都是它，但从效率上来说，1&gt;anycol&gt;</em>，因为不用查字典表。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h4 id=&quot;一、基本语法&quot;&gt;&lt;a href=&quot;#一、基本语法&quot; class=&quot;headerlink&quot; title=&quot;一、基本语法&quot;&gt;&lt;/a&gt;一、基本语法&lt;/h4&gt;&lt;h5 id=&quot;1-select-1-vs-select-效率区分&quot;&gt;&lt;a href=&quot;#1-select-1-v
-    
-    </summary>
-    
-      <category term="数据库" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-    
-      <category term="数据库" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-      <category term="基础知识" scheme="http://yoursite.com/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
-    
-      <category term="开发" scheme="http://yoursite.com/tags/%E5%BC%80%E5%8F%91/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Shell学习</title>
-    <link href="http://yoursite.com/2017/06/05/Shell%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://yoursite.com/2017/06/05/Shell学习/</id>
-    <published>2017-06-05T13:16:05.000Z</published>
-    <updated>2017-06-05T13:28:17.000Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="初学遇到的一些问题"><a href="#初学遇到的一些问题" class="headerlink" title="初学遇到的一些问题"></a>初学遇到的一些问题</h4><ol>
-<li>Shell脚本第一行不能直接申明<a href="https://zh.wikipedia.org/wiki/Shebang" target="_blank" rel="external">Shebang</a>，第一行写备注。否则会出现：<code>bad interpreter: bin/zsh: no such file or directory（使用zsh如上提示，使用bash则是bin/bash）</code></li>
-<li></li>
-</ol>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h4 id=&quot;初学遇到的一些问题&quot;&gt;&lt;a href=&quot;#初学遇到的一些问题&quot; class=&quot;headerlink&quot; title=&quot;初学遇到的一些问题&quot;&gt;&lt;/a&gt;初学遇到的一些问题&lt;/h4&gt;&lt;ol&gt;
-&lt;li&gt;Shell脚本第一行不能直接申明&lt;a href=&quot;https://zh.
-    
-    </summary>
-    
-      <category term="Shell" scheme="http://yoursite.com/categories/Shell/"/>
-    
-    
-      <category term="Shell" scheme="http://yoursite.com/tags/Shell/"/>
-    
-      <category term="命令行" scheme="http://yoursite.com/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Linux 命令行学习</title>
-    <link href="http://yoursite.com/2017/05/24/Linux-%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://yoursite.com/2017/05/24/Linux-命令行学习/</id>
-    <published>2017-05-24T13:57:27.000Z</published>
-    <updated>2017-06-11T13:38:10.000Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="1-别名"><a href="#1-别名" class="headerlink" title="1: 别名"></a>1: 别名</h4><p>alias 别名<br>列表展示： alias<br>设置： alias name=’string’ eg: alias foo=’ls -al’<br>取消设置: unalias foo</p>
-<h4 id="2：I-O重定向"><a href="#2：I-O重定向" class="headerlink" title="2：I/O重定向"></a>2：I/O重定向</h4><ul>
-<li>cat - Concatenate files /连接文件</li>
-<li>sort - Sort lines of text /排序文件</li>
-<li>uniq - Report or omit repeated lines /报道或省略重复行 </li>
-<li>grep - Print lines matching a pattern /打印匹配行</li>
-<li>wc - Pring newline, word, and byte counts for each file /打印文件中的换行符，字，和字节个数 </li>
-<li>head - Output the first part of a file /输出文件开头部分</li>
-<li>tail - Output the last part of a file /输出文件结尾部分</li>
-<li>tee - Read from standard input and write to standard output and files /读取标准输入，写入标准输出和文件</li>
-</ul>
-<h4 id="3：echo"><a href="#3：echo" class="headerlink" title="3：echo"></a>3：echo</h4><ul>
-<li>echo - Diaplay a line of text / 显示一行文本</li>
-</ul>
-<h4 id="4：进程"><a href="#4：进程" class="headerlink" title="4：进程"></a>4：进程</h4><ul>
-<li>sof -i tcp:port 查看端口占用，显示PID</li>
-<li>kill -9 pid 干掉占用的进程</li>
-<li>netstat -an | grep port</li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h4 id=&quot;1-别名&quot;&gt;&lt;a href=&quot;#1-别名&quot; class=&quot;headerlink&quot; title=&quot;1: 别名&quot;&gt;&lt;/a&gt;1: 别名&lt;/h4&gt;&lt;p&gt;alias 别名&lt;br&gt;列表展示： alias&lt;br&gt;设置： alias name=’string’ eg: alias
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://yoursite.com/categories/Linux/"/>
-    
-    
-      <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
-    
-      <category term="Command" scheme="http://yoursite.com/tags/Command/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>RecyclerView学习笔记</title>
-    <link href="http://yoursite.com/2017/04/26/RecyclerView%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    <id>http://yoursite.com/2017/04/26/RecyclerView学习笔记/</id>
-    <published>2017-04-26T11:26:26.000Z</published>
-    <updated>2017-07-19T12:07:04.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>####自适应高度</p>
-<p>继承LinearLayoutManager，重写onMeasure（）方法：</p>
-<pre><code>if (getItemCount() == 0) {
-    setMeasuredDimension(0, 0);
-} else {
-    View view = recycler.getViewForPosition(0);
-    if (view != null) {
-        measureChild(view, widthSpec, heightSpec);
-        int measuredWidth = View.MeasureSpec.getSize(widthSpec);
-        int measuredHeight = getItemCount() * view.getMeasuredHeight();
-        setMeasuredDimension(measuredWidth, measuredHeight);
-    }
-}
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;####自适应高度&lt;/p&gt;
-&lt;p&gt;继承LinearLayoutManager，重写onMeasure（）方法：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;if (getItemCount() == 0) {
-    setMeasuredDimension(0, 0);
-} else 
-    
-    </summary>
-    
-      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
-    
-    
-      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
-    
-      <category term="基础" scheme="http://yoursite.com/tags/%E5%9F%BA%E7%A1%80/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Read godoc from very begain</title>
-    <link href="http://yoursite.com/2017/04/19/Read-godoc-from-very-begain/"/>
-    <id>http://yoursite.com/2017/04/19/Read-godoc-from-very-begain/</id>
-    <published>2017-04-19T14:56:40.000Z</published>
-    <updated>2017-04-20T15:27:31.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>This is my note of reading godoc, i’ll try hard to improve my English level, keep on moving.</p>
-<h4 id="How-to-write-go-code"><a href="#How-to-write-go-code" class="headerlink" title="How to write go code"></a>How to write go code</h4><p>When using command go get, it will fetch, build, install the package from Git or Mecurial or other revision control system.</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;This is my note of reading godoc, i’ll try hard to improve my English level, keep on moving.&lt;/p&gt;
-&lt;h4 id=&quot;How-to-write-go-code&quot;&gt;&lt;a href=&quot;#
-    
-    </summary>
-    
-      <category term="Golang" scheme="http://yoursite.com/categories/Golang/"/>
-    
-    
-      <category term="Golang" scheme="http://yoursite.com/tags/Golang/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Spinner在某些机型上面无法收到第一次回掉的监听</title>
-    <link href="http://yoursite.com/2017/04/08/Spinner%E5%9C%A8%E6%9F%90%E4%BA%9B%E6%9C%BA%E5%9E%8B%E4%B8%8A%E9%9D%A2%E6%97%A0%E6%B3%95%E6%94%B6%E5%88%B0%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%9B%9E%E6%8E%89%E7%9A%84%E7%9B%91%E5%90%AC/"/>
-    <id>http://yoursite.com/2017/04/08/Spinner在某些机型上面无法收到第一次回掉的监听/</id>
-    <published>2017-04-08T14:22:16.000Z</published>
-    <updated>2017-04-08T14:27:00.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>最近碰到一个很奇怪的问题，同样的一组数据在不同的手机上面显示就是不一样。通过debug发现，在一些手机上，给Spinner设置默认值的时候并不会触发它的监听回掉，而在某些机型上面又是会触发的。所以需要给第一次回掉加一个flag，默认阻止第一次回掉的后续逻辑。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;最近碰到一个很奇怪的问题，同样的一组数据在不同的手机上面显示就是不一样。通过debug发现，在一些手机上，给Spinner设置默认值的时候并不会触发它的监听回掉，而在某些机型上面又是会触发的。所以需要给第一次回掉加一个flag，默认阻止第一次回掉的后续逻辑。&lt;/p&gt;
-
-    
-    </summary>
-    
-      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
-    
-    
-      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
-    
-      <category term="BUG修复" scheme="http://yoursite.com/tags/BUG%E4%BF%AE%E5%A4%8D/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Volley中出现的java.io.InterruptedIOException: thread interrupted</title>
-    <link href="http://yoursite.com/2017/04/08/Volley%E4%B8%AD%E5%87%BA%E7%8E%B0%E7%9A%84java-io-InterruptedIOException-thread-interrupted/"/>
-    <id>http://yoursite.com/2017/04/08/Volley中出现的java-io-InterruptedIOException-thread-interrupted/</id>
-    <published>2017-04-08T13:22:45.000Z</published>
-    <updated>2017-04-08T14:09:35.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>最近碰到一个很奇怪的现象，就是我们的app在启东的时候第一次请求接口的时候很容易出现请求失败的现象，尤其是在清理掉缓存重新安装的时候。由于这个接口是访问的localhost，而这个localhost是我们自己在本地启用的一个服务。所以导致了我一开始就走进了一个死牛角尖，怀疑是不是这个服务没有运行起来，导致无法访问本地服务器，钻了死角。</p>
-<p>后面通过查找资料发现，Volley在使用的时候通过RequestQueue添加一个Request是后如果再次调用了RequestQueue的start()方法就会出现这种问题。<a href="http://stackoverflow.com/questions/31158858/random-com-android-volley-noconnection-error-java-io-interruptedioexception-st" target="_blank" rel="external">参考资料</a>，来自stackoverflow。</p>
-<a id="more"></a>
-<pre><code>public static RequestQueue newRequestQueue(Context context, HttpStack stack) {
-    File cacheDir = new File(context.getCacheDir(), DEFAULT_CACHE_DIR);
-
-    String userAgent = &quot;volley/0&quot;;
-    try {
-        String packageName = context.getPackageName();
-        PackageInfo info = context.getPackageManager().getPackageInfo(packageName, 0);
-        userAgent = packageName + &quot;/&quot; + info.versionCode;
-    } catch (NameNotFoundException e) {
-    }
-
-    if (stack == null) {
-        if (Build.VERSION.SDK_INT &gt;= 9) {
-            stack = new HurlStack();
-        } else {
-            // Prior to Gingerbread, HttpUrlConnection was unreliable.
-            // See: http://android-developers.blogspot.com/2011/09/androids-http-clients.html
-            stack = new HttpClientStack(AndroidHttpClient.newInstance(userAgent));
-        }
-    }
-
-    Network network = new BasicNetwork(stack);
-
-    RequestQueue queue = new RequestQueue(new DiskBasedCache(cacheDir), network);
-    queue.start();
-
-    return queue;    
-}
-</code></pre><p>当使用RequestQueue的Start()方法的时候，Volley会调用stop方法确保所有的请求都是停止状态。</p>
-<pre><code>public void stop() {
-    if (mCacheDispatcher != null) {
-        mCacheDispatcher.quit();
-    }
-    for (int i = 0; i &lt; mDispatchers.length; i++) {
-        if (mDispatchers[i] != null) {
-            mDispatchers[i].quit();
-        }
-    }
-}        
-</code></pre><p>在stop()方法中调用了quit()方法：</p>
-<pre><code>public void stop() {
-    if (mCacheDispatcher != null) {
-        mCacheDispatcher.quit();
-    }
-    for (int i = 0; i &lt; mDispatchers.length; i++) {
-        if (mDispatchers[i] != null) {
-            mDispatchers[i].quit();
-        }
-    }
-}    
-</code></pre><p>最终我们来到了这里，这就是我们为什么会出现thread被interrupte的原因，所以我们在使用RequestQueue的时候是不能调用Start()方法的。</p>
-<pre><code>public void interrupt() {
-    // Interrupt this thread before running actions so that other
-    // threads that observe the interrupt as a result of an action
-    // will see that this thread is in the interrupted state.
-    nativeInterrupt();
-
-    synchronized (interruptActions) {
-        for (int i = interruptActions.size() - 1; i &gt;= 0; i--) {
-            interruptActions.get(i).run();
-        }
-    }
-}    
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;最近碰到一个很奇怪的现象，就是我们的app在启东的时候第一次请求接口的时候很容易出现请求失败的现象，尤其是在清理掉缓存重新安装的时候。由于这个接口是访问的localhost，而这个localhost是我们自己在本地启用的一个服务。所以导致了我一开始就走进了一个死牛角尖，怀疑是不是这个服务没有运行起来，导致无法访问本地服务器，钻了死角。&lt;/p&gt;
-&lt;p&gt;后面通过查找资料发现，Volley在使用的时候通过RequestQueue添加一个Request是后如果再次调用了RequestQueue的start()方法就会出现这种问题。&lt;a href=&quot;http://stackoverflow.com/questions/31158858/random-com-android-volley-noconnection-error-java-io-interruptedioexception-st&quot;&gt;参考资料&lt;/a&gt;，来自stackoverflow。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
-    
-    
-      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
-    
-      <category term="BUG修复" scheme="http://yoursite.com/tags/BUG%E4%BF%AE%E5%A4%8D/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>IPC传递数据的大小限制</title>
-    <link href="http://yoursite.com/2017/04/08/IPC%E4%BC%A0%E9%80%92%E6%95%B0%E6%8D%AE%E7%9A%84%E5%A4%A7%E5%B0%8F%E9%99%90%E5%88%B6/"/>
-    <id>http://yoursite.com/2017/04/08/IPC传递数据的大小限制/</id>
-    <published>2017-04-08T13:12:40.000Z</published>
-    <updated>2017-04-08T13:19:01.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>最近碰到一个用户在使用app的某个功能的时候老是出现闪退情况，但是又没有别的用户反馈过这个问题。所以找用户拿数据过来看了一下，借过还真是用户的数据比较特殊：</p>
-<p>用户在A界面传递一个LIST的对象到B界面，一个正常的使用Intent携带数据的情况，结果出现了闪退的情况。通过日志发现是：</p>
-<pre><code>android.os.TransactionTooLargeException: data parcel size 4915644 bytes
-</code></pre><p>然后查阅资料发现，现在的IPC机制其实是对传递的数据有大小限制的，一般来说是1MB，而我们传递的List中有483个对象，累积下来的大小远远超过1MB，故出现了这种问题。同样的如果我们传递一个Bitmap大小超过这个限制也会出现这种问题，所以我们在开发中要注意这些问题。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;最近碰到一个用户在使用app的某个功能的时候老是出现闪退情况，但是又没有别的用户反馈过这个问题。所以找用户拿数据过来看了一下，借过还真是用户的数据比较特殊：&lt;/p&gt;
-&lt;p&gt;用户在A界面传递一个LIST的对象到B界面，一个正常的使用Intent携带数据的情况，结果出现了闪退的
-    
-    </summary>
-    
-      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
-    
-    
-      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
-    
-      <category term="BUG修复" scheme="http://yoursite.com/tags/BUG%E4%BF%AE%E5%A4%8D/"/>
     
   </entry>
   
