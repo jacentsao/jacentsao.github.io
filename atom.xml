@@ -314,9 +314,9 @@ scp  -r local_dir username@servername:remote_dir
       <category term="shell" scheme="http://yoursite.com/categories/shell/"/>
     
     
-      <category term="shell" scheme="http://yoursite.com/tags/shell/"/>
-    
       <category term="ssh" scheme="http://yoursite.com/tags/ssh/"/>
+    
+      <category term="shell" scheme="http://yoursite.com/tags/shell/"/>
     
   </entry>
   
