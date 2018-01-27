@@ -20,6 +20,9 @@
 
 
 
+
+
+
 <meta http-equiv="Cache-Control" content="no-transform" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
 
@@ -37,36 +40,7 @@
 
 
 
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
-
-
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
 
 
 
@@ -75,40 +49,25 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=6.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.2">
 
 
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.2">
 
 
-
-  <link rel="alternate" href="/atom.xml" title="Silence of Heart" type="application/atom+xml" />
-
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.2">
 
 
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.2" color="#222">
 
 
 
 
 
 
-<meta name="description" content="各位朋友大家好,我是一个程序猿,偶尔喜欢瞎折腾,希望大家都能找到自己喜欢的世界!
-我的联系方式是: &amp;#x63;&amp;#x61;&amp;#111;&amp;#x6a;&amp;#105;&amp;#x61;&amp;#x78;&amp;#105;&amp;#x6e;&amp;#x67;&amp;#57;&amp;#x31;&amp;#64;&amp;#103;&amp;#x6d;&amp;#x61;&amp;#105;&amp;#108;&amp;#46;&amp;#99;&amp;#x6f;&amp;#x6d;">
-<meta property="og:type" content="website">
-<meta property="og:title" content="About me">
-<meta property="og:url" content="http://yoursite.com/about/index.html">
-<meta property="og:site_name" content="Silence of Heart">
-<meta property="og:description" content="各位朋友大家好,我是一个程序猿,偶尔喜欢瞎折腾,希望大家都能找到自己喜欢的世界!
-我的联系方式是: &amp;#x63;&amp;#x61;&amp;#111;&amp;#x6a;&amp;#105;&amp;#x61;&amp;#x78;&amp;#105;&amp;#x6e;&amp;#x67;&amp;#57;&amp;#x31;&amp;#64;&amp;#103;&amp;#x6d;&amp;#x61;&amp;#105;&amp;#108;&amp;#46;&amp;#99;&amp;#x6f;&amp;#x6d;">
-<meta property="og:updated_time" content="2017-01-17T14:12:49.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="About me">
-<meta name="twitter:description" content="各位朋友大家好,我是一个程序猿,偶尔喜欢瞎折腾,希望大家都能找到自己喜欢的世界!
-我的联系方式是: &amp;#x63;&amp;#x61;&amp;#111;&amp;#x6a;&amp;#105;&amp;#x61;&amp;#x78;&amp;#105;&amp;#x6e;&amp;#x67;&amp;#57;&amp;#x31;&amp;#64;&amp;#103;&amp;#x6d;&amp;#x61;&amp;#105;&amp;#108;&amp;#46;&amp;#99;&amp;#x6f;&amp;#x6d;">
 
 
 
@@ -117,14 +76,13 @@
   var CONFIG = {
     root: '/',
     scheme: 'Muse',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
+    version: '6.0.2',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
     tabs: true,
-    motion: true,
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -136,11 +94,39 @@
 </script>
 
 
+  
+
+
+
+
+  
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+<meta name="description" content="各位朋友大家好,我是一个程序猿,偶尔喜欢瞎折腾,希望大家都能找到自己喜欢的世界!
+我的联系方式是: &amp;#x63;&amp;#97;&amp;#x6f;&amp;#106;&amp;#x69;&amp;#x61;&amp;#x78;&amp;#105;&amp;#x6e;&amp;#103;&amp;#57;&amp;#x31;&amp;#64;&amp;#103;&amp;#109;&amp;#97;&amp;#105;&amp;#x6c;&amp;#x2e;&amp;#99;&amp;#x6f;&amp;#109;">
+<meta property="og:type" content="website">
+<meta property="og:title" content="About me">
+<meta property="og:url" content="http://yoursite.com/about/index.html">
+<meta property="og:site_name" content="Silence of Heart">
+<meta property="og:description" content="各位朋友大家好,我是一个程序猿,偶尔喜欢瞎折腾,希望大家都能找到自己喜欢的世界!
+我的联系方式是: &amp;#x63;&amp;#97;&amp;#x6f;&amp;#106;&amp;#x69;&amp;#x61;&amp;#x78;&amp;#105;&amp;#x6e;&amp;#103;&amp;#57;&amp;#x31;&amp;#64;&amp;#103;&amp;#109;&amp;#97;&amp;#105;&amp;#x6c;&amp;#x2e;&amp;#99;&amp;#x6f;&amp;#109;">
+<meta property="og:updated_time" content="2017-01-17T14:12:49.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="About me">
+<meta name="twitter:description" content="各位朋友大家好,我是一个程序猿,偶尔喜欢瞎折腾,希望大家都能找到自己喜欢的世界!
+我的联系方式是: &amp;#x63;&amp;#97;&amp;#x6f;&amp;#106;&amp;#x69;&amp;#x61;&amp;#x78;&amp;#105;&amp;#x6e;&amp;#103;&amp;#57;&amp;#x31;&amp;#64;&amp;#103;&amp;#109;&amp;#97;&amp;#105;&amp;#x6c;&amp;#x2e;&amp;#99;&amp;#x6f;&amp;#109;">
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="Silence of Heart" type="application/atom+xml" />
+
+
+
 
   <link rel="canonical" href="http://yoursite.com/about/"/>
-
-
-
 
 
   <title>About me | Silence of Heart</title>
@@ -154,10 +140,32 @@
 
 
 
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
 
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
 
-
-
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
 
 </head>
 
@@ -168,11 +176,11 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
+      <div class="header-inner"> <div class="site-brand-wrapper">
   <div class="site-meta ">
     
 
@@ -206,31 +214,13 @@
         
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
         </li>
       
         
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
         </li>
       
 
@@ -242,9 +232,15 @@
 </nav>
 
 
+  
+
+
 
  </div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
@@ -272,7 +268,7 @@
         
         
           <p>各位朋友大家好,我是一个程序猿,偶尔喜欢瞎折腾,希望大家都能找到自己喜欢的世界!</p>
-<p>我的联系方式是: <a href="&#109;&#97;&#x69;&#108;&#116;&#x6f;&#58;&#x63;&#x61;&#111;&#x6a;&#105;&#x61;&#x78;&#105;&#x6e;&#x67;&#57;&#x31;&#64;&#103;&#x6d;&#x61;&#105;&#108;&#46;&#99;&#x6f;&#x6d;">&#x63;&#x61;&#111;&#x6a;&#105;&#x61;&#x78;&#105;&#x6e;&#x67;&#57;&#x31;&#64;&#103;&#x6d;&#x61;&#105;&#108;&#46;&#99;&#x6f;&#x6d;</a></p>
+<p>我的联系方式是: <a href="&#x6d;&#x61;&#x69;&#108;&#x74;&#x6f;&#x3a;&#x63;&#97;&#x6f;&#106;&#x69;&#x61;&#x78;&#105;&#x6e;&#103;&#57;&#x31;&#64;&#103;&#109;&#97;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;">&#x63;&#97;&#x6f;&#106;&#x69;&#x61;&#x78;&#105;&#x6e;&#103;&#57;&#x31;&#64;&#103;&#109;&#97;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;</a></p>
 
         
       </div>
@@ -289,15 +285,8 @@
           </div>
           
 
+  
 
-          
-  <div class="comments" id="comments">
-    
-      <div class="ds-thread" data-thread-key="about/index.html"
-           data-title="About me" data-url="http://yoursite.com/about/index.html">
-      </div>
-    
-  </div>
 
 
         </div>
@@ -320,73 +309,178 @@
 
       
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/avatar.gif"
-               alt="JacenTsao" />
-          <p class="site-author-name" itemprop="name">JacenTsao</p>
-           
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">JacenTsao</p>
               <p class="site-description motion-element" itemprop="description">这是我的个人测试小站</p>
-          
-        </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives/">
-                <span class="site-state-item-count">62</span>
-                <span class="site-state-item-name">日志</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-categories">
-              <a href="/categories/index.html">
-                <span class="site-state-item-count">14</span>
-                <span class="site-state-item-name">分类</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">36</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
-        
-          <div class="feed-link motion-element">
-            <a href="/atom.xml" rel="alternate">
-              <i class="fa fa-rss"></i>
-              RSS
-            </a>
           </div>
-        
 
-        <div class="links-of-author motion-element">
           
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">62</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">36</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
         </div>
-
-        
-        
-
-        
-        
-
-        
-
-
       </section>
 
       
@@ -403,30 +497,40 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy; 
-  <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">JacenTsao</span>
+
+  
+
+  
 </div>
 
 
-<div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
-</div>
 
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Muse
-  </a>
-</div>
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.0.2</div>
+
+
 
 
         
+
+
+
+
+
+
 
         
       </div>
@@ -437,6 +541,8 @@
         <i class="fa fa-arrow-up"></i>
         
       </div>
+    
+
     
 
   </div>
@@ -457,92 +563,81 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.2"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
   
 
 
 
 
 
-
-
-
-
-
-
-
   
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
-
-
-
-  
-  
-
-  
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
-
-  
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
-
-
-
-  
-
-  
-    
-  
-
-  <script type="text/javascript">
-    var duoshuoQuery = {short_name:"jacentsao"};
-    (function() {
-      var ds = document.createElement('script');
-      ds.type = 'text/javascript';ds.async = true;
-      ds.id = 'duoshuo-script';
-      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-      ds.charset = 'UTF-8';
-      (document.getElementsByTagName('head')[0]
-      || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-  </script>
-
-  
-    
-    
-    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
-    <script src="/js/src/hook-duoshuo.js"></script>
-  
-
-
-
-
 
 
 
@@ -561,6 +656,13 @@
 
   
 
+  
+
+  
+
+  
+
+  
   
 
   
