@@ -86,14 +86,14 @@
 
 
 
-<meta name="description" content="本文转载自阮一峰的网络日志互联网协议入门.
-互联网的核心是一系列的协议,总称为”互联网协议”(Internet Protocol Suite)。它们对电脑如何连接和组网，做出了详尽的规定。理解了这些协议，就理解了互联网的原理。">
+<meta name="description" content="本文转载自阮一峰的网络日志互联网协议入门. 互联网的核心是一系列的协议,总称为”互联网协议”(Internet Protocol Suite)。它们对电脑如何连接和组网，做出了详尽的规定。理解了这些协议，就理解了互联网的原理。">
+<meta name="keywords" content="计算机基础,网络">
 <meta property="og:type" content="article">
 <meta property="og:title" content="互联网协议入门（一）">
 <meta property="og:url" content="http://yoursite.com/2017/02/05/互联网协议入门（一）/index.html">
 <meta property="og:site_name" content="Silence of Heart">
-<meta property="og:description" content="本文转载自阮一峰的网络日志互联网协议入门.
-互联网的核心是一系列的协议,总称为”互联网协议”(Internet Protocol Suite)。它们对电脑如何连接和组网，做出了详尽的规定。理解了这些协议，就理解了互联网的原理。">
+<meta property="og:description" content="本文转载自阮一峰的网络日志互联网协议入门. 互联网的核心是一系列的协议,总称为”互联网协议”(Internet Protocol Suite)。它们对电脑如何连接和组网，做出了详尽的规定。理解了这些协议，就理解了互联网的原理。">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://image.beekka.com/blog/201205/bg2012052902.png">
 <meta property="og:image" content="http://image.beekka.com/blog/201205/bg2012052903.png">
 <meta property="og:image" content="http://image.beekka.com/blog/201205/bg2012052904.png">
@@ -109,8 +109,7 @@
 <meta property="og:updated_time" content="2017-02-06T09:45:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="互联网协议入门（一）">
-<meta name="twitter:description" content="本文转载自阮一峰的网络日志互联网协议入门.
-互联网的核心是一系列的协议,总称为”互联网协议”(Internet Protocol Suite)。它们对电脑如何连接和组网，做出了详尽的规定。理解了这些协议，就理解了互联网的原理。">
+<meta name="twitter:description" content="本文转载自阮一峰的网络日志互联网协议入门. 互联网的核心是一系列的协议,总称为”互联网协议”(Internet Protocol Suite)。它们对电脑如何连接和组网，做出了详尽的规定。理解了这些协议，就理解了互联网的原理。">
 <meta name="twitter:image" content="http://image.beekka.com/blog/201205/bg2012052902.png">
 
 
@@ -428,12 +427,12 @@
       
 
       
-        <p><strong>本文转载自阮一峰的网络日志<a href="http://www.ruanyifeng.com/blog/2012/05/internet_protocol_suite_part_i.html" target="_blank" rel="external">互联网协议入门</a>.</strong></p>
+        <p><strong>本文转载自阮一峰的网络日志<a href="http://www.ruanyifeng.com/blog/2012/05/internet_protocol_suite_part_i.html" target="_blank" rel="noopener">互联网协议入门</a>.</strong></p>
 <p>互联网的核心是一系列的协议,总称为”互联网协议”(Internet Protocol Suite)。它们对电脑如何连接和组网，做出了详尽的规定。理解了这些协议，就理解了互联网的原理。</p>
 <a id="more"></a>
 <h3 id="互联网入门"><a href="#互联网入门" class="headerlink" title="互联网入门"></a>互联网入门</h3><h4 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h4><h5 id="1-1-五层模型"><a href="#1-1-五层模型" class="headerlink" title="1.1 五层模型"></a>1.1 五层模型</h5><p>互联网的实现，分为很多层次。每一层都有自己的功能，就像建筑物一样，每一层都靠下一层支持。</p>
 <p>正常来说，用户接触到的，是最上面的一层，而无法感知到下面的层。要理解互联网，就必须从最下层开始，自下而上理解每一层的功能。</p>
-<p>互联网的分层有不同的模型，有<a href="https://zh.wikipedia.org/zh-hans/OSI%E6%A8%A1%E5%9E%8B" target="_blank" rel="external">OSI七层模型</a>,有的分四层<a href="https://zh.wikipedia.org/wiki/TCP/IP%E5%8D%8F%E8%AE%AE%E6%97%8F" target="_blank" rel="external">TCP/IP协议簇</a>，按照作者的理解将互联网分为五层。</p>
+<p>互联网的分层有不同的模型，有<a href="https://zh.wikipedia.org/zh-hans/OSI%E6%A8%A1%E5%9E%8B" target="_blank" rel="noopener">OSI七层模型</a>,有的分四层<a href="https://zh.wikipedia.org/wiki/TCP/IP%E5%8D%8F%E8%AE%AE%E6%97%8F" target="_blank" rel="noopener">TCP/IP协议簇</a>，按照作者的理解将互联网分为五层。</p>
 <p><img src="http://image.beekka.com/blog/201205/bg2012052902.png" alt="image"></p>
 <p>如上图所示，最底下的一层叫做”实体层”（Physical Layer），最上面的一层叫做”应用层”（Application Layer），中间的三层（自下而上）分别是”链接层”（Link Layer）、”网络层”（Network Layer）和”传输层”（Transport Layer）。越下面的层，越靠近硬件；越上面的层，越靠近用户。</p>
 <h5 id="1-2-层与协议"><a href="#1-2-层与协议" class="headerlink" title="1.2 层与协议"></a>1.2 层与协议</h5><p>每一层都是为了完成一种功能。为了实现这些功能，就需要大家遵守共同的规则。</p>
@@ -445,13 +444,13 @@
 <p><strong>这就叫做”实体层”，它就是把电脑连接起来的物理手段。它主要规定了网络的一些电气特性，作用是负责传送0和1的电信号（电磁波）。</strong></p>
 <h4 id="三、链接层"><a href="#三、链接层" class="headerlink" title="三、链接层"></a>三、链接层</h4><h5 id="3-1-定义"><a href="#3-1-定义" class="headerlink" title="3.1 定义"></a>3.1 定义</h5><p>单纯的0和1是没有任何意义的，必须规定解读方式：多少个电信号算一组？每个信号位有何意义？</p>
 <p><strong>这就是”链接层”的功能，它在”实体层”的上方，确定了0和1的分组方式</strong></p>
-<h5 id="3-2-以太网协议"><a href="#3-2-以太网协议" class="headerlink" title="3.2 以太网协议"></a>3.2 以太网协议</h5><p>早期的时候，每家公司都有自己的电信号分组方式。逐渐地，一种叫做”<a href="https://zh.wikipedia.org/wiki/%E4%BB%A5%E5%A4%AA%E7%BD%91" target="_blank" rel="external">以太网</a>“（Ethernet）的协议，占据了主导地位。</p>
+<h5 id="3-2-以太网协议"><a href="#3-2-以太网协议" class="headerlink" title="3.2 以太网协议"></a>3.2 以太网协议</h5><p>早期的时候，每家公司都有自己的电信号分组方式。逐渐地，一种叫做”<a href="https://zh.wikipedia.org/wiki/%E4%BB%A5%E5%A4%AA%E7%BD%91" target="_blank" rel="noopener">以太网</a>“（Ethernet）的协议，占据了主导地位。</p>
 <p>以太网规定，一组电信号构成一个数据包，叫做”帧”（Frame）。每一帧分成两个部分：标头（Head）和数据（Data）</p>
 <p><img src="http://image.beekka.com/blog/201205/bg2012052904.png" alt="image"></p>
 <p>“标头”包好数据包的一些说明项，比如发送者，接收者，数据类型等等；”数据”则是数据包的具体内容。</p>
 <p>“标头”的长度，固定为18字节。”数据”的长度，最短为46字节，最长为1500字节。因此，整个”帧”最短为64字节，最长为1518字节。如果数据很长，就必须分割成多个帧进行发送。</p>
 <h5 id="3-3-MAC地址"><a href="#3-3-MAC地址" class="headerlink" title="3.3 MAC地址"></a>3.3 MAC地址</h5><p>上面提到，以太网数据包的”标头”，包含了发送者和接收者的信息。那么，发送者和接收者是如何标识呢？</p>
-<p>以太网规定，连入网络的所有设备，都必须具有”网卡”接口。数据包必须是从一块网卡，传送到另一块网卡。网卡的地址，就是数据包的发送地址和接收地址，这叫做<a href="https://zh.wikipedia.org/wiki/MAC%E5%9C%B0%E5%9D%80" target="_blank" rel="external">MAC地址(Media Access Control Address)</a>。</p>
+<p>以太网规定，连入网络的所有设备，都必须具有”网卡”接口。数据包必须是从一块网卡，传送到另一块网卡。网卡的地址，就是数据包的发送地址和接收地址，这叫做<a href="https://zh.wikipedia.org/wiki/MAC%E5%9C%B0%E5%9D%80" target="_blank" rel="noopener">MAC地址(Media Access Control Address)</a>。</p>
 <p>每块网卡出厂的时候，都有一个全世界独一无二的MAC地址 ，长度是48个二进制位，通常用12个十六进制数表示。</p>
 <p><img src="http://image.beekka.com/blog/201205/bg2012052906.png" alt="image"></p>
 <p>前6个十六进制数是厂商编号，后6个是该厂商的网卡流水号。有了MAC地址，就可以定位网卡和数据包的路径了。根据Wiki:<strong>(MAC地址共48位（6个字节），以十六进制表示。前24位由IEEE决定如何分配，后24位由实际生产该网络设备的厂商自行指定。<br>)</strong></p>
@@ -494,7 +493,7 @@
 <p>因为IP数据包是放在以太网数据包里发送的，所以我们必须同时知道两个地址，一个是对方的MAC地址，另一个是对方的IP地址。通常情况下，对方的IP地址是已知的，但是我们不知道它的MAC地址。</p>
 <p>所以，我们需要一种机制，能够从IP地址取到MAC地址。</p>
 <p>这里又分为两种状况。第一种状况，如果两台主机不再同一个子网络，那么事实上没有办法去的对方的MAC地址，只能把数据包传送到两个子网络连接处的”网关”，让网关去处理。（当发送主机和目的主机不在同一个局域网中时，即便知道目的主机的MAC地址，两者也不能直接通信，必须经过路由转发才可以。所以此时，发送主机通过ARP协议获得的将不是目的主机的真实MAC地址，而是一台可以通往局域网外的路由器的MAC地址。于是此后发送主机发往目的主机的所有帧，都将发往该路由器，通过它向外发送。）</p>
-<p>第二种情况，如果两台主机在同一个子网络，那么我们可以用ARP协议<a href="https://zh.wikipedia.org/wiki/%E5%9C%B0%E5%9D%80%E8%A7%A3%E6%9E%90%E5%8D%8F%E8%AE%AE" target="_blank" rel="external">地址解析协议Address Resolution Protocol</a>（注意：在IPv6中已经被<a href="https://zh.wikipedia.org/wiki/%E9%82%BB%E5%B1%85%E5%8F%91%E7%8E%B0%E5%8D%8F%E8%AE%AE" target="_blank" rel="external">邻居发现协议（Neighbor Discovery Protocol）</a>），去的对方的MAC地址。ARP协议也是发出一个数据包（包含在以太网数据包中），其中包含它所要查询诸暨的IP地址，在对方的MAC地址这一栏，填的是FF:FF:FF:FF:FF:FF，表示这是一个”广播”地址。它所在子网络的每一台主机，都会收到这个数据包，从中取出IP地址，与自身的IP地址进行比较。如果两者相同，都做出回复，向对方报告自己的MAC地址，否则就丢弃这个包。</p>
+<p>第二种情况，如果两台主机在同一个子网络，那么我们可以用ARP协议<a href="https://zh.wikipedia.org/wiki/%E5%9C%B0%E5%9D%80%E8%A7%A3%E6%9E%90%E5%8D%8F%E8%AE%AE" target="_blank" rel="noopener">地址解析协议Address Resolution Protocol</a>（注意：在IPv6中已经被<a href="https://zh.wikipedia.org/wiki/%E9%82%BB%E5%B1%85%E5%8F%91%E7%8E%B0%E5%8D%8F%E8%AE%AE" target="_blank" rel="noopener">邻居发现协议（Neighbor Discovery Protocol）</a>），去的对方的MAC地址。ARP协议也是发出一个数据包（包含在以太网数据包中），其中包含它所要查询诸暨的IP地址，在对方的MAC地址这一栏，填的是FF:FF:FF:FF:FF:FF，表示这是一个”广播”地址。它所在子网络的每一台主机，都会收到这个数据包，从中取出IP地址，与自身的IP地址进行比较。如果两者相同，都做出回复，向对方报告自己的MAC地址，否则就丢弃这个包。</p>
 <p>总之，有了ARP协议以后，我们就可以得到同一个子网络内的主机MAC地址，可以把数据包发送到任意一台主机之上了。</p>
 <h4 id="五、传输层"><a href="#五、传输层" class="headerlink" title="五、传输层"></a>五、传输层</h4><h5 id="5-1-传输层的由来"><a href="#5-1-传输层的由来" class="headerlink" title="5.1 传输层的由来"></a>5.1 传输层的由来</h5><p>有了MAC地址和IP地址，我们已经可以在互联网上任意两台主机上简历通信。</p>
 <p>接下来的问题是，同一台主机上又许多程序都需要用到网络。比如，你一边浏览网页，一边与朋友在线聊天，当一个数据包从互联网上发来的时候，你怎么知道，它是表示网页的内容，还是在线聊天的内容？</p>
@@ -515,7 +514,7 @@
 <p>举例来说，TCP协议可以为各种各样的陈旭传递数据，比如Email、WWW、FTP等等。那么，必须有不同协议规定电子邮件、网页、FTP数据的格式，这些应用程序协议就构成了“应用层”。</p>
 <p>这是最高的一层，直接面对用户。它的数据就放在TCP数据包的“数据”部分。因此，现在的以太网的数据包就变成下面这样。</p>
 <p><img src="http://image.beekka.com/blog/201205/bg2012052913.png" alt="image"></p>
-<p>至此，整个互联网的五层结构，自下而上全部讲完了。这是从系统的角度，解释互联网是如何构成的。<a href="https://jacentsao.github.io/2017/02/06/%E4%BA%92%E8%81%94%E7%BD%91%E5%8D%8F%E8%AE%AE%E5%85%A5%E9%97%A8%EF%BC%88%E4%BA%8C%EF%BC%89/" target="_blank" rel="external">下一篇</a>，我反过来，从用户的角度，自上而下看看这个结构是如何发挥作用，完成一次网络数据交换的。</p>
+<p>至此，整个互联网的五层结构，自下而上全部讲完了。这是从系统的角度，解释互联网是如何构成的。<a href="https://jacentsao.github.io/2017/02/06/%E4%BA%92%E8%81%94%E7%BD%91%E5%8D%8F%E8%AE%AE%E5%85%A5%E9%97%A8%EF%BC%88%E4%BA%8C%EF%BC%89/" target="_blank" rel="noopener">下一篇</a>，我反过来，从用户的角度，自上而下看看这个结构是如何发挥作用，完成一次网络数据交换的。</p>
 
       
     </div>

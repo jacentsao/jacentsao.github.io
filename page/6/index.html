@@ -92,6 +92,7 @@
 <meta property="og:url" content="http://yoursite.com/page/6/index.html">
 <meta property="og:site_name" content="Silence of Heart">
 <meta property="og:description" content="这是我的个人测试小站">
+<meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Silence of Heart">
 <meta name="twitter:description" content="这是我的个人测试小站">
@@ -681,8 +682,8 @@
           
             <p>本文旨在收集一些个人比较感兴趣的技术类的文章,希望更多的成长学习.</p>
 <h3 id="Linux类"><a href="#Linux类" class="headerlink" title="Linux类"></a>Linux类</h3><ol>
-<li><a href="http://blog.chinaunix.net/uid-23069658-id-3142046.html" target="_blank" rel="external">Linux系统中“动态库”和“静态库”那点事儿</a>.  </li>
-<li><a href="https://www.gitbook.com/book/leon_lizi/-framework-/details" target="_blank" rel="external">静态库与动态库的使用</a></li>
+<li><a href="http://blog.chinaunix.net/uid-23069658-id-3142046.html" target="_blank" rel="noopener">Linux系统中“动态库”和“静态库”那点事儿</a>.  </li>
+<li><a href="https://www.gitbook.com/book/leon_lizi/-framework-/details" target="_blank" rel="noopener">静态库与动态库的使用</a></li>
 </ol>
 
           
@@ -834,7 +835,7 @@
       
         
           
-            <h5 id="原文转载自wjlkoorey的博客"><a href="#原文转载自wjlkoorey的博客" class="headerlink" title="原文转载自wjlkoorey的博客"></a>原文转载自<a href="http://blog.chinaunix.net/uid-23069658-id-3142046.html" target="_blank" rel="external">wjlkoorey的博客</a></h5><p>最近一直在学习go语言跨平台编译,在这个过程中也学习了其它很多的内容,今天回顾一下Linux系统下动态库(.so)和静态(.a)的程序那些猫腻.在这之前，我们需要了解一下源代码到可执行程序之间到底发生了什么神奇而美妙的事情。</p>
+            <h5 id="原文转载自wjlkoorey的博客"><a href="#原文转载自wjlkoorey的博客" class="headerlink" title="原文转载自wjlkoorey的博客"></a>原文转载自<a href="http://blog.chinaunix.net/uid-23069658-id-3142046.html" target="_blank" rel="noopener">wjlkoorey的博客</a></h5><p>最近一直在学习go语言跨平台编译,在这个过程中也学习了其它很多的内容,今天回顾一下Linux系统下动态库(.so)和静态(.a)的程序那些猫腻.在这之前，我们需要了解一下源代码到可执行程序之间到底发生了什么神奇而美妙的事情。</p>
 <p>在Linux操作系统中，普遍使用ELF格式作为可执行程序或者程序生成过程中的中间格式。ELF（Executable and Linking Format，可执行连接格式）是UNIX系统实验室（USL）作为应用程序二进制接口（Application BinaryInterface，ABI）而开发和发布的。工具接口标准委员会（TIS）选择了正在发展中的ELF标准作为工作在32位Intel体系上不同操作系统之间可移植的二进制文件格式。源代码到可执行程序的转换时需要经历如下图所示的过程：</p>
 <p><img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRVaYfvML9MiCHmqr9KBqadX6_DbW8XIiJXlUttBvbfuwWG4Wv3" alt="image"></p>
 <ul>
@@ -1312,7 +1313,7 @@ adb shell ps | grep packagename //获取指定app的进程信息
 
       
         
-          <p> 本教程适用于Android7.1官方系统的Nexus 6 Root, 使用于Android 7.1.1 N6F26Q Nougat,请确保你将要root的是该设备. 原文<a href="http://www.teamandroid.com/2017/01/11/root-nexus-6-android-7-1-1-n6f26q-nougat-official-factory-image/2/">地址</a>,可自行查看.<br></p>
+          <p> 本教程适用于Android7.1官方系统的Nexus 6 Root, 使用于Android 7.1.1 N6F26Q Nougat,请确保你将要root的是该设备. 原文<a href="http://www.teamandroid.com/2017/01/11/root-nexus-6-android-7-1-1-n6f26q-nougat-official-factory-image/2/" target="_blank" rel="noopener">地址</a>,可自行查看.<br></p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/01/19/Root-Nexus-6-Android-7-1-官方镜像/#more" rel="contents">
@@ -1622,7 +1623,7 @@ adb shell ps | grep packagename //获取指定app的进程信息
 
       
         
-          <p>因为在我们的项目里面有一个大小超过11M的assets<a href="http://stackoverflow.com/questions/5583487/hosting-an-executable-within-android-application">可执行文件</a>,所以在app初次安装或者版本升级的时候需要全新拷贝或者升级拷贝.在实际使用中发现在app覆盖安装的时候重新拷贝assets文件很容易出现拷贝不完整的问题,这会导致这个可执行文件运行出现错误,最直观的表现就是界面数据展示异常,且只能通过卸载重装或者清除数据重新生成这个可执行文件解决异常,所以后来我就进行了一些优化.<br></p>
+          <p>因为在我们的项目里面有一个大小超过11M的assets<a href="http://stackoverflow.com/questions/5583487/hosting-an-executable-within-android-application" target="_blank" rel="noopener">可执行文件</a>,所以在app初次安装或者版本升级的时候需要全新拷贝或者升级拷贝.在实际使用中发现在app覆盖安装的时候重新拷贝assets文件很容易出现拷贝不完整的问题,这会导致这个可执行文件运行出现错误,最直观的表现就是界面数据展示异常,且只能通过卸载重装或者清除数据重新生成这个可执行文件解决异常,所以后来我就进行了一些优化.<br></p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/01/18/Android拷贝文件Buff-Size最佳实践/#more" rel="contents">

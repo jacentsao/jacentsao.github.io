@@ -86,28 +86,18 @@
 
 
 
-<meta name="description" content="最近在做Golang上线前的准备工作，包括部署和性能测试，本次主要记录性能测试相关的内容，以免自己遗忘。
-ab命令行测试(Apache Benchmark)首先想到的是简单的性能测试工具ab（Apache Benchmark），MacOS应该是自带了ab测试工具，Windows的话需要自行安装配置，可以参考一下链接。
-安装好ab工具以后在终端输入ab可以看到很多参数，其中常用的参数有：
-
--n r">
+<meta name="description" content="最近在做Golang上线前的准备工作，包括部署和性能测试，本次主要记录性能测试相关的内容，以免自己遗忘。 ab命令行测试(Apache Benchmark)首先想到的是简单的性能测试工具ab（Apache Benchmark），MacOS应该是自带了ab测试工具，Windows的话需要自行安装配置，可以参考一下链接。 安装好ab工具以后在终端输入ab可以看到很多参数，其中常用的参数有：  -n r">
+<meta name="keywords" content="性能,后端,测试">
 <meta property="og:type" content="article">
 <meta property="og:title" content="后端性能测试1">
 <meta property="og:url" content="http://yoursite.com/2018/03/20/后端性能测试1/index.html">
 <meta property="og:site_name" content="Silence of Heart">
-<meta property="og:description" content="最近在做Golang上线前的准备工作，包括部署和性能测试，本次主要记录性能测试相关的内容，以免自己遗忘。
-ab命令行测试(Apache Benchmark)首先想到的是简单的性能测试工具ab（Apache Benchmark），MacOS应该是自带了ab测试工具，Windows的话需要自行安装配置，可以参考一下链接。
-安装好ab工具以后在终端输入ab可以看到很多参数，其中常用的参数有：
-
--n r">
+<meta property="og:description" content="最近在做Golang上线前的准备工作，包括部署和性能测试，本次主要记录性能测试相关的内容，以免自己遗忘。 ab命令行测试(Apache Benchmark)首先想到的是简单的性能测试工具ab（Apache Benchmark），MacOS应该是自带了ab测试工具，Windows的话需要自行安装配置，可以参考一下链接。 安装好ab工具以后在终端输入ab可以看到很多参数，其中常用的参数有：  -n r">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2018-03-20T15:01:42.800Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="后端性能测试1">
-<meta name="twitter:description" content="最近在做Golang上线前的准备工作，包括部署和性能测试，本次主要记录性能测试相关的内容，以免自己遗忘。
-ab命令行测试(Apache Benchmark)首先想到的是简单的性能测试工具ab（Apache Benchmark），MacOS应该是自带了ab测试工具，Windows的话需要自行安装配置，可以参考一下链接。
-安装好ab工具以后在终端输入ab可以看到很多参数，其中常用的参数有：
-
--n r">
+<meta name="twitter:description" content="最近在做Golang上线前的准备工作，包括部署和性能测试，本次主要记录性能测试相关的内容，以免自己遗忘。 ab命令行测试(Apache Benchmark)首先想到的是简单的性能测试工具ab（Apache Benchmark），MacOS应该是自带了ab测试工具，Windows的话需要自行安装配置，可以参考一下链接。 安装好ab工具以后在终端输入ab可以看到很多参数，其中常用的参数有：  -n r">
 
 
 
@@ -425,7 +415,7 @@ ab命令行测试(Apache Benchmark)首先想到的是简单的性能测试工具
 
       
         <p>最近在做Golang上线前的准备工作，包括部署和性能测试，本次主要记录性能测试相关的内容，以免自己遗忘。</p>
-<h4 id="ab命令行测试-Apache-Benchmark"><a href="#ab命令行测试-Apache-Benchmark" class="headerlink" title="ab命令行测试(Apache Benchmark)"></a>ab命令行测试(Apache Benchmark)</h4><p>首先想到的是简单的性能测试工具ab（Apache Benchmark），MacOS应该是自带了ab测试工具，Windows的话需要自行安装配置，可以参考一下<a href="https://stackoverflow.com/questions/7327099/how-to-install-apache-bench-on-windows-7" target="_blank" rel="external">链接</a>。</p>
+<h4 id="ab命令行测试-Apache-Benchmark"><a href="#ab命令行测试-Apache-Benchmark" class="headerlink" title="ab命令行测试(Apache Benchmark)"></a>ab命令行测试(Apache Benchmark)</h4><p>首先想到的是简单的性能测试工具ab（Apache Benchmark），MacOS应该是自带了ab测试工具，Windows的话需要自行安装配置，可以参考一下<a href="https://stackoverflow.com/questions/7327099/how-to-install-apache-bench-on-windows-7" target="_blank" rel="noopener">链接</a>。</p>
 <p>安装好ab工具以后在终端输入ab可以看到很多参数，其中常用的参数有：</p>
 <ul>
 <li>-n requests 请求次数量</li>
@@ -436,9 +426,9 @@ ab命令行测试(Apache Benchmark)首先想到的是简单的性能测试工具
 <li>-T Content-type 默认值’text/plain’</li>
 </ul>
 <p>以下一个完整的ab测试post请求如下：</p>
-<figure class="highlight plain"><figcaption><span>-n 100 -c 10 -p ./login.txt -T 'application/json'</span><a href="http://127.0.0.1:5174/" target="_blank" rel="external">```</a></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">即100次请求，并发数为10，指定当前目录下的login.txt文件中的json数据发送到服务器localhost，5174端口。以下是login.txt中的文件内容:</div></pre></td></tr></table></figure>
-<p>{“test”:”test”,”cmd”:”test”}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">##### 测试结果分析</div><div class="line"></div><div class="line">以下是以请求百度首页模拟100人总计10000此访问来进行ab测试返回分析:</div></pre></td></tr></table></figure></p>
-<p>ab -n 10000 -c 100  <a href="https://www.baidu.com/index.html" target="_blank" rel="external">https://www.baidu.com/index.html</a><br>//ApacheBenchmark软件申明<br>This is ApacheBench, Version 2.3 &lt;$Revision: 1807734 $&gt;<br>Copyright 1996 Adam Twiss, Zeus Technology Ltd, <a href="http://www.zeustech.net/" target="_blank" rel="external">http://www.zeustech.net/</a><br>Licensed to The Apache Software Foundation, <a href="http://www.apache.org/" target="_blank" rel="external">http://www.apache.org/</a></p>
+<figure class="highlight plain"><figcaption><span>-n 100 -c 10 -p ./login.txt -T 'application/json'</span><a href="http://127.0.0.1:5174/" target="_blank" rel="noopener">```</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">即100次请求，并发数为10，指定当前目录下的login.txt文件中的json数据发送到服务器localhost，5174端口。以下是login.txt中的文件内容:</span><br></pre></td></tr></table></figure>
+<p>{“test”:”test”,”cmd”:”test”}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### 测试结果分析</span><br><span class="line"></span><br><span class="line">以下是以请求百度首页模拟100人总计10000此访问来进行ab测试返回分析:</span><br></pre></td></tr></table></figure></p>
+<p>ab -n 10000 -c 100  <a href="https://www.baidu.com/index.html" target="_blank" rel="noopener">https://www.baidu.com/index.html</a><br>//ApacheBenchmark软件申明<br>This is ApacheBench, Version 2.3 &lt;$Revision: 1807734 $&gt;<br>Copyright 1996 Adam Twiss, Zeus Technology Ltd, <a href="http://www.zeustech.net/" target="_blank" rel="noopener">http://www.zeustech.net/</a><br>Licensed to The Apache Software Foundation, <a href="http://www.apache.org/" target="_blank" rel="noopener">http://www.apache.org/</a></p>
 <p>//测试的网址<br>Benchmarking www.baidu.com (be patient)</p>
 <p>//请求的进度<br>Completed 1000 requests<br>Completed 2000 requests<br>Completed 3000 requests<br>Completed 4000 requests<br>Completed 5000 requests<br>SSL handshake failed (1).<br>140735932269448:error:140770FC:SSL routines:SSL23_GET_SERVER_HELLO:unknown protocol:/BuildRoot/Library/Caches/com.apple.xbs/Sources/libressl/libressl-22/libressl/ssl/s23_clnt.c:565:<br>Completed 6000 requests<br>Completed 7000 requests<br>SSL handshake failed (1).<br>140735932269448:error:140770FC:SSL routines:SSL23_GET_SERVER_HELLO:unknown protocol:/BuildRoot/Library/Caches/com.apple.xbs/Sources/libressl/libressl-22/libressl/ssl/s23_clnt.c:565:<br>Completed 8000 requests<br>Completed 9000 requests<br>Completed 10000 requests<br>Finished 10000 requests</p>
 <p>//百度的服务器软件信息<br>Server Software:        BWS/1.1<br>//被测试的主机地址<br>Server Hostname:        www.baidu.com<br>//https的默认端口<br>Server Port:            443<br>//加密协议<br>SSL/TLS Protocol:       TLSv1.2,ECDHE-RSA-AES128-GCM-SHA256,2048,128<br>//加密服务器名称<br>TLS Server Name:        www.baidu.com</p>

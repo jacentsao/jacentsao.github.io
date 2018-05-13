@@ -86,19 +86,17 @@
 
 
 
-<meta name="description" content="务必确认在构建非Windows包的时候，根目录下面无syso版本信息文件，否则各种各样的奇葩错误
-seq_android.c:213:3: errorgo build -pkgdir=/Users/Eveee/Storage/go/pkg/gomobile/pkg_android_arm64 -buildmode=c-shared -o=/var/folders/w4/75xgx41n2bb7mm">
+<meta name="description" content="务必确认在构建非Windows包的时候，根目录下面无syso版本信息文件，否则各种各样的奇葩错误 seq_android.c:213:3: errorgo build -pkgdir123# _/var/folders/w4/75xgx41n2bb7mm3m0dxbp0d40000gn/T/gomobile-work-159245723/gomobile_bindseq_android.c:213">
 <meta property="og:type" content="article">
 <meta property="og:title" content="gomobile相关的错误处理">
 <meta property="og:url" content="http://yoursite.com/2017/12/19/gomobile相关的错误处理/index.html">
 <meta property="og:site_name" content="Silence of Heart">
-<meta property="og:description" content="务必确认在构建非Windows包的时候，根目录下面无syso版本信息文件，否则各种各样的奇葩错误
-seq_android.c:213:3: errorgo build -pkgdir=/Users/Eveee/Storage/go/pkg/gomobile/pkg_android_arm64 -buildmode=c-shared -o=/var/folders/w4/75xgx41n2bb7mm">
+<meta property="og:description" content="务必确认在构建非Windows包的时候，根目录下面无syso版本信息文件，否则各种各样的奇葩错误 seq_android.c:213:3: errorgo build -pkgdir123# _/var/folders/w4/75xgx41n2bb7mm3m0dxbp0d40000gn/T/gomobile-work-159245723/gomobile_bindseq_android.c:213">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2017-12-19T04:22:17.575Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="gomobile相关的错误处理">
-<meta name="twitter:description" content="务必确认在构建非Windows包的时候，根目录下面无syso版本信息文件，否则各种各样的奇葩错误
-seq_android.c:213:3: errorgo build -pkgdir=/Users/Eveee/Storage/go/pkg/gomobile/pkg_android_arm64 -buildmode=c-shared -o=/var/folders/w4/75xgx41n2bb7mm">
+<meta name="twitter:description" content="务必确认在构建非Windows包的时候，根目录下面无syso版本信息文件，否则各种各样的奇葩错误 seq_android.c:213:3: errorgo build -pkgdir123# _/var/folders/w4/75xgx41n2bb7mm3m0dxbp0d40000gn/T/gomobile-work-159245723/gomobile_bindseq_android.c:213">
 
 
 
@@ -394,7 +392,7 @@ seq_android.c:213:3: errorgo build -pkgdir=/Users/Eveee/Storage/go/pkg/gomobile/
 
       
         <p><strong>务必确认在构建非Windows包的时候，根目录下面无syso版本信息文件，否则各种各样的奇葩错误</strong></p>
-<h5 id="seq-android-c-213-3-error"><a href="#seq-android-c-213-3-error" class="headerlink" title="seq_android.c:213:3: error"></a>seq_android.c:213:3: error</h5><figure class="highlight plain"><figcaption><span>go build -pkgdir=/Users/Eveee/Storage/go/pkg/gomobile/pkg_android_arm64 -buildmode=c-shared -o=/var/folders/w4/75xgx41n2bb7mm3m0dxbp0d40000gn/T/gomobile-work-159245723/android/src/main/jniLibs/arm64-v8a/libgojni.so</span><a href="/var/folders/w4/75xgx41n2bb7mm3m0dxbp0d40000gn/T/gomobile-work-159245723/androidlib/main.go">failed: exit status 2</a></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># _/var/folders/w4/75xgx41n2bb7mm3m0dxbp0d40000gn/T/gomobile-work-159245723/gomobile_bind</div><div class="line">seq_android.c:213:3: error: implicitly declaring library function &apos;memcpy&apos; with type &apos;void *(void *, const void *, unsigned long)&apos; [-Werror,-Wimplicit-function-declaration]</div><div class="line">seq_android.c:213:3: note: include the header &lt;string.h&gt; or explicitly provide a declaration for &apos;memcpy&apos;</div></pre></td></tr></table></figure>
+<h5 id="seq-android-c-213-3-error"><a href="#seq-android-c-213-3-error" class="headerlink" title="seq_android.c:213:3: error"></a>seq_android.c:213:3: error</h5><figure class="highlight plain"><figcaption><span>go build -pkgdir</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># _/var/folders/w4/75xgx41n2bb7mm3m0dxbp0d40000gn/T/gomobile-work-159245723/gomobile_bind</span><br><span class="line">seq_android.c:213:3: error: implicitly declaring library function &apos;memcpy&apos; with type &apos;void *(void *, const void *, unsigned long)&apos; [-Werror,-Wimplicit-function-declaration]</span><br><span class="line">seq_android.c:213:3: note: include the header &lt;string.h&gt; or explicitly provide a declaration for &apos;memcpy&apos;</span><br></pre></td></tr></table></figure>
 <p>解决方案</p>
 <p><code>https://github.com/golang/go/issues/22766 seq_android.c:213:3: error</code></p>
 

@@ -87,11 +87,13 @@
 
 
 <meta name="description" content="一、基本语法1. select 1 vs select * 效率区分select 1 from table;与select anycol(目的表集合中的任意一行） from table;与select  from table 从作用上来说是没有差别的，都是查看是否有记录，一般是作条件查询用的。select 1 from 中的1是一常量（可以为任意数值），查到的所有行的值都是它，但从效率上来说，1&amp;">
+<meta name="keywords" content="数据库,基础知识,开发">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据库语法学习">
 <meta property="og:url" content="http://yoursite.com/2017/06/16/数据库语法学习/index.html">
 <meta property="og:site_name" content="Silence of Heart">
 <meta property="og:description" content="一、基本语法1. select 1 vs select * 效率区分select 1 from table;与select anycol(目的表集合中的任意一行） from table;与select  from table 从作用上来说是没有差别的，都是查看是否有记录，一般是作条件查询用的。select 1 from 中的1是一常量（可以为任意数值），查到的所有行的值都是它，但从效率上来说，1&amp;">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2017-12-31T13:32:44.124Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据库语法学习">
@@ -414,11 +416,11 @@
       
         <h4 id="一、基本语法"><a href="#一、基本语法" class="headerlink" title="一、基本语法"></a>一、基本语法</h4><h5 id="1-select-1-vs-select-效率区分"><a href="#1-select-1-vs-select-效率区分" class="headerlink" title="1. select 1 vs select * 效率区分"></a>1. select 1 vs select * 效率区分</h5><p>select 1 from table;与select anycol(目的表集合中的任意一行） from table;与select <em> from table 从作用上来说是没有差别的，都是查看是否有记录，一般是作条件查询用的。select 1 from 中的1是一常量（可以为任意数值），查到的所有行的值都是它，但从效率上来说，1&gt;anycol&gt;</em>，因为不用查字典表。</p>
 <h5 id="2-创建视图"><a href="#2-创建视图" class="headerlink" title="2. 创建视图"></a>2. 创建视图</h5><p>视图是一种简单的数据查询机制，不涉及数据的存储。视图的字段名称可以与select的表不一致,视图创建以后可以跟其他的业务表进行关联，也可以正常的使用group by, having 和order by 之类的语法。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">create view products_vw(id,name,code,init_amt,init_prc,init_stock,current_stock)</div><div class="line">as </div><div class="line">select id,name,code,init_amt,init_prc,init_stock,cur_stock</div><div class="line">from products</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">create view products_vw(id,name,code,init_amt,init_prc,init_stock,current_stock)</span><br><span class="line">as </span><br><span class="line">select id,name,code,init_amt,init_prc,init_stock,cur_stock</span><br><span class="line">from products</span><br></pre></td></tr></table></figure>
 <p>那么使用视图的意义在哪里了。</p>
 <h6 id="2-1-数据安全"><a href="#2-1-数据安全" class="headerlink" title="2.1 数据安全"></a>2.1 数据安全</h6><p>在创建视图的时候将敏感数据不引入视图，这样子提供视图给终端用户使用就达到了保护数据的目的了</p>
 <h6 id="2-2-数据聚合"><a href="#2-2-数据聚合" class="headerlink" title="2.2 数据聚合"></a>2.2 数据聚合</h6><p>数据汇总，辅助创建新表</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">create table products_new </div><div class="line">as </div><div class="line">select * from products_vw</div><div class="line"></div><div class="line"></div><div class="line">create or replace products_vw (id,name,code,init_amt,init_prc,init_stock,current_stock)</div><div class="line">as</div><div class="line">select id,name,code,init_amt,init_prc,init_stock,current_stock from products_new</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">create table products_new </span><br><span class="line">as </span><br><span class="line">select * from products_vw</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">create or replace products_vw (id,name,code,init_amt,init_prc,init_stock,current_stock)</span><br><span class="line">as</span><br><span class="line">select id,name,code,init_amt,init_prc,init_stock,current_stock from products_new</span><br></pre></td></tr></table></figure>
 <h6 id="2-3-隐藏复杂性"><a href="#2-3-隐藏复杂性" class="headerlink" title="2.3 隐藏复杂性"></a>2.3 隐藏复杂性</h6><h6 id="2-4-连接分区数据"><a href="#2-4-连接分区数据" class="headerlink" title="2.4 连接分区数据"></a>2.4 连接分区数据</h6>
       
     </div>

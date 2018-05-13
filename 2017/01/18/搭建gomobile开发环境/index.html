@@ -92,6 +92,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/01/18/搭建gomobile开发环境/index.html">
 <meta property="og:site_name" content="Silence of Heart">
 <meta property="og:description" content="gomobile是谷歌开发的一种跨平台技术解决方案,可以针对iOS和Android平台进行直接开发或者进行Library开发.">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2017-01-18T12:27:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="搭建gomobile开发环境">
@@ -427,21 +428,21 @@
 <h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点:"></a>缺点:</h4><h5 id="数据类型限制"><a href="#数据类型限制" class="headerlink" title="数据类型限制"></a>数据类型限制</h5><ul>
 <li>int and float;</li>
 <li>string and boolean;</li>
-<li>byte[]. The current implementation doesn’t allow to use []byte as the     function argument (<a href="https://golang.org/issues/12113" target="_blank" rel="external">https://golang.org/issues/12113</a>);</li>
+<li>byte[]. The current implementation doesn’t allow to use []byte as the     function argument (<a href="https://golang.org/issues/12113" target="_blank" rel="noopener">https://golang.org/issues/12113</a>);</li>
 <li>function has to return only supported types, it may not return the result, it may return one or two types wherein the second type should be an error;</li>
 <li>interfaces could be used if they are exported to files of any supported type;</li>
 <li>struct type, only in case all fields meet the constraints.</li>
 </ul>
 <p>]</p>
 <h3 id="环境搭建流程"><a href="#环境搭建流程" class="headerlink" title="环境搭建流程"></a>环境搭建流程</h3><h4 id="官方教程"><a href="#官方教程" class="headerlink" title="官方教程"></a>官方教程</h4><ol>
-<li><a href="https://godoc.org/golang.org/x/mobile/cmd/gomobile" target="_blank" rel="external">官网地址</a>,安装gomobile,当然首先得安装golang才能够使用go命令</li>
+<li><a href="https://godoc.org/golang.org/x/mobile/cmd/gomobile" target="_blank" rel="noopener">官网地址</a>,安装gomobile,当然首先得安装golang才能够使用go命令</li>
 </ol>
 <pre><code>$ go get golang.org/x/mobile/cmd/gomobile
 $ gomobile init
 //然后就可以通过gomobile指令查看了
 $ gomobile
 </code></pre><ol>
-<li>前面地址进不去的话有个<a href="https://github.com/golang/mobile" target="_blank" rel="external">Github地址</a></li>
+<li>前面地址进不去的话有个<a href="https://github.com/golang/mobile" target="_blank" rel="noopener">Github地址</a></li>
 </ol>
 <h4 id="使用Github镜像安装"><a href="#使用Github镜像安装" class="headerlink" title="使用Github镜像安装"></a>使用Github镜像安装</h4><p>由于使用谷歌的官网资源需要在命令行翻墙,比较麻烦,所以直接使用Github的镜像进行安装.</p>
 <pre><code>$ mkdir -p $GOPATH/src/github.com/golang

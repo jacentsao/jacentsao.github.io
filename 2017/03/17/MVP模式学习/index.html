@@ -87,11 +87,13 @@
 
 
 <meta name="description" content="MVP模式是基于MVC模式在Android上面的一个变种，可以参考谷歌的官方架构项目Android-Architecture。在 MVC 模式中，Activity 应该是属于 View 这一层。而实质上，它既承担了 View，同时也包含一些 Controller 的东西在里面。这对于开发与维护来说不太友好，耦合度大高了。把 Activity 的 View 和 Controller 抽离出来就变成了">
+<meta name="keywords" content="Android,设计模式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MVP模式学习">
 <meta property="og:url" content="http://yoursite.com/2017/03/17/MVP模式学习/index.html">
 <meta property="og:site_name" content="Silence of Heart">
 <meta property="og:description" content="MVP模式是基于MVC模式在Android上面的一个变种，可以参考谷歌的官方架构项目Android-Architecture。在 MVC 模式中，Activity 应该是属于 View 这一层。而实质上，它既承担了 View，同时也包含一些 Controller 的东西在里面。这对于开发与维护来说不太友好，耦合度大高了。把 Activity 的 View 和 Controller 抽离出来就变成了">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2017-03-18T11:00:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MVP模式学习">
@@ -412,7 +414,7 @@
       
 
       
-        <p>MVP模式是基于MVC模式在Android上面的一个变种，可以参考谷歌的官方架构项目<a href="https://github.com/googlesamples/android-architecture" target="_blank" rel="external">Android-Architecture</a>。在 MVC 模式中，Activity 应该是属于 View 这一层。而实质上，它既承担了 View，同时也包含一些 Controller 的东西在里面。这对于开发与维护来说不太友好，耦合度大高了。把 Activity 的 View 和 Controller 抽离出来就变成了 View 和 Presenter，这就是 MVP 模式。</p>
+        <p>MVP模式是基于MVC模式在Android上面的一个变种，可以参考谷歌的官方架构项目<a href="https://github.com/googlesamples/android-architecture" target="_blank" rel="noopener">Android-Architecture</a>。在 MVC 模式中，Activity 应该是属于 View 这一层。而实质上，它既承担了 View，同时也包含一些 Controller 的东西在里面。这对于开发与维护来说不太友好，耦合度大高了。把 Activity 的 View 和 Controller 抽离出来就变成了 View 和 Presenter，这就是 MVP 模式。</p>
 <p>View只负责处理视图状态<br>Presenter处理逻辑<br>Contract 连接View和Presenter</p>
 <p>针对各个界面：</p>
 <pre><code>public interface BasePresenter {

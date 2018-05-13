@@ -92,6 +92,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/01/18/Android-Library中的R文件/index.html">
 <meta property="og:site_name" content="Silence of Heart">
 <meta property="og:description" content="前段时间跟项目老大提了个请求,就是将Butterknife加入到我们的项目中,结合android-butterknife-zelezny使用,这样子不仅代码简洁,也可以减少一些findViewById的繁琐过程,提升我们的开发效率.效果如下图,是不是特别简洁.">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://github.com/avast/android-butterknife-zelezny/raw/master/img/zelezny_animated.gif">
 <meta property="og:image" content="http://tools.android.com/_/rsrc/1319062860174/tips/non-constant-fields/convert2.png">
 <meta property="og:updated_time" content="2017-01-18T12:02:51.000Z">
@@ -415,7 +416,7 @@
       
 
       
-        <p>前段时间跟项目老大提了个请求,就是将<a href="https://github.com/JakeWharton/butterknife" target="_blank" rel="external">Butterknife</a>加入到我们的项目中,结合<a href="https://github.com/avast/android-butterknife-zelezny" target="_blank" rel="external">android-butterknife-zelezny</a>使用,这样子不仅代码简洁,也可以减少一些findViewById的繁琐过程,提升我们的开发效率.效果如下图,是不是特别简洁.</p>
+        <p>前段时间跟项目老大提了个请求,就是将<a href="https://github.com/JakeWharton/butterknife" target="_blank" rel="noopener">Butterknife</a>加入到我们的项目中,结合<a href="https://github.com/avast/android-butterknife-zelezny" target="_blank" rel="noopener">android-butterknife-zelezny</a>使用,这样子不仅代码简洁,也可以减少一些findViewById的繁琐过程,提升我们的开发效率.效果如下图,是不是特别简洁.</p>
 <p><img src="https://github.com/avast/android-butterknife-zelezny/raw/master/img/zelezny_animated.gif" alt="MacDown Screenshot"><br><a id="more"></a><br>经过老大的同意以后,我开始加依赖,下载自动注解插件,进行自动生成代码,一气呵成,神清气爽.But问题立马就暴露出来了,代码如下:</p>
 <pre><code>  @OnClick({R2.id.m_button_pattern, R2.id.m_button_password})
       public void onClick(View view) {
@@ -439,7 +440,7 @@ public static int activity_open_exit=0x7f04000d;
 //Module中生成的R文件
 public static final int abc_fade_out=0x7f050001;
 </code></pre><p>所以在Library中无法使用switch语句进而影响到了Butterknife的使用.</p>
-<p>至于为什么在Library中无法使用参考<a href="http://tools.android.com/tips/non-constant-fields" target="_blank" rel="external">谷歌文档</a>.经过阅读我们知道从ADT14开始Library中的R文件才从静态常量变为非常量.因为如果在多个Library中可能出现id冲突的问题.在ADT14以前则采用的是将所有的资源文件和相关的代码重新随着主项目一起重新编译,导致编译速度过慢.因此,从ADT14开始就变成了非常量的id了:</p>
+<p>至于为什么在Library中无法使用参考<a href="http://tools.android.com/tips/non-constant-fields" target="_blank" rel="noopener">谷歌文档</a>.经过阅读我们知道从ADT14开始Library中的R文件才从静态常量变为非常量.因为如果在多个Library中可能出现id冲突的问题.在ADT14以前则采用的是将所有的资源文件和相关的代码重新随着主项目一起重新编译,导致编译速度过慢.因此,从ADT14开始就变成了非常量的id了:</p>
 <pre><code>int id = view.getId();
 switch (id) {
     case R.id.button1:
@@ -463,7 +464,7 @@ if (id == R.id.button1) {
 } else if (id == R.id.button3) {
     action3();
 }
-</code></pre><p> 因为找资料的原因又去看了下Github的Butterknife, JakeWharton大神终于在大家的强烈请求下更新了支持Library, <a href="https://github.com/JakeWharton/butterknife/blob/master/CHANGELOG.md" target="_blank" rel="external">更新日志</a>;</p>
+</code></pre><p> 因为找资料的原因又去看了下Github的Butterknife, JakeWharton大神终于在大家的强烈请求下更新了支持Library, <a href="https://github.com/JakeWharton/butterknife/blob/master/CHANGELOG.md" target="_blank" rel="noopener">更新日志</a>;</p>
 <pre><code>Version 8.2.0 (2016-07-10)
 
 New: Support for library projects. Requires application of a Butter Knife Gradle plugin. See README for details.

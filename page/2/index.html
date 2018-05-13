@@ -92,6 +92,7 @@
 <meta property="og:url" content="http://yoursite.com/page/2/index.html">
 <meta property="og:site_name" content="Silence of Heart">
 <meta property="og:description" content="这是我的个人测试小站">
+<meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Silence of Heart">
 <meta name="twitter:description" content="这是我的个人测试小站">
@@ -419,15 +420,15 @@
         
           
             <p>移动平台对于安全和隐私是越来越注重了，Android在权限方面也在不断的收紧，一定程度上对于流氓软件还是有克制作用的。</p>
-<p>今天学习了一下<a href="https://developer.android.com/training/secure-file-sharing/setup-sharing.html" target="_blank" rel="external">FileProvider</a>和<a href="https://developer.android.com/reference/android/support/v4/content/FileProvider.html#getUriForFile(android.content.Context, java.lang.String, java.io.File" target="_blank" rel="external">文档</a>)的基本使用：</p>
+<p>今天学习了一下<a href="https://developer.android.com/training/secure-file-sharing/setup-sharing.html" target="_blank" rel="noopener">FileProvider</a>和<a href="https://developer.android.com/reference/android/support/v4/content/FileProvider.html#getUriForFile(android.content.Context, java.lang.String, java.io.File" target="_blank" rel="noopener">文档</a>)的基本使用：</p>
 <h5 id="1-定义Provider"><a href="#1-定义Provider" class="headerlink" title="1.定义Provider"></a>1.定义Provider</h5><p>首先要在MManifest文件中定义一个Provider，其中authorities=包名.fileprovider。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">    package=&quot;com.example.myapp&quot;&gt;</div><div class="line">    &lt;application</div><div class="line">        ...&gt;</div><div class="line">        &lt;provider</div><div class="line">            android:name=&quot;android.support.v4.content.FileProvider&quot;</div><div class="line">            android:authorities=&quot;com.example.myapp.fileprovider&quot;</div><div class="line">            android:grantUriPermissions=&quot;true&quot;</div><div class="line">            android:exported=&quot;false&quot;&gt;</div><div class="line">            &lt;meta-data</div><div class="line">                android:name=&quot;android.support.FILE_PROVIDER_PATHS&quot;</div><div class="line">                android:resource=&quot;@xml/filepaths&quot; /&gt;</div><div class="line">        &lt;/provider&gt;</div><div class="line">        ...</div><div class="line">    &lt;/application&gt;</div><div class="line">&lt;/manifest&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    package=&quot;com.example.myapp&quot;&gt;</span><br><span class="line">    &lt;application</span><br><span class="line">        ...&gt;</span><br><span class="line">        &lt;provider</span><br><span class="line">            android:name=&quot;android.support.v4.content.FileProvider&quot;</span><br><span class="line">            android:authorities=&quot;com.example.myapp.fileprovider&quot;</span><br><span class="line">            android:grantUriPermissions=&quot;true&quot;</span><br><span class="line">            android:exported=&quot;false&quot;&gt;</span><br><span class="line">            &lt;meta-data</span><br><span class="line">                android:name=&quot;android.support.FILE_PROVIDER_PATHS&quot;</span><br><span class="line">                android:resource=&quot;@xml/filepaths&quot; /&gt;</span><br><span class="line">        &lt;/provider&gt;</span><br><span class="line">        ...</span><br><span class="line">    &lt;/application&gt;</span><br><span class="line">&lt;/manifest&gt;</span><br></pre></td></tr></table></figure>
 <h5 id="2-创建filepaths文件"><a href="#2-创建filepaths文件" class="headerlink" title="2.创建filepaths文件"></a>2.创建filepaths文件</h5><p>在res目录下面新建一个xml目录，并在新建的xml目录下面创建一个filepaths的文件，内容如下所示：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;paths xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;</div><div class="line">    &lt;files-path name=&quot;my_images&quot; path=&quot;images/&quot;/&gt;</div><div class="line">    ...</div><div class="line">&lt;/paths&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;paths xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;</span><br><span class="line">    &lt;files-path name=&quot;my_images&quot; path=&quot;images/&quot;/&gt;</span><br><span class="line">    ...</span><br><span class="line">&lt;/paths&gt;</span><br></pre></td></tr></table></figure>
 <p>定义的路径又分为如下几种，分别对应内部存储和外部存储</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;files-path name=&quot;name&quot; path=&quot;path&quot; /&gt;  Context.getFilesDir().</div><div class="line">&lt;cache-path name=&quot;name&quot; path=&quot;path&quot; /&gt;  getCacheDir().</div><div class="line">&lt;external-path name=&quot;name&quot; path=&quot;path&quot; /&gt;  Environment.getExternalStorageDirectory().</div><div class="line">&lt;external-files-path name=&quot;name&quot; path=&quot;path&quot; /&gt;Context#getExternalFilesDir(String) Context.getExternalFilesDir(null).</div><div class="line">&lt;external-cache-path name=&quot;name&quot; path=&quot;path&quot; /&gt; Context.getExternalCacheDir().</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;files-path name=&quot;name&quot; path=&quot;path&quot; /&gt;  Context.getFilesDir().</span><br><span class="line">&lt;cache-path name=&quot;name&quot; path=&quot;path&quot; /&gt;  getCacheDir().</span><br><span class="line">&lt;external-path name=&quot;name&quot; path=&quot;path&quot; /&gt;  Environment.getExternalStorageDirectory().</span><br><span class="line">&lt;external-files-path name=&quot;name&quot; path=&quot;path&quot; /&gt;Context#getExternalFilesDir(String) Context.getExternalFilesDir(null).</span><br><span class="line">&lt;external-cache-path name=&quot;name&quot; path=&quot;path&quot; /&gt; Context.getExternalCacheDir().</span><br></pre></td></tr></table></figure>
 <p>其中，name是出于安全考虑用于替换path显示的，path则是真实的次级目录</p>
-<h5 id="3-创建一个可分享的Uri"><a href="#3-创建一个可分享的Uri" class="headerlink" title="3.创建一个可分享的Uri"></a>3.创建一个可分享的Uri</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">File imagePath = new File(Context.getFilesDir(), &quot;images&quot;);</div><div class="line">File newFile = new File(imagePath, &quot;default_image.jpg&quot;);</div><div class="line">Uri contentUri = FileProvider.getUriForFile(getContext(), &quot;com.mydomain.fileprovider&quot;, newFile);</div></pre></td></tr></table></figure>
+<h5 id="3-创建一个可分享的Uri"><a href="#3-创建一个可分享的Uri" class="headerlink" title="3.创建一个可分享的Uri"></a>3.创建一个可分享的Uri</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">File imagePath = new File(Context.getFilesDir(), &quot;images&quot;);</span><br><span class="line">File newFile = new File(imagePath, &quot;default_image.jpg&quot;);</span><br><span class="line">Uri contentUri = FileProvider.getUriForFile(getContext(), &quot;com.mydomain.fileprovider&quot;, newFile);</span><br></pre></td></tr></table></figure>
 <p>最终获取到的Uri是<code>content://com.mydomain.fileprovider/my_images/default_image.jpg</code>，可以看到实际的images路径被替换为my_images了。</p>
 
           
@@ -581,11 +582,11 @@
           
             <p>最近因为Lantern老是出问题，又买了一个搬瓦工的，搭建好后速度还是可以的，Youtube上面1080P没有卡顿现象。但是各种工具的是使用又出现了问题，所以特意记录一下，节省下次切换工具配置的时间。</p>
 <h4 id="git配置"><a href="#git配置" class="headerlink" title="git配置"></a>git配置</h4><p>首先是配置git的代理，以下是http(s)配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git config --global https.proxy &apos;http://127.0.0.1:1080&apos;</div><div class="line">git config --global http.proxy &apos;http://127.0.0.1:1087&apos;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git config --global https.proxy &apos;http://127.0.0.1: 65322&apos;</div><div class="line">git config --global http.proxy &apos;http://127.0.0.1: 65322&apos;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">export http_proxy=http://127.0.0.1:1087;</div><div class="line">export https_proxy=http://127.0.0.1:1087;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global https.proxy &apos;http://127.0.0.1:1080&apos;</span><br><span class="line">git config --global http.proxy &apos;http://127.0.0.1:1087&apos;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global https.proxy &apos;http://127.0.0.1: 65322&apos;</span><br><span class="line">git config --global http.proxy &apos;http://127.0.0.1: 65322&apos;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export http_proxy=http://127.0.0.1:1087;</span><br><span class="line">export https_proxy=http://127.0.0.1:1087;</span><br></pre></td></tr></table></figure>
 <h4 id="Gradle配置"><a href="#Gradle配置" class="headerlink" title="Gradle配置"></a>Gradle配置</h4><p>在全局的gradle.properties中添加以下配置，这样子每个项目的gradle同步都回使用ss代理了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">systemProp.http.proxyHost=127.0.0.1</div><div class="line">systemProp.http.proxyPort=1087</div><div class="line">systemProp.https.proxyHost=127.0.0.1</div><div class="line">systemProp.https.proxyPort=1087</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">systemProp.http.proxyHost=127.0.0.1</span><br><span class="line">systemProp.http.proxyPort=1087</span><br><span class="line">systemProp.https.proxyHost=127.0.0.1</span><br><span class="line">systemProp.https.proxyPort=1087</span><br></pre></td></tr></table></figure>
 <h4 id="Android-Studio代理设置"><a href="#Android-Studio代理设置" class="headerlink" title="Android Studio代理设置"></a>Android Studio代理设置</h4><p>目前来看启用自动代理即可</p>
 
           
@@ -737,11 +738,11 @@
       
         
           
-            <h4 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h4><p><a href="https://zh.wikipedia.org/wiki/Secure_Shell" target="_blank" rel="external">Secure Shell</a>（缩写为SSH），由IETF的网络工作小组（Network Working Group）所制定；SSH为一项创建在应用层和传输层基础上的安全协议，为计算机上的Shell（壳层）提供安全的传输和使用环境。</p>
-<p>平时我们会通过ssh远程登录我们的主机来进行管理，在Mac下面一般我会通过自带的Terminal或者<a href="https://www.iterm2.com/" target="_blank" rel="external">iterm2</a>直接登录，而在Windows下面的话通常会使用<a href="http://www.putty.org/" target="_blank" rel="external">Putty</a>进行登录。                </p>
-<h4 id="登录流程"><a href="#登录流程" class="headerlink" title="登录流程"></a>登录流程</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">基本登录</div><div class="line">ssh user@host (用户名+主机地址)</div><div class="line"></div><div class="line">如果本机用户名跟远程的主机用户名一致，可以省略掉用户</div><div class="line">ssh host</div><div class="line"></div><div class="line">ssh默认端口是22，如果端口不是默认值则需要指定端口登录</div><div class="line">ssh user@host -p 1111 指定端口1111，使用用户user登录到主机</div><div class="line"></div><div class="line">在输入完上面的指令以后接下来就是输入密码了，此处就不再累述了</div></pre></td></tr></table></figure>
+            <h4 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h4><p><a href="https://zh.wikipedia.org/wiki/Secure_Shell" target="_blank" rel="noopener">Secure Shell</a>（缩写为SSH），由IETF的网络工作小组（Network Working Group）所制定；SSH为一项创建在应用层和传输层基础上的安全协议，为计算机上的Shell（壳层）提供安全的传输和使用环境。</p>
+<p>平时我们会通过ssh远程登录我们的主机来进行管理，在Mac下面一般我会通过自带的Terminal或者<a href="https://www.iterm2.com/" target="_blank" rel="noopener">iterm2</a>直接登录，而在Windows下面的话通常会使用<a href="http://www.putty.org/" target="_blank" rel="noopener">Putty</a>进行登录。                </p>
+<h4 id="登录流程"><a href="#登录流程" class="headerlink" title="登录流程"></a>登录流程</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">基本登录</span><br><span class="line">ssh user@host (用户名+主机地址)</span><br><span class="line"></span><br><span class="line">如果本机用户名跟远程的主机用户名一致，可以省略掉用户</span><br><span class="line">ssh host</span><br><span class="line"></span><br><span class="line">ssh默认端口是22，如果端口不是默认值则需要指定端口登录</span><br><span class="line">ssh user@host -p 1111 指定端口1111，使用用户user登录到主机</span><br><span class="line"></span><br><span class="line">在输入完上面的指令以后接下来就是输入密码了，此处就不再累述了</span><br></pre></td></tr></table></figure>
 <h4 id="公钥登录"><a href="#公钥登录" class="headerlink" title="公钥登录"></a>公钥登录</h4><p>在上面的流程中，我们每次都需要重新输入密码才能够进行登录，那么可不可以免密码直接登录了，答案当然是可以的了。</p>
-<p>通过公钥登录可以实现免密码登录，首先在客户端生成一对公钥私钥，然后将公钥添加到远程主机的<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">具体流程如下：</div></pre></td></tr></table></figure></p>
+<p>通过公钥登录可以实现免密码登录，首先在客户端生成一对公钥私钥，然后将公钥添加到远程主机的<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">具体流程如下：</span><br></pre></td></tr></table></figure></p>
 <ol>
 <li>在客户端生成一对公钥私钥<br> ssh-keygen<br>这个时候在目录~/.ssh/下面就会生成id_rsa.pub（公钥），id_rsa（私钥）</li>
 <li>将公钥拷贝到远程主机<br> ssh-copy-id user@host<br>```</li>
@@ -1250,7 +1251,7 @@
 <p>如果你的视图层次越多，那么潜在性能问题就越多。</p>
 <p>除了RelativeLayout其他容器也会导致双重税收。例如：</p>
 <ul>
-<li>水平的线性布局会导致两次Layout和Measure过程。如果你给线性布局添加了<a href="https://developer.android.com/reference/android/widget/LinearLayout.html#attr_android:measureWithLargestChild" target="_blank" rel="external">measureWithLargestChild</a>（其实是由于使用了weight属性的View的尺寸等于最大的子View的最小尺寸）也有可能由于要进行第二次Layout和Measure来确定每一个View对象的大小。</li>
+<li>水平的线性布局会导致两次Layout和Measure过程。如果你给线性布局添加了<a href="https://developer.android.com/reference/android/widget/LinearLayout.html#attr_android:measureWithLargestChild" target="_blank" rel="noopener">measureWithLargestChild</a>（其实是由于使用了weight属性的View的尺寸等于最大的子View的最小尺寸）也有可能由于要进行第二次Layout和Measure来确定每一个View对象的大小。</li>
 <li>GridLayout同样也有类似的问题。这个容器同样允许相对位置，正常情况下，GridLayout会通过预处理确定号子View的相对关系来避免双重税收。但是，如果Layout使用了weight或者Gravity的时候，它的预处理就没了，当容器是RelativeLayout的时候系统可能需要多次执行这个过程。</li>
 </ul>
 <p>多次的Layout和Measure过程本身并不是一个性能负担。但是，他们会在某些场景下成为一种负担。我们应该对以下的情况保持足够的警惕：</p>
@@ -1260,7 +1261,7 @@
 <li>一个界面产生很多的实例，例如ListView</li>
 </ul>
 <h4 id="诊断布局层次问题"><a href="#诊断布局层次问题" class="headerlink" title="诊断布局层次问题"></a>诊断布局层次问题</h4><p>布局性能问题受到很多因素的影响而变成了一个复杂的问题。以下是一些帮助你找到性能瓶颈的工具。当然也有一些其他的，没有那么确定性的工具，但也能提供一些提示帮助我们找到问题。</p>
-<h5 id="Systrace"><a href="#Systrace" class="headerlink" title="Systrace"></a>Systrace</h5><p><a href="https://developer.android.com/studio/profile/systrace.html" target="_blank" rel="external">Systrace</a>是一个Android SDK内嵌的诊断性能问题的工具。这个工具允许我们查看整个设备的时间信息，允许你查看什么时候会因为Layout的性能问题影响到设备的性能。</p>
+<h5 id="Systrace"><a href="#Systrace" class="headerlink" title="Systrace"></a>Systrace</h5><p><a href="https://developer.android.com/studio/profile/systrace.html" target="_blank" rel="noopener">Systrace</a>是一个Android SDK内嵌的诊断性能问题的工具。这个工具允许我们查看整个设备的时间信息，允许你查看什么时候会因为Layout的性能问题影响到设备的性能。</p>
 <h5 id="GPU呈现模式"><a href="#GPU呈现模式" class="headerlink" title="GPU呈现模式"></a>GPU呈现模式</h5><h5 id="lint检查"><a href="#lint检查" class="headerlink" title="lint检查"></a>lint检查</h5><h5 id="Hierarchy-Viewer"><a href="#Hierarchy-Viewer" class="headerlink" title="Hierarchy Viewer"></a>Hierarchy Viewer</h5><h4 id="解决布局层次问题"><a href="#解决布局层次问题" class="headerlink" title="解决布局层次问题"></a>解决布局层次问题</h4><h5 id="减少无用的嵌套"><a href="#减少无用的嵌套" class="headerlink" title="减少无用的嵌套"></a>减少无用的嵌套</h5><h5 id="使用merge-include标签"><a href="#使用merge-include标签" class="headerlink" title="使用merge/include标签"></a>使用merge/include标签</h5><h5 id="整体替换新的Layout"><a href="#整体替换新的Layout" class="headerlink" title="整体替换新的Layout"></a>整体替换新的Layout</h5>
           
         
@@ -1417,10 +1418,10 @@
 <li>产品设计从来都是乱搞，没有整体性的设计(感觉我们的app真是业界毒瘤之典范)</li>
 </ol>
 <p>不过，我们还是要把能做好的做好了才行。</p>
-<h3 id="性能优化-OverDraw"><a href="#性能优化-OverDraw" class="headerlink" title="性能优化-OverDraw"></a>性能优化-OverDraw</h3><p>所谓<strong><a href="https://developer.android.com/topic/performance/rendering/overdraw.html" target="_blank" rel="external">overdraw</a></strong>(过度绘制)就是在一个点上进行了超过一次的绘制。过渡绘制是无意义的，需要我们去优化的，它会浪费GPU资源去渲染一些用户不可见的无意义的图层。关于如何查看过渡绘制，应该都是有所了解的。接下来是关于过度绘制：过度绘制是什么，怎么诊断过度绘制，你该采取何种方式取消除或者减轻过渡绘制。</p>
+<h3 id="性能优化-OverDraw"><a href="#性能优化-OverDraw" class="headerlink" title="性能优化-OverDraw"></a>性能优化-OverDraw</h3><p>所谓<strong><a href="https://developer.android.com/topic/performance/rendering/overdraw.html" target="_blank" rel="noopener">overdraw</a></strong>(过度绘制)就是在一个点上进行了超过一次的绘制。过渡绘制是无意义的，需要我们去优化的，它会浪费GPU资源去渲染一些用户不可见的无意义的图层。关于如何查看过渡绘制，应该都是有所了解的。接下来是关于过度绘制：过度绘制是什么，怎么诊断过度绘制，你该采取何种方式取消除或者减轻过渡绘制。</p>
 <h4 id="理解过度绘制"><a href="#理解过度绘制" class="headerlink" title="理解过度绘制"></a>理解过度绘制</h4><p>过渡绘制指的是系统在一个像素点是那个进行了多次的渲染。例如，我们一些堆叠的UI卡片，每一张卡片又隐藏了它的一部分。</p>
-<p>当然，系统仍然需要绘制这叠卡片的隐藏部分，因为卡片的绘制是根据<a href="https://zh.wikipedia.org/wiki/%E7%94%BB%E5%AE%B6%E7%AE%97%E6%B3%95" target="_blank" rel="external">画家算法</a>（<strong>“画家算法”表示头脑简单的画家首先绘制距离较远的场景，然后用绘制距离较近的场景覆盖较远的部分。</strong>）。这就是从下到上的顺序。这种渲染顺序允许系统增加合适的透明度给半透明的物体，例如阴影。</p>
-<h4 id="查找过度绘制"><a href="#查找过度绘制" class="headerlink" title="查找过度绘制"></a>查找过度绘制</h4><p>Android提供了几种工具帮助你查找影响到你的app性能的过度绘制。这些工具在你的设备上打开<strong>开发者模式</strong>就可以找到。关于更多开发者选项，可以参见<a href="https://developer.android.com/studio/run/device.html#developer-device-options" target="_blank" rel="external">Run Apps on a Hardware Device</a>。</p>
+<p>当然，系统仍然需要绘制这叠卡片的隐藏部分，因为卡片的绘制是根据<a href="https://zh.wikipedia.org/wiki/%E7%94%BB%E5%AE%B6%E7%AE%97%E6%B3%95" target="_blank" rel="noopener">画家算法</a>（<strong>“画家算法”表示头脑简单的画家首先绘制距离较远的场景，然后用绘制距离较近的场景覆盖较远的部分。</strong>）。这就是从下到上的顺序。这种渲染顺序允许系统增加合适的透明度给半透明的物体，例如阴影。</p>
+<h4 id="查找过度绘制"><a href="#查找过度绘制" class="headerlink" title="查找过度绘制"></a>查找过度绘制</h4><p>Android提供了几种工具帮助你查找影响到你的app性能的过度绘制。这些工具在你的设备上打开<strong>开发者模式</strong>就可以找到。关于更多开发者选项，可以参见<a href="https://developer.android.com/studio/run/device.html#developer-device-options" target="_blank" rel="noopener">Run Apps on a Hardware Device</a>。</p>
 <h4 id="调试GPU过度绘制工具"><a href="#调试GPU过度绘制工具" class="headerlink" title="调试GPU过度绘制工具"></a>调试GPU过度绘制工具</h4><p>调试GPU过度绘制工具使用颜色来代表你的应用在一个像素点上渲染的次数。渲染次数越多，过度绘制就越会影响你的应用性能。</p>
 <p>关于如何使用这些工具，请继续往下看：</p>
 <h5 id="调试GPU过度绘制查验"><a href="#调试GPU过度绘制查验" class="headerlink" title="调试GPU过度绘制查验"></a>调试GPU过度绘制查验</h5><p>这种检查方法是通过颜色来形象化手机中的过度绘制，有如下好处：</p>
@@ -1447,8 +1448,8 @@
 </ol>
 <h5 id="减少不必要的背景"><a href="#减少不必要的背景" class="headerlink" title="减少不必要的背景"></a>减少不必要的背景</h5><p>布局本身是没有背景的，这就意味着他本身并不需要渲染背景。当布局本身有了背景以后，就意味着她可能会导致过度绘制。</p>
 <p>移除不必要的背景是一种快速修复渲染问题的手段。当绘制的背景对于用户来说完全不可见的时候就可以取移除掉这些背景了。例如一个设置了背景色的app，那么定义在Activity中的任意一个容易本身是不需要背景的。</p>
-<p>如果需要知道为什么你的app会出现过度绘制，你可以使用<a href="https://developer.android.com/studio/profile/hierarchy-viewer.html" target="_blank" rel="external">Hierarchy View</a>工具。当你使用这个工具的时候，消除所有对于用户不可见的背景。当然，我们可以通过设置一个通用的背景来达到消除不必要的背景的目的，这样子绘制的容器就可以不再定义自己的背景而使用app的通用背景（windowbackgroud）。</p>
-<h5 id="减少布局的层次"><a href="#减少布局的层次" class="headerlink" title="减少布局的层次"></a>减少布局的层次</h5><p>不局的过多嵌套同样也会导致过度绘制，同时也会因为节点过深导致视图的加载变慢。我们应该减少UI的重叠绘制，详情参见<a href="https://developer.android.com/topic/performance/optimizing-view-hierarchies.html" target="_blank" rel="external">Optimizing View Hierarchies</a></p>
+<p>如果需要知道为什么你的app会出现过度绘制，你可以使用<a href="https://developer.android.com/studio/profile/hierarchy-viewer.html" target="_blank" rel="noopener">Hierarchy View</a>工具。当你使用这个工具的时候，消除所有对于用户不可见的背景。当然，我们可以通过设置一个通用的背景来达到消除不必要的背景的目的，这样子绘制的容器就可以不再定义自己的背景而使用app的通用背景（windowbackgroud）。</p>
+<h5 id="减少布局的层次"><a href="#减少布局的层次" class="headerlink" title="减少布局的层次"></a>减少布局的层次</h5><p>不局的过多嵌套同样也会导致过度绘制，同时也会因为节点过深导致视图的加载变慢。我们应该减少UI的重叠绘制，详情参见<a href="https://developer.android.com/topic/performance/optimizing-view-hierarchies.html" target="_blank" rel="noopener">Optimizing View Hierarchies</a></p>
 <h5 id="使用transparency"><a href="#使用transparency" class="headerlink" title="使用transparency"></a>使用transparency</h5><p>使用Alpha值的时候，同捕鱼常规的过度绘制即在同一像素点多次绘制，transparent属性的对象首先需要已经存在的像素进行绘制，然后进行等价的混合。例如，一个黑色字体的TextView通过添加Alpha值来达到灰色的效果，当然这个时候可以直接使用灰色来替换。 transparent animations, fade-outs, 以及 drop shadows以及其他的半透明效果，都会显著导致过度绘制。</p>
 
           
@@ -1601,8 +1602,8 @@
         
           
             <h3 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h3><ol>
-<li>git clone <a href="http://xx/zhj_android.git" target="_blank" rel="external">http://xx/zhj_android.git</a></li>
-<li>添加.gitignore到根目录，<a href="https://github.com/github/gitignore" target="_blank" rel="external">参考资料</a></li>
+<li>git clone <a href="http://xx/zhj_android.git" target="_blank" rel="noopener">http://xx/zhj_android.git</a></li>
+<li>添加.gitignore到根目录，<a href="https://github.com/github/gitignore" target="_blank" rel="noopener">参考资料</a></li>
 <li>git add .gitignore 添加该文件到版本控制，提交到暂存区</li>
 <li>git commit -m “add .gitignore file” 从暂存区提交到当前分支</li>
 <li>git push 提交到远程仓库</li>
@@ -1628,7 +1629,7 @@
 <li>git tag v0.9 6224937</li>
 <li>git push origin v5.0.1 创建远程tag或者分支，前提是这个要存在</li>
 <li>git checkout – xxx 回滚xxx</li>
-<li>git remote add origin <a href="http://192.168.204.42/ZHJ/zhj_kernel.git" target="_blank" rel="external">http://192.168.204.42/ZHJ/zhj_kernel.git</a> 添加远程</li>
+<li>git remote add origin <a href="http://192.168.204.42/ZHJ/zhj_kernel.git" target="_blank" rel="noopener">http://192.168.204.42/ZHJ/zhj_kernel.git</a> 添加远程</li>
 </ol>
 <h4 id="暂存当前更改"><a href="#暂存当前更改" class="headerlink" title="暂存当前更改"></a>暂存当前更改</h4><ol>
 <li>git stash   存储</li>
@@ -1947,8 +1948,8 @@
       
         
           
-            <p>在Android开发中，我们可能会遇到针对不同的版本进行不同的配置，比如说使用不同的资源文件。<a href="https://developer.android.com/studio/write/add-resources.html" target="_blank" rel="external">官网传送门</a>。</p>
-<h5 id="自定义资源文件夹路径"><a href="#自定义资源文件夹路径" class="headerlink" title="自定义资源文件夹路径"></a>自定义资源文件夹路径</h5><p>默认的资源文件实在  <figure class="highlight plain"><figcaption><span>例如：main的资源文件就在src/main/res/目录下。</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">不过我们也可以通过自定义的方式指定资源文件目录，如下所示：</div></pre></td></tr></table></figure></p>
+            <p>在Android开发中，我们可能会遇到针对不同的版本进行不同的配置，比如说使用不同的资源文件。<a href="https://developer.android.com/studio/write/add-resources.html" target="_blank" rel="noopener">官网传送门</a>。</p>
+<h5 id="自定义资源文件夹路径"><a href="#自定义资源文件夹路径" class="headerlink" title="自定义资源文件夹路径"></a>自定义资源文件夹路径</h5><p>默认的资源文件实在  <figure class="highlight plain"><figcaption><span>例如：main的资源文件就在src/main/res/目录下。</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">不过我们也可以通过自定义的方式指定资源文件目录，如下所示：</span><br></pre></td></tr></table></figure></p>
 <pre><code>android {
     sourceSets {
         main {
@@ -1960,7 +1961,7 @@
         }
     }
 }
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">当然我们也可以指定多个资源文件目录：</div></pre></td></tr></table></figure>
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">当然我们也可以指定多个资源文件目录：</span><br></pre></td></tr></table></figure>
 <pre><code>android {
     sourceSets {
         main {
@@ -1973,7 +1974,7 @@
     }
 }
 </code></pre><p>```</p>
-<p>不过要注意的是同时指定多个资源文件夹的时候文件不能重复，否则在后续构建<a href="https://developer.android.com/studio/write/add-resources.html#resource_merging" target="_blank" rel="external">合并资源文件</a>的时候会出现重复的错误。</p>
+<p>不过要注意的是同时指定多个资源文件夹的时候文件不能重复，否则在后续构建<a href="https://developer.android.com/studio/write/add-resources.html#resource_merging" target="_blank" rel="noopener">合并资源文件</a>的时候会出现重复的错误。</p>
 <p>#####资源合并</p>
 
           

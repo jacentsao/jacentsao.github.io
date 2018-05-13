@@ -86,19 +86,18 @@
 
 
 
-<meta name="description" content="最近碰到一个很奇怪的现象，就是我们的app在启东的时候第一次请求接口的时候很容易出现请求失败的现象，尤其是在清理掉缓存重新安装的时候。由于这个接口是访问的localhost，而这个localhost是我们自己在本地启用的一个服务。所以导致了我一开始就走进了一个死牛角尖，怀疑是不是这个服务没有运行起来，导致无法访问本地服务器，钻了死角。
-后面通过查找资料发现，Volley在使用的时候通过Reques">
+<meta name="description" content="最近碰到一个很奇怪的现象，就是我们的app在启东的时候第一次请求接口的时候很容易出现请求失败的现象，尤其是在清理掉缓存重新安装的时候。由于这个接口是访问的localhost，而这个localhost是我们自己在本地启用的一个服务。所以导致了我一开始就走进了一个死牛角尖，怀疑是不是这个服务没有运行起来，导致无法访问本地服务器，钻了死角。 后面通过查找资料发现，Volley在使用的时候通过Reques">
+<meta name="keywords" content="Android,BUG修复">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Volley中出现的java.io.InterruptedIOException: thread interrupted">
 <meta property="og:url" content="http://yoursite.com/2017/04/08/Volley中出现的java-io-InterruptedIOException-thread-interrupted/index.html">
 <meta property="og:site_name" content="Silence of Heart">
-<meta property="og:description" content="最近碰到一个很奇怪的现象，就是我们的app在启东的时候第一次请求接口的时候很容易出现请求失败的现象，尤其是在清理掉缓存重新安装的时候。由于这个接口是访问的localhost，而这个localhost是我们自己在本地启用的一个服务。所以导致了我一开始就走进了一个死牛角尖，怀疑是不是这个服务没有运行起来，导致无法访问本地服务器，钻了死角。
-后面通过查找资料发现，Volley在使用的时候通过Reques">
+<meta property="og:description" content="最近碰到一个很奇怪的现象，就是我们的app在启东的时候第一次请求接口的时候很容易出现请求失败的现象，尤其是在清理掉缓存重新安装的时候。由于这个接口是访问的localhost，而这个localhost是我们自己在本地启用的一个服务。所以导致了我一开始就走进了一个死牛角尖，怀疑是不是这个服务没有运行起来，导致无法访问本地服务器，钻了死角。 后面通过查找资料发现，Volley在使用的时候通过Reques">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2017-04-08T14:09:35.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Volley中出现的java.io.InterruptedIOException: thread interrupted">
-<meta name="twitter:description" content="最近碰到一个很奇怪的现象，就是我们的app在启东的时候第一次请求接口的时候很容易出现请求失败的现象，尤其是在清理掉缓存重新安装的时候。由于这个接口是访问的localhost，而这个localhost是我们自己在本地启用的一个服务。所以导致了我一开始就走进了一个死牛角尖，怀疑是不是这个服务没有运行起来，导致无法访问本地服务器，钻了死角。
-后面通过查找资料发现，Volley在使用的时候通过Reques">
+<meta name="twitter:description" content="最近碰到一个很奇怪的现象，就是我们的app在启东的时候第一次请求接口的时候很容易出现请求失败的现象，尤其是在清理掉缓存重新安装的时候。由于这个接口是访问的localhost，而这个localhost是我们自己在本地启用的一个服务。所以导致了我一开始就走进了一个死牛角尖，怀疑是不是这个服务没有运行起来，导致无法访问本地服务器，钻了死角。 后面通过查找资料发现，Volley在使用的时候通过Reques">
 
 
 
@@ -416,7 +415,7 @@
 
       
         <p>最近碰到一个很奇怪的现象，就是我们的app在启东的时候第一次请求接口的时候很容易出现请求失败的现象，尤其是在清理掉缓存重新安装的时候。由于这个接口是访问的localhost，而这个localhost是我们自己在本地启用的一个服务。所以导致了我一开始就走进了一个死牛角尖，怀疑是不是这个服务没有运行起来，导致无法访问本地服务器，钻了死角。</p>
-<p>后面通过查找资料发现，Volley在使用的时候通过RequestQueue添加一个Request是后如果再次调用了RequestQueue的start()方法就会出现这种问题。<a href="http://stackoverflow.com/questions/31158858/random-com-android-volley-noconnection-error-java-io-interruptedioexception-st" target="_blank" rel="external">参考资料</a>，来自stackoverflow。</p>
+<p>后面通过查找资料发现，Volley在使用的时候通过RequestQueue添加一个Request是后如果再次调用了RequestQueue的start()方法就会出现这种问题。<a href="http://stackoverflow.com/questions/31158858/random-com-android-volley-noconnection-error-java-io-interruptedioexception-st" target="_blank" rel="noopener">参考资料</a>，来自stackoverflow。</p>
 <a id="more"></a>
 <pre><code>public static RequestQueue newRequestQueue(Context context, HttpStack stack) {
     File cacheDir = new File(context.getCacheDir(), DEFAULT_CACHE_DIR);

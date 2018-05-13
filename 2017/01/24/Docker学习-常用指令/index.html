@@ -87,11 +87,13 @@
 
 
 <meta name="description" content="DockerDocker 使用 Google 公司推出的 Go 语言 进行开发实现，基于 Linux 内核的 cgroup，namespace，以及 AUFS 类的 Union FS 等技术，对进程进行封装隔离， 属于操作系统层面的虚拟化技术。">
+<meta name="keywords" content="Docker,运维">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Docker学习,常用指令">
 <meta property="og:url" content="http://yoursite.com/2017/01/24/Docker学习-常用指令/index.html">
 <meta property="og:site_name" content="Silence of Heart">
 <meta property="og:description" content="DockerDocker 使用 Google 公司推出的 Go 语言 进行开发实现，基于 Linux 内核的 cgroup，namespace，以及 AUFS 类的 Union FS 等技术，对进程进行封装隔离， 属于操作系统层面的虚拟化技术。">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2017-01-25T13:54:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker学习,常用指令">
@@ -429,7 +431,7 @@
 <li>docker images 查看所有镜像</li>
 <li>docker rmi $(docker images -q -f dangling=true) 删除无用的悬浮镜像 </li>
 <li>docker exec  -it webserver bash 运行命令行并启动</li>
-<li>docker commit [选项] &lt;容器ID或容器名&gt; [&lt;仓库名&gt;[:&lt;标签&gt;]] 提交更新,创建镜像<strong>谨慎使用,因为会对容器环境照成较大影响</strong> //docker commit  –author “Tao Wang <a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#111;&#x3a;&#x74;&#119;&#97;&#110;&#x67;&#x32;&#50;&#x31;&#56;&#x40;&#x67;&#109;&#x61;&#105;&#108;&#46;&#x63;&#111;&#109;">&#x74;&#119;&#97;&#110;&#x67;&#x32;&#50;&#x31;&#56;&#x40;&#x67;&#109;&#x61;&#105;&#108;&#46;&#x63;&#111;&#109;</a>“  –message “修改了默认网页” webserver  nginx:v2</li>
+<li>docker commit [选项] &lt;容器ID或容器名&gt; [&lt;仓库名&gt;[:&lt;标签&gt;]] 提交更新,创建镜像<strong>谨慎使用,因为会对容器环境照成较大影响</strong> //docker commit  –author “Tao Wang <a href="&#109;&#97;&#x69;&#x6c;&#116;&#111;&#58;&#116;&#x77;&#x61;&#x6e;&#103;&#50;&#x32;&#49;&#x38;&#64;&#x67;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;">&#116;&#x77;&#x61;&#x6e;&#103;&#50;&#x32;&#49;&#x38;&#64;&#x67;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;</a>“  –message “修改了默认网页” webserver  nginx:v2</li>
 <li>docer diff NAMES 查看永久性更新</li>
 <li>docker history nginx:v2 查看历史更新</li>
 <li>docker rm  删除容器</li>
@@ -465,7 +467,7 @@
 <li>仓库(Repository)</li>
 </ul>
 <h4 id="Docker镜像"><a href="#Docker镜像" class="headerlink" title="Docker镜像"></a>Docker镜像</h4><p>Docker镜像,相当于一个root文件系统(操作系统分为内核和用户空间,内核启动后,会挂载root文件系统为用户空间提供支持),镜像不包含任何<strong>动态数据</strong>.提供容器运行时所需的程序、库、资 源、配置等文件外,还包含了一些为运行时准备的一些配置参数（如匿名卷、环境 变量、用户等）.</p>
-<h5 id="分层存储"><a href="#分层存储" class="headerlink" title="分层存储"></a>分层存储</h5><p>镜像包含操作系统完整的root文件系统,体积较大,Docker设计时,采用了<a href="https://en.wikipedia.org/wiki/Union_mount" target="_blank" rel="external">Union FS</a>技术,分层存储的架构.</p>
+<h5 id="分层存储"><a href="#分层存储" class="headerlink" title="分层存储"></a>分层存储</h5><p>镜像包含操作系统完整的root文件系统,体积较大,Docker设计时,采用了<a href="https://en.wikipedia.org/wiki/Union_mount" target="_blank" rel="noopener">Union FS</a>技术,分层存储的架构.</p>
 <p>镜像构建时，会一层层构建，前一层是后一层的基础。每一层构建完就不会再发生 改变，后一层上的任何改变只发生在自己这一层,任何额外的东西应该在该层构建结束前清理掉。</p>
 <h4 id="Docker容器"><a href="#Docker容器" class="headerlink" title="Docker容器"></a>Docker容器</h4><p>类比于面向对象程序设计中 的 类 和 实例 一样，镜像是静态的定义，容器是镜像运行时的实体。</p>
 
