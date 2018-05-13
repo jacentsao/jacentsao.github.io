@@ -86,19 +86,28 @@
 
 
 
-<meta name="description" content="&amp;amp;符号的意思是对变量取地址*符号的意思是对指针取值
-*和 &amp;amp; 可以互相抵消,同时注意，*&amp;amp;可以抵消掉，但&amp;amp;*是不可以抵消的">
+<meta name="description" content="Golang基础1.指针&amp;amp;符号的意思是对变量取地址*符号的意思是对指针取值
+*和 &amp;amp; 可以互相抵消,同时注意，*&amp;amp;可以抵消掉，但&amp;amp;*是不可以抵消的
+
+传指针使得多个函数能操作同一个对象。
+传指针比较轻量级 (8bytes),只是传内存地址，我们可以用指针传递体积大的结构体。如果用参数值传递的话, 在每次copy上面就会花费相对较多的系统开销（内存和时间）。所以当你要">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Go语言实战阅读笔记2">
 <meta property="og:url" content="http://yoursite.com/2017/12/11/Go语言实战阅读笔记2/index.html">
 <meta property="og:site_name" content="Silence of Heart">
-<meta property="og:description" content="&amp;amp;符号的意思是对变量取地址*符号的意思是对指针取值
-*和 &amp;amp; 可以互相抵消,同时注意，*&amp;amp;可以抵消掉，但&amp;amp;*是不可以抵消的">
-<meta property="og:updated_time" content="2017-12-13T14:35:24.291Z">
+<meta property="og:description" content="Golang基础1.指针&amp;amp;符号的意思是对变量取地址*符号的意思是对指针取值
+*和 &amp;amp; 可以互相抵消,同时注意，*&amp;amp;可以抵消掉，但&amp;amp;*是不可以抵消的
+
+传指针使得多个函数能操作同一个对象。
+传指针比较轻量级 (8bytes),只是传内存地址，我们可以用指针传递体积大的结构体。如果用参数值传递的话, 在每次copy上面就会花费相对较多的系统开销（内存和时间）。所以当你要">
+<meta property="og:updated_time" content="2018-02-26T13:11:21.660Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Go语言实战阅读笔记2">
-<meta name="twitter:description" content="&amp;amp;符号的意思是对变量取地址*符号的意思是对指针取值
-*和 &amp;amp; 可以互相抵消,同时注意，*&amp;amp;可以抵消掉，但&amp;amp;*是不可以抵消的">
+<meta name="twitter:description" content="Golang基础1.指针&amp;amp;符号的意思是对变量取地址*符号的意思是对指针取值
+*和 &amp;amp; 可以互相抵消,同时注意，*&amp;amp;可以抵消掉，但&amp;amp;*是不可以抵消的
+
+传指针使得多个函数能操作同一个对象。
+传指针比较轻量级 (8bytes),只是传内存地址，我们可以用指针传递体积大的结构体。如果用参数值传递的话, 在每次copy上面就会花费相对较多的系统开销（内存和时间）。所以当你要">
 
 
 
@@ -415,8 +424,19 @@
       
 
       
-        <p>&amp;符号的意思是对变量取地址<br>*符号的意思是对指针取值</p>
+        <h4 id="Golang基础"><a href="#Golang基础" class="headerlink" title="Golang基础"></a>Golang基础</h4><h5 id="1-指针"><a href="#1-指针" class="headerlink" title="1.指针"></a>1.指针</h5><p>&amp;符号的意思是对变量取地址<br>*符号的意思是对指针取值</p>
 <p>*和 &amp; 可以互相抵消,同时注意，*&amp;可以抵消掉，但&amp;*是不可以抵消的</p>
+<ul>
+<li>传指针使得多个函数能操作同一个对象。</li>
+<li>传指针比较轻量级 (8bytes),只是传内存地址，我们可以用指针传递体积大的结构体。如果用参数值传递的话, 在每次copy上面就会花费相对较多的系统开销（内存和时间）。所以当你要传递大的结构体的时候，用指针是一个明智的选择。</li>
+<li>Go语言中channel，slice，map这三种类型的实现机制类似指针，所以可以直接传递，而不用取地址后传递指针。（注：若函数需改变slice的长度，则仍需要取地址传递指针）</li>
+</ul>
+<h5 id="2-字符串"><a href="#2-字符串" class="headerlink" title="2.字符串"></a>2.字符串</h5><p>`  括起的字符串为Raw字符串，即字符串在代码中的形式就是打印时的形式，它没有字符转义，换行也将原样输出。</p>
+<h5 id="3-make和new操作"><a href="#3-make和new操作" class="headerlink" title="3.make和new操作"></a>3.make和new操作</h5><p>make用于内建类型（map、slice 和channel）的内存分配。new用于各种类型的内存分配。</p>
+<p>内建函数new本质上说跟其它语言中的同名函数功能一样：new(T) 返回的是*T，即new返回指针</p>
+<p>内建函数make(T, args)与new(T)有着不同的功能，make只能创建slice、map和channel，并且返回一个有初始值(非零)的T类型，而不是*T。本质来讲，导致这三个类型有所不同的原因是指向数据结构的引用在使用前必须被初始化。</p>
+<h5 id="流程和函数"><a href="#流程和函数" class="headerlink" title="流程和函数"></a>流程和函数</h5><p>go里面没有类似于c和java的三木运算符，其主要运算符包括for、switch、if、while、goto</p>
+<p>go里面支持可变参数func name(arg …name){}</p>
 
       
     </div>
@@ -512,8 +532,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -526,7 +555,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">62</span>
+                <span class="site-state-item-count">65</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -535,7 +564,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -544,7 +573,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-count">42</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -580,6 +609,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Golang基础"><span class="nav-number">1.</span> <span class="nav-text">Golang基础</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-指针"><span class="nav-number">1.1.</span> <span class="nav-text">1.指针</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-字符串"><span class="nav-number">1.2.</span> <span class="nav-text">2.字符串</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-make和new操作"><span class="nav-number">1.3.</span> <span class="nav-text">3.make和new操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#流程和函数"><span class="nav-number">1.4.</span> <span class="nav-text">流程和函数</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
     </div>

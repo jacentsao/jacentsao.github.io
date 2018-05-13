@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-01-07T02:13:51.634Z</updated>
+  <updated>2018-05-13T15:01:14.889Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,124 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>内网部署yapi接口管理平台</title>
+    <link href="http://yoursite.com/2018/05/13/%E7%A6%BB%E7%BA%BF%E9%83%A8%E7%BD%B2yapi%E6%8E%A5%E5%8F%A3%E7%AE%A1%E7%90%86%E5%B9%B3%E5%8F%B0/"/>
+    <id>http://yoursite.com/2018/05/13/离线部署yapi接口管理平台/</id>
+    <published>2018-05-13T14:29:29.000Z</published>
+    <updated>2018-05-13T15:01:14.889Z</updated>
+    
+    <content type="html"><![CDATA[<p>YApi 是一个可本地部署的、打通前后端及QA的、可视化的接口管理平台，<a href="https://yapi.ymfe.org" target="_blank" rel="external">项目官网</a>,<a href="https://github.com/YMFE/yapi" target="_blank" rel="external">Github地址</a>。</p>
+<p>本文是对自己在多平台内网部署的时候的过程及遇到的问题的记录。</p>
+<a id="more"></a>
+<h4 id="内网部署"><a href="#内网部署" class="headerlink" title="内网部署"></a>内网部署</h4><h5 id="环境要求"><a href="#环境要求" class="headerlink" title="环境要求"></a>环境要求</h5><ul>
+<li>nodejs (7.6+)</li>
+<li>mongodb (2.6+)</li>
+<li>git </li>
+</ul>
+<h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><p>使用yapi-cli工具部署。执行yapi sever启动可视化部署程序。</p>
+<h5 id="升级"><a href="#升级" class="headerlink" title="升级"></a>升级</h5><p>cd  {项目目录}<br>yapi ls //查看版本号列表<br>yapi update //更新到最新版本<br>yapi update -v {Version} //更新到指定版本</p>
+<h4 id="centos安装环境"><a href="#centos安装环境" class="headerlink" title="centos安装环境"></a>centos安装环境</h4><h5 id="安装nodejs"><a href="#安装nodejs" class="headerlink" title="安装nodejs"></a>安装nodejs</h5><p>使用EPEL安装nodejs</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$ yum info epel-release  检查是否有安装</div><div class="line"></div><div class="line">$ sudo yum install epel-release 安装epel</div><div class="line"></div><div class="line">$ sudo yum install -y nodejs 安装nodejs</div><div class="line"></div><div class="line">$ sudo npm install -g cnpm --registry=https://registry.npm.taobao.org</div><div class="line"></div><div class="line">$ sudo npm install -g n</div><div class="line"></div><div class="line">$ sudo n stable 安装最新的稳定版本</div></pre></td></tr></table></figure>
+<h5 id="安装mongodb"><a href="#安装mongodb" class="headerlink" title="安装mongodb"></a>安装mongodb</h5><p>1 . 创建文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ vim /etc/yum.repos.d/mongodb-org.repo</div></pre></td></tr></table></figure>
+<p>2 . 复制下面的内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[mongodb-org-3.6]</div><div class="line">name=MongoDB Repository</div><div class="line">baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.6/x86_64/</div><div class="line">gpgcheck=1</div><div class="line">enabled=1</div><div class="line">gpgkey=https://www.mongodb.org/static/pgp/server-3.6.asc</div></pre></td></tr></table></figure>
+<p>国内的服务器替换 baseurl 为阿里源,否则你回感受来自共产主义的负加成</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">baseurl=http://mirrors.aliyun.com/mongodb/yum/redhat/6/mongodb-org/stable/x86_64/</div></pre></td></tr></table></figure>
+<p>我搭建的时候用的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">baseurl=http://mirrors.aliyun.com/mongodb/yum/redhat/7Server/mongodb-org/3.2/x86_64/</div></pre></td></tr></table></figure>
+<p>下载速度很快但是每次卡在最后一步，最后把3.2版本改为3.6以后一下载就安装好了</p>
+<p>3 . 更新文件，安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ yum udpate </div><div class="line">$ yum -y install mongodb=org</div></pre></td></tr></table></figure>
+<h5 id="配置nginx代理"><a href="#配置nginx代理" class="headerlink" title="配置nginx代理"></a>配置nginx代理</h5><p>由于centos是丢在一台Windows机器的Vmware WorkStation上面，所以还用了nginx反向代理yapi，配置如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">location / &#123;</div><div class="line">            proxy_http_version 1.1;</div><div class="line">	    proxy_set_header Upgrade $http_upgrade;</div><div class="line">	    proxy_set_header Connection &quot;upgrade&quot;;</div><div class="line">            proxy_pass   http://127.0.0.1:3011;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h4 id="Macos安装"><a href="#Macos安装" class="headerlink" title="Macos安装"></a>Macos安装</h4><p>由于开了全局代理，终端翻墙，安装过程基本按照<a href="https://github.com/suxiaoxin/yapi_user_guide/blob/master/mac%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE.md" target="_blank" rel="external">官方教程</a>过程很流畅。</p>
+<h4 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h4><p>做开发，一要网络好，二要代理好。感谢GCD，感谢阿里巴巴。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;YApi 是一个可本地部署的、打通前后端及QA的、可视化的接口管理平台，&lt;a href=&quot;https://yapi.ymfe.org&quot;&gt;项目官网&lt;/a&gt;,&lt;a href=&quot;https://github.com/YMFE/yapi&quot;&gt;Github地址&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;本文是对自己在多平台内网部署的时候的过程及遇到的问题的记录。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="api" scheme="http://yoursite.com/categories/api/"/>
+    
+    
+      <category term="api" scheme="http://yoursite.com/tags/api/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>java - lambda学习笔记</title>
+    <link href="http://yoursite.com/2018/04/10/java-lambda%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <id>http://yoursite.com/2018/04/10/java-lambda学习笔记/</id>
+    <published>2018-04-10T07:39:36.000Z</published>
+    <updated>2018-04-10T07:53:12.739Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>后端性能测试1</title>
+    <link href="http://yoursite.com/2018/03/20/%E5%90%8E%E7%AB%AF%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%951/"/>
+    <id>http://yoursite.com/2018/03/20/后端性能测试1/</id>
+    <published>2018-03-20T13:05:15.000Z</published>
+    <updated>2018-03-20T15:01:42.800Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近在做Golang上线前的准备工作，包括部署和性能测试，本次主要记录性能测试相关的内容，以免自己遗忘。</p>
+<h4 id="ab命令行测试-Apache-Benchmark"><a href="#ab命令行测试-Apache-Benchmark" class="headerlink" title="ab命令行测试(Apache Benchmark)"></a>ab命令行测试(Apache Benchmark)</h4><p>首先想到的是简单的性能测试工具ab（Apache Benchmark），MacOS应该是自带了ab测试工具，Windows的话需要自行安装配置，可以参考一下<a href="https://stackoverflow.com/questions/7327099/how-to-install-apache-bench-on-windows-7" target="_blank" rel="external">链接</a>。</p>
+<p>安装好ab工具以后在终端输入ab可以看到很多参数，其中常用的参数有：</p>
+<ul>
+<li>-n requests 请求次数量</li>
+<li>-c concurency 并发的请求数量</li>
+<li>-t timelimit 请求的次数限制，默认值为-n 50000</li>
+<li>-s timeout 请求的单次超时，默认值为30s</li>
+<li>-p postfile 发送文件中的请求，配合-T 使用</li>
+<li>-T Content-type 默认值’text/plain’</li>
+</ul>
+<p>以下一个完整的ab测试post请求如下：</p>
+<figure class="highlight plain"><figcaption><span>-n 100 -c 10 -p ./login.txt -T 'application/json'</span><a href="http://127.0.0.1:5174/" target="_blank" rel="external">```</a></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">即100次请求，并发数为10，指定当前目录下的login.txt文件中的json数据发送到服务器localhost，5174端口。以下是login.txt中的文件内容:</div></pre></td></tr></table></figure>
+<p>{“test”:”test”,”cmd”:”test”}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">##### 测试结果分析</div><div class="line"></div><div class="line">以下是以请求百度首页模拟100人总计10000此访问来进行ab测试返回分析:</div></pre></td></tr></table></figure></p>
+<p>ab -n 10000 -c 100  <a href="https://www.baidu.com/index.html" target="_blank" rel="external">https://www.baidu.com/index.html</a><br>//ApacheBenchmark软件申明<br>This is ApacheBench, Version 2.3 &lt;$Revision: 1807734 $&gt;<br>Copyright 1996 Adam Twiss, Zeus Technology Ltd, <a href="http://www.zeustech.net/" target="_blank" rel="external">http://www.zeustech.net/</a><br>Licensed to The Apache Software Foundation, <a href="http://www.apache.org/" target="_blank" rel="external">http://www.apache.org/</a></p>
+<p>//测试的网址<br>Benchmarking www.baidu.com (be patient)</p>
+<p>//请求的进度<br>Completed 1000 requests<br>Completed 2000 requests<br>Completed 3000 requests<br>Completed 4000 requests<br>Completed 5000 requests<br>SSL handshake failed (1).<br>140735932269448:error:140770FC:SSL routines:SSL23_GET_SERVER_HELLO:unknown protocol:/BuildRoot/Library/Caches/com.apple.xbs/Sources/libressl/libressl-22/libressl/ssl/s23_clnt.c:565:<br>Completed 6000 requests<br>Completed 7000 requests<br>SSL handshake failed (1).<br>140735932269448:error:140770FC:SSL routines:SSL23_GET_SERVER_HELLO:unknown protocol:/BuildRoot/Library/Caches/com.apple.xbs/Sources/libressl/libressl-22/libressl/ssl/s23_clnt.c:565:<br>Completed 8000 requests<br>Completed 9000 requests<br>Completed 10000 requests<br>Finished 10000 requests</p>
+<p>//百度的服务器软件信息<br>Server Software:        BWS/1.1<br>//被测试的主机地址<br>Server Hostname:        www.baidu.com<br>//https的默认端口<br>Server Port:            443<br>//加密协议<br>SSL/TLS Protocol:       TLSv1.2,ECDHE-RSA-AES128-GCM-SHA256,2048,128<br>//加密服务器名称<br>TLS Server Name:        www.baidu.com</p>
+<p>//文档的路径<br>Document Path:          /index.html<br>//文档的大小<br>Document Length:        227 bytes</p>
+<p>//并发数<br>Concurrency Level:      100<br>//测试总的时间<br>Time taken for tests:   146.932 seconds<br>//完成的请求数量<br>Complete requests:      10000<br>//失败的次数<br>Failed requests:        2<br>   (Connect: 0, Receive: 0, Length: 2, Exceptions: 0)<br>//总的数据传输量，包括请求头和文本内容<br>Total transferred:      8718256 bytes<br>//请求的文档总大小 227 <em> 10000 （总计一万次请求）- 2 </em> 227（两次失败）<br>HTML transferred:       2269546 bytes<br>//每秒完成的请求数量 10000/146.932<br>Requests per second:    68.06 [#/sec] (mean)<br>//每个请求的平均耗时<br>Time per request:       1469.317 [ms] (mean)<br>//服务器完成一个请求的耗时<br>Time per request:       14.693 [ms] (mean, across all concurrent requests)<br>//服务器的吞吐率<br>Transfer rate:          57.94 [Kbytes/sec] received</p>
+<p>//连接信息<br>Connection Times (ms)<br>              min  mean[+/-sd] median   max<br>Connect:        0 1220 947.0   1170   45274<br>Processing:    14  234 227.0    116    2292<br>Waiting:       13  220 214.9    114    2291<br>Total:        107 1454 961.3   1301   46006</p>
+<p>//完成请求比例的耗时，如下完成90%的耗时为1990ms<br>Percentage of the requests served within a certain time (ms)<br>  50%   1301<br>  66%   1377<br>  75%   1464<br>  80%   1540<br>  90%   1990<br>  95%   2221<br>  98%   2827<br>  99%   2972<br> 100%  46006 (longest request)<br>```</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近在做Golang上线前的准备工作，包括部署和性能测试，本次主要记录性能测试相关的内容，以免自己遗忘。&lt;/p&gt;
+&lt;h4 id=&quot;ab命令行测试-Apache-Benchmark&quot;&gt;&lt;a href=&quot;#ab命令行测试-Apache-Benchmark&quot; class=&quot;hea
+    
+    </summary>
+    
+      <category term="测试" scheme="http://yoursite.com/categories/%E6%B5%8B%E8%AF%95/"/>
+    
+    
+      <category term="性能" scheme="http://yoursite.com/tags/%E6%80%A7%E8%83%BD/"/>
+    
+      <category term="后端" scheme="http://yoursite.com/tags/%E5%90%8E%E7%AB%AF/"/>
+    
+      <category term="测试" scheme="http://yoursite.com/tags/%E6%B5%8B%E8%AF%95/"/>
+    
+  </entry>
+  
+  <entry>
     <title>数据库学习2 - 语法</title>
     <link href="http://yoursite.com/2018/01/07/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A02-%E8%AF%AD%E6%B3%95/"/>
     <id>http://yoursite.com/2018/01/07/数据库学习2-语法/</id>
     <published>2018-01-07T02:05:32.000Z</published>
-    <updated>2018-01-07T02:13:51.634Z</updated>
+    <updated>2018-01-07T02:13:51.635Z</updated>
     
     <content type="html"><![CDATA[<h5 id="基础语法"><a href="#基础语法" class="headerlink" title="基础语法"></a>基础语法</h5><ul>
 <li>如果查询的列名在用到的两个或者多个表中不重复，则对这一列的引用不用加表名限制</li>
@@ -49,7 +162,7 @@
     <link href="http://yoursite.com/2017/12/30/Kotlin%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/"/>
     <id>http://yoursite.com/2017/12/30/Kotlin学习笔记1/</id>
     <published>2017-12-30T03:47:39.000Z</published>
-    <updated>2017-12-30T05:58:05.627Z</updated>
+    <updated>2017-12-30T05:58:05.628Z</updated>
     
     <content type="html"><![CDATA[<p>随着Kotlin的越来越火热，对于Android开发者而言学习Kotlin也变成了一个必要的过程了。</p>
 <h5 id="基础语法"><a href="#基础语法" class="headerlink" title="基础语法"></a>基础语法</h5><h6 id="定义一个类"><a href="#定义一个类" class="headerlink" title="定义一个类"></a>定义一个类</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">class User(name: String, age: Int) &#123;&#125; //如果类没有内容则大括号可以省略掉</div></pre></td></tr></table></figure>
@@ -81,7 +194,7 @@
     <link href="http://yoursite.com/2017/12/19/gomobile%E7%9B%B8%E5%85%B3%E7%9A%84%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/"/>
     <id>http://yoursite.com/2017/12/19/gomobile相关的错误处理/</id>
     <published>2017-12-19T04:16:06.000Z</published>
-    <updated>2017-12-19T04:22:17.574Z</updated>
+    <updated>2017-12-19T04:22:17.575Z</updated>
     
     <content type="html"><![CDATA[<p><strong>务必确认在构建非Windows包的时候，根目录下面无syso版本信息文件，否则各种各样的奇葩错误</strong></p>
 <h5 id="seq-android-c-213-3-error"><a href="#seq-android-c-213-3-error" class="headerlink" title="seq_android.c:213:3: error"></a>seq_android.c:213:3: error</h5><figure class="highlight plain"><figcaption><span>go build -pkgdir=/Users/Eveee/Storage/go/pkg/gomobile/pkg_android_arm64 -buildmode=c-shared -o=/var/folders/w4/75xgx41n2bb7mm3m0dxbp0d40000gn/T/gomobile-work-159245723/android/src/main/jniLibs/arm64-v8a/libgojni.so</span><a href="/var/folders/w4/75xgx41n2bb7mm3m0dxbp0d40000gn/T/gomobile-work-159245723/androidlib/main.go">failed: exit status 2</a></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># _/var/folders/w4/75xgx41n2bb7mm3m0dxbp0d40000gn/T/gomobile-work-159245723/gomobile_bind</div><div class="line">seq_android.c:213:3: error: implicitly declaring library function &apos;memcpy&apos; with type &apos;void *(void *, const void *, unsigned long)&apos; [-Werror,-Wimplicit-function-declaration]</div><div class="line">seq_android.c:213:3: note: include the header &lt;string.h&gt; or explicitly provide a declaration for &apos;memcpy&apos;</div></pre></td></tr></table></figure>
@@ -104,17 +217,26 @@
     <link href="http://yoursite.com/2017/12/11/Go%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B02/"/>
     <id>http://yoursite.com/2017/12/11/Go语言实战阅读笔记2/</id>
     <published>2017-12-11T13:47:03.000Z</published>
-    <updated>2017-12-13T14:35:24.291Z</updated>
+    <updated>2018-02-26T13:11:21.660Z</updated>
     
-    <content type="html"><![CDATA[<p>&amp;符号的意思是对变量取地址<br>*符号的意思是对指针取值</p>
+    <content type="html"><![CDATA[<h4 id="Golang基础"><a href="#Golang基础" class="headerlink" title="Golang基础"></a>Golang基础</h4><h5 id="1-指针"><a href="#1-指针" class="headerlink" title="1.指针"></a>1.指针</h5><p>&amp;符号的意思是对变量取地址<br>*符号的意思是对指针取值</p>
 <p>*和 &amp; 可以互相抵消,同时注意，*&amp;可以抵消掉，但&amp;*是不可以抵消的</p>
+<ul>
+<li>传指针使得多个函数能操作同一个对象。</li>
+<li>传指针比较轻量级 (8bytes),只是传内存地址，我们可以用指针传递体积大的结构体。如果用参数值传递的话, 在每次copy上面就会花费相对较多的系统开销（内存和时间）。所以当你要传递大的结构体的时候，用指针是一个明智的选择。</li>
+<li>Go语言中channel，slice，map这三种类型的实现机制类似指针，所以可以直接传递，而不用取地址后传递指针。（注：若函数需改变slice的长度，则仍需要取地址传递指针）</li>
+</ul>
+<h5 id="2-字符串"><a href="#2-字符串" class="headerlink" title="2.字符串"></a>2.字符串</h5><p>`  括起的字符串为Raw字符串，即字符串在代码中的形式就是打印时的形式，它没有字符转义，换行也将原样输出。</p>
+<h5 id="3-make和new操作"><a href="#3-make和new操作" class="headerlink" title="3.make和new操作"></a>3.make和new操作</h5><p>make用于内建类型（map、slice 和channel）的内存分配。new用于各种类型的内存分配。</p>
+<p>内建函数new本质上说跟其它语言中的同名函数功能一样：new(T) 返回的是*T，即new返回指针</p>
+<p>内建函数make(T, args)与new(T)有着不同的功能，make只能创建slice、map和channel，并且返回一个有初始值(非零)的T类型，而不是*T。本质来讲，导致这三个类型有所不同的原因是指向数据结构的引用在使用前必须被初始化。</p>
+<h5 id="流程和函数"><a href="#流程和函数" class="headerlink" title="流程和函数"></a>流程和函数</h5><p>go里面没有类似于c和java的三木运算符，其主要运算符包括for、switch、if、while、goto</p>
+<p>go里面支持可变参数func name(arg …name){}</p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;&amp;amp;符号的意思是对变量取地址&lt;br&gt;*符号的意思是对指针取值&lt;/p&gt;
-&lt;p&gt;*和 &amp;amp; 可以互相抵消,同时注意，*&amp;amp;可以抵消掉，但&amp;amp;*是不可以抵消的&lt;/p&gt;
-
+      &lt;h4 id=&quot;Golang基础&quot;&gt;&lt;a href=&quot;#Golang基础&quot; class=&quot;headerlink&quot; title=&quot;Golang基础&quot;&gt;&lt;/a&gt;Golang基础&lt;/h4&gt;&lt;h5 id=&quot;1-指针&quot;&gt;&lt;a href=&quot;#1-指针&quot; class=&quot;headerlink&quot; 
     
     </summary>
     
@@ -130,7 +252,7 @@
     <link href="http://yoursite.com/2017/12/11/Go%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B01/"/>
     <id>http://yoursite.com/2017/12/11/Go语言实战阅读笔记1/</id>
     <published>2017-12-11T13:31:36.000Z</published>
-    <updated>2017-12-11T13:45:00.449Z</updated>
+    <updated>2017-12-11T13:45:00.450Z</updated>
     
     <content type="html"><![CDATA[<h5 id="1-1-Go语言的特性"><a href="#1-1-Go语言的特性" class="headerlink" title="1.1 Go语言的特性"></a>1.1 Go语言的特性</h5><h6 id="1-1-1-高效的开发速度和编译速度"><a href="#1-1-1-高效的开发速度和编译速度" class="headerlink" title="1.1.1  高效的开发速度和编译速度"></a>1.1.1  高效的开发速度和编译速度</h6><p>Golang编译没有从编译代码到执行代码的中间过程，用动态语言编写应用程序可以快速看到输出。代价是，动态语言不提供静态语言提供的类型安全特性，不得不大量使用测试套件来避免在运行的时候出现类型错误这类bug</p>
 <h6 id="1-1-2-天然的并发支持"><a href="#1-1-2-天然的并发支持" class="headerlink" title="1.1.2 天然的并发支持"></a>1.1.2 天然的并发支持</h6><h6 id="1-1-2-1-goroutine"><a href="#1-1-2-1-goroutine" class="headerlink" title="1.1.2.1 goroutine"></a>1.1.2.1 goroutine</h6><p>不同于java和C需要编写大量额外的代码来使用线程，Golang在同一个线程中并行多个goroutine，net/http库直接使用了内置的goroutine，每个接收到的请求都在自己的goroutine中运行。goroutine使用的内存相对于线程而言更少，Go语言在运行时会自动在配置的一组逻辑处理器上调度执行goroutine。每个逻辑处理器绑定到一个操作系统上。这样子让用户的应用程序执行效率更高，而开发工作量显著减少。</p>
@@ -222,7 +344,7 @@ scp  -r local_dir username@servername:remote_dir
     <link href="http://yoursite.com/2017/10/27/Android-%E5%9F%BA%E7%A1%80-FileProvider%E4%BD%BF%E7%94%A8/"/>
     <id>http://yoursite.com/2017/10/27/Android-基础-FileProvider使用/</id>
     <published>2017-10-27T14:49:48.000Z</published>
-    <updated>2017-10-28T00:47:56.466Z</updated>
+    <updated>2017-10-28T00:47:56.467Z</updated>
     
     <content type="html"><![CDATA[<p>移动平台对于安全和隐私是越来越注重了，Android在权限方面也在不断的收紧，一定程度上对于流氓软件还是有克制作用的。</p>
 <p>今天学习了一下<a href="https://developer.android.com/training/secure-file-sharing/setup-sharing.html" target="_blank" rel="external">FileProvider</a>和<a href="https://developer.android.com/reference/android/support/v4/content/FileProvider.html#getUriForFile(android.content.Context, java.lang.String, java.io.File" target="_blank" rel="external">文档</a>)的基本使用：</p>
@@ -258,7 +380,7 @@ scp  -r local_dir username@servername:remote_dir
     <link href="http://yoursite.com/2017/10/22/Android-Studio-%E4%BB%A3%E7%90%86%E8%AE%BE%E7%BD%AE/"/>
     <id>http://yoursite.com/2017/10/22/Android-Studio-代理设置/</id>
     <published>2017-10-22T08:16:15.000Z</published>
-    <updated>2018-01-12T02:11:25.734Z</updated>
+    <updated>2018-01-12T02:11:25.735Z</updated>
     
     <content type="html"><![CDATA[<p>最近因为Lantern老是出问题，又买了一个搬瓦工的，搭建好后速度还是可以的，Youtube上面1080P没有卡顿现象。但是各种工具的是使用又出现了问题，所以特意记录一下，节省下次切换工具配置的时间。</p>
 <h4 id="git配置"><a href="#git配置" class="headerlink" title="git配置"></a>git配置</h4><p>首先是配置git的代理，以下是http(s)配置</p>
@@ -314,9 +436,9 @@ scp  -r local_dir username@servername:remote_dir
       <category term="shell" scheme="http://yoursite.com/categories/shell/"/>
     
     
-      <category term="shell" scheme="http://yoursite.com/tags/shell/"/>
-    
       <category term="ssh" scheme="http://yoursite.com/tags/ssh/"/>
+    
+      <category term="shell" scheme="http://yoursite.com/tags/shell/"/>
     
   </entry>
   
@@ -672,93 +794,6 @@ scp  -r local_dir username@servername:remote_dir
       <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
     
       <category term="基础" scheme="http://yoursite.com/tags/%E5%9F%BA%E7%A1%80/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android-应用认领---空包写入签名</title>
-    <link href="http://yoursite.com/2017/07/12/Android-%E5%BA%94%E7%94%A8%E8%AE%A4%E9%A2%86-%E7%A9%BA%E5%8C%85%E5%86%99%E5%85%A5%E7%AD%BE%E5%90%8D/"/>
-    <id>http://yoursite.com/2017/07/12/Android-应用认领-空包写入签名/</id>
-    <published>2017-07-12T08:10:58.000Z</published>
-    <updated>2017-08-23T01:46:06.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>最近公司项目在百度进行认领，需要将自己的签名写入百度的空包上传，过程如下：</p>
-<p>1.执行如下命令<br><figure class="highlight plain"><figcaption><span>-verbose -keystore appkey.keystore -signedjar sign.apk Baidu_Claim_unsigned.apk keyAlias```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">其中appkey.keystore：自己的签名文件，可以加上绝对路径</div><div class="line"></div><div class="line">sign.apk：输出文件</div><div class="line"></div><div class="line">Baidu_Claim_unsigned.apk：原始文件</div><div class="line"></div><div class="line">keyAlias: 密玥的别名</div><div class="line"></div><div class="line">此过程需要输入密玥的密码，然后按enter即会执行。</div><div class="line"></div><div class="line">2.执行过程中的输出</div></pre></td></tr></table></figure></p>
-<p>Enter Passphrase for keystore:<br>adding: META-INF/MANIFEST.MF<br>adding: META-INF/<strong><em>.SF<br>adding: META-INF/</em></strong>.RSA<br>signing: AndroidManifest.xml<br>signing: res/drawable/ic_launcher.png<br>signing: res/layout/activity_main.xml<br>signing: resources.arsc<br>signing: classes.dex<br>jar signed.</p>
-<p>Warning:<br>No -tsa or -tsacert is provided and this jar is not timestamped. Without a timestamp, users may not be able to validate this jar after the signer certificate’s expiration date (2043-11-01) or after any future revocation date.<br>```</p>
-<p>3.执行完毕会在当前目录生成一个新的apk，用这个apk上传即可</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;最近公司项目在百度进行认领，需要将自己的签名写入百度的空包上传，过程如下：&lt;/p&gt;
-&lt;p&gt;1.执行如下命令&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;figcaption&gt;&lt;span&gt;-verbose -keystore appkey.keys
-    
-    </summary>
-    
-      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
-    
-    
-      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
-    
-      <category term="日常" scheme="http://yoursite.com/tags/%E6%97%A5%E5%B8%B8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>今天雨好大</title>
-    <link href="http://yoursite.com/2017/06/20/%E4%BB%8A%E5%A4%A9%E9%9B%A8%E5%A5%BD%E5%A4%A7/"/>
-    <id>http://yoursite.com/2017/06/20/今天雨好大/</id>
-    <published>2017-06-20T00:58:35.000Z</published>
-    <updated>2017-06-20T00:58:35.000Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Google IoSched 代码阅读笔记</title>
-    <link href="http://yoursite.com/2017/06/19/Google-IoSched-%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/"/>
-    <id>http://yoursite.com/2017/06/19/Google-IoSched-代码阅读笔记/</id>
-    <published>2017-06-19T14:37:35.000Z</published>
-    <updated>2017-06-30T13:34:47.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>最近做项目做的越来越烦人了，可以说近一年以来基本上没什么长进，反而有所退步。以往的激情已经被业务磨灭，真的真的该重新做点什么了。人无近虑，必有远忧。一直逃不开自己的舒适区，让自己在放纵，另一方面也是担忧自己当下的技能能否适应新的环境，总而言之，真的该认真学习好好看书了。否则的话，自己会被淘汰的。</p>
-<h2 id="一、代码目录结构"><a href="#一、代码目录结构" class="headerlink" title="一、代码目录结构"></a>一、代码目录结构</h2><p>本项目是一个比较传统的目录结构(其实还是有一些向MVP方向发展了)，即根据功能点进行分包，如下所示:</p>
-<p><img src="/2017/06/19/Google-IoSched-代码阅读笔记/iosched_package_tree.png" alt="image"></p>
-<h3 id="1、我的日程"><a href="#1、我的日程" class="headerlink" title="1、我的日程"></a>1、我的日程</h3><p>界面组成元素：TabLayout + ViewPager + ListFragment</p>
-<h4 id="1-1、在Activity中的内部类"><a href="#1-1、在Activity中的内部类" class="headerlink" title="1.1、在Activity中的内部类"></a>1.1、在Activity中的内部类</h4><p>标准的使用流程如下，通过弱引用的方式持有Activity，防止由于内部类持有外部类导致的内存泄露</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * If in conference day, redraw the day&apos;s UI every @&#123;link #INTERVAL_TO_REDRAW_UI&#125; ms, so</div><div class="line"> * that time sensitive widgets, like &quot;now&quot;, &quot;ended&quot; and appropriate styles are updated.</div><div class="line"> *</div><div class="line"> * @param today the index in the conference days array that corresponds to the current day.</div><div class="line"> */</div><div class="line">private void setTimerToUpdateUI(final int today) &#123;</div><div class="line">    new UpdateUIRunnable(this, today, new Handler()).scheduleNextRun();</div><div class="line">&#125;</div><div class="line"></div><div class="line">boolean hasBeenDestroyed() &#123;</div><div class="line">    return mDestroyed;</div><div class="line">&#125;</div><div class="line"></div><div class="line">static final class UpdateUIRunnable implements Runnable &#123;</div><div class="line"></div><div class="line">    final WeakReference&lt;MyScheduleActivity&gt; weakRefToParent;</div><div class="line">    final Handler handler;</div><div class="line">    final int today;</div><div class="line"></div><div class="line">    public UpdateUIRunnable(MyScheduleActivity activity, int today, Handler handler) &#123;</div><div class="line">        weakRefToParent = new WeakReference&lt;MyScheduleActivity&gt;(activity);</div><div class="line">        this.handler = handler;</div><div class="line">        this.today = today;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void scheduleNextRun() &#123;</div><div class="line">        handler.postDelayed(this, INTERVAL_TO_REDRAW_UI);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void run() &#123;</div><div class="line">        MyScheduleActivity activity = weakRefToParent.get();</div><div class="line">        if (activity == null || activity.hasBeenDestroyed()) &#123;</div><div class="line">            LOGD(TAG, &quot;Ativity is not valid anymore. Stopping UI Updater&quot;);</div><div class="line">            return;</div><div class="line">        &#125;</div><div class="line">        LOGD(TAG, &quot;Running MySchedule UI updater (now=&quot; +</div><div class="line">                new Date(UIUtils.getCurrentTime(activity)) + &quot;)&quot;);</div><div class="line">        if (activity.mScheduleAdapters != null</div><div class="line">                &amp;&amp; activity.mScheduleAdapters.length &gt; today</div><div class="line">                &amp;&amp; activity.mScheduleAdapters[today] != null) &#123;</div><div class="line">            try &#123;</div><div class="line">                activity.mScheduleAdapters[today].forceUpdate();</div><div class="line">            &#125; finally &#123;</div><div class="line">                // schedule again</div><div class="line">                this.scheduleNextRun();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="1-2、在XML文件中利用tools属性"><a href="#1-2、在XML文件中利用tools属性" class="headerlink" title="1.2、在XML文件中利用tools属性"></a>1.2、在XML文件中利用tools属性</h4><p>可能我们已经习惯了在编写代码的时候设置一个默认的android:text=”这是一个XXX”之类的文本用于预览，但实际上我们可以通过tools:text=”这才是正确的使用方式”，当然硬编码的方式也是错误的。首先附上<a href="https://developer.android.com/studio/write/tool-attributes.html" target="_blank" rel="external">官方教程</a>，官网永远是我们学习的最佳来源。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&lt;RootTag xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">    xmlns:tools=&quot;http://schemas.android.com/tools&quot; &gt;</div><div class="line"></div><div class="line">&lt;TextView</div><div class="line">    android:id=&quot;@+id/slot_description&quot;</div><div class="line">    android:layout_width=&quot;match_parent&quot;</div><div class="line">    android:layout_height=&quot;wrap_content&quot;</div><div class="line">    android:layout_marginTop=&quot;4dp&quot;</div><div class="line">    android:layout_marginEnd=&quot;8dp&quot;</div><div class="line">    android:layout_marginRight=&quot;8dp&quot;</div><div class="line">    android:textSize=&quot;@dimen/text_size_medium&quot;</div><div class="line">    tools:text=&quot;9:00 AM - 11:30 AM / Room 1&quot;</div><div class="line">    style=&quot;@style/Body1Text&quot; /&gt;</div><div class="line">    &lt;/RootTag&gt;</div><div class="line">```    </div><div class="line">##### 1.2.1、tools:ignore</div><div class="line">在任何元素中使用，主要是用于lint检查的时候忽略，例如：</div></pre></td></tr></table></figure>
-<p>&lt;string name=”show_all_apps” tools:ignore=”MissingTranslation&gt;All<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">##### 1.2.2、tools:targetApi</div><div class="line">在任何元素中使用，主要是用于lint检查的时候忽略，此属性和java中的注释代码[@TargetAPi](https://developer.android.com/reference/android/annotation/TargetApi.html)类似，通过这个属性你能指定元素所能运行的API版本，例如下面这个，指定了这个GridLayout只能用于API版本14以上的版本：</div></pre></td></tr></table></figure></p>
-<p><gridlayout xlmns:android="http://schemas.android.com/apk/res/android" xlmns:tools="http://schemas.android.com/tools" tools:targetapi="14"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">##### 1.2.3、tools:locale</div><div class="line">在任何元素中使用，主要是用于lint检查的时候忽略，此属性和java中的注释代码[@TargetAPi](https://developer.android.com/reference/android/annotation/TargetApi.html)类似，通过这个属性你能指定元素所能运行的API版本，例如下面这个，指定了这个GridLayout只能用于API版本14以上的版本：</div></pre></td></tr></table></figure></gridlayout></p>
-<p><gridlayout xlmns:android="http://schemas.android.com/apk/res/android" xlmns:tools="http://schemas.android.com/tools" tools:targetapi="14"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">##### 1.2.4、tools:instead of android</div><div class="line">在View中使用，主要是用于Android Studio layout editor，如本节开始所示。</div><div class="line"></div><div class="line">##### 1.2.5、tools:context</div><div class="line">在xml文件的跟布局中使用，主要是用于Android Studio layout editor，可以指定该xml文件预览时的主题以及类似于onClick属性使用QuickFix快捷生成对应方法所在的Activity。</div><div class="line"></div><div class="line">![image](./images/tools-attribute-context_2x.png)</div></pre></td></tr></table></figure></gridlayout></p>
-<p><android.support.constraint.constraintlayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" tools:context=".MainAcivity"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">##### 1.2.6、tools:layout</div><div class="line">在xml文件的跟布局中使用，主要是用于Android Studio layout editor，可以指定该Fragment预览时候的布局。</div><div class="line"></div><div class="line">![image](./images/tools-attribute-context_2x.png)</div></pre></td></tr></table></figure></android.support.constraint.constraintlayout></p>
-<fragment android:name="com.example.master.ItemListFragment" tools:layout="@layout/list_content">
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">##### 1.2.7、还有更多需要去学习</div><div class="line"></div><div class="line">#### 1.3、处理Fragment中的生命周期</div><div class="line">大家都知道，在Fragment使用过程中，有时候会出现getActivity()=null的情况，这时候就会导致NullPointException(**注意：如需 Fragment 内的某个 Context 对象，可以调用 getActivity()。但要注意，请仅在片段附加到 Activity 时调用 getActivity()。如果片段尚未附加，或在其生命周期结束期间分离，则 getActivity() 将返回 null**)。因此，我们可以在onAttach()的时候传入Activity，如下所示：</div><div class="line"></div><div class="line">```    @Override</div><div class="line">    public void onAttach(Activity activity) &#123;</div><div class="line">        super.onAttach(activity);</div><div class="line">        LOGD(TAG, &quot;Attaching to activity&quot;);</div><div class="line">        mActivity = activity;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onDetach() &#123;</div><div class="line">        super.onDetach();</div><div class="line">        mActivity = null;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<p>高版本API</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">public void onAttach(Context context) &#123;</div><div class="line">    super.onAttach(context);</div><div class="line">    LOGD(TAG, &quot;Attaching to activity&quot;);</div><div class="line">    mActivity = (Activity)context;</div><div class="line">&#125;</div><div class="line"></div><div class="line">@Override</div><div class="line">public void onDetach() &#123;</div><div class="line">    super.onDetach();</div><div class="line">    mActivity = null;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="2、探索"><a href="#2、探索" class="headerlink" title="2、探索"></a>2、探索</h3><h4 id="2-1、"><a href="#2-1、" class="headerlink" title="2.1、"></a>2.1、</h4><h3 id="3、地图"><a href="#3、地图" class="headerlink" title="3、地图"></a>3、地图</h3><h3 id="4、社交"><a href="#4、社交" class="headerlink" title="4、社交"></a>4、社交</h3><h3 id="5、视频"><a href="#5、视频" class="headerlink" title="5、视频"></a>5、视频</h3><h3 id="6、设置"><a href="#6、设置" class="headerlink" title="6、设置"></a>6、设置</h3><h4 id="6-1、使用PreferenceFragment"><a href="#6-1、使用PreferenceFragment" class="headerlink" title="6.1、使用PreferenceFragment"></a>6.1、使用PreferenceFragment</h4><h3 id="7、关于"><a href="#7、关于" class="headerlink" title="7、关于"></a>7、关于</h3><h4 id="7-1、加载HTML资源"><a href="#7-1、加载HTML资源" class="headerlink" title="7.1、加载HTML资源"></a>7.1、加载HTML资源</h4><pre><code>···Html.fromHtml(getString(&lt;![CDATA[
-    &lt;b&gt;Google I/O 2015&lt;/b&gt;&lt;br&gt;
-    Version %s
-]]&gt;,&quot;xxx&quot;))```
-</code></pre><h4 id="7-2"><a href="#7-2" class="headerlink" title="7.2"></a>7.2</h4><h3 id="8、调试"><a href="#8、调试" class="headerlink" title="8、调试"></a>8、调试</h3><h4 id="8-1、使用PreferenceFragment"><a href="#8-1、使用PreferenceFragment" class="headerlink" title="8.1、使用PreferenceFragment"></a>8.1、使用PreferenceFragment</h4></fragment>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;最近做项目做的越来越烦人了，可以说近一年以来基本上没什么长进，反而有所退步。以往的激情已经被业务磨灭，真的真的该重新做点什么了。人无近虑，必有远忧。一直逃不开自己的舒适区，让自己在放纵，另一方面也是担忧自己当下的技能能否适应新的环境，总而言之，真的该认真学习好好看书了。否则
-    
-    </summary>
-    
-      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
-    
-    
-      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
     
   </entry>
   

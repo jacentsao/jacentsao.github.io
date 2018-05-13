@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[内网部署yapi接口管理平台]]></title>
+    <url>%2F2018%2F05%2F13%2F%E7%A6%BB%E7%BA%BF%E9%83%A8%E7%BD%B2yapi%E6%8E%A5%E5%8F%A3%E7%AE%A1%E7%90%86%E5%B9%B3%E5%8F%B0%2F</url>
+    <content type="text"><![CDATA[YApi 是一个可本地部署的、打通前后端及QA的、可视化的接口管理平台，项目官网,Github地址。 本文是对自己在多平台内网部署的时候的过程及遇到的问题的记录。 内网部署环境要求 nodejs (7.6+) mongodb (2.6+) git 安装使用yapi-cli工具部署。执行yapi sever启动可视化部署程序。 升级cd {项目目录}yapi ls //查看版本号列表yapi update //更新到最新版本yapi update -v {Version} //更新到指定版本 centos安装环境安装nodejs使用EPEL安装nodejs 1234567891011$ yum info epel-release 检查是否有安装$ sudo yum install epel-release 安装epel$ sudo yum install -y nodejs 安装nodejs$ sudo npm install -g cnpm --registry=https://registry.npm.taobao.org$ sudo npm install -g n$ sudo n stable 安装最新的稳定版本 安装mongodb1 . 创建文件 1$ vim /etc/yum.repos.d/mongodb-org.repo 2 . 复制下面的内容 123456[mongodb-org-3.6]name=MongoDB Repositorybaseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.6/x86_64/gpgcheck=1enabled=1gpgkey=https://www.mongodb.org/static/pgp/server-3.6.asc 国内的服务器替换 baseurl 为阿里源,否则你回感受来自共产主义的负加成 1baseurl=http://mirrors.aliyun.com/mongodb/yum/redhat/6/mongodb-org/stable/x86_64/ 我搭建的时候用的 1baseurl=http://mirrors.aliyun.com/mongodb/yum/redhat/7Server/mongodb-org/3.2/x86_64/ 下载速度很快但是每次卡在最后一步，最后把3.2版本改为3.6以后一下载就安装好了 3 . 更新文件，安装 12$ yum udpate $ yum -y install mongodb=org 配置nginx代理由于centos是丢在一台Windows机器的Vmware WorkStation上面，所以还用了nginx反向代理yapi，配置如下 123456location / &#123; proxy_http_version 1.1; proxy_set_header Upgrade $http_upgrade; proxy_set_header Connection &quot;upgrade&quot;; proxy_pass http://127.0.0.1:3011; &#125; Macos安装由于开了全局代理，终端翻墙，安装过程基本按照官方教程过程很流畅。 结语做开发，一要网络好，二要代理好。感谢GCD，感谢阿里巴巴。]]></content>
+      <categories>
+        <category>api</category>
+      </categories>
+      <tags>
+        <tag>api</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[java - lambda学习笔记]]></title>
+    <url>%2F2018%2F04%2F10%2Fjava-lambda%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[后端性能测试1]]></title>
+    <url>%2F2018%2F03%2F20%2F%E5%90%8E%E7%AB%AF%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%951%2F</url>
+    <content type="text"><![CDATA[最近在做Golang上线前的准备工作，包括部署和性能测试，本次主要记录性能测试相关的内容，以免自己遗忘。 ab命令行测试(Apache Benchmark)首先想到的是简单的性能测试工具ab（Apache Benchmark），MacOS应该是自带了ab测试工具，Windows的话需要自行安装配置，可以参考一下链接。 安装好ab工具以后在终端输入ab可以看到很多参数，其中常用的参数有： -n requests 请求次数量 -c concurency 并发的请求数量 -t timelimit 请求的次数限制，默认值为-n 50000 -s timeout 请求的单次超时，默认值为30s -p postfile 发送文件中的请求，配合-T 使用 -T Content-type 默认值’text/plain’ 以下一个完整的ab测试post请求如下： -n 100 -c 10 -p ./login.txt -T 'application/json'```12即100次请求，并发数为10，指定当前目录下的login.txt文件中的json数据发送到服务器localhost，5174端口。以下是login.txt中的文件内容: {“test”:”test”,”cmd”:”test”}1234##### 测试结果分析以下是以请求百度首页模拟100人总计10000此访问来进行ab测试返回分析: ab -n 10000 -c 100 https://www.baidu.com/index.html//ApacheBenchmark软件申明This is ApacheBench, Version 2.3 &lt;$Revision: 1807734 $&gt;Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/Licensed to The Apache Software Foundation, http://www.apache.org/ //测试的网址Benchmarking www.baidu.com (be patient) //请求的进度Completed 1000 requestsCompleted 2000 requestsCompleted 3000 requestsCompleted 4000 requestsCompleted 5000 requestsSSL handshake failed (1).140735932269448:error:140770FC:SSL routines:SSL23_GET_SERVER_HELLO:unknown protocol:/BuildRoot/Library/Caches/com.apple.xbs/Sources/libressl/libressl-22/libressl/ssl/s23_clnt.c:565:Completed 6000 requestsCompleted 7000 requestsSSL handshake failed (1).140735932269448:error:140770FC:SSL routines:SSL23_GET_SERVER_HELLO:unknown protocol:/BuildRoot/Library/Caches/com.apple.xbs/Sources/libressl/libressl-22/libressl/ssl/s23_clnt.c:565:Completed 8000 requestsCompleted 9000 requestsCompleted 10000 requestsFinished 10000 requests //百度的服务器软件信息Server Software: BWS/1.1//被测试的主机地址Server Hostname: www.baidu.com//https的默认端口Server Port: 443//加密协议SSL/TLS Protocol: TLSv1.2,ECDHE-RSA-AES128-GCM-SHA256,2048,128//加密服务器名称TLS Server Name: www.baidu.com //文档的路径Document Path: /index.html//文档的大小Document Length: 227 bytes //并发数Concurrency Level: 100//测试总的时间Time taken for tests: 146.932 seconds//完成的请求数量Complete requests: 10000//失败的次数Failed requests: 2 (Connect: 0, Receive: 0, Length: 2, Exceptions: 0)//总的数据传输量，包括请求头和文本内容Total transferred: 8718256 bytes//请求的文档总大小 227 10000 （总计一万次请求）- 2 227（两次失败）HTML transferred: 2269546 bytes//每秒完成的请求数量 10000/146.932Requests per second: 68.06 [#/sec] (mean)//每个请求的平均耗时Time per request: 1469.317 [ms] (mean)//服务器完成一个请求的耗时Time per request: 14.693 [ms] (mean, across all concurrent requests)//服务器的吞吐率Transfer rate: 57.94 [Kbytes/sec] received //连接信息Connection Times (ms) min mean[+/-sd] median maxConnect: 0 1220 947.0 1170 45274Processing: 14 234 227.0 116 2292Waiting: 13 220 214.9 114 2291Total: 107 1454 961.3 1301 46006 //完成请求比例的耗时，如下完成90%的耗时为1990msPercentage of the requests served within a certain time (ms) 50% 1301 66% 1377 75% 1464 80% 1540 90% 1990 95% 2221 98% 2827 99% 2972 100% 46006 (longest request)```]]></content>
+      <categories>
+        <category>测试</category>
+      </categories>
+      <tags>
+        <tag>性能</tag>
+        <tag>后端</tag>
+        <tag>测试</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[数据库学习2 - 语法]]></title>
     <url>%2F2018%2F01%2F07%2F%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A02-%E8%AF%AD%E6%B3%95%2F</url>
     <content type="text"><![CDATA[基础语法 如果查询的列名在用到的两个或者多个表中不重复，则对这一列的引用不用加表名限制 视图和基表数据是同步更新的，视图不能创建索引]]></content>
@@ -30,7 +59,7 @@
   <entry>
     <title><![CDATA[Go语言实战阅读笔记2]]></title>
     <url>%2F2017%2F12%2F11%2FGo%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B02%2F</url>
-    <content type="text"><![CDATA[&amp;符号的意思是对变量取地址*符号的意思是对指针取值 *和 &amp; 可以互相抵消,同时注意，*&amp;可以抵消掉，但&amp;*是不可以抵消的]]></content>
+    <content type="text"><![CDATA[Golang基础1.指针&amp;符号的意思是对变量取地址*符号的意思是对指针取值 *和 &amp; 可以互相抵消,同时注意，*&amp;可以抵消掉，但&amp;*是不可以抵消的 传指针使得多个函数能操作同一个对象。 传指针比较轻量级 (8bytes),只是传内存地址，我们可以用指针传递体积大的结构体。如果用参数值传递的话, 在每次copy上面就会花费相对较多的系统开销（内存和时间）。所以当你要传递大的结构体的时候，用指针是一个明智的选择。 Go语言中channel，slice，map这三种类型的实现机制类似指针，所以可以直接传递，而不用取地址后传递指针。（注：若函数需改变slice的长度，则仍需要取地址传递指针） 2.字符串` 括起的字符串为Raw字符串，即字符串在代码中的形式就是打印时的形式，它没有字符转义，换行也将原样输出。 3.make和new操作make用于内建类型（map、slice 和channel）的内存分配。new用于各种类型的内存分配。 内建函数new本质上说跟其它语言中的同名函数功能一样：new(T) 返回的是*T，即new返回指针 内建函数make(T, args)与new(T)有着不同的功能，make只能创建slice、map和channel，并且返回一个有初始值(非零)的T类型，而不是*T。本质来讲，导致这三个类型有所不同的原因是指向数据结构的引用在使用前必须被初始化。 流程和函数go里面没有类似于c和java的三木运算符，其主要运算符包括for、switch、if、while、goto go里面支持可变参数func name(arg …name){}]]></content>
       <categories>
         <category>Golang</category>
       </categories>
@@ -103,8 +132,8 @@
         <category>shell</category>
       </categories>
       <tags>
-        <tag>shell</tag>
         <tag>ssh</tag>
+        <tag>shell</tag>
       </tags>
   </entry>
   <entry>
@@ -520,7 +549,7 @@
   <entry>
     <title><![CDATA[Docker学习,常用指令]]></title>
     <url>%2F2017%2F01%2F24%2FDocker%E5%AD%A6%E4%B9%A0-%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4%2F</url>
-    <content type="text"><![CDATA[DockerDocker 使用 Google 公司推出的 Go 语言 进行开发实现，基于 Linux 内核的 cgroup，namespace，以及 AUFS 类的 Union FS 等技术，对进程进行封装隔离， 属于操作系统层面的虚拟化技术。 常用指令 docker run -p 2222:22 imagename //运行改image做为container,不存在则会从Docker hub获取并运行; -p 指定本地映射关系,前面是访问地址端口,后面是映射的容器端口 docker exec -it goofy_banach /bin/bash 对比于attach方式,会立即显示进入,并且退出不会导致容器关闭 docker ps //获取正在运行的镜像 -a 所有的镜像 touch Dockerfile //创建docker脚本 cat Dockerfile //查看脚本 docker build -t docker-whale . //创建镜像, -t打tag,后面的.(表示当前目录)不能少 docker tag 7d9495d03763 maryatdocker/docker-whale:latest 标记docker镜像 docker login 登录 docker push maryatdocker/docker-whale 上传到docker hub docker rmi -f 7d9495d03763/imagename 移除镜像 docker run yourusername/docker-whale docker images 查看所有镜像 docker rmi $(docker images -q -f dangling=true) 删除无用的悬浮镜像 docker exec -it webserver bash 运行命令行并启动 docker commit [选项] &lt;容器ID或容器名&gt; [&lt;仓库名&gt;[:&lt;标签&gt;]] 提交更新,创建镜像谨慎使用,因为会对容器环境照成较大影响 //docker commit –author “Tao Wang &#x74;&#x77;&#97;&#110;&#x67;&#50;&#50;&#x31;&#56;&#64;&#103;&#109;&#x61;&#105;&#108;&#x2e;&#99;&#x6f;&#109;“ –message “修改了默认网页” webserver nginx:v2 docer diff NAMES 查看永久性更新 docker history nginx:v2 查看历史更新 docker rm 删除容器 docker run -it -–entrypoint /bin/bash karalabe/xgo-latest 强制使用bash启动docker镜像 docker run -it -v /Volumes/Work/go/src/golang.org:/src golang/mobile /bin/bash 挂载宿主机目录到容器 sudo yum upgrade docker 更新docker docker cp 2e8a06b7cff6:/gopath/src/golang.org/x/mobile/example/GoHello/app/src Storage-2e8a06b7cff6/ docker logs id/names 查看操作日志 docker top 显示容器进程 docker stats 查看容器进程状态 ####tag本地镜像并提交到docker仓库step1——找到本地镜像的ID：docker images step2——登陆Hub：docker login –username=username –password=password –email=email step3——tag：docker tag /: step4——push镜像：docker push / Dockerfile创建 mkdir test cd test touch Dockerfile 基本用法 FROM nginx 指定基础镜像,这个是必须的(可以指定一个空白镜像名为scratch) RUN 没一个RUN代表一层,因此同一个目的的RUN通过&amp;&amp;合并命令,浓缩到一层 (层数限制旧版42,新版127) COPY package.json /usr/src/app/ || hom?.txt /mydir/ ADD ubuntu-xenial-core-cloudimg-amd64-root.tar.gz / src可以是url,加强版的COPY,还可移植性解压缩 docker build -t docker-whale . docker build [选项] &lt;上下文路径/URL/-&gt; .代表当前目录 -t代表tag ENTRYPOINT 只有最后一个生效 run的时候通过–entrypoint使其生效 Docker基本概念Docker包括三个基本概念,包含了Docker的整个生命周期 镜像(Image) 容器(Container) 仓库(Repository) Docker镜像Docker镜像,相当于一个root文件系统(操作系统分为内核和用户空间,内核启动后,会挂载root文件系统为用户空间提供支持),镜像不包含任何动态数据.提供容器运行时所需的程序、库、资 源、配置等文件外,还包含了一些为运行时准备的一些配置参数（如匿名卷、环境 变量、用户等）. 分层存储镜像包含操作系统完整的root文件系统,体积较大,Docker设计时,采用了Union FS技术,分层存储的架构. 镜像构建时，会一层层构建，前一层是后一层的基础。每一层构建完就不会再发生 改变，后一层上的任何改变只发生在自己这一层,任何额外的东西应该在该层构建结束前清理掉。 Docker容器类比于面向对象程序设计中 的 类 和 实例 一样，镜像是静态的定义，容器是镜像运行时的实体。]]></content>
+    <content type="text"><![CDATA[DockerDocker 使用 Google 公司推出的 Go 语言 进行开发实现，基于 Linux 内核的 cgroup，namespace，以及 AUFS 类的 Union FS 等技术，对进程进行封装隔离， 属于操作系统层面的虚拟化技术。 常用指令 docker run -p 2222:22 imagename //运行改image做为container,不存在则会从Docker hub获取并运行; -p 指定本地映射关系,前面是访问地址端口,后面是映射的容器端口 docker exec -it goofy_banach /bin/bash 对比于attach方式,会立即显示进入,并且退出不会导致容器关闭 docker ps //获取正在运行的镜像 -a 所有的镜像 touch Dockerfile //创建docker脚本 cat Dockerfile //查看脚本 docker build -t docker-whale . //创建镜像, -t打tag,后面的.(表示当前目录)不能少 docker tag 7d9495d03763 maryatdocker/docker-whale:latest 标记docker镜像 docker login 登录 docker push maryatdocker/docker-whale 上传到docker hub docker rmi -f 7d9495d03763/imagename 移除镜像 docker run yourusername/docker-whale docker images 查看所有镜像 docker rmi $(docker images -q -f dangling=true) 删除无用的悬浮镜像 docker exec -it webserver bash 运行命令行并启动 docker commit [选项] &lt;容器ID或容器名&gt; [&lt;仓库名&gt;[:&lt;标签&gt;]] 提交更新,创建镜像谨慎使用,因为会对容器环境照成较大影响 //docker commit –author “Tao Wang &#x74;&#119;&#97;&#110;&#x67;&#x32;&#50;&#x31;&#56;&#x40;&#x67;&#109;&#x61;&#105;&#108;&#46;&#x63;&#111;&#109;“ –message “修改了默认网页” webserver nginx:v2 docer diff NAMES 查看永久性更新 docker history nginx:v2 查看历史更新 docker rm 删除容器 docker run -it -–entrypoint /bin/bash karalabe/xgo-latest 强制使用bash启动docker镜像 docker run -it -v /Volumes/Work/go/src/golang.org:/src golang/mobile /bin/bash 挂载宿主机目录到容器 sudo yum upgrade docker 更新docker docker cp 2e8a06b7cff6:/gopath/src/golang.org/x/mobile/example/GoHello/app/src Storage-2e8a06b7cff6/ docker logs id/names 查看操作日志 docker top 显示容器进程 docker stats 查看容器进程状态 ####tag本地镜像并提交到docker仓库step1——找到本地镜像的ID：docker images step2——登陆Hub：docker login –username=username –password=password –email=email step3——tag：docker tag /: step4——push镜像：docker push / Dockerfile创建 mkdir test cd test touch Dockerfile 基本用法 FROM nginx 指定基础镜像,这个是必须的(可以指定一个空白镜像名为scratch) RUN 没一个RUN代表一层,因此同一个目的的RUN通过&amp;&amp;合并命令,浓缩到一层 (层数限制旧版42,新版127) COPY package.json /usr/src/app/ || hom?.txt /mydir/ ADD ubuntu-xenial-core-cloudimg-amd64-root.tar.gz / src可以是url,加强版的COPY,还可移植性解压缩 docker build -t docker-whale . docker build [选项] &lt;上下文路径/URL/-&gt; .代表当前目录 -t代表tag ENTRYPOINT 只有最后一个生效 run的时候通过–entrypoint使其生效 Docker基本概念Docker包括三个基本概念,包含了Docker的整个生命周期 镜像(Image) 容器(Container) 仓库(Repository) Docker镜像Docker镜像,相当于一个root文件系统(操作系统分为内核和用户空间,内核启动后,会挂载root文件系统为用户空间提供支持),镜像不包含任何动态数据.提供容器运行时所需的程序、库、资 源、配置等文件外,还包含了一些为运行时准备的一些配置参数（如匿名卷、环境 变量、用户等）. 分层存储镜像包含操作系统完整的root文件系统,体积较大,Docker设计时,采用了Union FS技术,分层存储的架构. 镜像构建时，会一层层构建，前一层是后一层的基础。每一层构建完就不会再发生 改变，后一层上的任何改变只发生在自己这一层,任何额外的东西应该在该层构建结束前清理掉。 Docker容器类比于面向对象程序设计中 的 类 和 实例 一样，镜像是静态的定义，容器是镜像运行时的实体。]]></content>
       <categories>
         <category>Docker</category>
       </categories>
@@ -642,12 +671,16 @@
       </categories>
   </entry>
   <entry>
-    <title><![CDATA[常用的hexo指令]]></title>
+    <title><![CDATA[hexo - 搭建博客相关]]></title>
     <url>%2F2017%2F01%2F18%2Fhexo%20-%20%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%9B%B8%E5%85%B3%2F</url>
-    <content type="text"><![CDATA[hexo new post &quot;article title&quot; //创建新的post,创建目录为: /source/_posts/ hexo d //deploy 发布 hexo s // hexo clean hexo s --debug hexo new page categories hexo new page about hexo new page commonweal hexo new page sitemap hexo new page tags hexo new page archives hexo new page tags]]></content>
+    <content type="text"><![CDATA[常用的命令hexo new post &quot;article title&quot; //创建新的post,创建目录为: /source/_posts/ hexo d //deploy 发布 hexo s // hexo clean hexo s --debug hexo new page categories hexo new page about hexo new page commonweal hexo new page sitemap hexo new page tags hexo new page archives hexo new page tags]]></content>
       <categories>
         <category>博客编写</category>
       </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>blog</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[Mac OS X 配置环境变量]]></title>
