@@ -307,6 +307,157 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/31/使用docker安装WordPress/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="JacenTsao">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Silence of Heart">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Silence of Heart" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/05/31/使用docker安装WordPress/" itemprop="url">
+                  使用docker安装WordPress
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-31T08:40:17+08:00">
+                2018-05-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/博客/" itemprop="url" rel="index">
+                    <span itemprop="name">博客</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/05/31/使用docker安装WordPress/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/05/31/使用docker安装WordPress/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="下载WorldPress镜像"><a href="#下载WorldPress镜像" class="headerlink" title="下载WorldPress镜像"></a>下载WorldPress镜像</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">$ sudo docker pull wordpress:latest</span><br><span class="line">$ sudo docker pull mysql</span><br><span class="line">$ docker run --name docker-mysql -e MYSQL_ROOT_PASSWORD=KingDee@2017 -d mysql:5.7</span><br><span class="line">$ docker run --name docker-wordpress --link docker-mysql:mysql -p 6000:80 -d wordpress</span><br><span class="line"></span><br><span class="line">$ 安装插件：https://wordpress.org/plugins/useso-take-over-google/</span><br><span class="line"></span><br><span class="line">$ docker run -p 3306:3306 --name e-mysql -e MYSQL_ROOT_PASSWORD=10086.com -d mysql:5.7</span><br><span class="line"></span><br><span class="line">$ docker exec -it 88dab2f338c6 bash  </span><br><span class="line">$ mysql -uroot -p -h localhost</span><br><span class="line">$ use mysql</span><br><span class="line"></span><br><span class="line">$ docker run -p 6379:6379 -v $PWD/data:/data  -d redis:3.2 redis-server --appendonly yes</span><br><span class="line"></span><br><span class="line">$ docker exec -it  b1125e1d09b8  redis-cli</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/14/Zheng项目学习/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -419,8 +570,24 @@
       
         
           
-            <h4 id="1-环境配置"><a href="#1-环境配置" class="headerlink" title="1. 环境配置"></a>1. 环境配置</h4><h5 id="1-安装redis"><a href="#1-安装redis" class="headerlink" title="1. 安装redis"></a>1. 安装redis</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ brew install redis</span><br><span class="line"></span><br><span class="line">To have launchd start redis now and restart at login:</span><br><span class="line">  brew services start redis</span><br><span class="line">Or, if you don&apos;t want/need a background service you can just run:</span><br><span class="line">  redis-server /usr/local/etc/redis.conf</span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">$ redis-cli 进入redis命令</span><br></pre></td></tr></table></figure>
-<h5 id="2-安装zookeeper"><a href="#2-安装zookeeper" class="headerlink" title="2. 安装zookeeper"></a>2. 安装zookeeper</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ brew install zookeeper</span><br><span class="line">To have launchd start zookeeper now and restart at login:</span><br><span class="line">  brew services start zookeeper</span><br><span class="line">Or, if you don&apos;t want/need a background service you can just run:</span><br><span class="line">  zkServer start</span><br></pre></td></tr></table></figure>
+            <h4 id="1-环境配置"><a href="#1-环境配置" class="headerlink" title="1. 环境配置"></a>1. 环境配置</h4><h5 id="1-安装redis"><a href="#1-安装redis" class="headerlink" title="1. 安装redis"></a>1. 安装redis</h5><p>Redis是一个使用ANSI C编写的开源、支持网络、基于内存、可选持久性的键值对存储数据库。</p>
+<h6 id="Windows安装"><a href="#Windows安装" class="headerlink" title="Windows安装"></a>Windows安装</h6><p>从Github上面下载<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/MicrosoftArchive/redis/releases</span><br></pre></td></tr></table></figure></p>
+<h6 id="Mac安装"><a href="#Mac安装" class="headerlink" title="Mac安装"></a>Mac安装</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">$ brew install redis</span><br><span class="line"></span><br><span class="line">To have launchd start redis now and restart at login:</span><br><span class="line">  brew services start redis</span><br><span class="line">Or, if you don&apos;t want/need a background service you can just run:</span><br><span class="line">  redis-server /usr/local/etc/redis.conf</span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">$ redis-cli 进入redis命令</span><br></pre></td></tr></table></figure>
+<h5 id="2-安装zookeeper"><a href="#2-安装zookeeper" class="headerlink" title="2. 安装zookeeper"></a>2. 安装zookeeper</h5><p>Zookeeper是一种分布式协调服务，用于管理大型主机。在分布式环境中协调和管理服务是一个复杂的过程，Zookeeper通过其简单的架构和API解决了这些问题。Zookeeper允许开发人员专注与核心应用程序逻辑，而不必担心应用程序的分布式特征。</p>
+<p>分布式应用正在运行的一组系统成为<strong>集群</strong>，集群中运行的每台机器称为<strong>节点</strong>。</p>
+<h6 id="Macos通过brew安装"><a href="#Macos通过brew安装" class="headerlink" title="Macos通过brew安装"></a>Macos通过brew安装</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ brew install zookeeper</span><br><span class="line">To have launchd start zookeeper now and restart at login:</span><br><span class="line">  brew services start zookeeper</span><br><span class="line">Or, if you don&apos;t want/need a background service you can just run:</span><br><span class="line">  zkServer start</span><br></pre></td></tr></table></figure>
+<h6 id="从Apache官网下载"><a href="#从Apache官网下载" class="headerlink" title="从Apache官网下载"></a>从Apache官网下载</h6><p>下载地址：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://mirror.bit.edu.cn/apache/zookeeper/stable/zookeeper-3.4.12.tar.gz</span><br></pre></td></tr></table></figure>
+<p>下载解压以后需要更改配置文件</p>
+<ol>
+<li>在解压的目录下新建配置文件zoo.cfg</li>
+<li>新增以下配置</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tickTime = 2000dataDir = /path/to/zookeeper/dataclientPort = 2181initLimit = 5syncLimit = 2</span><br></pre></td></tr></table></figure>
+<ol>
+<li>启动解压目录下的zkServer.sh(linux)或者zkServer.cmd(Windows)</li>
+<li>启动解压目录下的zkCli.sh(linux)或者zkCli.cmd(Windows)</li>
+</ol>
 <h5 id="3-安装-Apache-ActiveMQ"><a href="#3-安装-Apache-ActiveMQ" class="headerlink" title="3. 安装 Apache ActiveMQ"></a>3. 安装 Apache ActiveMQ</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ brew install apache-activemq</span><br><span class="line">To have launchd start activemq now and restart at login:</span><br><span class="line">  brew services start activemq</span><br><span class="line">Or, if you don&apos;t want/need a background service you can just run:</span><br><span class="line">  activemq start</span><br></pre></td></tr></table></figure>
 <h5 id="4-安装MySQL"><a href="#4-安装MySQL" class="headerlink" title="4. 安装MySQL"></a>4. 安装MySQL</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ brew install mysql</span><br><span class="line">We&apos;ve installed your MySQL database without a root password. To secure it run:</span><br><span class="line">    mysql_secure_installation</span><br><span class="line"></span><br><span class="line">MySQL is configured to only allow connections from localhost by default</span><br><span class="line"></span><br><span class="line">To connect run:</span><br><span class="line">    mysql -uroot</span><br><span class="line"></span><br><span class="line">To have launchd start mysql now and restart at login:</span><br><span class="line">  brew services start mysql</span><br><span class="line">Or, if you don&apos;t want/need a background service you can just run:</span><br><span class="line">  mysql.server start</span><br></pre></td></tr></table></figure>
 <h5 id="5-安装jenkins"><a href="#5-安装jenkins" class="headerlink" title="5. 安装jenkins"></a>5. 安装jenkins</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Note: When using launchctl the port will be 8080.</span><br><span class="line"></span><br><span class="line">To have launchd start jenkins now and restart at login:</span><br><span class="line">  brew services start jenkins</span><br><span class="line">Or, if you don&apos;t want/need a background service you can just run:</span><br><span class="line">  jenkins</span><br><span class="line">==&gt; Summary</span><br><span class="line">🍺  /usr/local/Cellar/jenkins/2.121: 7 files, 74.4MB, built in 42 seconds</span><br></pre></td></tr></table></figure>
@@ -1672,167 +1839,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/01/数据库学习1/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="JacenTsao">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Silence of Heart">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Silence of Heart" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/12/01/数据库学习1/" itemprop="url">
-                  数据库学习1
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-01T21:18:50+08:00">
-                2017-12-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据库/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/12/01/数据库学习1/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/12/01/数据库学习1/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h5 id="使用Navicat连接Mamp-Pro"><a href="#使用Navicat连接Mamp-Pro" class="headerlink" title="使用Navicat连接Mamp Pro"></a>使用Navicat连接Mamp Pro</h5><ol>
-<li>新建mysql连接</li>
-<li>输入端口号，用户名和密码（默认都是root）</li>
-<li>use socket，打勾。输入/Applications/MAMP/tmp/mysql/mysql.sock</li>
-</ol>
-<h5 id="使用命令行操作mysql"><a href="#使用命令行操作mysql" class="headerlink" title="使用命令行操作mysql"></a>使用命令行操作mysql</h5><ol>
-<li>执行 /Applications/MAMP/Library/bin 目录下的mysql即可进入命令行操作界面</li>
-</ol>
-<h5 id="使用golang连接数据库"><a href="#使用golang连接数据库" class="headerlink" title="使用golang连接数据库"></a>使用golang连接数据库</h5><ol>
-<li><code>db, err := sql.Open(&quot;mysql&quot;, &quot;root:root@unix(/Applications/MAMP/tmp/mysql/mysql.sock)/mysql&quot;)</code></li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1880,7 +1886,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">66</span>
+                <span class="site-state-item-count">67</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1889,7 +1895,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1898,7 +1904,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">44</span>
+                <span class="site-state-item-count">45</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
