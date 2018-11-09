@@ -89,7 +89,7 @@
 <meta name="description" content="这是我的个人测试小站">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Silence of Heart">
-<meta property="og:url" content="http://yoursite.com/tags/Performance/index.html">
+<meta property="og:url" content="http://yoursite.com/tags/performance/index.html">
 <meta property="og:site_name" content="Silence of Heart">
 <meta property="og:description" content="这是我的个人测试小站">
 <meta property="og:locale" content="zh-Hans">
@@ -123,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/Performance/"/>
+  <link rel="canonical" href="http://yoursite.com/tags/performance/"/>
 
 
 
 
 
-  <title> 标签: Performance | Silence of Heart </title>
+  <title> 标签: performance | Silence of Heart </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -298,7 +298,7 @@
   <div id="posts" class="posts-collapse">
     <div class="collection-title">
       <h2 >
-        Performance
+        performance
         <small>标签</small>
       </h2>
     </div>
@@ -311,37 +311,9 @@
 
       <h1 class="post-title">
         
-            <a class="post-title-link" href="/2017/09/12/Android-性能优化第五季/" itemprop="url">
+            <a class="post-title-link" href="/2017/08/27/Android-Performance-and-View-Hierarchies/" itemprop="url">
               
-                <span itemprop="name">Android - 性能优化第五季</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-09-12T22:13:01+08:00"
-              content="2017-09-12" >
-          09-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/08/28/Android-通过hierarchy-View来分析布局/" itemprop="url">
-              
-                <span itemprop="name">Android - 通过hierarchy View来分析布局</span>
+                <span itemprop="name">Android - Performance and View Hierarchies</span>
               
             </a>
         
@@ -349,37 +321,9 @@
 
       <div class="post-meta">
         <time class="post-time" itemprop="dateCreated"
-              datetime="2017-08-28T20:49:49+08:00"
-              content="2017-08-28" >
-          08-28
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/08/22/Android-性能优化-overdraw/" itemprop="url">
-              
-                <span itemprop="name">Android-性能优化-overdraw</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-08-22T23:15:59+08:00"
-              content="2017-08-22" >
-          08-22
+              datetime="2017-08-27T21:10:02+08:00"
+              content="2017-08-27" >
+          08-27
         </time>
       </div>
 
@@ -725,6 +669,59 @@
                     // highlight all keywords
                     keywords.forEach(function(keyword){
                       var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+					
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/js/src/click-love.js"></script>
+
+</body>
+</html>
+        var regS = new RegExp(keyword, "gi");
                       match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
                     });
 
