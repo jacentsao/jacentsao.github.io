@@ -5,6 +5,12 @@ tags: [自动构建,Android,Jenkins]
 categories: Android
 ---
 
+#### 更新内容
+
+* **更新（2018-11-18，更新使用sdkmanager，更新jcenter和google的仓库）**
+
+#### 使用android
+
 前段时间因为新版本需求更新了一下项目的Recycleview版本,对应的SDK也更新了.项目组的几位同事的项目全都因为找不到对应的SDK报错了,后面把自己的SDK拷贝一份给他们才OK(实在想吐槽一下,我觉得做为一个Android程序员翻墙是一项基本的技能).
 <!-- more -->
 然而就在今天根据新的安排,后续打包统一走运维.而运维使用的是jenkins集成打包,然后上传到[fir](http://fir.im/),测试人员直接下载安装然后进行测试.结果服务端果然出现了同样的错误.
@@ -82,3 +88,33 @@ categories: Android
 这里代理服务器其实蛮多的,参考[AndroidDev](http://www.androiddevtools.cn/),不懂翻墙人士的福音.深圳地区设置腾讯代理以后下载速度基本上都是2-3M起,速度非常快.
 
 **使用上面命令行是因为Linux Server没有可用图形操作界面,如果有图形操作界面的话还是不要使用这种方式了**,把时间花在更有用的地方吧!毕竟我们是一群需求没定好就能把项目做完的码农!
+
+
+#### 使用sdkmanager
+
+sdkmanager是谷歌推出的新的工具，以前的android工具已经是deprecated状态，所以大家尽量切换到新的sdkmanager进行管理。同样的，我们也要对工具进行代理才能够正常的更新。
+
+```
+//获取所有的工具列表
+sdkmanager --list --no_https --proxy=http --proxy_host=g.cn --proxy_port=80
+//安装指定的工具（"platforms;android-28"）
+sdkmanager "platforms;android-28" --no_https --proxy=http --proxy_host=g.cn --proxy_port=80
+//也可以同时指定安装多个工具
+sdkmanager "platforms;android-28" "build-tools;28.0.3" --no_https --proxy=http --proxy_host=g.cn --proxy_port=80
+```
+
+如下所示：
+![](https://raw.githubusercontent.com/jacentsao/picbed/master/img/markdownnecessary%20android%20sdk%20tools.png)
+
+#### 使用阿里云仓库
+
+阿里云仓库地址 http://maven.aliyun.com/mvn/view， gradle版本的一些说明  https://developer.android.com/studio/releases/gradle-plugin
+
+```
+//替换jcenter()
+maven {url 'https://maven.aliyun.com/repository/jcenter'}
+//替换google(),从gradle3.0.0开始就需要添加谷歌仓库
+maven {url 'https://maven.aliyun.com/repository/google'}
+//公共仓库
+maven {url 'https://maven.aliyun.com/repository/public'}
+```
