@@ -445,7 +445,7 @@
 <li>docker images 查看所有镜像</li>
 <li>docker rmi $(docker images -q -f dangling=true) 删除无用的悬浮镜像 </li>
 <li>docker exec  -it webserver bash 运行命令行并启动</li>
-<li>docker commit [选项] &lt;容器ID或容器名&gt; [&lt;仓库名&gt;[:&lt;标签&gt;]] 提交更新,创建镜像<strong>谨慎使用,因为会对容器环境照成较大影响</strong> //docker commit  –author “Tao Wang <a href="&#x6d;&#x61;&#105;&#x6c;&#x74;&#x6f;&#58;&#x74;&#x77;&#97;&#x6e;&#x67;&#50;&#50;&#49;&#x38;&#x40;&#x67;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#99;&#x6f;&#x6d;">&#x74;&#x77;&#97;&#x6e;&#x67;&#50;&#50;&#49;&#x38;&#x40;&#x67;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#99;&#x6f;&#x6d;</a>“  –message “修改了默认网页” webserver  nginx:v2</li>
+<li>docker commit [选项] &lt;容器ID或容器名&gt; [&lt;仓库名&gt;[:&lt;标签&gt;]] 提交更新,创建镜像<strong>谨慎使用,因为会对容器环境照成较大影响</strong> //docker commit  –author “Tao Wang <a href="&#109;&#x61;&#x69;&#108;&#116;&#x6f;&#58;&#116;&#119;&#97;&#x6e;&#x67;&#50;&#x32;&#x31;&#x38;&#64;&#x67;&#109;&#x61;&#105;&#x6c;&#x2e;&#x63;&#111;&#x6d;">&#116;&#119;&#97;&#x6e;&#x67;&#50;&#x32;&#x31;&#x38;&#64;&#x67;&#109;&#x61;&#105;&#x6c;&#x2e;&#x63;&#111;&#x6d;</a>“  –message “修改了默认网页” webserver  nginx:v2</li>
 <li>docer diff NAMES 查看永久性更新</li>
 <li>docker history nginx:v2 查看历史更新</li>
 <li>docker rm  删除容器</li>
