@@ -328,6 +328,335 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/04/Java-搭建RocketMQ开发环境/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JacenTsao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Silence of Heart">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/04/Java-搭建RocketMQ开发环境/" itemprop="url">Java - 搭建RocketMQ开发环境</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-04T16:34:43+08:00">
+                2018-12-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/后端/" itemprop="url" rel="index">
+                    <span itemprop="name">后端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/04/Java-搭建RocketMQ开发环境/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/04/Java-搭建RocketMQ开发环境/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>今天尝试搭建一下RocketMQ开发环境，特此记录下搭建流程和搭建过程中遇到的一些问题。</p>
+<p>首先根据官网的<a href="https://rocketmq.apache.org/docs/quick-start/" target="_blank" rel="noopener">教程</a>搭建。</p>
+<h3 id="快速启动"><a href="#快速启动" class="headerlink" title="快速启动"></a>快速启动</h3><h4 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h4><ul>
+<li>64bit OS, Linux/Unix/Mac is recommended;</li>
+<li>64bit JDK 1.8+;</li>
+<li>Maven 3.2.x;</li>
+<li>Git;</li>
+<li>4g+ free disk for Broker server</li>
+</ul>
+<h4 id="下载，构建"><a href="#下载，构建" class="headerlink" title="下载，构建"></a>下载，构建</h4><p>下载源码或者release的版本，下载地址: <a href="https://www.apache.org/dyn/closer.cgi?path=rocketmq/4.3.2/rocketmq-all-4.3.2-source-release.zip" target="_blank" rel="noopener">https://www.apache.org/dyn/closer.cgi?path=rocketmq/4.3.2/rocketmq-all-4.3.2-source-release.zip</a></p>
+<p>如果下载的是源码的话需要使用maven进行编译：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  </span><br><span class="line">&gt; unzip rocketmq-all-4.3.2-source-release.zip</span><br><span class="line">&gt; cd rocketmq-all-4.3.2/</span><br><span class="line">&gt; mvn -Prelease-all -DskipTests clean install -U</span><br><span class="line">&gt; cd distribution/target/apache-rocketmq</span><br></pre></td></tr></table></figure>
+<p>如果不是源码的话直接进入解压后的文件即可。</p>
+<h4 id="启动Name-Server"><a href="#启动Name-Server" class="headerlink" title="启动Name Server"></a>启动Name Server</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt; nohup sh bin/mqnamesrv &amp;</span><br><span class="line">&gt; tail -f ~/logs/rocketmqlogs/namesrv.log</span><br><span class="line">The Name Server boot success...</span><br><span class="line">以上是官网提供的示例。我遇到的情况是输出倒了当前目录下的nohup.out文件中，使用tail 或者vim确定Name Server是否正常启动</span><br></pre></td></tr></table></figure>
+<h4 id="启动Broker"><a href="#启动Broker" class="headerlink" title="启动Broker"></a>启动Broker</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; nohup sh bin/mqbroker -n localhost:9876 &amp;</span><br><span class="line">&gt; tail -f ~/logs/rocketmqlogs/broker.log </span><br><span class="line">The broker[%s, 172.30.30.233:10911] boot success...</span><br><span class="line">同样的在nohub.out中查看</span><br></pre></td></tr></table></figure>
+<h4 id="发送和接收消息"><a href="#发送和接收消息" class="headerlink" title="发送和接收消息"></a>发送和接收消息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//告诉客户端需要发送到哪个服务端</span><br><span class="line">&gt; export NAMESRV_ADDR=localhost:9876</span><br><span class="line">&gt; sh bin/tools.sh org.apache.rocketmq.example.quickstart.Producer</span><br><span class="line">SendResult [sendStatus=SEND_OK, msgId= ...</span><br><span class="line"></span><br><span class="line">&gt; sh bin/tools.sh org.apache.rocketmq.example.quickstart.Consumer</span><br><span class="line">ConsumeMessageThread_%d Receive New Messages: [MessageExt...</span><br></pre></td></tr></table></figure>
+<h4 id="关闭服务"><a href="#关闭服务" class="headerlink" title="关闭服务"></a>关闭服务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; sh bin/mqshutdown broker</span><br><span class="line">The mqbroker(36695) is running...</span><br><span class="line">Send shutdown request to mqbroker(36695) OK</span><br><span class="line"></span><br><span class="line">&gt; sh bin/mqshutdown namesrv</span><br><span class="line">The mqnamesrv(36664) is running...</span><br><span class="line">Send shutdown request to mqnamesrv(36664) OK</span><br></pre></td></tr></table></figure>
+<h3 id="简单的示例"><a href="#简单的示例" class="headerlink" title="简单的示例"></a>简单的示例</h3><p>官网地址<a href="https://rocketmq.apache.org/docs/simple-example/" target="_blank" rel="noopener">https://rocketmq.apache.org/docs/simple-example/</a></p>
+<h4 id="1-添加依赖"><a href="#1-添加依赖" class="headerlink" title="1.添加依赖"></a>1.添加依赖</h4><p>由于我们使用的是maven管理工具,gradle的依赖可以参考官网。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.rocketmq&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;rocketmq-client&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;4.3.0&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="2-1-发送同步消息"><a href="#2-1-发送同步消息" class="headerlink" title="2.1 发送同步消息"></a>2.1 发送同步消息</h4><p>同步消息适合于很多场景，例如重要消息的通知，SMS通知，SMS系统市场。其他都在官网，可以多多看看文档。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">public class SyncProducer &#123;</span><br><span class="line">    public static void main(String[] args) throws Exception &#123;</span><br><span class="line">        //Instantiate with a producer group name.</span><br><span class="line">        DefaultMQProducer producer = new</span><br><span class="line">            DefaultMQProducer(&quot;please_rename_unique_group_name&quot;);</span><br><span class="line">        // Specify name server addresses.</span><br><span class="line">        producer.setNamesrvAddr(&quot;localhost:9876&quot;);</span><br><span class="line">        //Launch the instance.</span><br><span class="line">        producer.start();</span><br><span class="line">        for (int i = 0; i &lt; 100; i++) &#123;</span><br><span class="line">            //Create a message instance, specifying topic, tag and message body.</span><br><span class="line">            Message msg = new Message(&quot;TopicTest&quot; /* Topic */,</span><br><span class="line">                &quot;TagA&quot; /* Tag */,</span><br><span class="line">                (&quot;Hello RocketMQ &quot; +</span><br><span class="line">                    i).getBytes(RemotingHelper.DEFAULT_CHARSET) /* Message body */</span><br><span class="line">            );</span><br><span class="line">            //Call send message to deliver message to one of brokers.</span><br><span class="line">            SendResult sendResult = producer.send(msg);</span><br><span class="line">            System.out.printf(&quot;%s%n&quot;, sendResult);</span><br><span class="line">        &#125;</span><br><span class="line">        //Shut down once the producer instance is not longer in use.</span><br><span class="line">        producer.shutdown();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h3><ol>
+<li>在客户机访问服务器mq的时候出现<code>Exception in thread &quot;main&quot; org.apache.rocketmq.remoting.exception.RemotingTooMuchRequestException: sendDefaultImpl call timeout</code>，此时时由于RocktMQ没有绑定网卡ip导致。调整启动broker的配置如下所示：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//生成配置信息</span><br><span class="line">echo &quot;brokerIP1=10.2.x.x&quot; &gt; broker.properties</span><br><span class="line"></span><br><span class="line">//broker绑定ip</span><br><span class="line">nohup sh bin/mqbroker -n 10.2.x.x:9876 -c ./broker.properties autoCreateTopicEnable=true &amp;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/28/hexo-多设备之间无缝衔接/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JacenTsao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Silence of Heart">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/28/hexo-多设备之间无缝衔接/" itemprop="url">hexo - 多设备之间无缝衔接</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-28T22:56:04+08:00">
+                2018-11-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/博客编写/" itemprop="url" rel="index">
+                    <span itemprop="name">博客编写</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/11/28/hexo-多设备之间无缝衔接/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/11/28/hexo-多设备之间无缝衔接/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最开始使用hexo的时候是在自己的Mac上面搭的，那时候每天都是背着自己的电脑上下班也没觉得不方便。后来老婆跟我在一起以后老是嫌弃我过安检的时候要走有包通道，非常耗时。所以就放弃了带自己的电脑上班，改为专门使用公司提供的Windows工作。这个时候就必须要把家里的电脑和公司的电脑的博客进行同步了。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/28/Stub简介/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1590,299 +1919,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/30/Kotlin学习笔记1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="JacenTsao">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Silence of Heart">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/30/Kotlin学习笔记1/" itemprop="url">Kotlin学习笔记1</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-30T11:47:39+08:00">
-                2017-12-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Kotlin/" itemprop="url" rel="index">
-                    <span itemprop="name">Kotlin</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/12/30/Kotlin学习笔记1/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/12/30/Kotlin学习笔记1/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>随着Kotlin的越来越火热，对于Android开发者而言学习Kotlin也变成了一个必要的过程了。</p>
-<h5 id="基础语法"><a href="#基础语法" class="headerlink" title="基础语法"></a>基础语法</h5><h6 id="定义一个类"><a href="#定义一个类" class="headerlink" title="定义一个类"></a>定义一个类</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class User(name: String, age: Int) &#123;&#125; //如果类没有内容则大括号可以省略掉</span><br></pre></td></tr></table></figure>
-<p>构造函数的函数体，即下列代码的init块中</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class User(name: String, age: Int) &#123;</span><br><span class="line">	init &#123;</span><br><span class="line">		...</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h6 id="类继承"><a href="#类继承" class="headerlink" title="类继承"></a>类继承</h6><p>默认任何类都是继承基础类Any（类似于java中的Object），但是我们可以继承其它类。所有的类默认都是final的，因此如果我们要让别的类继承的话就需要声明open或者abstract关键字。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class User(name: String, age: Int)</span><br><span class="line"></span><br><span class="line">class Max(name: String, age: Int, gender: String) : User(name, age)</span><br></pre></td></tr></table></figure>
-<p>如上所示，如果只有单个构造器时，需要从父类继承下来的构造器中指定需要的参数，类似于java super关键字</p>
-<h6 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h6><p>函数使用fun声明:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fun add(x: Int, y: Int): Int &#123;</span><br><span class="line">       return x + y</span><br><span class="line">   &#125;</span><br><span class="line">  </span><br><span class="line">  func add(x: Int, y: Int) : Int = x+y</span><br><span class="line">   </span><br><span class="line"> 无返回值的函数，会返回Unit，于java中的void类似，但是Unit是一个真正的对象</span><br></pre></td></tr></table></figure>
-<h6 id="构造方法和函数参数"><a href="#构造方法和函数参数" class="headerlink" title="构造方法和函数参数"></a>构造方法和函数参数</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">toast(&quot;hell&quot;) //使用默认的Toast.LENGTH_LONG</span><br><span class="line">toast(&quot;hell&quot;,Toast.LENGTH_LONG)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">fun toast(msg: String, length: Int = Toast.LENGTH_LONG) &#123;//执行函数默认值，避免方法重载</span><br><span class="line">        Toast.makeText(this,msg, length).show()</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/19/gomobile相关的错误处理/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="JacenTsao">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Silence of Heart">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/19/gomobile相关的错误处理/" itemprop="url">gomobile相关的错误处理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-19T12:16:06+08:00">
-                2017-12-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/12/19/gomobile相关的错误处理/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/12/19/gomobile相关的错误处理/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>务必确认在构建非Windows包的时候，根目录下面无syso版本信息文件，否则各种各样的奇葩错误</strong></p>
-<h5 id="seq-android-c-213-3-error"><a href="#seq-android-c-213-3-error" class="headerlink" title="seq_android.c:213:3: error"></a>seq_android.c:213:3: error</h5><figure class="highlight plain"><figcaption><span>go build -pkgdir</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># _/var/folders/w4/75xgx41n2bb7mm3m0dxbp0d40000gn/T/gomobile-work-159245723/gomobile_bind</span><br><span class="line">seq_android.c:213:3: error: implicitly declaring library function &apos;memcpy&apos; with type &apos;void *(void *, const void *, unsigned long)&apos; [-Werror,-Wimplicit-function-declaration]</span><br><span class="line">seq_android.c:213:3: note: include the header &lt;string.h&gt; or explicitly provide a declaration for &apos;memcpy&apos;</span><br></pre></td></tr></table></figure>
-<p>解决方案</p>
-<p><code>https://github.com/golang/go/issues/22766 seq_android.c:213:3: error</code></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1937,7 +1973,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-count">70</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

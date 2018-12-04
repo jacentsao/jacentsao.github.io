@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-11-28T08:49:10.603Z</updated>
+  <updated>2018-12-04T09:11:33.770Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,59 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java - 搭建RocketMQ开发环境</title>
+    <link href="http://yoursite.com/2018/12/04/Java-%E6%90%AD%E5%BB%BARocketMQ%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"/>
+    <id>http://yoursite.com/2018/12/04/Java-搭建RocketMQ开发环境/</id>
+    <published>2018-12-04T08:34:43.000Z</published>
+    <updated>2018-12-04T09:11:33.770Z</updated>
+    
+    <content type="html"><![CDATA[<p>今天尝试搭建一下RocketMQ开发环境，特此记录下搭建流程和搭建过程中遇到的一些问题。</p><p>首先根据官网的<a href="https://rocketmq.apache.org/docs/quick-start/" target="_blank" rel="noopener">教程</a>搭建。</p><h3 id="快速启动"><a href="#快速启动" class="headerlink" title="快速启动"></a>快速启动</h3><h4 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h4><ul><li>64bit OS, Linux/Unix/Mac is recommended;</li><li>64bit JDK 1.8+;</li><li>Maven 3.2.x;</li><li>Git;</li><li>4g+ free disk for Broker server</li></ul><h4 id="下载，构建"><a href="#下载，构建" class="headerlink" title="下载，构建"></a>下载，构建</h4><p>下载源码或者release的版本，下载地址: <a href="https://www.apache.org/dyn/closer.cgi?path=rocketmq/4.3.2/rocketmq-all-4.3.2-source-release.zip" target="_blank" rel="noopener">https://www.apache.org/dyn/closer.cgi?path=rocketmq/4.3.2/rocketmq-all-4.3.2-source-release.zip</a></p><p>如果下载的是源码的话需要使用maven进行编译：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  </span><br><span class="line">&gt; unzip rocketmq-all-4.3.2-source-release.zip</span><br><span class="line">&gt; cd rocketmq-all-4.3.2/</span><br><span class="line">&gt; mvn -Prelease-all -DskipTests clean install -U</span><br><span class="line">&gt; cd distribution/target/apache-rocketmq</span><br></pre></td></tr></table></figure><p>如果不是源码的话直接进入解压后的文件即可。</p><h4 id="启动Name-Server"><a href="#启动Name-Server" class="headerlink" title="启动Name Server"></a>启动Name Server</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt; nohup sh bin/mqnamesrv &amp;</span><br><span class="line">&gt; tail -f ~/logs/rocketmqlogs/namesrv.log</span><br><span class="line">The Name Server boot success...</span><br><span class="line">以上是官网提供的示例。我遇到的情况是输出倒了当前目录下的nohup.out文件中，使用tail 或者vim确定Name Server是否正常启动</span><br></pre></td></tr></table></figure><h4 id="启动Broker"><a href="#启动Broker" class="headerlink" title="启动Broker"></a>启动Broker</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; nohup sh bin/mqbroker -n localhost:9876 &amp;</span><br><span class="line">&gt; tail -f ~/logs/rocketmqlogs/broker.log </span><br><span class="line">The broker[%s, 172.30.30.233:10911] boot success...</span><br><span class="line">同样的在nohub.out中查看</span><br></pre></td></tr></table></figure><h4 id="发送和接收消息"><a href="#发送和接收消息" class="headerlink" title="发送和接收消息"></a>发送和接收消息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//告诉客户端需要发送到哪个服务端</span><br><span class="line">&gt; export NAMESRV_ADDR=localhost:9876</span><br><span class="line">&gt; sh bin/tools.sh org.apache.rocketmq.example.quickstart.Producer</span><br><span class="line">SendResult [sendStatus=SEND_OK, msgId= ...</span><br><span class="line"></span><br><span class="line">&gt; sh bin/tools.sh org.apache.rocketmq.example.quickstart.Consumer</span><br><span class="line">ConsumeMessageThread_%d Receive New Messages: [MessageExt...</span><br></pre></td></tr></table></figure><h4 id="关闭服务"><a href="#关闭服务" class="headerlink" title="关闭服务"></a>关闭服务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; sh bin/mqshutdown broker</span><br><span class="line">The mqbroker(36695) is running...</span><br><span class="line">Send shutdown request to mqbroker(36695) OK</span><br><span class="line"></span><br><span class="line">&gt; sh bin/mqshutdown namesrv</span><br><span class="line">The mqnamesrv(36664) is running...</span><br><span class="line">Send shutdown request to mqnamesrv(36664) OK</span><br></pre></td></tr></table></figure><h3 id="简单的示例"><a href="#简单的示例" class="headerlink" title="简单的示例"></a>简单的示例</h3><p>官网地址<a href="https://rocketmq.apache.org/docs/simple-example/" target="_blank" rel="noopener">https://rocketmq.apache.org/docs/simple-example/</a></p><h4 id="1-添加依赖"><a href="#1-添加依赖" class="headerlink" title="1.添加依赖"></a>1.添加依赖</h4><p>由于我们使用的是maven管理工具,gradle的依赖可以参考官网。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.rocketmq&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;rocketmq-client&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;4.3.0&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure><h4 id="2-1-发送同步消息"><a href="#2-1-发送同步消息" class="headerlink" title="2.1 发送同步消息"></a>2.1 发送同步消息</h4><p>同步消息适合于很多场景，例如重要消息的通知，SMS通知，SMS系统市场。其他都在官网，可以多多看看文档。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">public class SyncProducer &#123;</span><br><span class="line">    public static void main(String[] args) throws Exception &#123;</span><br><span class="line">        //Instantiate with a producer group name.</span><br><span class="line">        DefaultMQProducer producer = new</span><br><span class="line">            DefaultMQProducer(&quot;please_rename_unique_group_name&quot;);</span><br><span class="line">        // Specify name server addresses.</span><br><span class="line">        producer.setNamesrvAddr(&quot;localhost:9876&quot;);</span><br><span class="line">        //Launch the instance.</span><br><span class="line">        producer.start();</span><br><span class="line">        for (int i = 0; i &lt; 100; i++) &#123;</span><br><span class="line">            //Create a message instance, specifying topic, tag and message body.</span><br><span class="line">            Message msg = new Message(&quot;TopicTest&quot; /* Topic */,</span><br><span class="line">                &quot;TagA&quot; /* Tag */,</span><br><span class="line">                (&quot;Hello RocketMQ &quot; +</span><br><span class="line">                    i).getBytes(RemotingHelper.DEFAULT_CHARSET) /* Message body */</span><br><span class="line">            );</span><br><span class="line">            //Call send message to deliver message to one of brokers.</span><br><span class="line">            SendResult sendResult = producer.send(msg);</span><br><span class="line">            System.out.printf(&quot;%s%n&quot;, sendResult);</span><br><span class="line">        &#125;</span><br><span class="line">        //Shut down once the producer instance is not longer in use.</span><br><span class="line">        producer.shutdown();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h3><ol><li>在客户机访问服务器mq的时候出现<code>Exception in thread &quot;main&quot; org.apache.rocketmq.remoting.exception.RemotingTooMuchRequestException: sendDefaultImpl call timeout</code>，此时时由于RocktMQ没有绑定网卡ip导致。调整启动broker的配置如下所示：</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//生成配置信息</span><br><span class="line">echo &quot;brokerIP1=10.2.x.x&quot; &gt; broker.properties</span><br><span class="line"></span><br><span class="line">//broker绑定ip</span><br><span class="line">nohup sh bin/mqbroker -n 10.2.x.x:9876 -c ./broker.properties autoCreateTopicEnable=true &amp;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;今天尝试搭建一下RocketMQ开发环境，特此记录下搭建流程和搭建过程中遇到的一些问题。&lt;/p&gt;
+&lt;p&gt;首先根据官网的&lt;a href=&quot;https://rocketmq.apache.org/docs/quick-start/&quot; target=&quot;_blank&quot; rel=&quot;n
+      
+    
+    </summary>
+    
+      <category term="后端" scheme="http://yoursite.com/categories/%E5%90%8E%E7%AB%AF/"/>
+    
+    
+      <category term="后端" scheme="http://yoursite.com/tags/%E5%90%8E%E7%AB%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hexo - 多设备之间无缝衔接</title>
+    <link href="http://yoursite.com/2018/11/28/hexo-%E5%A4%9A%E8%AE%BE%E5%A4%87%E4%B9%8B%E9%97%B4%E6%97%A0%E7%BC%9D%E8%A1%94%E6%8E%A5/"/>
+    <id>http://yoursite.com/2018/11/28/hexo-多设备之间无缝衔接/</id>
+    <published>2018-11-28T14:56:04.000Z</published>
+    <updated>2018-11-28T23:19:14.603Z</updated>
+    
+    <content type="html"><![CDATA[<p>最开始使用hexo的时候是在自己的Mac上面搭的，那时候每天都是背着自己的电脑上下班也没觉得不方便。后来老婆跟我在一起以后老是嫌弃我过安检的时候要走有包通道，非常耗时。所以就放弃了带自己的电脑上班，改为专门使用公司提供的Windows工作。这个时候就必须要把家里的电脑和公司的电脑的博客进行同步了。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;最开始使用hexo的时候是在自己的Mac上面搭的，那时候每天都是背着自己的电脑上下班也没觉得不方便。后来老婆跟我在一起以后老是嫌弃我过安检的时候要走有包通道，非常耗时。所以就放弃了带自己的电脑上班，改为专门使用公司提供的Windows工作。这个时候就必须要把家里的电脑和公司
+      
+    
+    </summary>
+    
+      <category term="博客编写" scheme="http://yoursite.com/categories/%E5%8D%9A%E5%AE%A2%E7%BC%96%E5%86%99/"/>
+    
+    
+      <category term="hexo" scheme="http://yoursite.com/tags/hexo/"/>
+    
+      <category term="blog" scheme="http://yoursite.com/tags/blog/"/>
+    
+  </entry>
   
   <entry>
     <title>Stub简介</title>
@@ -183,9 +236,9 @@
       <category term="测试" scheme="http://yoursite.com/categories/%E6%B5%8B%E8%AF%95/"/>
     
     
-      <category term="性能" scheme="http://yoursite.com/tags/%E6%80%A7%E8%83%BD/"/>
-    
       <category term="后端" scheme="http://yoursite.com/tags/%E5%90%8E%E7%AB%AF/"/>
+    
+      <category term="性能" scheme="http://yoursite.com/tags/%E6%80%A7%E8%83%BD/"/>
     
       <category term="测试" scheme="http://yoursite.com/tags/%E6%B5%8B%E8%AF%95/"/>
     
@@ -475,62 +528,6 @@
       <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
     
       <category term="Performance" scheme="http://yoursite.com/tags/Performance/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android - 通过hierarchy View来分析布局</title>
-    <link href="http://yoursite.com/2017/08/28/Android-%E9%80%9A%E8%BF%87hierarchy-View%E6%9D%A5%E5%88%86%E6%9E%90%E5%B8%83%E5%B1%80/"/>
-    <id>http://yoursite.com/2017/08/28/Android-通过hierarchy-View来分析布局/</id>
-    <published>2017-08-28T12:49:49.000Z</published>
-    <updated>2018-11-28T01:27:42.905Z</updated>
-    
-    <content type="html"><![CDATA[<p>Hierarchy Viewer是Android device monitor内嵌的一个工具，可以通过这个工具来检查你的层次视图的属性和Layout的速度。他能够帮你找到层次布局结构的性能瓶颈，帮助你简化层次布局减少过度绘制。</p><h4 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h4><p>如果使用Android模拟器的话可以略过这一段。否则的话，需要对你的设备进行如下的配置：</p><p>注意：你的设备需要时Android4.1及以上API版本</p><ol><li>打开设备的开发者模式</li><li>在你的开发电脑上设置环境变ANDROID_HVPROTO=ddm，这个变量告诉Hierarchy Viewer使用和DDMS协议一致的ddm协议来连接你的设备。但是host只能够有一个进程连接到设备，所以你必须关闭其他通过Hierarchy Viewer运行的DDMS会话</li></ol><h4 id="开始使用Hierarchy-Viewer"><a href="#开始使用Hierarchy-Viewer" class="headerlink" title="开始使用Hierarchy Viewer"></a>开始使用Hierarchy Viewer</h4><p>打开Android device monitor后如下图所示：</p><ol><li>连接你的设备到电脑。</li><li>打开Android Studio，运行一个软件到你的设备</li><li>在Android Studio-Tools-Android-Android device monitor。</li><li>选择Hierarchy View</li><li>在左边的窗口双击你的包名。</li></ol><p><img src="https://developer.android.com/images/tools/performance/hierarchy-viewer/gettingstarted_image005.png" alt=""></p><h4 id="熟悉工具"><a href="#熟悉工具" class="headerlink" title="熟悉工具"></a>熟悉工具</h4><p>下图是Hierarchy Viewer的面板:</p><p><img src="https://developer.android.com/images/tools/performance/hierarchy-viewer/gettingstarted_image008.png" alt=""></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;Hierarchy Viewer是Android device monitor内嵌的一个工具，可以通过这个工具来检查你的层次视图的属性和Layout的速度。他能够帮你找到层次布局结构的性能瓶颈，帮助你简化层次布局减少过度绘制。&lt;/p&gt;
-&lt;h4 id=&quot;开始&quot;&gt;&lt;a href
-      
-    
-    </summary>
-    
-      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
-    
-    
-      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
-    
-      <category term="Performance" scheme="http://yoursite.com/tags/Performance/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android - Performance and View Hierarchies</title>
-    <link href="http://yoursite.com/2017/08/27/Android-Performance-and-View-Hierarchies/"/>
-    <id>http://yoursite.com/2017/08/27/Android-Performance-and-View-Hierarchies/</id>
-    <published>2017-08-27T13:10:02.000Z</published>
-    <updated>2018-11-28T01:27:42.903Z</updated>
-    
-    <content type="html"><![CDATA[<p>布局的层次对于应用的性能影响也是很显著的。</p><h4 id="布局和测量性能"><a href="#布局和测量性能" class="headerlink" title="布局和测量性能"></a>布局和测量性能</h4><p>渲染本身包含了Layout和Measure两个过程，系统在这两个过程中确定View hierarchy的具体位置。Measure过程确定了View的尺寸和边界，Layout过程则确定了View在屏幕的位置。</p><p>这两个过程本身会占用一些系统的资源。当然，大多数时候，这个过程占用的系统资源较少，不会对性能造成显著的影响。但是，如果你的应用需要添加或者移除View对象就会显著开销更多的资源，例如Recycleview回收或者复用。或者当一个View对象需要重绘来满足它的约束的时候，也会占用更多的资源。例如，给一个WRAP_CONTENT的View对象设置文本，会导致重绘。</p><p>如果一个渲染过程过长，就会导致无法在16ms内渲染完一帧，这就会导致掉帧，动画也会变得卡顿。</p><p>由于UI的绘制是处于主线程的，所以对于这些导致卡顿的问题需要优化，从而让我们的应用变得流畅。</p><h5 id="管理复杂度：Layout相关"><a href="#管理复杂度：Layout相关" class="headerlink" title="管理复杂度：Layout相关"></a>管理复杂度：Layout相关</h5><p>Android布局允许你嵌套UI对象，这种嵌套经常会导致额外的开销。当你的应用渲染一个Layout的对象，应用同时需要渲染它的所有的子View。对于一个复杂的Layout，有时候系统只有在第一次加载的时候会比较占用系统资源。例如，你的应用中有一个复杂的复用过的Recycleview，系统需要加载所有的对象。其他例子，一个微不足道的变化可能会导致视图层次的一系列的重绘。</p><p>Layout过程中视图层次的嵌套会显著导致绘制的时间增加。因此，越少层次的嵌套，Layout过程花费的时间就越少。</p><p>如果你使用RelativeLayout，但是你也可能在不使用weight属性的情况下，通过使用LinearLayout实现。另外，如果你的target版本是Android7.0的话，你还可以使用ConstraintLayout，这是一个用于替换RelativeLayout的布局，它是一个功能类似，性能更好的RelativeLayout。</p><h5 id="“双重税收”"><a href="#“双重税收”" class="headerlink" title="“双重税收”"></a>“双重税收”</h5><p>一般来说，系统执行Layout或者Measure过程是非常快的。但是，对于一些很复杂的Layout，系统可能需要多次绘制才能够最终确定所有对象的位置。这种超过一次的Layout和Measure过程就是所谓的双重税收。</p><p>例如，当你使用一个可以通过一个View对象确定另一个View对象的位置的RelativeLayout容器。系统会执行以下步骤：</p><ol><li>根据每一个子View的约束条件，逐个执行Layout和Measure过程</li><li>使用前面的数据，同时计算View的weight，来给相对的View找到一个合适的位置</li><li>再次执行Layout过程来确定这些相对位置的View</li><li>执行下一个渲染过程</li></ol><p>如果你的视图层次越多，那么潜在性能问题就越多。</p><p>除了RelativeLayout其他容器也会导致双重税收。例如：</p><ul><li>水平的线性布局会导致两次Layout和Measure过程。如果你给线性布局添加了<a href="https://developer.android.com/reference/android/widget/LinearLayout.html#attr_android:measureWithLargestChild" target="_blank" rel="noopener">measureWithLargestChild</a>（其实是由于使用了weight属性的View的尺寸等于最大的子View的最小尺寸）也有可能由于要进行第二次Layout和Measure来确定每一个View对象的大小。</li><li>GridLayout同样也有类似的问题。这个容器同样允许相对位置，正常情况下，GridLayout会通过预处理确定号子View的相对关系来避免双重税收。但是，如果Layout使用了weight或者Gravity的时候，它的预处理就没了，当容器是RelativeLayout的时候系统可能需要多次执行这个过程。</li></ul><p>多次的Layout和Measure过程本身并不是一个性能负担。但是，他们会在某些场景下成为一种负担。我们应该对以下的情况保持足够的警惕：</p><ul><li>布局层次的根布局</li><li>布局层次过多</li><li>一个界面产生很多的实例，例如ListView</li></ul><h4 id="诊断布局层次问题"><a href="#诊断布局层次问题" class="headerlink" title="诊断布局层次问题"></a>诊断布局层次问题</h4><p>布局性能问题受到很多因素的影响而变成了一个复杂的问题。以下是一些帮助你找到性能瓶颈的工具。当然也有一些其他的，没有那么确定性的工具，但也能提供一些提示帮助我们找到问题。</p><h5 id="Systrace"><a href="#Systrace" class="headerlink" title="Systrace"></a>Systrace</h5><p><a href="https://developer.android.com/studio/profile/systrace.html" target="_blank" rel="noopener">Systrace</a>是一个Android SDK内嵌的诊断性能问题的工具。这个工具允许我们查看整个设备的时间信息，允许你查看什么时候会因为Layout的性能问题影响到设备的性能。</p><h5 id="GPU呈现模式"><a href="#GPU呈现模式" class="headerlink" title="GPU呈现模式"></a>GPU呈现模式</h5><h5 id="lint检查"><a href="#lint检查" class="headerlink" title="lint检查"></a>lint检查</h5><h5 id="Hierarchy-Viewer"><a href="#Hierarchy-Viewer" class="headerlink" title="Hierarchy Viewer"></a>Hierarchy Viewer</h5><h4 id="解决布局层次问题"><a href="#解决布局层次问题" class="headerlink" title="解决布局层次问题"></a>解决布局层次问题</h4><h5 id="减少无用的嵌套"><a href="#减少无用的嵌套" class="headerlink" title="减少无用的嵌套"></a>减少无用的嵌套</h5><h5 id="使用merge-include标签"><a href="#使用merge-include标签" class="headerlink" title="使用merge/include标签"></a>使用merge/include标签</h5><h5 id="整体替换新的Layout"><a href="#整体替换新的Layout" class="headerlink" title="整体替换新的Layout"></a>整体替换新的Layout</h5>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;布局的层次对于应用的性能影响也是很显著的。&lt;/p&gt;
-&lt;h4 id=&quot;布局和测量性能&quot;&gt;&lt;a href=&quot;#布局和测量性能&quot; class=&quot;headerlink&quot; title=&quot;布局和测量性能&quot;&gt;&lt;/a&gt;布局和测量性能&lt;/h4&gt;&lt;p&gt;渲染本身包含了Layout和Measure
-      
-    
-    </summary>
-    
-      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
-    
-    
-      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
-    
-      <category term="performance" scheme="http://yoursite.com/tags/performance/"/>
     
   </entry>
   
