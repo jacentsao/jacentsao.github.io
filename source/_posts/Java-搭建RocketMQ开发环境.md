@@ -127,6 +127,41 @@ public class SyncProducer {
 }
 ```
 
+#### 消费
+
+```
+
+public class Consumer {
+
+    public static void main(String[] args) throws InterruptedException, MQClientException {
+
+        // Instantiate with specified consumer group name.
+        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("please_rename_unique_group_name");
+         
+        // Specify name server addresses.
+        consumer.setNamesrvAddr("localhost:9876");
+        
+        // Subscribe one more more topics to consume.
+        consumer.subscribe("TopicTest", "*");
+        // Register callback to execute on arrival of messages fetched from brokers.
+        consumer.registerMessageListener(new MessageListenerConcurrently() {
+
+            @Override
+            public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs,
+                ConsumeConcurrentlyContext context) {
+                System.out.printf("%s Receive New Messages: %s %n", Thread.currentThread().getName(), msgs);
+                return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
+            }
+        });
+
+        //Launch the consumer instance.
+        consumer.start();
+
+        System.out.printf("Consumer Started.%n");
+    }
+}
+```
+
 ### 遇到的问题
 
 1. 在客户机访问服务器mq的时候出现`Exception in thread "main" org.apache.rocketmq.remoting.exception.RemotingTooMuchRequestException: sendDefaultImpl call timeout`，此时时由于RocktMQ没有绑定网卡ip导致。调整启动broker的配置如下所示：
