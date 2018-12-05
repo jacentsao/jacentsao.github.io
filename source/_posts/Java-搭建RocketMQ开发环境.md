@@ -164,7 +164,7 @@ public class Consumer {
 ### 遇到的问题
 
 
-1. `error='Cannot allocate memory'`无法分配内存问题，报错信息如下：
+#### 1. `error='Cannot allocate memory'`
 
 ```shell
 Java HotSpot(TM) 64-Bit Server VM warning: INFO: os::commit_memory(0x00000005fb000000, 8589934592, 0) failed; error='Cannot allocate memory' (errno=12)
@@ -186,8 +186,9 @@ JAVA_OPT="${JAVA_OPT} -server -Xms256m -Xmx256m -Xmn125m -XX:MetaspaceSize=128m 
 
 同样的如果nameserver有问题也要相应的进行调整。
 
-2. 在客户机访问服务器mq的时候出现`Exception in thread "main" org.apache.rocketmq.remoting.exception.RemotingTooMuchRequestException: sendDefaultImpl call timeout`，此时时由于RocktMQ没有绑定网卡ip导致。调整启动broker的配置如下所示：
+#### 2. `Exception in thread "main" org.apache.rocketmq.remoting.exception.RemotingTooMuchRequestException: sendDefaultImpl call timeout`
 
+由于RocktMQ没有绑定网卡ip导致，如果服务器有多网卡配置的时候，或者虚拟机。
 ```shell
 //生成配置信息
 echo "brokerIP1=10.2.x.x" > broker.properties
@@ -196,7 +197,9 @@ echo "brokerIP1=10.2.x.x" > broker.properties
 nohup sh bin/mqbroker -n 10.2.x.x:9876 -c ./broker.properties autoCreateTopicEnable=true &
 ```
 
-3. Java版本太低出现报错，此时需要升级到Java8，或者将该配置移除：
+#### 3. `Unrecognized VM option 'MetaspaceSize=128m'`
+
+Java版本太低出现报错，此时需要升级到Java8，或者将该配置移除：
 
 ```shell
 Unrecognized VM option 'MetaspaceSize=128m'
@@ -209,4 +212,7 @@ Error: Could not create the Java Virtual Machine.
 JAVA_OPT="${JAVA_OPT} -server -Xms256m -Xmx256m -Xmn125m"
 ```
 
-4. 如果一直出现`No route info of this topic`，请检查服务器端口是否是开放的，另外可以试一下关闭客户端的防火墙再去请求试试。
+#### 4. `No route info of this topic`
+    1. 请检查服务器端口是否是开放的
+    2. 可以试一下关闭客户端的防火墙再去请求试试。
+    3. 检查服务器是否有执行export NAMESRV_ADDR=localhost:9876
