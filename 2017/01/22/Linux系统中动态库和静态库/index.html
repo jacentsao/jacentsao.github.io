@@ -6,10 +6,10 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-Hans">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#222">
 
 
@@ -20,8 +20,8 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -40,7 +40,7 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -48,9 +48,9 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
@@ -68,13 +68,13 @@
 
 
 
-  <meta name="keywords" content="Linux,动态库,静态库," />
+  <meta name="keywords" content="Linux,动态库,静态库,">
 
 
 
 
 
-  <link rel="alternate" href="/atom.xml" title="Silence of Heart" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="Silence of Heart" type="application/atom+xml">
 
 
 
@@ -90,7 +90,7 @@
 <meta property="og:description" content="原文转载自wjlkoorey的博客最近一直在学习go语言跨平台编译,在这个过程中也学习了其它很多的内容,今天回顾一下Linux系统下动态库(.so)和静态(.a)的程序那些猫腻.在这之前，我们需要了解一下源代码到可执行程序之间到底发生了什么神奇而美妙的事情。 在Linux操作系统中，普遍使用ELF格式作为可执行程序或者程序生成过程中的中间格式。ELF（Executable and Linking">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRVaYfvML9MiCHmqr9KBqadX6_DbW8XIiJXlUttBvbfuwWG4Wv3">
-<meta property="og:updated_time" content="2018-11-28T01:27:42.910Z">
+<meta property="og:updated_time" content="2018-11-29T01:09:24.160Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux系统中动态库和静态库">
 <meta name="twitter:description" content="原文转载自wjlkoorey的博客最近一直在学习go语言跨平台编译,在这个过程中也学习了其它很多的内容,今天回顾一下Linux系统下动态库(.so)和静态(.a)的程序那些猫腻.在这之前，我们需要了解一下源代码到可执行程序之间到底发生了什么神奇而美妙的事情。 在Linux操作系统中，普遍使用ELF格式作为可执行程序或者程序生成过程中的中间格式。ELF（Executable and Linking">
@@ -124,7 +124,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/01/22/Linux系统中动态库和静态库/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/01/22/Linux系统中动态库和静态库/">
 
 
 
@@ -142,7 +142,7 @@
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
@@ -152,13 +152,13 @@
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">Silence of Heart</span>
         <span class="logo-line-after"><i></i></span>
@@ -188,7 +188,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
           </a>
@@ -198,7 +198,7 @@
         <li class="menu-item menu-item-about">
           <a href="/about/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
             
             关于
           </a>
@@ -208,7 +208,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
             
             标签
           </a>
@@ -218,7 +218,7 @@
         <li class="menu-item menu-item-categories">
           <a href="/categories/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
             
             分类
           </a>
@@ -228,7 +228,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
           </a>
@@ -238,7 +238,7 @@
         <li class="menu-item menu-item-schedule">
           <a href="/schedule/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
             
             日程表
           </a>
@@ -248,7 +248,7 @@
         <li class="menu-item menu-item-sitemap">
           <a href="/sitemap.xml" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
             
             站点地图
           </a>
@@ -258,7 +258,7 @@
         <li class="menu-item menu-item-commonweal">
           <a href="/404/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
             
             公益404
           </a>
@@ -271,7 +271,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
             
             搜索
           </a>
@@ -292,9 +292,7 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off"
-             placeholder="搜索..." spellcheck="false"
-             type="text" id="local-search-input">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -326,20 +324,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/22/Linux系统中动态库和静态库/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="JacenTsao">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Silence of Heart">
     </span>
 
@@ -371,7 +369,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
             
               <span class="post-meta-divider">|</span>
             
@@ -382,7 +380,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
                   <a href="/categories/Linux/" itemprop="url" rel="index">
                     <span itemprop="name">Linux</span>
                   </a>
@@ -529,8 +527,7 @@
 
   
     <div class="comments" id="comments">
-      <div class="ds-thread" data-thread-key="2017/01/22/Linux系统中动态库和静态库/"
-           data-title="Linux系统中动态库和静态库" data-url="http://yoursite.com/2017/01/22/Linux系统中动态库和静态库/">
+      <div class="ds-thread" data-thread-key="2017/01/22/Linux系统中动态库和静态库/" data-title="Linux系统中动态库和静态库" data-url="http://yoursite.com/2017/01/22/Linux系统中动态库和静态库/">
       </div>
     </div>
 
@@ -569,11 +566,9 @@
 
       <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image"
-                src="/images/avatar.jpg"
-                alt="JacenTsao" />
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="JacenTsao">
             
               <p class="site-author-name" itemprop="name">JacenTsao</p>
               <p class="site-description motion-element" itemprop="description">这是我的个人测试小站</p>
@@ -625,7 +620,7 @@
             </div>
           
           <div id="music163player">
-           <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=86 src="//music.163.com/outchain/player?type=2&id=3951066&auto=0&height=66">
+           <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="280" height="86" src="//music.163.com/outchain/player?type=2&id=3951066&auto=0&height=66">
            </iframe>
           </div>
           </div>
@@ -649,8 +644,8 @@
 
           
 
-        </div>
-      </section>
+        </section></div>
+      
 
       
       <!--noindex-->
@@ -662,7 +657,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#原文转载自wjlkoorey的博客"><span class="nav-number">1.</span> <span class="nav-text">原文转载自wjlkoorey的博客</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-可执行文件"><span class="nav-number"></span> <span class="nav-text">1.可执行文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-可重定向文件"><span class="nav-number"></span> <span class="nav-text">2.可重定向文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-共享库"><span class="nav-number"></span> <span class="nav-text">3.共享库</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#那么到底什么是库呢？"><span class="nav-number"></span> <span class="nav-text">那么到底什么是库呢？</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#原文转载自wjlkoorey的博客"><span class="nav-number">1.</span> <span class="nav-text">原文转载自wjlkoorey的博客</span></a></li></ol><li class="nav-item nav-level-4"><a class="nav-link" href="#1-可执行文件"><span class="nav-number"></span> <span class="nav-text">1.可执行文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-可重定向文件"><span class="nav-number"></span> <span class="nav-text">2.可重定向文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-共享库"><span class="nav-number"></span> <span class="nav-text">3.共享库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#那么到底什么是库呢？"><span class="nav-number"></span> <span class="nav-text">那么到底什么是库呢？</span></a></li></div>
             
 
           </div>
@@ -672,13 +667,13 @@
 
       
 
-    </div>
-  </aside>
+    </aside></div>
+  
 
 
         
-      </div>
-    </main>
+      </main></div>
+    
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
@@ -726,7 +721,7 @@
 
     
 
-  </div>
+  
 
   
 
