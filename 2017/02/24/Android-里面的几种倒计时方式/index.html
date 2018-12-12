@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="在Android中我们经常使用到序列化来进行数据传递,比如Intent和Binder,或者将对象持久化到存储设备或者通过网络传输到其他设备的时候.通常我们会有两种方式来实现序列化: 1.Serializable 2.Parcelable  1. Serializable方式实现序列化Serializable是java中所提供的一个序列化接口，它是空接口。通常我们可以通过实现Serializable">
+<meta name="description" content="Android常见的一些及时方式:TimeTask,CounterDownTimer,Handler.postDelay().a  TimeTask   ​         final Handler handler = new Handler() { ​        public void handleMessage(Message msg) { ​            switch (ms">
 <meta name="keywords" content="Android">
 <meta property="og:type" content="article">
-<meta property="og:title" content="序列化">
-<meta property="og:url" content="http://yoursite.com/2017/02/26/序列化/index.html">
+<meta property="og:title" content="Android-里面的几种倒计时方式">
+<meta property="og:url" content="http://yoursite.com/2017/02/24/Android-里面的几种倒计时方式/index.html">
 <meta property="og:site_name" content="Silence of Heart">
-<meta property="og:description" content="在Android中我们经常使用到序列化来进行数据传递,比如Intent和Binder,或者将对象持久化到存储设备或者通过网络传输到其他设备的时候.通常我们会有两种方式来实现序列化: 1.Serializable 2.Parcelable  1. Serializable方式实现序列化Serializable是java中所提供的一个序列化接口，它是空接口。通常我们可以通过实现Serializable">
+<meta property="og:description" content="Android常见的一些及时方式:TimeTask,CounterDownTimer,Handler.postDelay().a  TimeTask   ​         final Handler handler = new Handler() { ​        public void handleMessage(Message msg) { ​            switch (ms">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-29T01:09:24.204Z">
+<meta property="og:updated_time" content="2018-12-12T09:37:19.841Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="序列化">
-<meta name="twitter:description" content="在Android中我们经常使用到序列化来进行数据传递,比如Intent和Binder,或者将对象持久化到存储设备或者通过网络传输到其他设备的时候.通常我们会有两种方式来实现序列化: 1.Serializable 2.Parcelable  1. Serializable方式实现序列化Serializable是java中所提供的一个序列化接口，它是空接口。通常我们可以通过实现Serializable">
+<meta name="twitter:title" content="Android-里面的几种倒计时方式">
+<meta name="twitter:description" content="Android常见的一些及时方式:TimeTask,CounterDownTimer,Handler.postDelay().a  TimeTask   ​         final Handler handler = new Handler() { ​        public void handleMessage(Message msg) { ​            switch (ms">
 
 
 
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/02/26/序列化/">
+  <link rel="canonical" href="http://yoursite.com/2017/02/24/Android-里面的几种倒计时方式/">
 
 
 
 
 
-  <title>序列化 | Silence of Heart</title>
+  <title>Android-里面的几种倒计时方式 | Silence of Heart</title>
   
 
 
@@ -327,7 +327,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/26/序列化/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/24/Android-里面的几种倒计时方式/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="JacenTsao">
@@ -344,7 +344,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">序列化</h1>
+          <h1 class="post-title" itemprop="name headline">Android-里面的几种倒计时方式</h1>
         
 
         <div class="post-meta">
@@ -356,8 +356,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-26T20:18:04+08:00">
-                2017-02-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-24T21:40:24+08:00">
+                2017-02-24
               </time>
             
 
@@ -397,8 +397,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/02/26/序列化/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/26/序列化/" itemprop="commentCount"></span>
+                <a href="/2017/02/24/Android-里面的几种倒计时方式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/24/Android-里面的几种倒计时方式/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -426,31 +426,62 @@
       
 
       
-        <p>在Android中我们经常使用到序列化来进行数据传递,比如Intent和Binder,或者将对象持久化到存储设备或者通过网络传输到其他设备的时候.通常我们会有两种方式来实现序列化: 1.Serializable 2.Parcelable </p>
-<h5 id="1-Serializable方式实现序列化"><a href="#1-Serializable方式实现序列化" class="headerlink" title="1. Serializable方式实现序列化"></a>1. Serializable方式实现序列化</h5><p>Serializable是java中所提供的一个序列化接口，它是空接口。通常我们可以通过实现Serializable接口来实现序列化，为对象提供标准的序列化和反序列化操作。同时我们注意到在实现该接口的时候我们会有一个long型的serialVersionUID，这个serialVersionUID主要是用于反序列化。如下所示：</p>
-<pre><code>public class User implements Serializable {
-    private static final long serialVersionUID = 7990301608074625143L;
-    public static int GENDAT_FEMALE = 0;
-    public static int GENDAT_MALE = 1;
-    private String name;
+        <p>Android常见的一些及时方式:TimeTask,CounterDownTimer,Handler.postDelay().a</p>
+<ol>
+<li>TimeTask </li>
+</ol>
+<pre><code>​    
+    final Handler handler = new Handler() {
+​        public void handleMessage(Message msg) {
+​            switch (msg.what) {
+​                case 1:
+​                    if (timerCount &gt; 0) {
+​                        btnGetVerifyCode.setEnabled(false);
+​                        btnGetVerifyCode.setText(&quot;重新获取(&quot; + String.valueOf(timerCount) + &quot;s)&quot;);
+​                        timerCount--;
+​                    } else {
+​                        btnGetVerifyCode.setEnabled(true);
+​                        btnGetVerifyCode.setText(&quot;重新获取&quot;);
+​                        if (task != null) {
+​                            task.cancel();
+​                        }
+​                    }
+​                    break;
+​            }
+​            super.handleMessage(msg);
+​        }
+           };
 
-    private int age;
 
-    private int gendar;
+    class MyTimerTask extends TimerTask {
 
-    transient //序列化的时候忽略该字段
-    private int test;
-}
-</code></pre><p>以上面的User类为例，将其一个对象写入文件以后再从文件读取：</p>
-<pre><code>User user = new User(&quot;Max&quot;, 0, 0, 0);
-ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(path));
-outputStream.writeObject(user);
-outputStream.close();
+        @Override
+        public void run() {
+            Message message = new Message();
+            message.what = 1;
+            handler.sendMessage(message);
+        }
+    }
 
-ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(path));
-User reader = (User) inputStream.readObject();
-Toast.makeText(this, reader.toString(), Toast.LENGTH_LONG).show();
-</code></pre><p>当把对象user写入到文件中的时候，同时会写入对象的serialVersionUID，在从文件中读取对象的时候，    </p>
+
+        timerCount = 60;
+</code></pre><p>​         task = new MyTimerTask();<br>​         timer.schedule(task, 0, 1000); //延时1000ms后执行，1000ms执行一次<br>​<br>​         </p>
+<ol>
+<li><p>CountDownTimer</p>
+<pre><code>new CountDownTimer(60000, 1000) {
+
+public void onTick(long millisUntilFinished) {
+    mTextField.setText(&quot;seconds remaining: &quot; + millisUntilFinished / 1000);
+ }
+
+ public void onFinish() {
+     mTextField.setText(&quot;done!&quot;);
+ }
+  }.start();
+</code></pre></li>
+<li><p>不做详细说明了</p>
+</li>
+</ol>
 
       
     </div>
@@ -481,8 +512,8 @@ Toast.makeText(this, reader.toString(), Toast.LENGTH_LONG).show();
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/02/24/Android里面的几种倒计时方式/" rel="next" title="Android里面的几种倒计时方式">
-                <i class="fa fa-chevron-left"></i> Android里面的几种倒计时方式
+              <a href="/2017/02/24/Android-下面如何改变文件权限/" rel="next" title="Android-下面如何改变文件权限">
+                <i class="fa fa-chevron-left"></i> Android-下面如何改变文件权限
               </a>
             
           </div>
@@ -491,8 +522,8 @@ Toast.makeText(this, reader.toString(), Toast.LENGTH_LONG).show();
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/03/uuid通用唯一识别码/" rel="prev" title="uuid通用唯一识别码">
-                uuid通用唯一识别码 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/02/26/Android-序列化/" rel="prev" title="Android-序列化">
+                Android-序列化 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -524,7 +555,7 @@ Toast.makeText(this, reader.toString(), Toast.LENGTH_LONG).show();
 
   
     <div class="comments" id="comments">
-      <div class="ds-thread" data-thread-key="2017/02/26/序列化/" data-title="序列化" data-url="http://yoursite.com/2017/02/26/序列化/">
+      <div class="ds-thread" data-thread-key="2017/02/24/Android-里面的几种倒计时方式/" data-title="Android-里面的几种倒计时方式" data-url="http://yoursite.com/2017/02/24/Android-里面的几种倒计时方式/">
       </div>
     </div>
 
@@ -551,17 +582,8 @@ Toast.makeText(this, reader.toString(), Toast.LENGTH_LONG).show();
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -578,7 +600,7 @@ Toast.makeText(this, reader.toString(), Toast.LENGTH_LONG).show();
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -644,22 +666,6 @@ Toast.makeText(this, reader.toString(), Toast.LENGTH_LONG).show();
         </section></div>
       
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-Serializable方式实现序列化"><span class="nav-number">1.</span> <span class="nav-text">1. Serializable方式实现序列化</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

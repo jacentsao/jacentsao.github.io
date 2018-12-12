@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Android,BUG修复,">
+  <meta name="keywords" content="Android,设计模式,">
 
 
 
@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="最近碰到一个用户在使用app的某个功能的时候老是出现闪退情况，但是又没有别的用户反馈过这个问题。所以找用户拿数据过来看了一下，借过还真是用户的数据比较特殊： 用户在A界面传递一个LIST的对象到B界面，一个正常的使用Intent携带数据的情况，结果出现了闪退的情况。通过日志发现是： android.os.TransactionTooLargeException: data parcel size">
-<meta name="keywords" content="Android,BUG修复">
+<meta name="description" content="MVP模式是基于MVC模式在Android上面的一个变种，可以参考谷歌的官方架构项目Android-Architecture。在 MVC 模式中，Activity 应该是属于 View 这一层。而实质上，它既承担了 View，同时也包含一些 Controller 的东西在里面。这对于开发与维护来说不太友好，耦合度大高了。把 Activity 的 View 和 Controller 抽离出来就变成了">
+<meta name="keywords" content="Android,设计模式">
 <meta property="og:type" content="article">
-<meta property="og:title" content="IPC传递数据的大小限制">
-<meta property="og:url" content="http://yoursite.com/2017/04/08/IPC传递数据的大小限制/index.html">
+<meta property="og:title" content="Android-MVP模式学习">
+<meta property="og:url" content="http://yoursite.com/2017/03/17/Android-MVP模式学习/index.html">
 <meta property="og:site_name" content="Silence of Heart">
-<meta property="og:description" content="最近碰到一个用户在使用app的某个功能的时候老是出现闪退情况，但是又没有别的用户反馈过这个问题。所以找用户拿数据过来看了一下，借过还真是用户的数据比较特殊： 用户在A界面传递一个LIST的对象到B界面，一个正常的使用Intent携带数据的情况，结果出现了闪退的情况。通过日志发现是： android.os.TransactionTooLargeException: data parcel size">
+<meta property="og:description" content="MVP模式是基于MVC模式在Android上面的一个变种，可以参考谷歌的官方架构项目Android-Architecture。在 MVC 模式中，Activity 应该是属于 View 这一层。而实质上，它既承担了 View，同时也包含一些 Controller 的东西在里面。这对于开发与维护来说不太友好，耦合度大高了。把 Activity 的 View 和 Controller 抽离出来就变成了">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-29T01:09:24.153Z">
+<meta property="og:updated_time" content="2018-12-12T09:41:44.714Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="IPC传递数据的大小限制">
-<meta name="twitter:description" content="最近碰到一个用户在使用app的某个功能的时候老是出现闪退情况，但是又没有别的用户反馈过这个问题。所以找用户拿数据过来看了一下，借过还真是用户的数据比较特殊： 用户在A界面传递一个LIST的对象到B界面，一个正常的使用Intent携带数据的情况，结果出现了闪退的情况。通过日志发现是： android.os.TransactionTooLargeException: data parcel size">
+<meta name="twitter:title" content="Android-MVP模式学习">
+<meta name="twitter:description" content="MVP模式是基于MVC模式在Android上面的一个变种，可以参考谷歌的官方架构项目Android-Architecture。在 MVC 模式中，Activity 应该是属于 View 这一层。而实质上，它既承担了 View，同时也包含一些 Controller 的东西在里面。这对于开发与维护来说不太友好，耦合度大高了。把 Activity 的 View 和 Controller 抽离出来就变成了">
 
 
 
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/04/08/IPC传递数据的大小限制/">
+  <link rel="canonical" href="http://yoursite.com/2017/03/17/Android-MVP模式学习/">
 
 
 
 
 
-  <title>IPC传递数据的大小限制 | Silence of Heart</title>
+  <title>Android-MVP模式学习 | Silence of Heart</title>
   
 
 
@@ -327,7 +327,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/08/IPC传递数据的大小限制/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/17/Android-MVP模式学习/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="JacenTsao">
@@ -344,7 +344,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">IPC传递数据的大小限制</h1>
+          <h1 class="post-title" itemprop="name headline">Android-MVP模式学习</h1>
         
 
         <div class="post-meta">
@@ -356,8 +356,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-08T21:12:40+08:00">
-                2017-04-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-17T09:31:11+08:00">
+                2017-03-17
               </time>
             
 
@@ -397,8 +397,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/04/08/IPC传递数据的大小限制/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/04/08/IPC传递数据的大小限制/" itemprop="commentCount"></span>
+                <a href="/2017/03/17/Android-MVP模式学习/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/17/Android-MVP模式学习/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -426,11 +426,164 @@
       
 
       
-        <p>最近碰到一个用户在使用app的某个功能的时候老是出现闪退情况，但是又没有别的用户反馈过这个问题。所以找用户拿数据过来看了一下，借过还真是用户的数据比较特殊：</p>
-<p>用户在A界面传递一个LIST的对象到B界面，一个正常的使用Intent携带数据的情况，结果出现了闪退的情况。通过日志发现是：</p>
-<pre><code>android.os.TransactionTooLargeException: data parcel size 4915644 bytes
-</code></pre><p>然后查阅资料发现，现在的IPC机制其实是对传递的数据有大小限制的，一般来说是1MB，而我们传递的List中有483个对象，累积下来的大小远远超过1MB，故出现了这种问题。同样的如果我们传递一个Bitmap大小超过这个限制也会出现这种问题，所以我们在开发中要注意这些问题。</p>
+        <p>MVP模式是基于MVC模式在Android上面的一个变种，可以参考谷歌的官方架构项目<a href="https://github.com/googlesamples/android-architecture" target="_blank" rel="noopener">Android-Architecture</a>。在 MVC 模式中，Activity 应该是属于 View 这一层。而实质上，它既承担了 View，同时也包含一些 Controller 的东西在里面。这对于开发与维护来说不太友好，耦合度大高了。把 Activity 的 View 和 Controller 抽离出来就变成了 View 和 Presenter，这就是 MVP 模式。</p>
+<p>View只负责处理视图状态<br>Presenter处理逻辑<br>Contract 连接View和Presenter</p>
+<p>针对各个界面：</p>
+<p>​<br>    public interface BasePresenter {</p>
+<pre><code>    void subscribe();
 
+    void unsubscribe();
+
+}
+
+public interface BaseView&lt;T&gt; {
+
+    void setPresenter(T presenter);
+
+}
+
+
+
+
+public interface AddEditTaskContract {
+
+    interface View extends BaseView&lt;Presenter&gt; {
+
+        void showEmptyTaskError();
+
+        void showTasksList();
+
+        void setTitle(String title);
+
+        void setDescription(String description);
+
+        boolean isActive();
+    }
+
+    interface Presenter extends BasePresenter {
+
+        void saveTask(String title, String description);
+
+        void populateTask();
+
+        boolean isDataMissing();
+    }
+}
+</code></pre><p>​<br>        public class AddEditTaskPresenter implements AddEditTaskContract.Presenter {</p>
+<pre><code>    @NonNull
+    private final TasksDataSource mTasksRepository;
+
+    @NonNull
+    private final AddEditTaskContract.View mAddTaskView;
+
+    @NonNull
+    private final BaseSchedulerProvider mSchedulerProvider;
+
+    @Nullable
+    private String mTaskId;
+
+    private boolean mIsDataMissing;
+
+    @NonNull
+    private CompositeSubscription mSubscriptions;
+
+    /**
+     * Creates a presenter for the add/edit view.
+     *
+     * @param taskId                 ID of the task to edit or null for a new task
+     * @param tasksRepository        a repository of data for tasks
+     * @param addTaskView            the add/edit view
+     * @param shouldLoadDataFromRepo whether data needs to be loaded or not (for config changes)
+     */
+    public AddEditTaskPresenter(@Nullable String taskId, @NonNull TasksDataSource tasksRepository,
+                                @NonNull AddEditTaskContract.View addTaskView, boolean shouldLoadDataFromRepo,
+                                @NonNull BaseSchedulerProvider schedulerProvider) {
+        mTaskId = taskId;
+        mTasksRepository = checkNotNull(tasksRepository);
+        mAddTaskView = checkNotNull(addTaskView);
+        mIsDataMissing = shouldLoadDataFromRepo;
+
+        mSchedulerProvider = checkNotNull(schedulerProvider, &quot;schedulerProvider cannot be null!&quot;);
+
+        mSubscriptions = new CompositeSubscription();
+        mAddTaskView.setPresenter(this);
+    }
+
+    @Override
+    public void subscribe() {
+        if (!isNewTask() &amp;&amp; mIsDataMissing) {
+            populateTask();
+        }
+    }
+
+    @Override
+    public void unsubscribe() {
+        mSubscriptions.clear();
+    }
+
+    @Override
+    public void saveTask(String title, String description) {
+        if (isNewTask()) {
+            createTask(title, description);
+        } else {
+            updateTask(title, description);
+        }
+    }
+
+    @Override
+    public void populateTask() {
+        if (isNewTask()) {
+            throw new RuntimeException(&quot;populateTask() was called but task is new.&quot;);
+        }
+        mSubscriptions.add(mTasksRepository
+                .getTask(mTaskId)
+                .subscribeOn(mSchedulerProvider.computation())
+                .observeOn(mSchedulerProvider.ui())
+                .subscribe(
+                        // onNext
+                        task -&gt; {
+                            if (mAddTaskView.isActive()) {
+                                mAddTaskView.setTitle(task.getTitle());
+                                mAddTaskView.setDescription(task.getDescription());
+
+                                mIsDataMissing = false;
+                            }
+                        }, // onError
+                        __ -&gt; {
+                            if (mAddTaskView.isActive()) {
+                                mAddTaskView.showEmptyTaskError();
+                            }
+                        }));
+    }
+
+    @Override
+    public boolean isDataMissing() {
+        return mIsDataMissing;
+    }
+
+    private boolean isNewTask() {
+        return mTaskId == null;
+    }
+
+    private void createTask(String title, String description) {
+        Task newTask = new Task(title, description);
+        if (newTask.isEmpty()) {
+            mAddTaskView.showEmptyTaskError();
+        } else {
+            mTasksRepository.saveTask(newTask);
+            mAddTaskView.showTasksList();
+        }
+    }
+
+    private void updateTask(String title, String description) {
+        if (isNewTask()) {
+            throw new RuntimeException(&quot;updateTask() was called but task is new.&quot;);
+        }
+        mTasksRepository.saveTask(new Task(title, description, mTaskId));
+        mAddTaskView.showTasksList(); // After an edit, go back to the list.
+    }
+}
+</code></pre>
       
     </div>
     
@@ -449,7 +602,7 @@
           
             <a href="/tags/Android/" rel="tag"># Android</a>
           
-            <a href="/tags/BUG修复/" rel="tag"># BUG修复</a>
+            <a href="/tags/设计模式/" rel="tag"># 设计模式</a>
           
         </div>
       
@@ -462,8 +615,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/20/sql学习/" rel="next" title="sql学习">
-                <i class="fa fa-chevron-left"></i> sql学习
+              <a href="/2017/03/15/Android-Duplicate-files-copied-in-APK-META-INF-LICENSE/" rel="next" title="Android-Duplicate files copied in APK META-INF/LICENSE">
+                <i class="fa fa-chevron-left"></i> Android-Duplicate files copied in APK META-INF/LICENSE
               </a>
             
           </div>
@@ -472,8 +625,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/04/08/Volley中出现的java-io-InterruptedIOException-thread-interrupted/" rel="prev" title="Volley中出现的java.io.InterruptedIOException: thread interrupted">
-                Volley中出现的java.io.InterruptedIOException: thread interrupted <i class="fa fa-chevron-right"></i>
+              <a href="/2017/03/20/sql学习/" rel="prev" title="sql学习">
+                sql学习 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -505,7 +658,7 @@
 
   
     <div class="comments" id="comments">
-      <div class="ds-thread" data-thread-key="2017/04/08/IPC传递数据的大小限制/" data-title="IPC传递数据的大小限制" data-url="http://yoursite.com/2017/04/08/IPC传递数据的大小限制/">
+      <div class="ds-thread" data-thread-key="2017/03/17/Android-MVP模式学习/" data-title="Android-MVP模式学习" data-url="http://yoursite.com/2017/03/17/Android-MVP模式学习/">
       </div>
     </div>
 
@@ -550,7 +703,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

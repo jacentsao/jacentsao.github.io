@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Android,Linux,">
+  <meta name="keywords" content="Android,基础,">
 
 
 
@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="如何在Android系统下面改变我们的文件权限,实现某些目的: String command = &amp;quot;chmod 777 &amp;quot; + filePath; Runtime runtime = Runtime.getRuntime(); runtime.exec(command); 如上所示,获取文件的绝对路劲,通过Runtime去执行该文件,777代表可读可写可执行,这里不做更多说明.">
-<meta name="keywords" content="Android,Linux">
+<meta name="description" content="####自适应高度 继承LinearLayoutManager，重写onMeasure（）方法： if (getItemCount() == 0) {     setMeasuredDimension(0, 0); } else {     View view = recycler.getViewForPosition(0);     if (view != null) {         mea">
+<meta name="keywords" content="Android,基础">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android下面如何改变文件权限">
-<meta property="og:url" content="http://yoursite.com/2017/02/24/Android下面如何改变文件权限/index.html">
+<meta property="og:title" content="Android-RecyclerView学习笔记">
+<meta property="og:url" content="http://yoursite.com/2017/04/26/Android-RecyclerView学习笔记/index.html">
 <meta property="og:site_name" content="Silence of Heart">
-<meta property="og:description" content="如何在Android系统下面改变我们的文件权限,实现某些目的: String command = &amp;quot;chmod 777 &amp;quot; + filePath; Runtime runtime = Runtime.getRuntime(); runtime.exec(command); 如上所示,获取文件的绝对路劲,通过Runtime去执行该文件,777代表可读可写可执行,这里不做更多说明.">
+<meta property="og:description" content="####自适应高度 继承LinearLayoutManager，重写onMeasure（）方法： if (getItemCount() == 0) {     setMeasuredDimension(0, 0); } else {     View view = recycler.getViewForPosition(0);     if (view != null) {         mea">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-29T01:09:24.135Z">
+<meta property="og:updated_time" content="2018-12-12T09:40:23.061Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android下面如何改变文件权限">
-<meta name="twitter:description" content="如何在Android系统下面改变我们的文件权限,实现某些目的: String command = &amp;quot;chmod 777 &amp;quot; + filePath; Runtime runtime = Runtime.getRuntime(); runtime.exec(command); 如上所示,获取文件的绝对路劲,通过Runtime去执行该文件,777代表可读可写可执行,这里不做更多说明.">
+<meta name="twitter:title" content="Android-RecyclerView学习笔记">
+<meta name="twitter:description" content="####自适应高度 继承LinearLayoutManager，重写onMeasure（）方法： if (getItemCount() == 0) {     setMeasuredDimension(0, 0); } else {     View view = recycler.getViewForPosition(0);     if (view != null) {         mea">
 
 
 
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/02/24/Android下面如何改变文件权限/">
+  <link rel="canonical" href="http://yoursite.com/2017/04/26/Android-RecyclerView学习笔记/">
 
 
 
 
 
-  <title>Android下面如何改变文件权限 | Silence of Heart</title>
+  <title>Android-RecyclerView学习笔记 | Silence of Heart</title>
   
 
 
@@ -327,7 +327,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/24/Android下面如何改变文件权限/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/26/Android-RecyclerView学习笔记/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="JacenTsao">
@@ -344,7 +344,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Android下面如何改变文件权限</h1>
+          <h1 class="post-title" itemprop="name headline">Android-RecyclerView学习笔记</h1>
         
 
         <div class="post-meta">
@@ -356,8 +356,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-24T19:55:40+08:00">
-                2017-02-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-26T19:26:26+08:00">
+                2017-04-26
               </time>
             
 
@@ -397,8 +397,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/02/24/Android下面如何改变文件权限/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/24/Android下面如何改变文件权限/" itemprop="commentCount"></span>
+                <a href="/2017/04/26/Android-RecyclerView学习笔记/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/04/26/Android-RecyclerView学习笔记/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -426,12 +426,20 @@
       
 
       
-        <p>如何在Android系统下面改变我们的文件权限,实现某些目的:</p>
-<pre><code>String command = &quot;chmod 777 &quot; + filePath;
-Runtime runtime = Runtime.getRuntime();
-runtime.exec(command);
-</code></pre><p>如上所示,获取文件的绝对路劲,通过Runtime去执行该文件,777代表可读可写可执行,这里不做更多说明.    </p>
-
+        <p>####自适应高度</p>
+<p>继承LinearLayoutManager，重写onMeasure（）方法：</p>
+<pre><code>if (getItemCount() == 0) {
+    setMeasuredDimension(0, 0);
+} else {
+    View view = recycler.getViewForPosition(0);
+    if (view != null) {
+        measureChild(view, widthSpec, heightSpec);
+        int measuredWidth = View.MeasureSpec.getSize(widthSpec);
+        int measuredHeight = getItemCount() * view.getMeasuredHeight();
+        setMeasuredDimension(measuredWidth, measuredHeight);
+    }
+}
+</code></pre>
       
     </div>
     
@@ -450,7 +458,7 @@ runtime.exec(command);
           
             <a href="/tags/Android/" rel="tag"># Android</a>
           
-            <a href="/tags/Linux/" rel="tag"># Linux</a>
+            <a href="/tags/基础/" rel="tag"># 基础</a>
           
         </div>
       
@@ -463,8 +471,8 @@ runtime.exec(command);
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/02/21/Android-判断Library处于release或者debug模式/" rel="next" title="Android-判断Library处于release或者debug模式">
-                <i class="fa fa-chevron-left"></i> Android-判断Library处于release或者debug模式
+              <a href="/2017/04/19/Read-godoc-from-very-begain/" rel="next" title="Read godoc from very begain">
+                <i class="fa fa-chevron-left"></i> Read godoc from very begain
               </a>
             
           </div>
@@ -473,8 +481,8 @@ runtime.exec(command);
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/02/24/Android里面的几种倒计时方式/" rel="prev" title="Android里面的几种倒计时方式">
-                Android里面的几种倒计时方式 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/05/24/Linux-命令行学习/" rel="prev" title="Linux 命令行学习">
+                Linux 命令行学习 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -506,7 +514,7 @@ runtime.exec(command);
 
   
     <div class="comments" id="comments">
-      <div class="ds-thread" data-thread-key="2017/02/24/Android下面如何改变文件权限/" data-title="Android下面如何改变文件权限" data-url="http://yoursite.com/2017/02/24/Android下面如何改变文件权限/">
+      <div class="ds-thread" data-thread-key="2017/04/26/Android-RecyclerView学习笔记/" data-title="Android-RecyclerView学习笔记" data-url="http://yoursite.com/2017/04/26/Android-RecyclerView学习笔记/">
       </div>
     </div>
 
@@ -551,7 +559,7 @@ runtime.exec(command);
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
