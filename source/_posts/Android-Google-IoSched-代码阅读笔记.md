@@ -1,5 +1,5 @@
 ---
-title: Google IoSched 代码阅读笔记
+title: Android-Google IoSched 代码阅读笔记
 date: 2017-06-19 22:37:35
 tags: [Android]
 categories: Android
@@ -93,7 +93,7 @@ static final class UpdateUIRunnable implements Runnable {
     tools:text="9:00 AM - 11:30 AM / Room 1"
     style="@style/Body1Text" />
     </RootTag>
-```    
+```
 ##### 1.2.1、tools:ignore
 在任何元素中使用，主要是用于lint检查的时候忽略，例如：
 
@@ -185,10 +185,10 @@ static final class UpdateUIRunnable implements Runnable {
 ### 7、关于
 #### 7.1、加载HTML资源
 	···Html.fromHtml(getString(<![CDATA[
-        <b>Google I/O 2015</b><br>
-        Version %s
-    ]]>,"xxx"))```
- 
+	    <b>Google I/O 2015</b><br>
+	    Version %s
+	]]>,"xxx"))```
+
 #### 7.2
 ### 8、调试
 #### 8.1、使用PreferenceFragment

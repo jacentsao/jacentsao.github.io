@@ -1,5 +1,5 @@
 ---
-title: Spinner在某些机型上面无法收到第一次回掉的监听
+title: Android-Spinner在某些机型上面无法收到第一次回掉的监听
 date: 2017-04-08 22:22:16
 tags: [Android, BUG修复]
 categories: Android
@@ -7,4 +7,4 @@ categories: Android
 
 最近碰到一个很奇怪的问题，同样的一组数据在不同的手机上面显示就是不一样。通过debug发现，在一些手机上，给Spinner设置默认值的时候并不会触发它的监听回掉，而在某些机型上面又是会触发的。所以需要给第一次回掉加一个flag，默认阻止第一次回掉的后续逻辑。
 
-	
+​	

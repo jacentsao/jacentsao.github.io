@@ -1,5 +1,5 @@
 ---
-title: MVP模式学习
+title: Android-MVP模式学习
 date: 2017-03-17 09:31:11
 tags: [Android,设计模式]
 categories: Android
@@ -17,7 +17,7 @@ Contract 连接View和Presenter
 
 
 
-	
+​	
 	public interface BasePresenter {
 	
 	    void subscribe();
@@ -27,16 +27,16 @@ Contract 连接View和Presenter
 	}
 	
 	public interface BaseView<T> {
-
-    	void setPresenter(T presenter);
-
+	
+		void setPresenter(T presenter);
+	
 	}
 
 
 
 
 	public interface AddEditTaskContract {
-
+	
 	    interface View extends BaseView<Presenter> {
 	
 	        void showEmptyTaskError();
@@ -59,8 +59,9 @@ Contract 连接View和Presenter
 	        boolean isDataMissing();
 	    }
 	}
-	
-	
+
+
+​	
 		public class AddEditTaskPresenter implements AddEditTaskContract.Presenter {
 	
 	    @NonNull

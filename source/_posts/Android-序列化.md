@@ -1,5 +1,5 @@
 ---
-title: 序列化
+title: Android-序列化
 date: 2017-02-26 20:18:04
 tags: Android
 categories: Android
@@ -23,19 +23,20 @@ Serializable是java中所提供的一个序列化接口，它是空接口。通�
 	
 	    transient //序列化的时候忽略该字段
 	    private int test;
-    }
+	}
 
 以上面的User类为例，将其一个对象写入文件以后再从文件读取：
-	
+​	
 			User user = new User("Max", 0, 0, 0);
 			ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(path));
-            outputStream.writeObject(user);
-            outputStream.close();
-            
-            ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(path));
-            User reader = (User) inputStream.readObject();
-            Toast.makeText(this, reader.toString(), Toast.LENGTH_LONG).show();
-            
-            
+	        outputStream.writeObject(user);
+	        outputStream.close();
+	        
+	        ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(path));
+	        User reader = (User) inputStream.readObject();
+	        Toast.makeText(this, reader.toString(), Toast.LENGTH_LONG).show();
+
+
+​            
 当把对象user写入到文件中的时候，同时会写入对象的serialVersionUID，在从文件中读取对象的时候，    
 

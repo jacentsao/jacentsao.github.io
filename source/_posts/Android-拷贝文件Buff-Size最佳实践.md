@@ -1,5 +1,5 @@
 ---
-title: Android拷贝文件Buff Size最佳实践
+title: Android-拷贝文件Buff-Size最佳实践
 date: 2017-01-18 22:25:42
 tags: Android
 categories: Android
@@ -15,8 +15,9 @@ categories: Android
 	
 	if(!DBFile.exists() || DatabaseNeedsUpgrade)  //Need to copy...
 	    CopyDatabase(Ctxt, DBFile);
-	
-	
+
+
+​	
 	static private void CopyDatabase(Context Ctxt, File DBFile) throws IOException
 	{
 	    AssetManager assets = Ctxt.getAssets();
@@ -45,7 +46,7 @@ categories: Android
 ##### 3.从拷贝的过程入手
 通常我们拷贝文件的时候都会使用int数组进行缓存加速拷贝过程,但是这个缓存的大小究竟要设置为多大比较合适可能大家都没怎么想过.正常来说在设备允许的情况下当然是越大越好,但实际使用过程中,我们也要考虑增大缓存带来的收益.通过测试和查阅[资料](http://stackoverflow.com/questions/10143731/android-optimal-buffer-size)发现,在使用32K缓存大小的情况下收益是最好的.大幅度的提升了拷贝速度,后面我们基本上没有遇到过由于文件拷贝不完整导致的启动异常问题.如下表所示,对应不同缓存拷贝20M文件的耗时:
 
-		
+​		
 
                    128     256     512     1K      2K      4K      8K      16K     32K     64K     128K    256K    512K    1M      2M      4M      8M      16M
     Galaxy S       4047    3060    269     155     100     65      64      52      51      45      47      50      49      43      44      46      45      58

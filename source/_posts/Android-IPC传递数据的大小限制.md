@@ -1,5 +1,5 @@
 ---
-title: IPC传递数据的大小限制
+title: Android-IPC传递数据的大小限制
 date: 2017-04-08 21:12:40
 tags:	[Android,BUG修复]
 categories: Android

@@ -1,5 +1,5 @@
 ---
-title: 'Volley中出现的java.io.InterruptedIOException: thread interrupted'
+title: Android-'Volley中出现的java.io.InterruptedIOException: thread interrupted'
 date: 2017-04-08 21:22:45
 tags: [Android,BUG修复]
 categories: Android
@@ -40,10 +40,11 @@ categories: Android
 	
 	    return queue;	
 	}
-	
-	
+
+
+​	
 当使用RequestQueue的Start()方法的时候，Volley会调用stop方法确保所有的请求都是停止状态。
-		
+​		
 	public void stop() {
 	    if (mCacheDispatcher != null) {
 	        mCacheDispatcher.quit();
@@ -54,8 +55,9 @@ categories: Android
 	        }
 	    }
 	}		
-	
-	
+
+
+​	
 在stop()方法中调用了quit()方法：
 
 	public void stop() {
@@ -68,8 +70,9 @@ categories: Android
 	        }
 	    }
 	}	
-	
-	
+
+
+​	
 最终我们来到了这里，这就是我们为什么会出现thread被interrupte的原因，所以我们在使用RequestQueue的时候是不能调用Start()方法的。
 
 	public void interrupt() {

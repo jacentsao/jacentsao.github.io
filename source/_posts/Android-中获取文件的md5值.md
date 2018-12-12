@@ -1,5 +1,5 @@
 ---
-title: Android中获取文件的md5值
+title: Android-中获取文件的md5值
 date: 2017-03-11 16:53:26
 tags: Android
 categories: Android

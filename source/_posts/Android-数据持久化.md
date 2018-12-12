@@ -1,5 +1,5 @@
 ---
-title: Android数据持久化
+title: Android-数据持久化
 date: 2017-01-19 16:18:48
 tags: Android
 categories: Android
@@ -13,22 +13,22 @@ categories: Android
 通常用于存储一些本地化的配置文件,主要分为读和取,操作如下:
 
 1.写入操作
-		
+​		
 		// We need an Editor object to make preference changes.
   	    // All objects are from android.context.Context
-		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-	    SharedPreferences.Editor editor = settings.edit();
-	    editor.putBoolean("silentMode", mSilentMode);
-	    // Commit the edits!
-	    editor.commit();   	    
-	   	 //finally we can see these file in data/data/packagename/shared_preference if your device has been rooted;   
+​		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+​	    SharedPreferences.Editor editor = settings.edit();
+​	    editor.putBoolean("silentMode", mSilentMode);
+​	    // Commit the edits!
+​	    editor.commit();   	    
+​	   	 //finally we can see these file in data/data/packagename/shared_preference if your device has been rooted;   
 2.读取操作
-    
+​    
 		// Restore preferences
 		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
 		//false stands for the default value, you can customize yourself
 		boolean silent = settings.getBoolean("silentMode", false);
-		
+
 ###2. Internal Storage	
 第一点提到的SharePreference存储的方式最终存放的位置就是在Internal Storage中
 
@@ -39,8 +39,9 @@ categories: Android
 		FileOutputStream fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
 		fos.write(string.getBytes());
 		fos.close();					
-		
-		
+
+
+​		
 值得注意的是从API 17开MODE\_WORLD\_READABLE跟MODE\_WORLD_WRITABLE已经是deprecated的状态.从API 23开始,由于谷歌收紧了Android系统的权限(Android越来越封闭,苹果越来越开放,目的都是为了体验越来越好!),如果还使用这两个属性会直接抛出异常SecurityException.因此如果你的应用的TargetVersion在API 23,那么如果你想共享应用的内部数据则只能通过主动分享的方式发起共享,详见[参考文档](https://developer.android.com/training/secure-file-sharing/index.html).
 
 正如官方文档所提,如果想要存储静态文件,比如说应用的铃声之类的文件,可以放在项目的res/raw/路径下,通过openRawResource(R.raw.fileId)获取对应的资源文件.
@@ -55,7 +56,7 @@ Android的外部存储可以分为可卸载的存储例如SD卡,以及不可卸�
 
 ####获取访问外部存储的权限
 如果你的应用需要读写外部存储则需要在manifest文件中配置如下权限:
-		
+​		
 		<manifest ...>
 		    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 		    ...
@@ -73,7 +74,7 @@ Android的外部存储可以分为可卸载的存储例如SD卡,以及不可卸�
 			String state = Environment.getExternalStorageState();
 			return Environment.MEDIA_MOUNTED.equals();
 		}
-		
+
 通过Environment.getExternalStorageState()可以获得外部存储的状态,如连接到电脑,彻底移除,不恰当的移除等等;此时你可以通过判断外部存储的状态来决定是否需要访问外部存储的媒体文件.如下所示为外置存储的不同状态:
 
 
@@ -93,7 +94,7 @@ Android的外部存储可以分为可卸载的存储例如SD卡,以及不可卸�
 主要是公共的多媒体库,例如MUSIC,PICTURE等等,通过以下方式获得
 
 		Environment.getExternalPublicDirectory(String type)
-		
+
 其中type可分为如下几种,对应到外部存储的不同位置.
 
 	    public static String DIRECTORY_ALARMS;
@@ -106,11 +107,12 @@ Android的外部存储可以分为可卸载的存储例如SD卡,以及不可卸�
 	    public static String DIRECTORY_PICTURES;
 	    public static String DIRECTORY_PODCASTS;
 	    public static String DIRECTORY_RINGTONES;
-	    
-	    
+
+
+​	    
 ####保存应用私有文件
 如果你的应用有一些私有文件,如音效文件,此时可以在外部存储中创建一个私有的文件目录:
-	
+​	
 		//if you pass null as the type return the root directory
 		//storage/emulated/0/Android/data/packagename/
 		//of course you can pass non null type to create a subdirectory
@@ -123,7 +125,7 @@ Android的外部存储可以分为可卸载的存储例如SD卡,以及不可卸�
 					         android:maxSdkVersion="18" />
 			...
 		</manifest>
-	
+
 这里有个事情需要说明的是,这个应用的私有目录会随着应用的卸载而删除.同时,在媒体库中并不会显示应用的私有文件,因此,如果在你的app中属于用户的文件是不能保存到这个目录的,例如用户购买的音乐.	
 
 有些手机会把内置存储划出来一部分做为外置存储使用(我们现在使用的多数都是这种方式),但是的手机还提供了SD卡卡槽.对于Android 4.3及以下的设备,通过getExternalFilesDir()只能获得内置存储中划出来的那一部分,也就是说并不能获得SD卡部分.从Android4.4开始通过getExternalFilesDir()返回的是一个数组.只有在内置存储划分的外置存储不可用或者占用满的情况下才选择使用SD卡做为应用的私有存储空间.如果想要在Android4.3及以下的设备中获取该路径则通过兼容包ContextCompact.getExternalFilesDirs()获取.
@@ -132,9 +134,9 @@ Android的外部存储可以分为可卸载的存储例如SD卡,以及不可卸�
 
 ####保存缓存文件
 通过如下方式获得缓存文件的保存目录,缓存目录会随着应用的卸载而被删除:
-	
+​	
 	getExternalCacheDir();
-	
+
 跟上面提到的类似,你也可以通过ContextCompact.getExternalCacheDirs()获得SD卡之类的外置存储的缓存路径.
 
 在代码开发的时候我们应该特别注意缓存文件的维护,防止缓存文件占用过多的空间.比如说我们使用一些第三方的框架的时候会让我们配置缓存空间大小.
@@ -170,8 +172,9 @@ Android支持SQLite的所有功能,在应用里面创建的数据库能够被应
 	            FileOutputStream fos = this.openFileOutput(FILENAME, Context.MODE_PRIVATE);
 	            fos.write(string.getBytes());
 	            fos.close();
-	
-	
+
+
+​	
 以上对应前文所说的通过不同方式获取内部,外部文件及缓存路径.
 ###读写权限
 Internal Storage本身无需声明任何权限即可进行读写操作.External Storage
