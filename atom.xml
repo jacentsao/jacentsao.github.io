@@ -498,9 +498,9 @@
       <category term="shell" scheme="http://yoursite.com/categories/shell/"/>
     
     
-      <category term="ssh" scheme="http://yoursite.com/tags/ssh/"/>
-    
       <category term="shell" scheme="http://yoursite.com/tags/shell/"/>
+    
+      <category term="ssh" scheme="http://yoursite.com/tags/ssh/"/>
     
   </entry>
   
