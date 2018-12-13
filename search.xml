@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[hexo-使用nginx部署]]></title>
+    <url>%2F2018%2F12%2F13%2Fhexo-%E4%BD%BF%E7%94%A8nginx%E9%83%A8%E7%BD%B2%2F</url>
+    <content type="text"><![CDATA[通常使用hexo在本地调试运行的时候我们运行hexo s即可，如果我们想要部署博客供人访问的时候就要采用别的方式了。我这里选择的是使用nginx部署： 安装nginx安装nginx可以参考菜鸟教程 使用nginx配置hexo1234location / &#123; root /usr/local/blog/jacentsao.github.io/.deploy_git; index index.html index.htm;&#125; 获得免费的https证书123456$ yum install epel-release$ yum-config-manager --enable rhui-REGION-rhel-server-extras rhui-REGION-rhel-server-optional$ yum install python2-certbot-nginx$ yum install -y certbot//获取证书$ certbot certonly --standalone -d example.com --agree-tos --email yourmail 配置nginx12345678server &#123; listen 80; server_name localhost; listen 443 ssl; ssl_certificate /etc/letsencrypt/live/yourdomain/fullchain.pem; ssl_certificate_key /etc/letsencrypt/live/yourdomain/privkey.pem; .....&#125; 自动更新证书12//自动刷新证书（证书有效期90天）$ 10 1 * */2 * certbot renew --pre-hook "systemctl stop nginx" --post-hook "systemctl start nginx"]]></content>
+      <categories>
+        <category>博客编写</category>
+      </categories>
+      <tags>
+        <tag>nginx</tag>
+        <tag>blog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[自由行-搭建ss服务器]]></title>
+    <url>%2F2018%2F12%2F12%2F%E8%87%AA%E7%94%B1%E8%A1%8C-%E6%90%AD%E5%BB%BAss%E6%9C%8D%E5%8A%A1%E5%99%A8%2F</url>
+    <content type="text"><![CDATA[详细安装配置如下： 12345678910111213141516171819202122232425262728293031323334353637383940$ cd /etc/yum.repos.d/$ curl -O https://copr.fedorainfracloud.org/coprs/librehat/shadowsocks/repo/epel-7/librehat-shadowsocks-epel-7.repo$ yum install -y shadowsocks-libev$ curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"$ python get-pip.py$ pip install --upgrade pip//修改配置，主要是设置端口和密码$ vim /etc/shadowsocks.json &#123; "server": "0.0.0.0", "local_address": "127.0.0.1", "local_port": 1080, "port_password": &#123; "26888": "yourpassword", "26889": "yourpassword" &#125;, "timeout": 600, "method": "aes-256-cfb" &#125;//添加ss系统服务$ vim /etc/systemd/system/shadowsocks.service [Unit] Description=Shadowsocks [Service] TimeoutStartSec=0 ExecStart=/usr/bin/ssserver -c /etc/shadowsocks.json [Install] WantedBy=multi-user.target//启动ss服务 $ systemctl enable shadowsocks]]></content>
+      <categories>
+        <category>自由行</category>
+      </categories>
+      <tags>
+        <tag>自由行</tag>
+        <tag>shadowsocks</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Java - 搭建RocketMQ开发环境]]></title>
     <url>%2F2018%2F12%2F04%2FJava-%E6%90%AD%E5%BB%BARocketMQ%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%2F</url>
     <content type="text"><![CDATA[今天尝试搭建一下RocketMQ开发环境，特此记录下搭建流程和搭建过程中遇到的一些问题。 首先根据官网的教程搭建。 快速启动环境准备 64bit OS, Linux/Unix/Mac is recommended; 64bit JDK 1.8+; Maven 3.2.x; Git; 4g+ free disk for Broker server 下载，构建下载源码或者release的版本，下载地址: https://www.apache.org/dyn/closer.cgi?path=rocketmq/4.3.2/rocketmq-all-4.3.2-source-release.zip 如果下载的是源码的话需要使用maven进行编译： 12345 &gt; unzip rocketmq-all-4.3.2-source-release.zip&gt; cd rocketmq-all-4.3.2/&gt; mvn -Prelease-all -DskipTests clean install -U&gt; cd distribution/target/apache-rocketmq 如果不是源码的话直接进入解压后的文件即可。 启动Name Server12345&gt; nohup sh bin/mqnamesrv &amp;&gt; tail -f ~/logs/rocketmqlogs/namesrv.logThe Name Server boot success...以上是官网提供的示例。我遇到的情况是输出倒了当前目录下的nohup.out文件中，使用tail 或者vim确定Name Server是否正常启动 启动Broker1234&gt; nohup sh bin/mqbroker -n localhost:9876 &amp;&gt; tail -f ~/logs/rocketmqlogs/broker.log The broker[%s, 172.30.30.233:10911] boot success...同样的在nohub.out中查看 发送和接收消息1234567//告诉客户端需要发送到哪个服务端&gt; export NAMESRV_ADDR=localhost:9876&gt; sh bin/tools.sh org.apache.rocketmq.example.quickstart.ProducerSendResult [sendStatus=SEND_OK, msgId= ...&gt; sh bin/tools.sh org.apache.rocketmq.example.quickstart.ConsumerConsumeMessageThread_%d Receive New Messages: [MessageExt... 关闭服务1234567&gt; sh bin/mqshutdown brokerThe mqbroker(36695) is running...Send shutdown request to mqbroker(36695) OK&gt; sh bin/mqshutdown namesrvThe mqnamesrv(36664) is running...Send shutdown request to mqnamesrv(36664) OK 简单的示例官网地址https://rocketmq.apache.org/docs/simple-example/ 1.添加依赖由于我们使用的是maven管理工具,gradle的依赖可以参考官网。 12345&lt;dependency&gt; &lt;groupId&gt;org.apache.rocketmq&lt;/groupId&gt; &lt;artifactId&gt;rocketmq-client&lt;/artifactId&gt; &lt;version&gt;4.3.0&lt;/version&gt;&lt;/dependency&gt; 2.1 发送同步消息同步消息适合于很多场景，例如重要消息的通知，SMS通知，SMS系统市场。其他都在官网，可以多多看看文档。 123456789101112131415161718192021222324public class SyncProducer &#123; public static void main(String[] args) throws Exception &#123; //Instantiate with a producer group name. DefaultMQProducer producer = new DefaultMQProducer("please_rename_unique_group_name"); // Specify name server addresses. producer.setNamesrvAddr("localhost:9876"); //Launch the instance. producer.start(); for (int i = 0; i &lt; 100; i++) &#123; //Create a message instance, specifying topic, tag and message body. Message msg = new Message("TopicTest" /* Topic */, "TagA" /* Tag */, ("Hello RocketMQ " + i).getBytes(RemotingHelper.DEFAULT_CHARSET) /* Message body */ ); //Call send message to deliver message to one of brokers. SendResult sendResult = producer.send(msg); System.out.printf("%s%n", sendResult); &#125; //Shut down once the producer instance is not longer in use. producer.shutdown(); &#125;&#125; 消费1234567891011121314151617181920212223242526272829public class Consumer &#123; public static void main(String[] args) throws InterruptedException, MQClientException &#123; // Instantiate with specified consumer group name. DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("please_rename_unique_group_name"); // Specify name server addresses. consumer.setNamesrvAddr("localhost:9876"); // Subscribe one more more topics to consume. consumer.subscribe("TopicTest", "*"); // Register callback to execute on arrival of messages fetched from brokers. consumer.registerMessageListener(new MessageListenerConcurrently() &#123; @Override public ConsumeConcurrentlyStatus consumeMessage(List&lt;MessageExt&gt; msgs, ConsumeConcurrentlyContext context) &#123; System.out.printf("%s Receive New Messages: %s %n", Thread.currentThread().getName(), msgs); return ConsumeConcurrentlyStatus.CONSUME_SUCCESS; &#125; &#125;); //Launch the consumer instance. consumer.start(); System.out.printf("Consumer Started.%n"); &#125;&#125; 遇到的问题1. error=&#39;Cannot allocate memory&#39;123456789Java HotSpot(TM) 64-Bit Server VM warning: INFO: os::commit_memory(0x00000005fb000000, 8589934592, 0) failed; error='Cannot allocate memory' (errno=12)## There is insufficient memory for the Java Runtime Environment to continue.# Native memory allocation (malloc) failed to allocate 8589934592 bytes for committing reserved memory.# An error report file with more information is saved as:# /usr/local/mq/rocketmq-all-4.3.2-bin-release/hs_err_pid6845.logUnrecognized VM option 'MetaspaceSize=128m'Error: Could not create the Java Virtual Machine.Error: A fatal exception has occurred. Program will exit. 将bin目录下的runbroker.sh的虚拟机配置调整如下： 1JAVA_OPT="$&#123;JAVA_OPT&#125; -server -Xms256m -Xmx256m -Xmn125m -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=320m" 同样的如果nameserver有问题也要相应的进行调整。 2. Exception in thread &quot;main&quot; org.apache.rocketmq.remoting.exception.RemotingTooMuchRequestException: sendDefaultImpl call timeout由于RocktMQ没有绑定网卡ip导致，如果服务器有多网卡配置的时候，或者虚拟机。12345//生成配置信息echo "brokerIP1=10.2.x.x" &gt; broker.properties//broker绑定ipnohup sh bin/mqbroker -n 10.2.x.x:9876 -c ./broker.properties autoCreateTopicEnable=true &amp; 3. Unrecognized VM option &#39;MetaspaceSize=128m&#39;Java版本太低出现报错，此时需要升级到Java8，或者将该配置移除： 12Unrecognized VM option 'MetaspaceSize=128m'Error: Could not create the Java Virtual Machine. 移除以后即： 1JAVA_OPT="$&#123;JAVA_OPT&#125; -server -Xms256m -Xmx256m -Xmn125m" 4. No route info of this topic1. 请检查服务器端口是否是开放的 2. 可以试一下关闭客户端的防火墙再去请求试试。 3. 检查服务器是否有执行export NAMESRV_ADDR=localhost:9876]]></content>
@@ -12,15 +36,15 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[hexo - 多设备之间无缝衔接]]></title>
+    <title><![CDATA[hexo-多设备之间无缝衔接]]></title>
     <url>%2F2018%2F11%2F28%2Fhexo-%E5%A4%9A%E8%AE%BE%E5%A4%87%E4%B9%8B%E9%97%B4%E6%97%A0%E7%BC%9D%E8%A1%94%E6%8E%A5%2F</url>
-    <content type="text"><![CDATA[最开始使用hexo的时候是在自己的Mac上面搭的，那时候每天都是背着自己的电脑上下班也没觉得不方便。后来老婆跟我在一起以后老是嫌弃我过安检的时候要走有包通道，非常耗时。所以就放弃了带自己的电脑上班，改为专门使用公司提供的Windows工作。这个时候就必须要把家里的电脑和公司的电脑的博客进行同步了。]]></content>
+    <content type="text"><![CDATA[最开始使用hexo的时候是在自己的Mac上面搭的，那时候每天都是背着自己的电脑上下班也没觉得不方便。后来老婆跟我在一起以后老是嫌弃我过安检的时候要走有包通道，非常耗时。所以就放弃了带自己的电脑上班，改为专门使用公司提供的Windows工作。这个时候就必须要把家里的电脑和公司的电脑的博客进行同步了。 安装依赖工具 安装node 123456789101112131415//下载$ wget https://nodejs.org/dist/v10.14.0/node-v10.14.0-linux-x64.tar.xz//解压$ tar xf node-v10.14.0-linux-x64.tar.xz//放到usr/local/node目录下$ mkdir /usr/local/node$ mv node-v10.14.0-linux-x64 /usr/local/node//配置环境变量$ vim ~/.zshrc$ /usr/local/node/node-v10.14.0-linux-x64/bin 添加到环境变量中$ source ~/.zshrc 刷新$ node -v 确认node是否安装ok 获取hexo博客源码将自己的博客通过各种方式获取到当前设备，比如我自己用的是git。如下所示是我的源码分支： 以下是我的生成的网页的分支： 另外再把主题单独弄一个项目进行同步。 我的做法是先拉取网页代码分支，然后进入目录以后再拉取一份切换到源码分支并改名叫.deploy_git 安装启动hexo123$ npm install -g hexo-cli$ npm install hexo --save$ hexo s --debug]]></content>
       <categories>
         <category>博客编写</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
         <tag>blog</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -200,8 +224,8 @@
         <category>shell</category>
       </categories>
       <tags>
-        <tag>shell</tag>
         <tag>ssh</tag>
+        <tag>shell</tag>
       </tags>
   </entry>
   <entry>
@@ -617,7 +641,7 @@
   <entry>
     <title><![CDATA[Docker学习,常用指令]]></title>
     <url>%2F2017%2F01%2F24%2FDocker%E5%AD%A6%E4%B9%A0-%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4%2F</url>
-    <content type="text"><![CDATA[DockerDocker 使用 Google 公司推出的 Go 语言 进行开发实现，基于 Linux 内核的 cgroup，namespace，以及 AUFS 类的 Union FS 等技术，对进程进行封装隔离， 属于操作系统层面的虚拟化技术。 常用指令 docker run -p 2222:22 imagename //运行改image做为container,不存在则会从Docker hub获取并运行; -p 指定本地映射关系,前面是访问地址端口,后面是映射的容器端口 docker exec -it goofy_banach /bin/bash 对比于attach方式,会立即显示进入,并且退出不会导致容器关闭 docker ps //获取正在运行的镜像 -a 所有的镜像 touch Dockerfile //创建docker脚本 cat Dockerfile //查看脚本 docker build -t docker-whale . //创建镜像, -t打tag,后面的.(表示当前目录)不能少 docker tag 7d9495d03763 maryatdocker/docker-whale:latest 标记docker镜像 docker login 登录 docker push maryatdocker/docker-whale 上传到docker hub docker rmi -f 7d9495d03763/imagename 移除镜像 docker run yourusername/docker-whale docker images 查看所有镜像 docker rmi $(docker images -q -f dangling=true) 删除无用的悬浮镜像 docker exec -it webserver bash 运行命令行并启动 docker commit [选项] &lt;容器ID或容器名&gt; [&lt;仓库名&gt;[:&lt;标签&gt;]] 提交更新,创建镜像谨慎使用,因为会对容器环境照成较大影响 //docker commit –author “Tao Wang &#116;&#x77;&#97;&#110;&#103;&#50;&#50;&#49;&#56;&#64;&#103;&#x6d;&#97;&#105;&#108;&#46;&#99;&#x6f;&#x6d;“ –message “修改了默认网页” webserver nginx:v2 docer diff NAMES 查看永久性更新 docker history nginx:v2 查看历史更新 docker rm 删除容器 docker run -it -–entrypoint /bin/bash karalabe/xgo-latest 强制使用bash启动docker镜像 docker run -it -v /Volumes/Work/go/src/golang.org:/src golang/mobile /bin/bash 挂载宿主机目录到容器 sudo yum upgrade docker 更新docker docker cp 2e8a06b7cff6:/gopath/src/golang.org/x/mobile/example/GoHello/app/src Storage-2e8a06b7cff6/ docker logs id/names 查看操作日志 docker top 显示容器进程 docker stats 查看容器进程状态 ####tag本地镜像并提交到docker仓库step1——找到本地镜像的ID：docker images step2——登陆Hub：docker login –username=username –password=password –email=email step3——tag：docker tag /: step4——push镜像：docker push / Dockerfile创建 mkdir test cd test touch Dockerfile 基本用法 FROM nginx 指定基础镜像,这个是必须的(可以指定一个空白镜像名为scratch) RUN 没一个RUN代表一层,因此同一个目的的RUN通过&amp;&amp;合并命令,浓缩到一层 (层数限制旧版42,新版127) COPY package.json /usr/src/app/ || hom?.txt /mydir/ ADD ubuntu-xenial-core-cloudimg-amd64-root.tar.gz / src可以是url,加强版的COPY,还可移植性解压缩 docker build -t docker-whale . docker build [选项] &lt;上下文路径/URL/-&gt; .代表当前目录 -t代表tag ENTRYPOINT 只有最后一个生效 run的时候通过–entrypoint使其生效 Docker基本概念Docker包括三个基本概念,包含了Docker的整个生命周期 镜像(Image) 容器(Container) 仓库(Repository) Docker镜像Docker镜像,相当于一个root文件系统(操作系统分为内核和用户空间,内核启动后,会挂载root文件系统为用户空间提供支持),镜像不包含任何动态数据.提供容器运行时所需的程序、库、资 源、配置等文件外,还包含了一些为运行时准备的一些配置参数（如匿名卷、环境 变量、用户等）. 分层存储镜像包含操作系统完整的root文件系统,体积较大,Docker设计时,采用了Union FS技术,分层存储的架构. 镜像构建时，会一层层构建，前一层是后一层的基础。每一层构建完就不会再发生 改变，后一层上的任何改变只发生在自己这一层,任何额外的东西应该在该层构建结束前清理掉。 Docker容器类比于面向对象程序设计中 的 类 和 实例 一样，镜像是静态的定义，容器是镜像运行时的实体。]]></content>
+    <content type="text"><![CDATA[DockerDocker 使用 Google 公司推出的 Go 语言 进行开发实现，基于 Linux 内核的 cgroup，namespace，以及 AUFS 类的 Union FS 等技术，对进程进行封装隔离， 属于操作系统层面的虚拟化技术。 常用指令 docker run -p 2222:22 imagename //运行改image做为container,不存在则会从Docker hub获取并运行; -p 指定本地映射关系,前面是访问地址端口,后面是映射的容器端口 docker exec -it goofy_banach /bin/bash 对比于attach方式,会立即显示进入,并且退出不会导致容器关闭 docker ps //获取正在运行的镜像 -a 所有的镜像 touch Dockerfile //创建docker脚本 cat Dockerfile //查看脚本 docker build -t docker-whale . //创建镜像, -t打tag,后面的.(表示当前目录)不能少 docker tag 7d9495d03763 maryatdocker/docker-whale:latest 标记docker镜像 docker login 登录 docker push maryatdocker/docker-whale 上传到docker hub docker rmi -f 7d9495d03763/imagename 移除镜像 docker run yourusername/docker-whale docker images 查看所有镜像 docker rmi $(docker images -q -f dangling=true) 删除无用的悬浮镜像 docker exec -it webserver bash 运行命令行并启动 docker commit [选项] &lt;容器ID或容器名&gt; [&lt;仓库名&gt;[:&lt;标签&gt;]] 提交更新,创建镜像谨慎使用,因为会对容器环境照成较大影响 //docker commit –author “Tao Wang &#x74;&#119;&#x61;&#110;&#x67;&#50;&#x32;&#x31;&#x38;&#64;&#x67;&#109;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;“ –message “修改了默认网页” webserver nginx:v2 docer diff NAMES 查看永久性更新 docker history nginx:v2 查看历史更新 docker rm 删除容器 docker run -it -–entrypoint /bin/bash karalabe/xgo-latest 强制使用bash启动docker镜像 docker run -it -v /Volumes/Work/go/src/golang.org:/src golang/mobile /bin/bash 挂载宿主机目录到容器 sudo yum upgrade docker 更新docker docker cp 2e8a06b7cff6:/gopath/src/golang.org/x/mobile/example/GoHello/app/src Storage-2e8a06b7cff6/ docker logs id/names 查看操作日志 docker top 显示容器进程 docker stats 查看容器进程状态 ####tag本地镜像并提交到docker仓库step1——找到本地镜像的ID：docker images step2——登陆Hub：docker login –username=username –password=password –email=email step3——tag：docker tag /: step4——push镜像：docker push / Dockerfile创建 mkdir test cd test touch Dockerfile 基本用法 FROM nginx 指定基础镜像,这个是必须的(可以指定一个空白镜像名为scratch) RUN 没一个RUN代表一层,因此同一个目的的RUN通过&amp;&amp;合并命令,浓缩到一层 (层数限制旧版42,新版127) COPY package.json /usr/src/app/ || hom?.txt /mydir/ ADD ubuntu-xenial-core-cloudimg-amd64-root.tar.gz / src可以是url,加强版的COPY,还可移植性解压缩 docker build -t docker-whale . docker build [选项] &lt;上下文路径/URL/-&gt; .代表当前目录 -t代表tag ENTRYPOINT 只有最后一个生效 run的时候通过–entrypoint使其生效 Docker基本概念Docker包括三个基本概念,包含了Docker的整个生命周期 镜像(Image) 容器(Container) 仓库(Repository) Docker镜像Docker镜像,相当于一个root文件系统(操作系统分为内核和用户空间,内核启动后,会挂载root文件系统为用户空间提供支持),镜像不包含任何动态数据.提供容器运行时所需的程序、库、资 源、配置等文件外,还包含了一些为运行时准备的一些配置参数（如匿名卷、环境 变量、用户等）. 分层存储镜像包含操作系统完整的root文件系统,体积较大,Docker设计时,采用了Union FS技术,分层存储的架构. 镜像构建时，会一层层构建，前一层是后一层的基础。每一层构建完就不会再发生 改变，后一层上的任何改变只发生在自己这一层,任何额外的东西应该在该层构建结束前清理掉。 Docker容器类比于面向对象程序设计中 的 类 和 实例 一样，镜像是静态的定义，容器是镜像运行时的实体。]]></content>
       <categories>
         <category>Docker</category>
       </categories>
@@ -739,15 +763,15 @@
       </categories>
   </entry>
   <entry>
-    <title><![CDATA[hexo - 搭建博客相关]]></title>
-    <url>%2F2017%2F01%2F18%2Fhexo%20-%20%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%9B%B8%E5%85%B3%2F</url>
+    <title><![CDATA[hexo-搭建博客相关]]></title>
+    <url>%2F2017%2F01%2F18%2Fhexo-%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%9B%B8%E5%85%B3%2F</url>
     <content type="text"><![CDATA[常用的命令hexo new post &quot;article title&quot; //创建新的post,创建目录为: /source/_posts/ hexo d //deploy 发布 hexo s // hexo clean hexo s --debug hexo new page categories hexo new page about hexo new page commonweal hexo new page sitemap hexo new page tags hexo new page archives hexo new page tags]]></content>
       <categories>
         <category>博客编写</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
         <tag>blog</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
