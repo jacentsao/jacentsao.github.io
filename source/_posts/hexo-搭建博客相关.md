@@ -1,5 +1,5 @@
 ---
-title: hexo - 搭建博客相关
+title: hexo-搭建博客相关
 date: 2017-01-18 14:15:47
 tags: [hexo, blog]
 categories: 博客编写
