@@ -7,7 +7,7 @@ title: Silence of Heart
 subtitle: 最怕彷徨无前
 description: 这是我的个人测试小站
 author: JacenTsao
-language: zh-Hans
+language: zh-CN
 timezone:
 
 # URL
@@ -76,7 +76,7 @@ feed:
 #sitemap
 sitemap:
   path: sitemap.xml
-theme: next
+theme: next-new
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
