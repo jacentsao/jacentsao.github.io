@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-01-02T06:06:28.982Z</updated>
+  <updated>2019-01-29T09:56:52.191Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>协程有什么好处</title>
+    <link href="http://yoursite.com/2019/01/29/%E5%8D%8F%E7%A8%8B%E6%9C%89%E4%BB%80%E4%B9%88%E5%A5%BD%E5%A4%84/"/>
+    <id>http://yoursite.com/2019/01/29/协程有什么好处/</id>
+    <published>2019-01-29T09:52:35.000Z</published>
+    <updated>2019-01-29T09:56:52.191Z</updated>
+    
+    <content type="html"><![CDATA[<p>引用来源<a href="https://www.zhihu.com/question/20511233/answer/24260355" target="_blank" rel="noopener">知乎，协程的好处有哪些</a>。</p><p>作者：阿猫<br>链接：<a href="https://www.zhihu.com/question/20511233/answer/24260355" target="_blank" rel="noopener">https://www.zhihu.com/question/20511233/answer/24260355</a><br>来源：知乎<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p><ul><li><p>一开始大家想要同一时间执行那么三五个程序，大家能一块跑一跑。特别是UI什么的，别一上计算量比较大的玩意就跟死机一样。于是就有了并发，从程序员的角度可以看成是多个独立的逻辑流。内部可以是多cpu并行，也可以是单cpu时间分片，能快速的切换逻辑流，看起来像是大家一块跑的就行。</p></li><li><p>但是一块跑就有问题了。我计算到一半，刚把多次方程解到最后一步，你突然插进来，我的中间状态咋办，我用来储存的内存被你覆盖了咋办？所以跑在一个cpu里面的并发都需要处理上下文切换的问题。进程就是这样抽象出来个一个概念，搭配虚拟内存、进程表之类的东西，用来管理独立的程序运行、切换。</p></li><li><p>后来一电脑上有了好几个cpu，好咧，大家都别闲着，一人跑一进程。就是所谓的<strong>并行</strong>。</p></li><li><p>因为程序的使用涉及大量的计算机资源配置，把这活随意的交给用户程序，非常容易让整个系统分分钟被搞跪，资源分配也很难做到相对的公平。所以核心的操作需要陷入内核(kernel)，切换到操作系统，让老大帮你来做。</p></li><li>有的时候碰着I/O访问，阻塞了后面所有的计算。空着也是空着，老大就直接把CPU切换到其他进程，让人家先用着。当然除了I\O阻塞，还有时钟阻塞等等。一开始大家都这样弄，后来发现不成，太慢了。为啥呀，一切换进程得反复进入内核，置换掉一大堆状态。进程数一高，大部分系统资源就被进程切换给吃掉了。后来搞出<strong>线程</strong>的概念，大致意思就是，这个地方阻塞了，但我还有其他地方的逻辑流可以计算，这些逻辑流是共享一个地址空间的，不用特别麻烦的切换页表、刷新TLB，只要把寄存器刷新一遍就行，能比切换进程开销少点。</li><li>如果连时钟阻塞、 线程切换这些功能我们都不需要了，自己在进程里面写一个逻辑流调度的东西。那么我们即可以利用到并发优势，又可以避免反复系统调用，还有进程切换造成的开销，分分钟给你上几千个逻辑流不费力。这就是<strong>用户态线程</strong>。</li><li>从上面可以看到，实现一个用户态线程有两个必须要处理的问题：一是碰着阻塞式I\O会导致整个进程被挂起；二是由于缺乏时钟阻塞，进程需要自己拥有调度线程的能力。如果一种实现使得每个线程需要自己通过调用某个方法，主动交出控制权。那么我们就称这种用户态线程是协作式的，即是协程。</li><li><strong>本质上协程就是用户空间下的线程</strong>。</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;引用来源&lt;a href=&quot;https://www.zhihu.com/question/20511233/answer/24260355&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;知乎，协程的好处有哪些&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;作者：阿猫&lt;br&gt;链接：
+      
+    
+    </summary>
+    
+      <category term="计算机基础" scheme="http://yoursite.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"/>
+    
+    
+      <category term="计算机基础" scheme="http://yoursite.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
   
   <entry>
     <title>云游四方-大理-丽江-香格里拉-泸沽湖</title>
@@ -505,34 +531,6 @@
     
     
       <category term="ssh" scheme="http://yoursite.com/tags/ssh/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android-基础-FileProvider使用</title>
-    <link href="http://yoursite.com/2017/10/27/Android-%E5%9F%BA%E7%A1%80-FileProvider%E4%BD%BF%E7%94%A8/"/>
-    <id>http://yoursite.com/2017/10/27/Android-基础-FileProvider使用/</id>
-    <published>2017-10-27T14:49:48.000Z</published>
-    <updated>2018-11-28T01:27:42.903Z</updated>
-    
-    <content type="html"><![CDATA[<p>移动平台对于安全和隐私是越来越注重了，Android在权限方面也在不断的收紧，一定程度上对于流氓软件还是有克制作用的。</p><p>今天学习了一下<a href="https://developer.android.com/training/secure-file-sharing/setup-sharing.html" target="_blank" rel="noopener">FileProvider</a>和<a href="https://developer.android.com/reference/android/support/v4/content/FileProvider.html#getUriForFile(android.content.Context, java.lang.String, java.io.File" target="_blank" rel="noopener">文档</a>)的基本使用：</p><h5 id="1-定义Provider"><a href="#1-定义Provider" class="headerlink" title="1.定义Provider"></a>1.定义Provider</h5><p>首先要在MManifest文件中定义一个Provider，其中authorities=包名.fileprovider。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    package=&quot;com.example.myapp&quot;&gt;</span><br><span class="line">    &lt;application</span><br><span class="line">        ...&gt;</span><br><span class="line">        &lt;provider</span><br><span class="line">            android:name=&quot;android.support.v4.content.FileProvider&quot;</span><br><span class="line">            android:authorities=&quot;com.example.myapp.fileprovider&quot;</span><br><span class="line">            android:grantUriPermissions=&quot;true&quot;</span><br><span class="line">            android:exported=&quot;false&quot;&gt;</span><br><span class="line">            &lt;meta-data</span><br><span class="line">                android:name=&quot;android.support.FILE_PROVIDER_PATHS&quot;</span><br><span class="line">                android:resource=&quot;@xml/filepaths&quot; /&gt;</span><br><span class="line">        &lt;/provider&gt;</span><br><span class="line">        ...</span><br><span class="line">    &lt;/application&gt;</span><br><span class="line">&lt;/manifest&gt;</span><br></pre></td></tr></table></figure><h5 id="2-创建filepaths文件"><a href="#2-创建filepaths文件" class="headerlink" title="2.创建filepaths文件"></a>2.创建filepaths文件</h5><p>在res目录下面新建一个xml目录，并在新建的xml目录下面创建一个filepaths的文件，内容如下所示：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;paths xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;</span><br><span class="line">    &lt;files-path name=&quot;my_images&quot; path=&quot;images/&quot;/&gt;</span><br><span class="line">    ...</span><br><span class="line">&lt;/paths&gt;</span><br></pre></td></tr></table></figure><p>定义的路径又分为如下几种，分别对应内部存储和外部存储</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;files-path name=&quot;name&quot; path=&quot;path&quot; /&gt;  Context.getFilesDir().</span><br><span class="line">&lt;cache-path name=&quot;name&quot; path=&quot;path&quot; /&gt;  getCacheDir().</span><br><span class="line">&lt;external-path name=&quot;name&quot; path=&quot;path&quot; /&gt;  Environment.getExternalStorageDirectory().</span><br><span class="line">&lt;external-files-path name=&quot;name&quot; path=&quot;path&quot; /&gt;Context#getExternalFilesDir(String) Context.getExternalFilesDir(null).</span><br><span class="line">&lt;external-cache-path name=&quot;name&quot; path=&quot;path&quot; /&gt; Context.getExternalCacheDir().</span><br></pre></td></tr></table></figure><p>其中，name是出于安全考虑用于替换path显示的，path则是真实的次级目录</p><h5 id="3-创建一个可分享的Uri"><a href="#3-创建一个可分享的Uri" class="headerlink" title="3.创建一个可分享的Uri"></a>3.创建一个可分享的Uri</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">File imagePath = new File(Context.getFilesDir(), &quot;images&quot;);</span><br><span class="line">File newFile = new File(imagePath, &quot;default_image.jpg&quot;);</span><br><span class="line">Uri contentUri = FileProvider.getUriForFile(getContext(), &quot;com.mydomain.fileprovider&quot;, newFile);</span><br></pre></td></tr></table></figure><p>最终获取到的Uri是<code>content://com.mydomain.fileprovider/my_images/default_image.jpg</code>，可以看到实际的images路径被替换为my_images了。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;移动平台对于安全和隐私是越来越注重了，Android在权限方面也在不断的收紧，一定程度上对于流氓软件还是有克制作用的。&lt;/p&gt;
-&lt;p&gt;今天学习了一下&lt;a href=&quot;https://developer.android.com/training/secure-file-sha
-      
-    
-    </summary>
-    
-      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
-    
-    
-      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
-    
-      <category term="FileProdvider" scheme="http://yoursite.com/tags/FileProdvider/"/>
     
   </entry>
   
