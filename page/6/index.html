@@ -273,7 +273,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">50</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">54</span></a>
 
   </li>
         
@@ -311,7 +311,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">74</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">78</span></a>
 
   </li>
         
@@ -433,6 +433,857 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/11/Android-中获取文件的md5值/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JacenTsao">
+      <meta itemprop="description" content="这是我的个人测试小站">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Silence of Heart">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2017/03/11/Android-中获取文件的md5值/" class="post-title-link" itemprop="url">Android-中获取文件的md5值</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-03-11 16:53:26" itemprop="dateCreated datePublished" datetime="2017-03-11T16:53:26+08:00">2017-03-11</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-12-24 08:58:36" itemprop="dateModified" datetime="2018-12-24T08:58:36+08:00">2018-12-24</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在Android中获取文件的MD5值，来自CM</p>
+<pre><code>/*
+ * Copyright (C) 2012 The CyanogenMod Project
+ *
+ * * Licensed under the GNU GPLv2 license
+ *
+ * The text of the license can be found in the LICENSE file
+ * or at https://www.gnu.org/licenses/gpl-2.0.txt
+ */
+
+package com.cyanogenmod.updater.utils;
+
+import android.text.TextUtils;
+import android.util.Log;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+public class MD5 {
+    private static final String TAG = &quot;MD5&quot;;
+
+    public static boolean checkMD5(String md5, File updateFile) {
+        if (TextUtils.isEmpty(md5) || updateFile == null) {
+            Log.e(TAG, &quot;MD5 string empty or updateFile null&quot;);
+            return false;
+        }
+
+        String calculatedDigest = calculateMD5(updateFile);
+        if (calculatedDigest == null) {
+            Log.e(TAG, &quot;calculatedDigest null&quot;);
+            return false;
+        }
+
+        Log.v(TAG, &quot;Calculated digest: &quot; + calculatedDigest);
+        Log.v(TAG, &quot;Provided digest: &quot; + md5);
+
+        return calculatedDigest.equalsIgnoreCase(md5);
+    }
+
+    public static String calculateMD5(File updateFile) {
+        MessageDigest digest;
+        try {
+            digest = MessageDigest.getInstance(&quot;MD5&quot;);
+        } catch (NoSuchAlgorithmException e) {
+            Log.e(TAG, &quot;Exception while getting digest&quot;, e);
+            return null;
+        }
+
+        InputStream is;
+        try {
+            is = new FileInputStream(updateFile);
+        } catch (FileNotFoundException e) {
+            Log.e(TAG, &quot;Exception while getting FileInputStream&quot;, e);
+            return null;
+        }
+
+        byte[] buffer = new byte[8192];
+        int read;
+        try {
+            while ((read = is.read(buffer)) &gt; 0) {
+                digest.update(buffer, 0, read);
+            }
+            byte[] md5sum = digest.digest();
+            BigInteger bigInt = new BigInteger(1, md5sum);
+            String output = bigInt.toString(16);
+            // Fill to 32 chars
+            output = String.format(&quot;%32s&quot;, output).replace(&apos; &apos;, &apos;0&apos;);
+            return output;
+        } catch (IOException e) {
+            throw new RuntimeException(&quot;Unable to process file for MD5&quot;, e);
+        } finally {
+            try {
+                is.close();
+            } catch (IOException e) {
+                Log.e(TAG, &quot;Exception on closing MD5 input stream&quot;, e);
+            }
+        }
+    }
+}
+</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/03/uuid通用唯一识别码/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JacenTsao">
+      <meta itemprop="description" content="这是我的个人测试小站">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Silence of Heart">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2017/03/03/uuid通用唯一识别码/" class="post-title-link" itemprop="url">uuid通用唯一识别码</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-03-03 21:11:41" itemprop="dateCreated datePublished" datetime="2017-03-03T21:11:41+08:00">2017-03-03</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-11-28 09:27:42" itemprop="dateModified" datetime="2018-11-28T09:27:42+08:00">2018-11-28</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/计算机基础/" itemprop="url" rel="index"><span itemprop="name">计算机基础</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://zh.wikipedia.org/wiki/%E9%80%9A%E7%94%A8%E5%94%AF%E4%B8%80%E8%AF%86%E5%88%AB%E7%A0%81" target="_blank" rel="noopener">通用唯一识别码</a>（Universal Unique Identifier简称UUID）是一种软件建构的标准。</p>
+<p>UUID的目的，是让分布式系统中的所有元素，都能有唯一的辨识信息，而不需要通过中央控制端来辨识信息的指定。如此依赖，每个人都可以穿件捕鱼其他人冲突的UUID。这样的情况下，就不需要考虑数据库创建时的名称重复问题。目前最广泛应用的UUID，是微软的<a href="https://zh.wikipedia.org/wiki/%E5%85%A8%E5%B1%80%E5%94%AF%E4%B8%80%E6%A0%87%E8%AF%86%E7%AC%A6" target="_blank" rel="noopener">全局统一标识符</a>（GUID）。</p>
+<h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p>UUID是由一组32位数的16进制数字所构成，是故UUID理论上的总数为1632=2128，约等于3.4 x 1038。也就是说若每纳秒产生1兆个UUID，要花100亿年才会将所有UUID用完。</p>
+<p>UUID的标准型式包含32个16进制数字，以连字号分为五段，形式为8-4-4-4-12的32个字符。示例：</p>
+<p>550e8400-e29b-41d4-a716-446655440000</p>
+<p>UUID亦可刻意重复以表示同类。例如说微软的COM中，所有组件皆必须实现出IUnknown接口，方法是产生一个代表IUnknown的UUID。无论是程序试图访问组件中的IUnknown接口，或是实现IUnknown接口的组件，只要IUnknown一被使用，皆会被参考至同一个ID：00000000-0000-0000-C000-000000000046。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/26/Android-序列化/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JacenTsao">
+      <meta itemprop="description" content="这是我的个人测试小站">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Silence of Heart">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2017/02/26/Android-序列化/" class="post-title-link" itemprop="url">Android-序列化</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-02-26 20:18:04" itemprop="dateCreated datePublished" datetime="2017-02-26T20:18:04+08:00">2017-02-26</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-12-24 08:58:36" itemprop="dateModified" datetime="2018-12-24T08:58:36+08:00">2018-12-24</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在Android中我们经常使用到序列化来进行数据传递,比如Intent和Binder,或者将对象持久化到存储设备或者通过网络传输到其他设备的时候.通常我们会有两种方式来实现序列化: 1.Serializable 2.Parcelable </p>
+<h5 id="1-Serializable方式实现序列化"><a href="#1-Serializable方式实现序列化" class="headerlink" title="1. Serializable方式实现序列化"></a>1. Serializable方式实现序列化</h5><p>Serializable是java中所提供的一个序列化接口，它是空接口。通常我们可以通过实现Serializable接口来实现序列化，为对象提供标准的序列化和反序列化操作。同时我们注意到在实现该接口的时候我们会有一个long型的serialVersionUID，这个serialVersionUID主要是用于反序列化。如下所示：</p>
+<pre><code>public class User implements Serializable {
+    private static final long serialVersionUID = 7990301608074625143L;
+    public static int GENDAT_FEMALE = 0;
+    public static int GENDAT_MALE = 1;
+    private String name;
+
+    private int age;
+
+    private int gendar;
+
+    transient //序列化的时候忽略该字段
+    private int test;
+}
+</code></pre><p>以上面的User类为例，将其一个对象写入文件以后再从文件读取：<br>​<br>            User user = new User(“Max”, 0, 0, 0);<br>            ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(path));<br>            outputStream.writeObject(user);<br>            outputStream.close();</p>
+<pre><code>ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(path));
+User reader = (User) inputStream.readObject();
+Toast.makeText(this, reader.toString(), Toast.LENGTH_LONG).show();
+</code></pre><p>​<br>当把对象user写入到文件中的时候，同时会写入对象的serialVersionUID，在从文件中读取对象的时候，    </p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/24/Android-里面的几种倒计时方式/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JacenTsao">
+      <meta itemprop="description" content="这是我的个人测试小站">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Silence of Heart">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2017/02/24/Android-里面的几种倒计时方式/" class="post-title-link" itemprop="url">Android-里面的几种倒计时方式</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-02-24 21:40:24" itemprop="dateCreated datePublished" datetime="2017-02-24T21:40:24+08:00">2017-02-24</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-12-24 08:58:36" itemprop="dateModified" datetime="2018-12-24T08:58:36+08:00">2018-12-24</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Android常见的一些及时方式:TimeTask,CounterDownTimer,Handler.postDelay().a</p>
+<ol>
+<li>TimeTask </li>
+</ol>
+<pre><code>​    
+    final Handler handler = new Handler() {
+​        public void handleMessage(Message msg) {
+​            switch (msg.what) {
+​                case 1:
+​                    if (timerCount &gt; 0) {
+​                        btnGetVerifyCode.setEnabled(false);
+​                        btnGetVerifyCode.setText(&quot;重新获取(&quot; + String.valueOf(timerCount) + &quot;s)&quot;);
+​                        timerCount--;
+​                    } else {
+​                        btnGetVerifyCode.setEnabled(true);
+​                        btnGetVerifyCode.setText(&quot;重新获取&quot;);
+​                        if (task != null) {
+​                            task.cancel();
+​                        }
+​                    }
+​                    break;
+​            }
+​            super.handleMessage(msg);
+​        }
+           };
+
+
+    class MyTimerTask extends TimerTask {
+
+        @Override
+        public void run() {
+            Message message = new Message();
+            message.what = 1;
+            handler.sendMessage(message);
+        }
+    }
+
+
+        timerCount = 60;
+</code></pre><p>​         task = new MyTimerTask();<br>​         timer.schedule(task, 0, 1000); //延时1000ms后执行，1000ms执行一次<br>​<br>​         </p>
+<ol>
+<li><p>CountDownTimer</p>
+<pre><code>new CountDownTimer(60000, 1000) {
+
+public void onTick(long millisUntilFinished) {
+    mTextField.setText(&quot;seconds remaining: &quot; + millisUntilFinished / 1000);
+ }
+
+ public void onFinish() {
+     mTextField.setText(&quot;done!&quot;);
+ }
+  }.start();
+</code></pre></li>
+<li><p>不做详细说明了</p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -1477,734 +2328,6 @@ int result = start.compareTo(end);
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/05/互联网协议入门（一）/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="JacenTsao">
-      <meta itemprop="description" content="这是我的个人测试小站">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Silence of Heart">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/02/05/互联网协议入门（一）/" class="post-title-link" itemprop="url">互联网协议入门（一）</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-02-05 15:02:41" itemprop="dateCreated datePublished" datetime="2017-02-05T15:02:41+08:00">2017-02-05</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-11-28 09:27:42" itemprop="dateModified" datetime="2018-11-28T09:27:42+08:00">2018-11-28</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/网络/" itemprop="url" rel="index"><span itemprop="name">网络</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><strong>本文转载自阮一峰的网络日志<a href="http://www.ruanyifeng.com/blog/2012/05/internet_protocol_suite_part_i.html" target="_blank" rel="noopener">互联网协议入门</a>.</strong></p>
-<p>互联网的核心是一系列的协议,总称为”互联网协议”(Internet Protocol Suite)。它们对电脑如何连接和组网，做出了详尽的规定。理解了这些协议，就理解了互联网的原理。</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2017/02/05/互联网协议入门（一）/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/29/go语言中的fmt包学习/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="JacenTsao">
-      <meta itemprop="description" content="这是我的个人测试小站">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Silence of Heart">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/01/29/go语言中的fmt包学习/" class="post-title-link" itemprop="url">go语言中的fmt包学习</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-01-29 10:55:38" itemprop="dateCreated datePublished" datetime="2017-01-29T10:55:38+08:00">2017-01-29</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-11-28 09:27:42" itemprop="dateModified" datetime="2018-11-28T09:27:42+08:00">2018-11-28</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Golang/" itemprop="url" rel="index"><span itemprop="name">Golang</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="go-doc-fmt-list-all-the-data-below"><a href="#go-doc-fmt-list-all-the-data-below" class="headerlink" title="go doc fmt list all the data below"></a>go doc fmt list all the data below</h3><h4 id="print"><a href="#print" class="headerlink" title="print"></a>print</h4><p>The verbs:</p>
-<p>General:</p>
-<pre><code>%v    the value in a default format
-    when printing structs, the plus flag (%+v) adds field names
-%#v    a Go-syntax representation of the value
-%T    a Go-syntax representation of the type of the value
-%%    a literal percent sign; consumes no value
-</code></pre><p>Boolean:</p>
-<pre><code>%t    the word true or false
-</code></pre><p>Integer:</p>
-<pre><code>%b    base 2
-%c    the character represented by the corresponding Unicode code point
-%d    base 10
-%o    base 8
-%q    a single-quoted character literal safely escaped with Go syntax.
-%x    base 16, with lower-case letters for a-f
-%X    base 16, with upper-case letters for A-F
-%U    Unicode format: U+1234; same as &quot;U+%04X&quot;
-</code></pre><p>Floating-point and complex constituents:</p>
-<pre><code>%b    decimalless scientific notation with exponent a power of two,
-    in the manner of strconv.FormatFloat with the &apos;b&apos; format,
-    e.g. -123456p-78
-%e    scientific notation, e.g. -1.234456e+78
-%E    scientific notation, e.g. -1.234456E+78
-%f    decimal point but no exponent, e.g. 123.456
-%F    synonym for %f
-%g    %e for large exponents, %f otherwise
-%G    %E for large exponents, %F otherwise
-</code></pre><p>String and slice of bytes (treated equivalently with these verbs):</p>
-<pre><code>%s    the uninterpreted bytes of the string or slice
-%q    a double-quoted string safely escaped with Go syntax
-%x    base 16, lower-case, two characters per byte
-%X    base 16, upper-case, two characters per byte
-</code></pre><p>Pointer:</p>
-<pre><code>%p    base 16 notation, with leading 0x
-</code></pre><p>There is no ‘u’ flag. Integers are printed unsigned if they have unsigned<br>type. Similarly, there is no need to specify the size of the operand (int8,<br>int64).</p>
-<p>The default format for %v is:</p>
-<pre><code>bool:                    %t
-int, int8 etc.:          %d
-uint, uint8 etc.:        %d, %x if printed with %#v
-float32, complex64, etc: %g
-string:                  %s
-chan:                    %p
-pointer:                 %p
-</code></pre><p>Control width and precision:</p>
-<pre><code> %f     default width, default precision
-%9f    width 9, default precision
-%.2f   default width, precision 2
-%9.2f  width 9, precision 2
-%9.f   width 9, precision 0
-</code></pre><h4 id="一些小区别"><a href="#一些小区别" class="headerlink" title="一些小区别"></a>一些小区别</h4><p>函数 fmt.Sprintf 与 Printf 的作⽤是完全相同的，不过前者将格式化后的字符串以返 回值的形式返回给调⽤者，因此你可以在程序中使⽤包含变量的字符串</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/29/go语言中的init-函数/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="JacenTsao">
-      <meta itemprop="description" content="这是我的个人测试小站">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Silence of Heart">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/01/29/go语言中的init-函数/" class="post-title-link" itemprop="url">go语言中的init()函数</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-01-29 10:43:18" itemprop="dateCreated datePublished" datetime="2017-01-29T10:43:18+08:00">2017-01-29</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-11-28 09:27:42" itemprop="dateModified" datetime="2018-11-28T09:27:42+08:00">2018-11-28</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Golang/" itemprop="url" rel="index"><span itemprop="name">Golang</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>在go语言中,有一类比较特殊的函数,不能够被人为的调用,而是在每个包完成初始化动作后自动执行,而且执行优先级比main函数高.</p>
-<p>没一个源文件都可以包含一个或者多个init函数.初始化工作是以单线程执行,并且按照包的依赖关系顺序执行.一个可能的用途是在开始执行程序之前对数据进行检验或者修复,以保证程序状态的正确性.</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/26/2017年度flag/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="JacenTsao">
-      <meta itemprop="description" content="这是我的个人测试小站">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Silence of Heart">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/01/26/2017年度flag/" class="post-title-link" itemprop="url">2017年度flag</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-01-26 09:12:59" itemprop="dateCreated datePublished" datetime="2017-01-26T09:12:59+08:00">2017-01-26</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-11-28 09:27:42" itemprop="dateModified" datetime="2018-11-28T09:27:42+08:00">2018-11-28</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>private </p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2254,7 +2377,7 @@ pointer:                 %p
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">74</span>
+                    <span class="site-state-item-count">78</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2420,7 +2543,15 @@ pointer:                 %p
                     
                       
                     
-                    <span class="site-state-item-count">50</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">54</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

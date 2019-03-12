@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.6.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.6.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.6.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.6.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="2.3.1. 对象的创建对象的创建主要过程包含了类加载检查、对象内存分配、并发处理、内存空间初始化、对象设置、执行init方法等。主要流程如下：  1. 类加载检查虚拟机遇到一条new指令时，首先讲去检查这个指令的参数是否能在常量池中定位到一个类的符号引用，并且检查这个符号引用代表的类是否已被加载、解析和初始化过。如果没有，则首先要执行相应的类加载过程。 2. 分配内存对象所需内存的大小在类加载完">
+<meta name="keywords" content="jvm,对象">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java-深入理解Java虚拟机-对象的创建,内存布局,访问定位">
+<meta property="og:url" content="http://yoursite.com/2019/03/11/java-深入理解Java虚拟机-对象的创建-内存布局-访问定位/index.html">
+<meta property="og:site_name" content="Silence of Heart">
+<meta property="og:description" content="2.3.1. 对象的创建对象的创建主要过程包含了类加载检查、对象内存分配、并发处理、内存空间初始化、对象设置、执行init方法等。主要流程如下：  1. 类加载检查虚拟机遇到一条new指令时，首先讲去检查这个指令的参数是否能在常量池中定位到一个类的符号引用，并且检查这个符号引用代表的类是否已被加载、解析和初始化过。如果没有，则首先要执行相应的类加载过程。 2. 分配内存对象所需内存的大小在类加载完">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/jacentsao/picbed/master/img/markdown20190311214054.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jacentsao/picbed/master/img/markdown20190312%E5%8F%A5%E6%9F%84%E8%AE%BF%E9%97%AE%E5%AF%B9%E8%B1%A1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jacentsao/picbed/master/img/markdown20190312%E7%9B%B4%E6%8E%A5%E6%8C%87%E9%92%88%E8%AE%BF%E9%97%AE%E5%AF%B9%E8%B1%A1.png">
+<meta property="og:updated_time" content="2019-03-12T12:46:38.842Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java-深入理解Java虚拟机-对象的创建,内存布局,访问定位">
+<meta name="twitter:description" content="2.3.1. 对象的创建对象的创建主要过程包含了类加载检查、对象内存分配、并发处理、内存空间初始化、对象设置、执行init方法等。主要流程如下：  1. 类加载检查虚拟机遇到一条new指令时，首先讲去检查这个指令的参数是否能在常量池中定位到一个类的符号引用，并且检查这个符号引用代表的类是否已被加载、解析和初始化过。如果没有，则首先要执行相应的类加载过程。 2. 分配内存对象所需内存的大小在类加载完">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/jacentsao/picbed/master/img/markdown20190311214054.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Silence of Heart" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/11/java-深入理解Java虚拟机-对象的创建-内存布局-访问定位/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>java-深入理解Java虚拟机-对象的创建,内存布局,访问定位 | Silence of Heart</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion .logo-line-before i { left: initial; }
+    .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Silence of Heart</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">最怕彷徨无前</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">54</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">20</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">78</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-schedule">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/schedule/" rel="section"><i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>日程表</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-sitemap">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/sitemap.xml" rel="section"><i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>站点地图</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-commonweal">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/404/" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益 404</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/11/java-深入理解Java虚拟机-对象的创建-内存布局-访问定位/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JacenTsao">
+      <meta itemprop="description" content="这是我的个人测试小站">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Silence of Heart">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">java-深入理解Java虚拟机-对象的创建,内存布局,访问定位
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-11 21:07:38" itemprop="dateCreated datePublished" datetime="2019-03-11T21:07:38+08:00">2019-03-11</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-03-12 20:46:38" itemprop="dateModified" datetime="2019-03-12T20:46:38+08:00">2019-03-12</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="2-3-1-对象的创建"><a href="#2-3-1-对象的创建" class="headerlink" title="2.3.1. 对象的创建"></a>2.3.1. 对象的创建</h4><p>对象的创建主要过程包含了类加载检查、对象内存分配、并发处理、内存空间初始化、对象设置、执行init方法等。主要流程如下：</p>
+<p><img src="https://raw.githubusercontent.com/jacentsao/picbed/master/img/markdown20190311214054.png" alt=""></p>
+<h5 id="1-类加载检查"><a href="#1-类加载检查" class="headerlink" title="1. 类加载检查"></a>1. 类加载检查</h5><p>虚拟机遇到一条new指令时，首先讲去检查这个指令的参数是否能在常量池中定位到一个类的符号引用，并且检查这个符号引用代表的类是否已被加载、解析和初始化过。如果没有，则首先要执行相应的类加载过程。</p>
+<h5 id="2-分配内存"><a href="#2-分配内存" class="headerlink" title="2. 分配内存"></a>2. 分配内存</h5><p>对象所需内存的大小在类加载完成后便可完全确定（对象的内存布局），为对象分配空间的任务等同于把一块确定大小的内存从java堆中划分出来。 </p>
+<p>根据堆中的内存是否规整（选用哪种方式取决于Java堆是否规整，而Java堆是否规整取决于jvm采用的内存收集器是否有compact功能）分两种内存分配方式：</p>
+<ul>
+<li><strong>指针碰撞（Bump the Pointer）</strong> 假设Java堆中的内存是绝对规整的，所有用过的内存都放在一边，空闲的放在一边，中间放着一个指针做为分界点的指示器，那分配内存就是把这个指针向空闲空间移动分配的内存大小的距离。</li>
+<li><strong>空闲列表（Free List）</strong> Java堆中的内存不连续的情况下，jvm维护一个列表，记录哪些内存空间可用，哪些内存空间不可用。当进行内存分配的时候，在空闲列表中找一块空间足够大的内存块分配内存。</li>
+</ul>
+<h5 id="3-并发处理"><a href="#3-并发处理" class="headerlink" title="3. 并发处理"></a>3. 并发处理</h5><p>对象创建在虚拟机是一个非常频繁的行为，即使是只修改一个指针的位置，在并发情况下也并不是线程安全的，可能出现正在给A对象分配内存，指针还没来得及修改，对象B又同时使用了原来的指针来分配内存的情况。解决这个问题有两种方案：</p>
+<ul>
+<li><strong>同步</strong> 对内存分配的动作进行同步处理–实际上虚拟机采用CAS配置失败重试的方式保证更新操作的原子性。</li>
+<li><strong>本地线程分配缓冲(Thread Local Allocation Buffer)</strong> 把内存分配的动作按照线程划分在不同的空间之中进行。即每个线程在Java堆中预先分配一小块内存。哪个线程需要分配内存，就在那个线程的TLAB上分配，只有当TLAB的空间不足的重新分配TLAB的时候才需要线程同步锁定。jvm配置参数-XX:+/-UseTLAB</li>
+</ul>
+<h5 id="4-内存空间初始化"><a href="#4-内存空间初始化" class="headerlink" title="4. 内存空间初始化"></a>4. 内存空间初始化</h5><p>虚拟机将分配到的内存空间初始化为零值（不包括对象头），如果使用TLAB，这一过程也可以提前至TLAB分配时进行。</p>
+<p>这一过程可以让对象在使用的时候不用赋值就可以使用。</p>
+<h5 id="5-对象设置"><a href="#5-对象设置" class="headerlink" title="5. 对象设置"></a>5. 对象设置</h5><p>虚拟机对对象进行必要的设置，例如这个对象是哪个类的实例、如何才能找到类的元数据信息、对象的哈希码、对象的GC分带年龄等信息。这些信息存放在对象头中。</p>
+<h5 id="6-对象init"><a href="#6-对象init" class="headerlink" title="6. 对象init()"></a>6. 对象init()</h5><p>从虚拟机的角度来看，对象已经产生了。从Java角度来看，对象的创建才刚刚开始-init()方法还没有执行，对象的所有字段都还是零值。</p>
+<p>所以，一般来说由字节码是否跟随invokespecial指令所决定，执行new指令之后会接着执行init方法，把对象按照程序员的意愿进行初始化，这样一个真正可用的对象才选完全产生出来。</p>
+<h4 id="2-3-2-对象的内存布局"><a href="#2-3-2-对象的内存布局" class="headerlink" title="2.3.2. 对象的内存布局"></a>2.3.2. 对象的内存布局</h4><p>在HotSpot虚拟机中，对象在内存中存储的布局可以分为3块区域：对象头（Object Head）、实例数据（Instance Data）和对齐填充（Padding）。</p>
+<h5 id="1-对象头"><a href="#1-对象头" class="headerlink" title="1. 对象头"></a>1. 对象头</h5><p>HotSpot虚拟机的对象头包含两部分信息： </p>
+<h6 id="1-存储对象运行时数据"><a href="#1-存储对象运行时数据" class="headerlink" title="1. 存储对象运行时数据"></a>1. 存储对象运行时数据</h6><p>哈希码、GC分代年龄、锁状态标志、线程所持有的锁、偏向线程ID、偏向时间戳等，这部分数据的长度在32位和64位虚拟机（未开启<a href="https://wiki.openjdk.java.net/display/HotSpot/CompressedOops" target="_blank" rel="noopener">压缩指针1</a>，<a href="http://hg.openjdk.java.net/jdk8/jdk8/hotspot/file/87ee5ee27509/src/share/vm/oops/markOop.hpp" target="_blank" rel="noopener">指针压缩2</a>）中分别为32bit和64bit，官方称他为Mark Word。</p>
+<h6 id="2-类型指针"><a href="#2-类型指针" class="headerlink" title="2. 类型指针"></a>2. 类型指针</h6><p>类型指针，即对象指向它的<a href="https://zh.wikipedia.org/wiki/%E5%85%83%E6%95%B0%E6%8D%AE" target="_blank" rel="noopener">类元数据</a>的指针，虚拟机通过这个指针来确定这个对象是哪个类的实例。</p>
+<p>并不是所有的虚拟机实现都必须在对象数据上保留类型指针，换句话说，查找对象的元数据信息并不一定要经过对象本身。(句柄方式访问对象的话是通过类型数据指针来查找的)</p>
+<p>如果对象是一个Java数组，对象头中还存有记录数组长度的数据，因为虚拟机可以通过普通Java对象的元数据信息确定Java对象的大小，但是从数组的元数据中无法确定数组的大小</p>
+<h5 id="2-实例数据"><a href="#2-实例数据" class="headerlink" title="2. 实例数据"></a>2. 实例数据</h5><p>实例数据部分是对象真正存储的有效信息，也是在程序代码中所定义的各种类型的字段内容。无论从父类继承而来或者在子类中定义的，都需要记录起来。这部分的存储顺序会收到虚拟机的分配策略参数（FieldsAllocationStyle）和字段在Java源码中定义的顺序的影响。HotSpot虚拟机默认的分配策略位longs/doubles、ints、shorts/chars、bytes、booleans、oops（Ordinary Object Pointers），从分配策略来看，相同宽度的字段总是分配到一起。在满足这个前提条件的情况下，在父类中定义的变量回出现在种类之前。如果CompactFiles参数值位true（默认为true），那么子类中较窄的变量也可能回插入到父类的变量空隙之中。</p>
+<h5 id="3-填充数据"><a href="#3-填充数据" class="headerlink" title="3. 填充数据"></a>3. 填充数据</h5><p>起到占位符的作用，由于HotSpot虚拟机的自动内存管理系统要求对象起始地址必须是8字节的整数倍，换而言之对象的大小必须是8字节的整数倍。而对象头刚好是8字节的整数倍（1倍或者2倍）。因此，当对象的实例数据不是8字节的整数倍的时候，需要通过填充数据来补全。</p>
+<h4 id="2-3-3-对象的访问定位"><a href="#2-3-3-对象的访问定位" class="headerlink" title="2.3.3. 对象的访问定位"></a>2.3.3. 对象的访问定位</h4><p>Java程序通过栈上面的reference数据来确定使用的具体对象。由于reference类型在Java虚拟机中只规定了一个指向对象的引用，并没有定义这个引用通过何种方式去定位、访问堆中的对象的具体位置，所以对象的访问方式也是取决于虚拟机的实现而定的。目前主流的访问方式有使用句柄和直接内存指针两种。</p>
+<ul>
+<li>使用句柄的方式访问，那么Java堆中将会划分一块内存做为句柄池，reference中存储的就是对象的句柄地址，而句柄中包含了对象实例数据和类型数据各自的具体地址信息。如下图所示：</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/jacentsao/picbed/master/img/markdown20190312%E5%8F%A5%E6%9F%84%E8%AE%BF%E9%97%AE%E5%AF%B9%E8%B1%A1.png" alt=""></p>
+<ul>
+<li>使用直接指针访问，那么Java堆对象的布局中就必须考虑如何防止访问数据类型数据的相关信息，而reference中存储的直接就是对象地址。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/jacentsao/picbed/master/img/markdown20190312%E7%9B%B4%E6%8E%A5%E6%8C%87%E9%92%88%E8%AE%BF%E9%97%AE%E5%AF%B9%E8%B1%A1.png" alt=""></p>
+<p>这两种对象的访问方式各有优势，使用句柄来访问的最大好处就是reference中存储的是稳定的句柄地址，在对象被移动（垃圾回收时移动对象是非常普遍的行为）时只会改变句柄中的实例数据指针，而reference本身不需要修改。</p>
+<p>使用直接指针访问的最大好处就是速度更快，它节省了一次指针定位的时间开销，由于对象的访问在Java中非常平凡，因此这类开销积少成多也是一项非常可观的执行成本。Sun Hotspot采用的就是直接指针访问的方式，但是从真个软件开发范围来看，使用句柄的方式十分常见。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/jvm/" rel="tag"># jvm</a>
+          
+            <a href="/tags/对象/" rel="tag"># 对象</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/08/homebrew更新阿里源/" rel="next" title="homebrew更新阿里源">
+                <i class="fa fa-chevron-left"></i> homebrew更新阿里源
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="JacenTsao">
+            
+              <p class="site-author-name" itemprop="name">JacenTsao</p>
+              <p class="site-description motion-element" itemprop="description">这是我的个人测试小站</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">78</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">54</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/jacentsao" title="GitHub &rarr; https://github.com/jacentsao" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-1-对象的创建"><span class="nav-number">1.</span> <span class="nav-text">2.3.1. 对象的创建</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-类加载检查"><span class="nav-number">1.1.</span> <span class="nav-text">1. 类加载检查</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-分配内存"><span class="nav-number">1.2.</span> <span class="nav-text">2. 分配内存</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-并发处理"><span class="nav-number">1.3.</span> <span class="nav-text">3. 并发处理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-内存空间初始化"><span class="nav-number">1.4.</span> <span class="nav-text">4. 内存空间初始化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-对象设置"><span class="nav-number">1.5.</span> <span class="nav-text">5. 对象设置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-对象init"><span class="nav-number">1.6.</span> <span class="nav-text">6. 对象init()</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-2-对象的内存布局"><span class="nav-number">2.</span> <span class="nav-text">2.3.2. 对象的内存布局</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-对象头"><span class="nav-number">2.1.</span> <span class="nav-text">1. 对象头</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-存储对象运行时数据"><span class="nav-number">2.1.1.</span> <span class="nav-text">1. 存储对象运行时数据</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-类型指针"><span class="nav-number">2.1.2.</span> <span class="nav-text">2. 类型指针</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-实例数据"><span class="nav-number">2.2.</span> <span class="nav-text">2. 实例数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-填充数据"><span class="nav-number">2.3.</span> <span class="nav-text">3. 填充数据</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-3-对象的访问定位"><span class="nav-number">3.</span> <span class="nav-text">2.3.3. 对象的访问定位</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">JacenTsao</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v6.6.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.6.0"></script>
+
+  <script src="/js/src/motion.js?v=6.6.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.6.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.6.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.6.0"></script>
+<script src="/js/src/post-details.js?v=6.6.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.6.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

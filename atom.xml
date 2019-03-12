@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-01-29T09:56:52.191Z</updated>
+  <updated>2019-03-12T12:46:38.842Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,101 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>java-深入理解Java虚拟机-对象的创建,内存布局,访问定位</title>
+    <link href="http://yoursite.com/2019/03/11/java-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Java%E8%99%9A%E6%8B%9F%E6%9C%BA-%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%88%9B%E5%BB%BA-%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80-%E8%AE%BF%E9%97%AE%E5%AE%9A%E4%BD%8D/"/>
+    <id>http://yoursite.com/2019/03/11/java-深入理解Java虚拟机-对象的创建-内存布局-访问定位/</id>
+    <published>2019-03-11T13:07:38.000Z</published>
+    <updated>2019-03-12T12:46:38.842Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="2-3-1-对象的创建"><a href="#2-3-1-对象的创建" class="headerlink" title="2.3.1. 对象的创建"></a>2.3.1. 对象的创建</h4><p>对象的创建主要过程包含了类加载检查、对象内存分配、并发处理、内存空间初始化、对象设置、执行init方法等。主要流程如下：</p><p><img src="https://raw.githubusercontent.com/jacentsao/picbed/master/img/markdown20190311214054.png" alt=""></p><h5 id="1-类加载检查"><a href="#1-类加载检查" class="headerlink" title="1. 类加载检查"></a>1. 类加载检查</h5><p>虚拟机遇到一条new指令时，首先讲去检查这个指令的参数是否能在常量池中定位到一个类的符号引用，并且检查这个符号引用代表的类是否已被加载、解析和初始化过。如果没有，则首先要执行相应的类加载过程。</p><h5 id="2-分配内存"><a href="#2-分配内存" class="headerlink" title="2. 分配内存"></a>2. 分配内存</h5><p>对象所需内存的大小在类加载完成后便可完全确定（对象的内存布局），为对象分配空间的任务等同于把一块确定大小的内存从java堆中划分出来。 </p><p>根据堆中的内存是否规整（选用哪种方式取决于Java堆是否规整，而Java堆是否规整取决于jvm采用的内存收集器是否有compact功能）分两种内存分配方式：</p><ul><li><strong>指针碰撞（Bump the Pointer）</strong> 假设Java堆中的内存是绝对规整的，所有用过的内存都放在一边，空闲的放在一边，中间放着一个指针做为分界点的指示器，那分配内存就是把这个指针向空闲空间移动分配的内存大小的距离。</li><li><strong>空闲列表（Free List）</strong> Java堆中的内存不连续的情况下，jvm维护一个列表，记录哪些内存空间可用，哪些内存空间不可用。当进行内存分配的时候，在空闲列表中找一块空间足够大的内存块分配内存。</li></ul><h5 id="3-并发处理"><a href="#3-并发处理" class="headerlink" title="3. 并发处理"></a>3. 并发处理</h5><p>对象创建在虚拟机是一个非常频繁的行为，即使是只修改一个指针的位置，在并发情况下也并不是线程安全的，可能出现正在给A对象分配内存，指针还没来得及修改，对象B又同时使用了原来的指针来分配内存的情况。解决这个问题有两种方案：</p><ul><li><strong>同步</strong> 对内存分配的动作进行同步处理–实际上虚拟机采用CAS配置失败重试的方式保证更新操作的原子性。</li><li><strong>本地线程分配缓冲(Thread Local Allocation Buffer)</strong> 把内存分配的动作按照线程划分在不同的空间之中进行。即每个线程在Java堆中预先分配一小块内存。哪个线程需要分配内存，就在那个线程的TLAB上分配，只有当TLAB的空间不足的重新分配TLAB的时候才需要线程同步锁定。jvm配置参数-XX:+/-UseTLAB</li></ul><h5 id="4-内存空间初始化"><a href="#4-内存空间初始化" class="headerlink" title="4. 内存空间初始化"></a>4. 内存空间初始化</h5><p>虚拟机将分配到的内存空间初始化为零值（不包括对象头），如果使用TLAB，这一过程也可以提前至TLAB分配时进行。</p><p>这一过程可以让对象在使用的时候不用赋值就可以使用。</p><h5 id="5-对象设置"><a href="#5-对象设置" class="headerlink" title="5. 对象设置"></a>5. 对象设置</h5><p>虚拟机对对象进行必要的设置，例如这个对象是哪个类的实例、如何才能找到类的元数据信息、对象的哈希码、对象的GC分带年龄等信息。这些信息存放在对象头中。</p><h5 id="6-对象init"><a href="#6-对象init" class="headerlink" title="6. 对象init()"></a>6. 对象init()</h5><p>从虚拟机的角度来看，对象已经产生了。从Java角度来看，对象的创建才刚刚开始-init()方法还没有执行，对象的所有字段都还是零值。</p><p>所以，一般来说由字节码是否跟随invokespecial指令所决定，执行new指令之后会接着执行init方法，把对象按照程序员的意愿进行初始化，这样一个真正可用的对象才选完全产生出来。</p><h4 id="2-3-2-对象的内存布局"><a href="#2-3-2-对象的内存布局" class="headerlink" title="2.3.2. 对象的内存布局"></a>2.3.2. 对象的内存布局</h4><p>在HotSpot虚拟机中，对象在内存中存储的布局可以分为3块区域：对象头（Object Head）、实例数据（Instance Data）和对齐填充（Padding）。</p><h5 id="1-对象头"><a href="#1-对象头" class="headerlink" title="1. 对象头"></a>1. 对象头</h5><p>HotSpot虚拟机的对象头包含两部分信息： </p><h6 id="1-存储对象运行时数据"><a href="#1-存储对象运行时数据" class="headerlink" title="1. 存储对象运行时数据"></a>1. 存储对象运行时数据</h6><p>哈希码、GC分代年龄、锁状态标志、线程所持有的锁、偏向线程ID、偏向时间戳等，这部分数据的长度在32位和64位虚拟机（未开启<a href="https://wiki.openjdk.java.net/display/HotSpot/CompressedOops" target="_blank" rel="noopener">压缩指针1</a>，<a href="http://hg.openjdk.java.net/jdk8/jdk8/hotspot/file/87ee5ee27509/src/share/vm/oops/markOop.hpp" target="_blank" rel="noopener">指针压缩2</a>）中分别为32bit和64bit，官方称他为Mark Word。</p><h6 id="2-类型指针"><a href="#2-类型指针" class="headerlink" title="2. 类型指针"></a>2. 类型指针</h6><p>类型指针，即对象指向它的<a href="https://zh.wikipedia.org/wiki/%E5%85%83%E6%95%B0%E6%8D%AE" target="_blank" rel="noopener">类元数据</a>的指针，虚拟机通过这个指针来确定这个对象是哪个类的实例。</p><p>并不是所有的虚拟机实现都必须在对象数据上保留类型指针，换句话说，查找对象的元数据信息并不一定要经过对象本身。(句柄方式访问对象的话是通过类型数据指针来查找的)</p><p>如果对象是一个Java数组，对象头中还存有记录数组长度的数据，因为虚拟机可以通过普通Java对象的元数据信息确定Java对象的大小，但是从数组的元数据中无法确定数组的大小</p><h5 id="2-实例数据"><a href="#2-实例数据" class="headerlink" title="2. 实例数据"></a>2. 实例数据</h5><p>实例数据部分是对象真正存储的有效信息，也是在程序代码中所定义的各种类型的字段内容。无论从父类继承而来或者在子类中定义的，都需要记录起来。这部分的存储顺序会收到虚拟机的分配策略参数（FieldsAllocationStyle）和字段在Java源码中定义的顺序的影响。HotSpot虚拟机默认的分配策略位longs/doubles、ints、shorts/chars、bytes、booleans、oops（Ordinary Object Pointers），从分配策略来看，相同宽度的字段总是分配到一起。在满足这个前提条件的情况下，在父类中定义的变量回出现在种类之前。如果CompactFiles参数值位true（默认为true），那么子类中较窄的变量也可能回插入到父类的变量空隙之中。</p><h5 id="3-填充数据"><a href="#3-填充数据" class="headerlink" title="3. 填充数据"></a>3. 填充数据</h5><p>起到占位符的作用，由于HotSpot虚拟机的自动内存管理系统要求对象起始地址必须是8字节的整数倍，换而言之对象的大小必须是8字节的整数倍。而对象头刚好是8字节的整数倍（1倍或者2倍）。因此，当对象的实例数据不是8字节的整数倍的时候，需要通过填充数据来补全。</p><h4 id="2-3-3-对象的访问定位"><a href="#2-3-3-对象的访问定位" class="headerlink" title="2.3.3. 对象的访问定位"></a>2.3.3. 对象的访问定位</h4><p>Java程序通过栈上面的reference数据来确定使用的具体对象。由于reference类型在Java虚拟机中只规定了一个指向对象的引用，并没有定义这个引用通过何种方式去定位、访问堆中的对象的具体位置，所以对象的访问方式也是取决于虚拟机的实现而定的。目前主流的访问方式有使用句柄和直接内存指针两种。</p><ul><li>使用句柄的方式访问，那么Java堆中将会划分一块内存做为句柄池，reference中存储的就是对象的句柄地址，而句柄中包含了对象实例数据和类型数据各自的具体地址信息。如下图所示：</li></ul><p><img src="https://raw.githubusercontent.com/jacentsao/picbed/master/img/markdown20190312%E5%8F%A5%E6%9F%84%E8%AE%BF%E9%97%AE%E5%AF%B9%E8%B1%A1.png" alt=""></p><ul><li>使用直接指针访问，那么Java堆对象的布局中就必须考虑如何防止访问数据类型数据的相关信息，而reference中存储的直接就是对象地址。</li></ul><p><img src="https://raw.githubusercontent.com/jacentsao/picbed/master/img/markdown20190312%E7%9B%B4%E6%8E%A5%E6%8C%87%E9%92%88%E8%AE%BF%E9%97%AE%E5%AF%B9%E8%B1%A1.png" alt=""></p><p>这两种对象的访问方式各有优势，使用句柄来访问的最大好处就是reference中存储的是稳定的句柄地址，在对象被移动（垃圾回收时移动对象是非常普遍的行为）时只会改变句柄中的实例数据指针，而reference本身不需要修改。</p><p>使用直接指针访问的最大好处就是速度更快，它节省了一次指针定位的时间开销，由于对象的访问在Java中非常平凡，因此这类开销积少成多也是一项非常可观的执行成本。Sun Hotspot采用的就是直接指针访问的方式，但是从真个软件开发范围来看，使用句柄的方式十分常见。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;2-3-1-对象的创建&quot;&gt;&lt;a href=&quot;#2-3-1-对象的创建&quot; class=&quot;headerlink&quot; title=&quot;2.3.1. 对象的创建&quot;&gt;&lt;/a&gt;2.3.1. 对象的创建&lt;/h4&gt;&lt;p&gt;对象的创建主要过程包含了类加载检查、对象内存分配、并发处理、内存
+      
+    
+    </summary>
+    
+      <category term="java" scheme="http://yoursite.com/categories/java/"/>
+    
+    
+      <category term="jvm" scheme="http://yoursite.com/tags/jvm/"/>
+    
+      <category term="对象" scheme="http://yoursite.com/tags/%E5%AF%B9%E8%B1%A1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>homebrew更新阿里源</title>
+    <link href="http://yoursite.com/2019/03/08/homebrew%E6%9B%B4%E6%96%B0%E9%98%BF%E9%87%8C%E6%BA%90/"/>
+    <id>http://yoursite.com/2019/03/08/homebrew更新阿里源/</id>
+    <published>2019-03-08T13:54:20.000Z</published>
+    <updated>2019-03-08T13:56:04.914Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="替换为阿里源"><a href="#替换为阿里源" class="headerlink" title="替换为阿里源"></a>替换为阿里源</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"># 替换brew.git:</span><br><span class="line">cd &quot;$(brew --repo)&quot;</span><br><span class="line">git remote set-url origin https://mirrors.aliyun.com/homebrew/brew.git</span><br><span class="line"># 替换homebrew-core.git:</span><br><span class="line">cd &quot;$(brew --repo)/Library/Taps/homebrew/homebrew-core&quot;</span><br><span class="line">git remote set-url origin https://mirrors.aliyun.com/homebrew/homebrew-core.git</span><br><span class="line"># 应用生效</span><br><span class="line">brew update</span><br><span class="line"># 替换homebrew-bottles:</span><br><span class="line">echo &apos;export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles&apos; &gt;&gt; ~/.zshrc</span><br><span class="line">source ~/.zshrc</span><br></pre></td></tr></table></figure><h4 id="还原为官方源"><a href="#还原为官方源" class="headerlink" title="还原为官方源"></a>还原为官方源</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 重置brew.git:</span><br><span class="line">cd &quot;$(brew --repo)&quot;</span><br><span class="line">git remote set-url origin https://github.com/Homebrew/brew.git</span><br><span class="line"># 重置homebrew-core.git:</span><br><span class="line">cd &quot;$(brew --repo)/Library/Taps/homebrew/homebrew-core&quot;</span><br><span class="line">git remote set-url origin https://github.com/Homebrew/homebrew-core.git</span><br><span class="line"></span><br><span class="line">#删除zshrc HOMEBREW_BOTTLE_DOMAIN内容</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;替换为阿里源&quot;&gt;&lt;a href=&quot;#替换为阿里源&quot; class=&quot;headerlink&quot; title=&quot;替换为阿里源&quot;&gt;&lt;/a&gt;替换为阿里源&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gut
+      
+    
+    </summary>
+    
+      <category term="工具" scheme="http://yoursite.com/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="homebrew" scheme="http://yoursite.com/tags/homebrew/"/>
+    
+      <category term="阿里源" scheme="http://yoursite.com/tags/%E9%98%BF%E9%87%8C%E6%BA%90/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>java-深入理解Java虚拟机-Java内存区域与内存溢出异常</title>
+    <link href="http://yoursite.com/2019/03/07/java-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Java%E8%99%9A%E6%8B%9F%E6%9C%BA-Java%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA%E5%BC%82%E5%B8%B8/"/>
+    <id>http://yoursite.com/2019/03/07/java-深入理解Java虚拟机-Java内存区域与内存溢出异常/</id>
+    <published>2019-03-07T14:21:36.000Z</published>
+    <updated>2019-03-12T14:15:50.610Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="2-2-运行时数据区域-Java-VM-runtime-data-areas"><a href="#2-2-运行时数据区域-Java-VM-runtime-data-areas" class="headerlink" title="2.2 运行时数据区域(Java VM runtime data areas)"></a>2.2 运行时数据区域(Java VM runtime data areas)</h4><p> Java虚拟机在执行Java程序的过程中会把它管理的内存划分位若干个不同的数据区域，这些区域都有各自的用途，以及创建和销毁的时间，有的区域随着虚拟机进程的启动而存在，有些区域则依赖用户线程的启动和结束而简历和销毁。如下图所示，Java运行时数据区域分为以下几个部分：</p><p> <img src="https://raw.githubusercontent.com/jacentsao/picbed/master/img/markdown20190312jvm-runtime-data-area.png" alt=""></p><h5 id="2-2-1-程序计数器-Program-Counter-Register"><a href="#2-2-1-程序计数器-Program-Counter-Register" class="headerlink" title="2.2.1  程序计数器(Program Counter Register)"></a>2.2.1  程序计数器(Program Counter Register)</h5><p>程序计数器是一块较小的内存空间，可以看做当前线程所执行的字节码的行号指示器。在虚拟机的概念模型里（仅是概念模型，各种虚拟机可能会通过一些更高效的方式去实现），字节码解释器工作时就是通过改变这个计数器的值来选取下一条需要执行的字节码指令，分支、循环、跳转、异常处理、线程恢复等基础功能都需要依赖这个计数器完成。</p><p>由于Java虚拟机的多线程是通过线程切换cpu时间片实现的，在任何一个确定的时刻，一个处理器（对于多核处理器来说是一个内核）都只会执行一条线程中的指令。因此，为了线程切换后能恢复到正确的执行位置，每条线程都需要一个独立的PC计数器，各个线程之间计数器互不影响，独立存储，我们称这类内存区域为“线程私有”的内存。</p><p>如果线程正在执行的是一个Java方法，这个计数器记录的是正在执行的虚拟机字节码指令的地址；如果正在执行的是Native方法，这个计数器值则为空（Undefined）。此区域内存是唯一一个在Java虚拟机规范中没有规定任何OutOfMemoryError情况的区域。</p><h5 id="2-2-2-Java虚拟机栈（Java-VIrtual-Machine-Stacks）"><a href="#2-2-2-Java虚拟机栈（Java-VIrtual-Machine-Stacks）" class="headerlink" title="2.2.2 Java虚拟机栈（Java VIrtual Machine Stacks）"></a>2.2.2 Java虚拟机栈（Java VIrtual Machine Stacks）</h5><p>于PC counter一样，Java虚拟机栈也是线程私有的，它的生命周期与线程相同。虚拟机栈描述的是Java方法执行的内存模型：每个方法在执行的同事回创建一个栈帧（Stack Frame）用于存储局部变量表、操作数栈、动态链接、方法出口等信息。每一个方法从调用直至执行完成的过程，就对应着一个栈帧在虚拟机栈中入栈到出栈的过程。</p><p>虚拟机栈中的局部变量表存放了编译期可知的各种功能基本数据类型（boolean、byte、char、int、short、long、double、float)、对象引用（reference类型，它不等通于对象本身，可能是一个指向对象起始地址的引用指针，也可能是只想一个代表对象的句柄或其他与此对象相关的位置）和returnAddress（只想了一条字节码指令的地址）。</p><p>在Java虚拟机规范中，对这个区域规定了两种异常情况：</p><ul><li>StackOverflowError 线程请求的虚拟机栈深度大于虚拟机所允许的最大深度。</li><li>OutOfMemoryError 如果虚拟机栈可以动态扩展，扩展时无法申请到足够的内存的时候。</li></ul><h5 id="2-2-3-本地方法栈（Native-Method-Stacks）"><a href="#2-2-3-本地方法栈（Native-Method-Stacks）" class="headerlink" title="2.2.3 本地方法栈（Native Method Stacks）"></a>2.2.3 本地方法栈（Native Method Stacks）</h5><p>本地方法栈和虚拟机栈所发挥的作用非常相似的，他们之间的区别不过是虚拟机栈为虚拟机执行Java方法（也就是字节码）服务，而本地方法栈为虚拟机使用到的Native方法服务。同样的本地方法栈也会抛出StackOverflowError和OutOfMemoryError。</p><h5 id="2-2-4-Java堆（Java-Heap）"><a href="#2-2-4-Java堆（Java-Heap）" class="headerlink" title="2.2.4 Java堆（Java Heap）"></a>2.2.4 Java堆（Java Heap）</h5><p>对于大多数应用来说，Java堆是Java虚拟机所管理的内存中最大的一块。Java堆是线程共享的一块内存区域，在虚拟机启动时创建。</p><p>此区域的唯一目的就是存放对象实例，在Java虚拟机规范中的描述是：所有的对象实例以及数组都要在堆上分配，但是随着JIT（Just-In-Time）编译器的反战和逃逸分析技术逐渐成熟，栈上分配、标量替换优化技术将会导致一些微妙的变化发生，所有的对象都分配在堆上也渐渐变得不是那么绝对了。</p><p>Java堆是垃圾回收器管理的主要区域，Java堆垃圾回收采用分代收集算法，该区域的划分和虚拟机配置参数如下，分为两大块Young Generation和Old Generation，Permanent Generation属于接下来要讲的方法区。而Young Generation又可以细分为Eden（伊甸区）、From Survivor、To Survivor区。</p><p><img src="https://github.com/jacentsao/picbed/blob/master/img/markdownJava%20Heap%20Construction.gif?raw=true" alt=""></p><h5 id="2-2-5-方法区（Method-Area）"><a href="#2-2-5-方法区（Method-Area）" class="headerlink" title="2.2.5 方法区（Method Area）"></a>2.2.5 方法区（Method Area）</h5><p>方法区也是线程共享的内存区域，他用于存储已被Java虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。虽然Java虚拟机规范把方法去描述为堆的一个逻辑部分，但是它有一个别名叫做非堆（Non-Heap），目的应该是与Java堆区分开来。</p><p>方法区又被称之为永久带（Permanent Generation），本质上两者并不等价，仅仅是因为HotSpot虚拟机的设计团队选择把GC分代收集扩展至方法区，或者说使用永久带来实现方法区而已。这样HotSpot的垃圾收集器就可以像管理Java堆一样管理这部分内存，省去专门为方法区开发内存管理代码的工作。对于其它虚拟机来说不存在方法区。</p><p>在jdk1.8之前，永久带在虚拟机运行时数据区域的分块如下：</p><p><img src="https://raw.githubusercontent.com/jacentsao/picbed/master/img/markdown20190312jdk1.7jvm-runtime-data-area.png" alt=""></p><p>在jdk1.8时，永久带被合并至Metaspace，如下所示：</p><p><img src="https://raw.githubusercontent.com/jacentsao/picbed/master/img/markdown20190312jdk1.8%20jvm%20runtime%20data%20area%20.png" alt=""></p><p>根据Java虚拟机规范的规定，当方法区无法满足内存分配的需求时，将抛出OutOfMemoryError异常。</p><h5 id="2-2-6-运行时常量池（Runtime-Constant-Pool）"><a href="#2-2-6-运行时常量池（Runtime-Constant-Pool）" class="headerlink" title="2.2.6 运行时常量池（Runtime Constant Pool）"></a>2.2.6 运行时常量池（Runtime Constant Pool）</h5><p>运行时常量池时方法区的一部分，受到方法区内存的限制，当常量池无法再申请到内存时会抛出OutOfMemoryError异常。</p><h5 id="2-2-7-直接内存（Direct-Memory）"><a href="#2-2-7-直接内存（Direct-Memory）" class="headerlink" title="2.2.7 直接内存（Direct Memory）"></a>2.2.7 直接内存（Direct Memory）</h5><p>直接内存并不是虚拟机运行时数据区的一部分，也不是Java虚拟机规范中定义的内存区域。由于此区域也可能导致OutOfMemoryError异常，故放在一起讲解。</p><p>在JDK1.4中心加入了NIO(New Input Output)类，引入了一种基于通道（Channel）与缓冲区（Buffer）的I/0方式，他可以使用Native函数库直接分配堆外内存，然后通过一个存储在Java堆中的DirectByteBuffer对象做为这块内存的引用操作。这样能在一些场景中显著提高性能，因为避免了在Java堆和Native堆中来回复制数据。</p><p>该区域收到本机总内存大小以及处理器寻址控件的限制，动态扩展时如果申请不到内存会出现OutOfMemoryError异常。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;2-2-运行时数据区域-Java-VM-runtime-data-areas&quot;&gt;&lt;a href=&quot;#2-2-运行时数据区域-Java-VM-runtime-data-areas&quot; class=&quot;headerlink&quot; title=&quot;2.2 运行时数据区域(Java
+      
+    
+    </summary>
+    
+      <category term="java" scheme="http://yoursite.com/categories/java/"/>
+    
+    
+      <category term="java" scheme="http://yoursite.com/tags/java/"/>
+    
+      <category term="jvm" scheme="http://yoursite.com/tags/jvm/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>阶段性总结 2016.03-2019.02</title>
+    <link href="http://yoursite.com/2019/01/30/%E9%98%B6%E6%AE%B5%E6%80%A7%E6%80%BB%E7%BB%93-2016-03-2019-02/"/>
+    <id>http://yoursite.com/2019/01/30/阶段性总结-2016-03-2019-02/</id>
+    <published>2019-01-30T03:10:51.000Z</published>
+    <updated>2019-01-30T03:10:51.146Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>协程有什么好处</title>
@@ -429,108 +524,6 @@
     
     </summary>
     
-    
-  </entry>
-  
-  <entry>
-    <title>Go语言实战阅读笔记2</title>
-    <link href="http://yoursite.com/2017/12/11/Go%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B02/"/>
-    <id>http://yoursite.com/2017/12/11/Go语言实战阅读笔记2/</id>
-    <published>2017-12-11T13:47:03.000Z</published>
-    <updated>2018-11-28T01:27:42.909Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="Golang基础"><a href="#Golang基础" class="headerlink" title="Golang基础"></a>Golang基础</h4><h5 id="1-指针"><a href="#1-指针" class="headerlink" title="1.指针"></a>1.指针</h5><p>&amp;符号的意思是对变量取地址<br>*符号的意思是对指针取值</p><p>*和 &amp; 可以互相抵消,同时注意，*&amp;可以抵消掉，但&amp;*是不可以抵消的</p><ul><li>传指针使得多个函数能操作同一个对象。</li><li>传指针比较轻量级 (8bytes),只是传内存地址，我们可以用指针传递体积大的结构体。如果用参数值传递的话, 在每次copy上面就会花费相对较多的系统开销（内存和时间）。所以当你要传递大的结构体的时候，用指针是一个明智的选择。</li><li>Go语言中channel，slice，map这三种类型的实现机制类似指针，所以可以直接传递，而不用取地址后传递指针。（注：若函数需改变slice的长度，则仍需要取地址传递指针）</li></ul><h5 id="2-字符串"><a href="#2-字符串" class="headerlink" title="2.字符串"></a>2.字符串</h5><p>`  括起的字符串为Raw字符串，即字符串在代码中的形式就是打印时的形式，它没有字符转义，换行也将原样输出。</p><h5 id="3-make和new操作"><a href="#3-make和new操作" class="headerlink" title="3.make和new操作"></a>3.make和new操作</h5><p>make用于内建类型（map、slice 和channel）的内存分配。new用于各种类型的内存分配。</p><p>内建函数new本质上说跟其它语言中的同名函数功能一样：new(T) 返回的是*T，即new返回指针</p><p>内建函数make(T, args)与new(T)有着不同的功能，make只能创建slice、map和channel，并且返回一个有初始值(非零)的T类型，而不是*T。本质来讲，导致这三个类型有所不同的原因是指向数据结构的引用在使用前必须被初始化。</p><h5 id="流程和函数"><a href="#流程和函数" class="headerlink" title="流程和函数"></a>流程和函数</h5><p>go里面没有类似于c和java的三木运算符，其主要运算符包括for、switch、if、while、goto</p><p>go里面支持可变参数func name(arg …name){}</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h4 id=&quot;Golang基础&quot;&gt;&lt;a href=&quot;#Golang基础&quot; class=&quot;headerlink&quot; title=&quot;Golang基础&quot;&gt;&lt;/a&gt;Golang基础&lt;/h4&gt;&lt;h5 id=&quot;1-指针&quot;&gt;&lt;a href=&quot;#1-指针&quot; class=&quot;headerlink&quot; 
-      
-    
-    </summary>
-    
-      <category term="Golang" scheme="http://yoursite.com/categories/Golang/"/>
-    
-    
-      <category term="Golang" scheme="http://yoursite.com/tags/Golang/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Go语言实战阅读笔记1</title>
-    <link href="http://yoursite.com/2017/12/11/Go%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B01/"/>
-    <id>http://yoursite.com/2017/12/11/Go语言实战阅读笔记1/</id>
-    <published>2017-12-11T13:31:36.000Z</published>
-    <updated>2018-11-28T01:27:42.908Z</updated>
-    
-    <content type="html"><![CDATA[<h5 id="1-1-Go语言的特性"><a href="#1-1-Go语言的特性" class="headerlink" title="1.1 Go语言的特性"></a>1.1 Go语言的特性</h5><h6 id="1-1-1-高效的开发速度和编译速度"><a href="#1-1-1-高效的开发速度和编译速度" class="headerlink" title="1.1.1  高效的开发速度和编译速度"></a>1.1.1  高效的开发速度和编译速度</h6><p>Golang编译没有从编译代码到执行代码的中间过程，用动态语言编写应用程序可以快速看到输出。代价是，动态语言不提供静态语言提供的类型安全特性，不得不大量使用测试套件来避免在运行的时候出现类型错误这类bug</p><h6 id="1-1-2-天然的并发支持"><a href="#1-1-2-天然的并发支持" class="headerlink" title="1.1.2 天然的并发支持"></a>1.1.2 天然的并发支持</h6><h6 id="1-1-2-1-goroutine"><a href="#1-1-2-1-goroutine" class="headerlink" title="1.1.2.1 goroutine"></a>1.1.2.1 goroutine</h6><p>不同于java和C需要编写大量额外的代码来使用线程，Golang在同一个线程中并行多个goroutine，net/http库直接使用了内置的goroutine，每个接收到的请求都在自己的goroutine中运行。goroutine使用的内存相对于线程而言更少，Go语言在运行时会自动在配置的一组逻辑处理器上调度执行goroutine。每个逻辑处理器绑定到一个操作系统上。这样子让用户的应用程序执行效率更高，而开发工作量显著减少。</p><h6 id="1-1-2-1-通道"><a href="#1-1-2-1-通道" class="headerlink" title="1.1.2.1 通道"></a>1.1.2.1 通道</h6><p>通道是一种在goroutine中进行安全的数据通信的数据结构，帮助用户避免其它语言里面常见的共享内存访问的问题</p><p>并发最难得部分就是要确保其他并发运行的进行、线程或goroutine不会以外修改用户的数据。在线程不安全的情况下访问和修改共享变量往往会带来灾难性的后果，在其它语言中，通常要通过复杂的锁规则来防止对一个全局变量或者共享内存造成不同步的修改</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h5 id=&quot;1-1-Go语言的特性&quot;&gt;&lt;a href=&quot;#1-1-Go语言的特性&quot; class=&quot;headerlink&quot; title=&quot;1.1 Go语言的特性&quot;&gt;&lt;/a&gt;1.1 Go语言的特性&lt;/h5&gt;&lt;h6 id=&quot;1-1-1-高效的开发速度和编译速度&quot;&gt;&lt;a href=&quot;
-      
-    
-    </summary>
-    
-      <category term="Golang" scheme="http://yoursite.com/categories/Golang/"/>
-    
-    
-      <category term="Golang" scheme="http://yoursite.com/tags/Golang/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>数据库学习1</title>
-    <link href="http://yoursite.com/2017/12/01/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A01/"/>
-    <id>http://yoursite.com/2017/12/01/数据库学习1/</id>
-    <published>2017-12-01T13:18:50.000Z</published>
-    <updated>2018-11-28T01:27:42.919Z</updated>
-    
-    <content type="html"><![CDATA[<h5 id="使用Navicat连接Mamp-Pro"><a href="#使用Navicat连接Mamp-Pro" class="headerlink" title="使用Navicat连接Mamp Pro"></a>使用Navicat连接Mamp Pro</h5><ol><li>新建mysql连接</li><li>输入端口号，用户名和密码（默认都是root）</li><li>use socket，打勾。输入/Applications/MAMP/tmp/mysql/mysql.sock</li></ol><h5 id="使用命令行操作mysql"><a href="#使用命令行操作mysql" class="headerlink" title="使用命令行操作mysql"></a>使用命令行操作mysql</h5><ol><li>执行 /Applications/MAMP/Library/bin 目录下的mysql即可进入命令行操作界面</li></ol><h5 id="使用golang连接数据库"><a href="#使用golang连接数据库" class="headerlink" title="使用golang连接数据库"></a>使用golang连接数据库</h5><ol><li><code>db, err := sql.Open(&quot;mysql&quot;, &quot;root:root@unix(/Applications/MAMP/tmp/mysql/mysql.sock)/mysql&quot;)</code></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h5 id=&quot;使用Navicat连接Mamp-Pro&quot;&gt;&lt;a href=&quot;#使用Navicat连接Mamp-Pro&quot; class=&quot;headerlink&quot; title=&quot;使用Navicat连接Mamp Pro&quot;&gt;&lt;/a&gt;使用Navicat连接Mamp Pro&lt;/h5&gt;&lt;ol&gt;
-
-      
-    
-    </summary>
-    
-      <category term="数据库" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-    
-      <category term="数据库" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ssh使用之文件拷贝</title>
-    <link href="http://yoursite.com/2017/11/30/ssh%E4%BD%BF%E7%94%A8%E4%B9%8B%E6%96%87%E4%BB%B6%E6%8B%B7%E8%B4%9D/"/>
-    <id>http://yoursite.com/2017/11/30/ssh使用之文件拷贝/</id>
-    <published>2017-11-30T12:53:21.000Z</published>
-    <updated>2018-11-28T01:27:42.915Z</updated>
-    
-    <content type="html"><![CDATA[<p>最近想学习一下Golang,自己买了一个188一年的京东云服务器，准备丢点东西上去，过程实在是各种折腾，门外汉的痛苦。</p><h4 id="ssh传输文件"><a href="#ssh传输文件" class="headerlink" title="ssh传输文件"></a>ssh传输文件</h4><pre><code>上传文件scp /path/filename username@servername:/path下载文件scp username@servername:/path/filename /var/www/local_dir（本地目录）下载目录scp -r username@servername:/var/www/remote_dir/（远程目录） /var/www/local_dir（本地目录）上传目录scp  -r local_dir username@servername:remote_dir</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;最近想学习一下Golang,自己买了一个188一年的京东云服务器，准备丢点东西上去，过程实在是各种折腾，门外汉的痛苦。&lt;/p&gt;
-&lt;h4 id=&quot;ssh传输文件&quot;&gt;&lt;a href=&quot;#ssh传输文件&quot; class=&quot;headerlink&quot; title=&quot;ssh传输文件&quot;&gt;&lt;/
-      
-    
-    </summary>
-    
-      <category term="SSH" scheme="http://yoursite.com/categories/SSH/"/>
-    
-    
-      <category term="ssh" scheme="http://yoursite.com/tags/ssh/"/>
     
   </entry>
   

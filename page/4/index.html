@@ -273,7 +273,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">50</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">54</span></a>
 
   </li>
         
@@ -311,7 +311,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">74</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">78</span></a>
 
   </li>
         
@@ -433,6 +433,804 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/22/Android-性能优化-overdraw/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JacenTsao">
+      <meta itemprop="description" content="这是我的个人测试小站">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Silence of Heart">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2017/08/22/Android-性能优化-overdraw/" class="post-title-link" itemprop="url">Android-性能优化-overdraw</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-08-22 23:15:59" itemprop="dateCreated datePublished" datetime="2017-08-22T23:15:59+08:00">2017-08-22</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-11-28 09:27:42" itemprop="dateModified" datetime="2018-11-28T09:27:42+08:00">2018-11-28</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>现在项目的性能之差令人发指，其实主要原因在于：</p>
+<ol>
+<li>开发人员本身能力有限，同时架构闻所未闻，见所未见。总而言之，搞不定。</li>
+<li>产品设计从来都是乱搞，没有整体性的设计(感觉我们的app真是业界毒瘤之典范)</li>
+</ol>
+<p>不过，我们还是要把能做好的做好了才行。</p>
+<h3 id="性能优化-OverDraw"><a href="#性能优化-OverDraw" class="headerlink" title="性能优化-OverDraw"></a>性能优化-OverDraw</h3><p>所谓<strong><a href="https://developer.android.com/topic/performance/rendering/overdraw.html" target="_blank" rel="noopener">overdraw</a></strong>(过度绘制)就是在一个点上进行了超过一次的绘制。过渡绘制是无意义的，需要我们去优化的，它会浪费GPU资源去渲染一些用户不可见的无意义的图层。关于如何查看过渡绘制，应该都是有所了解的。接下来是关于过度绘制：过度绘制是什么，怎么诊断过度绘制，你该采取何种方式取消除或者减轻过渡绘制。</p>
+<h4 id="理解过度绘制"><a href="#理解过度绘制" class="headerlink" title="理解过度绘制"></a>理解过度绘制</h4><p>过渡绘制指的是系统在一个像素点是那个进行了多次的渲染。例如，我们一些堆叠的UI卡片，每一张卡片又隐藏了它的一部分。</p>
+<p>当然，系统仍然需要绘制这叠卡片的隐藏部分，因为卡片的绘制是根据<a href="https://zh.wikipedia.org/wiki/%E7%94%BB%E5%AE%B6%E7%AE%97%E6%B3%95" target="_blank" rel="noopener">画家算法</a>（<strong>“画家算法”表示头脑简单的画家首先绘制距离较远的场景，然后用绘制距离较近的场景覆盖较远的部分。</strong>）。这就是从下到上的顺序。这种渲染顺序允许系统增加合适的透明度给半透明的物体，例如阴影。</p>
+<h4 id="查找过度绘制"><a href="#查找过度绘制" class="headerlink" title="查找过度绘制"></a>查找过度绘制</h4><p>Android提供了几种工具帮助你查找影响到你的app性能的过度绘制。这些工具在你的设备上打开<strong>开发者模式</strong>就可以找到。关于更多开发者选项，可以参见<a href="https://developer.android.com/studio/run/device.html#developer-device-options" target="_blank" rel="noopener">Run Apps on a Hardware Device</a>。</p>
+<h4 id="调试GPU过度绘制工具"><a href="#调试GPU过度绘制工具" class="headerlink" title="调试GPU过度绘制工具"></a>调试GPU过度绘制工具</h4><p>调试GPU过度绘制工具使用颜色来代表你的应用在一个像素点上渲染的次数。渲染次数越多，过度绘制就越会影响你的应用性能。</p>
+<p>关于如何使用这些工具，请继续往下看：</p>
+<h5 id="调试GPU过度绘制查验"><a href="#调试GPU过度绘制查验" class="headerlink" title="调试GPU过度绘制查验"></a>调试GPU过度绘制查验</h5><p>这种检查方法是通过颜色来形象化手机中的过度绘制，有如下好处：</p>
+<ul>
+<li>显现出应用做了哪些无用的渲染工作</li>
+<li>帮助你找到可能能够减少渲染的天花板</li>
+</ul>
+<p>在开发者选项 - 调试GPU过度绘制 - 选用显示过度绘制区域，然后回到你的应用，这时候你看到的颜色</p>
+<ul>
+<li>原色：没有过度绘制</li>
+<li>蓝色：一次过度绘制</li>
+<li>绿色： 两次过度绘制</li>
+<li>粉红色： 三次过度绘制</li>
+<li>红色：四次或者四次以上的过度绘制</li>
+</ul>
+<p><img src="https://developer.android.com/images/tools/performance/debug-gpu-overdraw/gettingstarted_image03.png" alt=""> </p>
+<p>有时候过度绘制是不可避免的。当你调试你的UI的时候，你的界面应该尽量是原色或者蓝色。</p>
+<h5 id="GPU呈现模式分析"><a href="#GPU呈现模式分析" class="headerlink" title="GPU呈现模式分析"></a>GPU呈现模式分析</h5><p>GPU呈现模式会在屏幕显示一个滚动的柱状图，每一个长方形都代表一帧的绘制</p>
+<p>在一些低性能的GPU设备上，GPU填满帧缓存区的速度会变得很慢。当很多像素需要绘制的时候，GPU需要花很长的时间来执行新的命令，这就会导致系统对于其它的请求反应变得很慢。</p>
+<h4 id="优化过度绘制"><a href="#优化过度绘制" class="headerlink" title="优化过度绘制"></a>优化过度绘制</h4><ol>
+<li>减少不必要的背景</li>
+<li>扁平化布局，减少布局的层次</li>
+<li>少使用transparency属性</li>
+</ol>
+<h5 id="减少不必要的背景"><a href="#减少不必要的背景" class="headerlink" title="减少不必要的背景"></a>减少不必要的背景</h5><p>布局本身是没有背景的，这就意味着他本身并不需要渲染背景。当布局本身有了背景以后，就意味着她可能会导致过度绘制。</p>
+<p>移除不必要的背景是一种快速修复渲染问题的手段。当绘制的背景对于用户来说完全不可见的时候就可以取移除掉这些背景了。例如一个设置了背景色的app，那么定义在Activity中的任意一个容易本身是不需要背景的。</p>
+<p>如果需要知道为什么你的app会出现过度绘制，你可以使用<a href="https://developer.android.com/studio/profile/hierarchy-viewer.html" target="_blank" rel="noopener">Hierarchy View</a>工具。当你使用这个工具的时候，消除所有对于用户不可见的背景。当然，我们可以通过设置一个通用的背景来达到消除不必要的背景的目的，这样子绘制的容器就可以不再定义自己的背景而使用app的通用背景（windowbackgroud）。</p>
+<h5 id="减少布局的层次"><a href="#减少布局的层次" class="headerlink" title="减少布局的层次"></a>减少布局的层次</h5><p>不局的过多嵌套同样也会导致过度绘制，同时也会因为节点过深导致视图的加载变慢。我们应该减少UI的重叠绘制，详情参见<a href="https://developer.android.com/topic/performance/optimizing-view-hierarchies.html" target="_blank" rel="noopener">Optimizing View Hierarchies</a></p>
+<h5 id="使用transparency"><a href="#使用transparency" class="headerlink" title="使用transparency"></a>使用transparency</h5><p>使用Alpha值的时候，同捕鱼常规的过度绘制即在同一像素点多次绘制，transparent属性的对象首先需要已经存在的像素进行绘制，然后进行等价的混合。例如，一个黑色字体的TextView通过添加Alpha值来达到灰色的效果，当然这个时候可以直接使用灰色来替换。 transparent animations, fade-outs, 以及 drop shadows以及其他的半透明效果，都会显著导致过度绘制。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/07/git-常用命令/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JacenTsao">
+      <meta itemprop="description" content="这是我的个人测试小站">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Silence of Heart">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2017/08/07/git-常用命令/" class="post-title-link" itemprop="url">git-常用命令</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-08-07 22:22:27" itemprop="dateCreated datePublished" datetime="2017-08-07T22:22:27+08:00">2017-08-07</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-11-28 09:27:42" itemprop="dateModified" datetime="2018-11-28T09:27:42+08:00">2018-11-28</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/工具/" itemprop="url" rel="index"><span itemprop="name">工具</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h3><ol>
+<li>git clone <a href="http://xx/zhj_android.git" target="_blank" rel="noopener">http://xx/zhj_android.git</a></li>
+<li>添加.gitignore到根目录，<a href="https://github.com/github/gitignore" target="_blank" rel="noopener">参考资料</a></li>
+<li>git add .gitignore 添加该文件到版本控制，提交到暂存区</li>
+<li>git commit -m “add .gitignore file” 从暂存区提交到当前分支</li>
+<li>git push 提交到远程仓库</li>
+</ol>
+<h3 id="常用的git命令"><a href="#常用的git命令" class="headerlink" title="常用的git命令"></a>常用的git命令</h3><ol>
+<li>git rm -r xx 从版本控制中移除xx目录及子目录</li>
+<li>rm -rf xx 如果xx中还有git的子模块，需要使用该命令删除</li>
+<li>git reset –hard HEAD 重置未提交的记录到HEAD Version，HEAD^回滚到上个版本,HEAD^^上上个版本，依次类推，或者指定回退HEAD~xx,xx个版本,或者指定log 提交的id</li>
+<li>git init 初始化一个目录为git仓库</li>
+<li>git status 查看仓库状态</li>
+<li>git diff 查看变更，同时也可以指定xx文件或者目录</li>
+<li>git add xx 添加xx到git版本控制，每一次修改文件以后都需要添加到版本控制系统</li>
+<li>git commit -m “xx” 提交到本地仓库，提交信息为xx (每次修改，如果不add到暂存区，那就不会加入到commit中。)</li>
+<li>git log 查看提交日志</li>
+<li>git log –pretty=oneline git log的美化版</li>
+<li>git reflog 查看每一次的git提交命令</li>
+<li>git checkout -b branchname 新建分支</li>
+<li>git checkout branchname 切换到分支</li>
+<li>git branch 列举所有分支，带*号的为当前都在分支，加上 -r参数则是列举的远程分支</li>
+<li>git merge branchname 合并分支到当前分支，合并模式有FAST_FORWARD 无冲突自动合并，</li>
+<li>git branch -d branchname 删除分支</li>
+<li>git log –pretty=oneline –abbrev-commit</li>
+<li>git tag v0.9 6224937</li>
+<li>git push origin v5.0.1 创建远程tag或者分支，前提是这个要存在</li>
+<li>git checkout – xxx 回滚xxx</li>
+<li>git remote add origin <a href="http://192.168.204.42/ZHJ/zhj_kernel.git" target="_blank" rel="noopener">http://192.168.204.42/ZHJ/zhj_kernel.git</a> 添加远程</li>
+</ol>
+<h4 id="暂存当前更改"><a href="#暂存当前更改" class="headerlink" title="暂存当前更改"></a>暂存当前更改</h4><ol>
+<li>git stash   存储</li>
+<li>git stash list  存储列表</li>
+<li>git stash apply  取出存储的内容不删除缓存</li>
+<li>git stash pop  去除存储的内容并删除缓存</li>
+<li>git stash clear 清除所有的存储内容</li>
+</ol>
+<h4 id="合并指定commit"><a href="#合并指定commit" class="headerlink" title="合并指定commit"></a>合并指定commit</h4><ol>
+<li>git cherry-pick log-hash</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/19/Android-导入Sample-Code/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JacenTsao">
+      <meta itemprop="description" content="这是我的个人测试小站">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Silence of Heart">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2017/07/19/Android-导入Sample-Code/" class="post-title-link" itemprop="url">Android-导入Sample Code</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-07-19 22:25:21" itemprop="dateCreated datePublished" datetime="2017-07-19T22:25:21+08:00">2017-07-19</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-11-28 09:27:42" itemprop="dateModified" datetime="2018-11-28T09:27:42+08:00">2018-11-28</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Android Studio提供了很多的模板和sample用于提升我们的开发速度，如何利用好这些工具来提升我们的开发效率就是一个很值得学习的问题了。</p>
+<h5 id="导入Sample-Code"><a href="#导入Sample-Code" class="headerlink" title="导入Sample Code"></a>导入Sample Code</h5><ol>
+<li>选择File &gt; New &gt; Import Sample</li>
+<li>使用搜索框查找你想要的内容,如下图所示： <img src="https://developer.android.com/studio/images/write/browse-samples_2x.png" alt=""> </li>
+<li>选择你想要的内容，选中点击next &gt; finish</li>
+</ol>
+<h5 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h5><p>由于总所周知的问题，我们在第一步的时候可能会出现找不到资源的问题，这个时候我们就需要在翻墙的情况下设置Android Studio的代理了。 Preference &gt; Appearance &amp; Behavior &gt; System Setting &gt; Http Proxy &gt; Auto-detect proxy settings勾选即可，下方的URL无需勾选和填写。这里是我的lantern推荐码 <strong>Use my code MFST5N and get 3 months free when you sign up!</strong></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/19/Android-通过不同的res目录指定不同的资源文件/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JacenTsao">
+      <meta itemprop="description" content="这是我的个人测试小站">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Silence of Heart">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2017/07/19/Android-通过不同的res目录指定不同的资源文件/" class="post-title-link" itemprop="url">Android-通过不同的res目录指定不同的资源文件</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-07-19 22:12:55" itemprop="dateCreated datePublished" datetime="2017-07-19T22:12:55+08:00">2017-07-19</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-11-28 09:27:42" itemprop="dateModified" datetime="2018-11-28T09:27:42+08:00">2018-11-28</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在Android开发中，我们可能会遇到针对不同的版本进行不同的配置，比如说使用不同的资源文件。<a href="https://developer.android.com/studio/write/add-resources.html" target="_blank" rel="noopener">官网传送门</a>。</p>
+<h5 id="自定义资源文件夹路径"><a href="#自定义资源文件夹路径" class="headerlink" title="自定义资源文件夹路径"></a>自定义资源文件夹路径</h5><p>默认的资源文件实在  <figure class="highlight plain"><figcaption><span>例如：main的资源文件就在src/main/res/目录下。</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">不过我们也可以通过自定义的方式指定资源文件目录，如下所示：</span><br></pre></td></tr></table></figure></p>
+<pre><code>android {
+    sourceSets {
+        main {
+            res.srcDirs = [&apos;resources/main&apos;]
+        }
+
+        debug {
+            res.srcDirs = [&apos;resources/debug&apos;]
+        }
+    }
+}
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">当然我们也可以指定多个资源文件目录：</span><br></pre></td></tr></table></figure>
+<pre><code>android {
+    sourceSets {
+        main {
+            res.srcDirs = [&apos;resources/main&apos;, &apos;resources/test&apos;]
+        }
+
+        debug {
+            res.srcDirs = [&apos;resources/debug&apos;]
+        }
+    }
+}
+</code></pre><p>```</p>
+<p>不过要注意的是同时指定多个资源文件夹的时候文件不能重复，否则在后续构建<a href="https://developer.android.com/studio/write/add-resources.html#resource_merging" target="_blank" rel="noopener">合并资源文件</a>的时候会出现重复的错误。</p>
+<p>#####资源合并</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -1512,715 +2310,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/26/Android-RecyclerView学习笔记/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="JacenTsao">
-      <meta itemprop="description" content="这是我的个人测试小站">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Silence of Heart">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/04/26/Android-RecyclerView学习笔记/" class="post-title-link" itemprop="url">Android-RecyclerView学习笔记</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-04-26 19:26:26" itemprop="dateCreated datePublished" datetime="2017-04-26T19:26:26+08:00">2017-04-26</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-12-24 08:58:36" itemprop="dateModified" datetime="2018-12-24T08:58:36+08:00">2018-12-24</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>####自适应高度</p>
-<p>继承LinearLayoutManager，重写onMeasure（）方法：</p>
-<pre><code>if (getItemCount() == 0) {
-    setMeasuredDimension(0, 0);
-} else {
-    View view = recycler.getViewForPosition(0);
-    if (view != null) {
-        measureChild(view, widthSpec, heightSpec);
-        int measuredWidth = View.MeasureSpec.getSize(widthSpec);
-        int measuredHeight = getItemCount() * view.getMeasuredHeight();
-        setMeasuredDimension(measuredWidth, measuredHeight);
-    }
-}
-</code></pre>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/19/Read-godoc-from-very-begain/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="JacenTsao">
-      <meta itemprop="description" content="这是我的个人测试小站">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Silence of Heart">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/04/19/Read-godoc-from-very-begain/" class="post-title-link" itemprop="url">Read godoc from very begain</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-04-19 22:56:40" itemprop="dateCreated datePublished" datetime="2017-04-19T22:56:40+08:00">2017-04-19</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-11-28 09:27:42" itemprop="dateModified" datetime="2018-11-28T09:27:42+08:00">2018-11-28</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Golang/" itemprop="url" rel="index"><span itemprop="name">Golang</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>This is my note of reading godoc, i’ll try hard to improve my English level, keep on moving.</p>
-<h4 id="How-to-write-go-code"><a href="#How-to-write-go-code" class="headerlink" title="How to write go code"></a>How to write go code</h4><p>When using command go get, it will fetch, build, install the package from Git or Mecurial or other revision control system.</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/08/Android-Spinner在某些机型上面无法收到第一次回掉的监听/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="JacenTsao">
-      <meta itemprop="description" content="这是我的个人测试小站">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Silence of Heart">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/04/08/Android-Spinner在某些机型上面无法收到第一次回掉的监听/" class="post-title-link" itemprop="url">Android-Spinner在某些机型上面无法收到第一次回掉的监听</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-04-08 22:22:16" itemprop="dateCreated datePublished" datetime="2017-04-08T22:22:16+08:00">2017-04-08</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-12-24 08:58:36" itemprop="dateModified" datetime="2018-12-24T08:58:36+08:00">2018-12-24</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>最近碰到一个很奇怪的问题，同样的一组数据在不同的手机上面显示就是不一样。通过debug发现，在一些手机上，给Spinner设置默认值的时候并不会触发它的监听回掉，而在某些机型上面又是会触发的。所以需要给第一次回掉加一个flag，默认阻止第一次回掉的后续逻辑。</p>
-<p>​    </p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/08/Android-Volley中出现的java-io-InterruptedIOException-thread-interrupted/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="JacenTsao">
-      <meta itemprop="description" content="这是我的个人测试小站">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Silence of Heart">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/04/08/Android-Volley中出现的java-io-InterruptedIOException-thread-interrupted/" class="post-title-link" itemprop="url">Android-Volley中出现的java.io.InterruptedIOException:thread interrupted</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-04-08 21:22:45" itemprop="dateCreated datePublished" datetime="2017-04-08T21:22:45+08:00">2017-04-08</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-12-24 08:58:36" itemprop="dateModified" datetime="2018-12-24T08:58:36+08:00">2018-12-24</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>最近碰到一个很奇怪的现象，就是我们的app在启东的时候第一次请求接口的时候很容易出现请求失败的现象，尤其是在清理掉缓存重新安装的时候。由于这个接口是访问的localhost，而这个localhost是我们自己在本地启用的一个服务。所以导致了我一开始就走进了一个死牛角尖，怀疑是不是这个服务没有运行起来，导致无法访问本地服务器，钻了死角。</p>
-<p>后面通过查找资料发现，Volley在使用的时候通过RequestQueue添加一个Request是后如果再次调用了RequestQueue的start()方法就会出现这种问题。<a href="http://stackoverflow.com/questions/31158858/random-com-android-volley-noconnection-error-java-io-interruptedioexception-st" target="_blank" rel="noopener">参考资料</a>，来自stackoverflow。</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2017/04/08/Android-Volley中出现的java-io-InterruptedIOException-thread-interrupted/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2270,7 +2359,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">74</span>
+                    <span class="site-state-item-count">78</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2436,7 +2525,15 @@
                     
                       
                     
-                    <span class="site-state-item-count">50</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">54</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
