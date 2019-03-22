@@ -21,7 +21,20 @@ location / {
 }
 ```
 
-#### 获得免费的https证书
+#### 获取auto_certbot（2019-03-22更新）
+
+```
+wget https://dl.eff.org/certbot-auto
+chmod a+x certbot-auto
+```
+
+#### 安装证书
+
+```
+./certbot-auto certonly --standalone --email admin@example.com -d example.com -d www.example.com -d other.example.net
+```
+
+#### 获得免费的https证书--废弃
 
 ```shell
 $ yum install epel-release
@@ -45,11 +58,14 @@ $ certbot certonly --standalone -d example.com --agree-tos --email yourmail
  }       
 ```
 
-
-
 #### 自动更新证书
 
 ```shell
-//自动刷新证书（证书有效期90天）
+//自动刷新证书（证书有效期90天）--废弃
 $ 10 1 * */2 * certbot renew --pre-hook "systemctl stop nginx" --post-hook "systemctl start nginx" 
+```
+
+```shell
+# 使用certbot-auto更新
+10 1 * */2 * /root/certbot-auto renew --pre-hook "systemctl stop nginx" --post-hook "systemctl start nginx"
 ```
