@@ -311,7 +311,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">81</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">82</span></a>
 
   </li>
         
@@ -433,6 +433,199 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/20/后端性能测试1/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JacenTsao">
+      <meta itemprop="description" content="这是我的个人测试小站">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Silence of Heart">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/03/20/后端性能测试1/" class="post-title-link" itemprop="url">后端性能测试1</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-03-20 21:05:15" itemprop="dateCreated datePublished" datetime="2018-03-20T21:05:15+08:00">2018-03-20</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-11-28 09:27:42" itemprop="dateModified" datetime="2018-11-28T09:27:42+08:00">2018-11-28</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/测试/" itemprop="url" rel="index"><span itemprop="name">测试</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近在做Golang上线前的准备工作，包括部署和性能测试，本次主要记录性能测试相关的内容，以免自己遗忘。</p>
+<h4 id="ab命令行测试-Apache-Benchmark"><a href="#ab命令行测试-Apache-Benchmark" class="headerlink" title="ab命令行测试(Apache Benchmark)"></a>ab命令行测试(Apache Benchmark)</h4><p>首先想到的是简单的性能测试工具ab（Apache Benchmark），MacOS应该是自带了ab测试工具，Windows的话需要自行安装配置，可以参考一下<a href="https://stackoverflow.com/questions/7327099/how-to-install-apache-bench-on-windows-7" target="_blank" rel="noopener">链接</a>。</p>
+<p>安装好ab工具以后在终端输入ab可以看到很多参数，其中常用的参数有：</p>
+<ul>
+<li>-n requests 请求次数量</li>
+<li>-c concurency 并发的请求数量</li>
+<li>-t timelimit 请求的次数限制，默认值为-n 50000</li>
+<li>-s timeout 请求的单次超时，默认值为30s</li>
+<li>-p postfile 发送文件中的请求，配合-T 使用</li>
+<li>-T Content-type 默认值’text/plain’</li>
+</ul>
+<p>以下一个完整的ab测试post请求如下：</p>
+<figure class="highlight plain"><figcaption><span>-n 100 -c 10 -p ./login.txt -T 'application/json'</span><a href="http://127.0.0.1:5174/" target="_blank" rel="noopener">```</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">即100次请求，并发数为10，指定当前目录下的login.txt文件中的json数据发送到服务器localhost，5174端口。以下是login.txt中的文件内容:</span><br></pre></td></tr></table></figure>
+<p>{“test”:”test”,”cmd”:”test”}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### 测试结果分析</span><br><span class="line"></span><br><span class="line">以下是以请求百度首页模拟100人总计10000此访问来进行ab测试返回分析:</span><br></pre></td></tr></table></figure></p>
+<p>ab -n 10000 -c 100  <a href="https://www.baidu.com/index.html" target="_blank" rel="noopener">https://www.baidu.com/index.html</a><br>//ApacheBenchmark软件申明<br>This is ApacheBench, Version 2.3 &lt;$Revision: 1807734 $&gt;<br>Copyright 1996 Adam Twiss, Zeus Technology Ltd, <a href="http://www.zeustech.net/" target="_blank" rel="noopener">http://www.zeustech.net/</a><br>Licensed to The Apache Software Foundation, <a href="http://www.apache.org/" target="_blank" rel="noopener">http://www.apache.org/</a></p>
+<p>//测试的网址<br>Benchmarking www.baidu.com (be patient)</p>
+<p>//请求的进度<br>Completed 1000 requests<br>Completed 2000 requests<br>Completed 3000 requests<br>Completed 4000 requests<br>Completed 5000 requests<br>SSL handshake failed (1).<br>140735932269448:error:140770FC:SSL routines:SSL23_GET_SERVER_HELLO:unknown protocol:/BuildRoot/Library/Caches/com.apple.xbs/Sources/libressl/libressl-22/libressl/ssl/s23_clnt.c:565:<br>Completed 6000 requests<br>Completed 7000 requests<br>SSL handshake failed (1).<br>140735932269448:error:140770FC:SSL routines:SSL23_GET_SERVER_HELLO:unknown protocol:/BuildRoot/Library/Caches/com.apple.xbs/Sources/libressl/libressl-22/libressl/ssl/s23_clnt.c:565:<br>Completed 8000 requests<br>Completed 9000 requests<br>Completed 10000 requests<br>Finished 10000 requests</p>
+<p>//百度的服务器软件信息<br>Server Software:        BWS/1.1<br>//被测试的主机地址<br>Server Hostname:        www.baidu.com<br>//https的默认端口<br>Server Port:            443<br>//加密协议<br>SSL/TLS Protocol:       TLSv1.2,ECDHE-RSA-AES128-GCM-SHA256,2048,128<br>//加密服务器名称<br>TLS Server Name:        www.baidu.com</p>
+<p>//文档的路径<br>Document Path:          /index.html<br>//文档的大小<br>Document Length:        227 bytes</p>
+<p>//并发数<br>Concurrency Level:      100<br>//测试总的时间<br>Time taken for tests:   146.932 seconds<br>//完成的请求数量<br>Complete requests:      10000<br>//失败的次数<br>Failed requests:        2<br>   (Connect: 0, Receive: 0, Length: 2, Exceptions: 0)<br>//总的数据传输量，包括请求头和文本内容<br>Total transferred:      8718256 bytes<br>//请求的文档总大小 227 <em> 10000 （总计一万次请求）- 2 </em> 227（两次失败）<br>HTML transferred:       2269546 bytes<br>//每秒完成的请求数量 10000/146.932<br>Requests per second:    68.06 [#/sec] (mean)<br>//每个请求的平均耗时<br>Time per request:       1469.317 [ms] (mean)<br>//服务器完成一个请求的耗时<br>Time per request:       14.693 [ms] (mean, across all concurrent requests)<br>//服务器的吞吐率<br>Transfer rate:          57.94 [Kbytes/sec] received</p>
+<p>//连接信息<br>Connection Times (ms)<br>              min  mean[+/-sd] median   max<br>Connect:        0 1220 947.0   1170   45274<br>Processing:    14  234 227.0    116    2292<br>Waiting:       13  220 214.9    114    2291<br>Total:        107 1454 961.3   1301   46006</p>
+<p>//完成请求比例的耗时，如下完成90%的耗时为1990ms<br>Percentage of the requests served within a certain time (ms)<br>  50%   1301<br>  66%   1377<br>  75%   1464<br>  80%   1540<br>  90%   1990<br>  95%   2221<br>  98%   2827<br>  99%   2972<br> 100%  46006 (longest request)<br>```</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -2028,187 +2221,6 @@ scp  -r local_dir username@servername:remote_dir
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/22/ssh免登录/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="JacenTsao">
-      <meta itemprop="description" content="这是我的个人测试小站">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Silence of Heart">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/10/22/ssh免登录/" class="post-title-link" itemprop="url">ssh免登录</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-10-22 08:47:53" itemprop="dateCreated datePublished" datetime="2017-10-22T08:47:53+08:00">2017-10-22</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-11-28 09:27:42" itemprop="dateModified" datetime="2018-11-28T09:27:42+08:00">2018-11-28</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/shell/" itemprop="url" rel="index"><span itemprop="name">shell</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h4><p><a href="https://zh.wikipedia.org/wiki/Secure_Shell" target="_blank" rel="noopener">Secure Shell</a>（缩写为SSH），由IETF的网络工作小组（Network Working Group）所制定；SSH为一项创建在应用层和传输层基础上的安全协议，为计算机上的Shell（壳层）提供安全的传输和使用环境。</p>
-<p>平时我们会通过ssh远程登录我们的主机来进行管理，在Mac下面一般我会通过自带的Terminal或者<a href="https://www.iterm2.com/" target="_blank" rel="noopener">iterm2</a>直接登录，而在Windows下面的话通常会使用<a href="http://www.putty.org/" target="_blank" rel="noopener">Putty</a>进行登录。                </p>
-<h4 id="登录流程"><a href="#登录流程" class="headerlink" title="登录流程"></a>登录流程</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">基本登录</span><br><span class="line">ssh user@host (用户名+主机地址)</span><br><span class="line"></span><br><span class="line">如果本机用户名跟远程的主机用户名一致，可以省略掉用户</span><br><span class="line">ssh host</span><br><span class="line"></span><br><span class="line">ssh默认端口是22，如果端口不是默认值则需要指定端口登录</span><br><span class="line">ssh user@host -p 1111 指定端口1111，使用用户user登录到主机</span><br><span class="line"></span><br><span class="line">在输入完上面的指令以后接下来就是输入密码了，此处就不再累述了</span><br></pre></td></tr></table></figure>
-<h4 id="公钥登录"><a href="#公钥登录" class="headerlink" title="公钥登录"></a>公钥登录</h4><p>在上面的流程中，我们每次都需要重新输入密码才能够进行登录，那么可不可以免密码直接登录了，答案当然是可以的了。</p>
-<p>通过公钥登录可以实现免密码登录，首先在客户端生成一对公钥私钥，然后将公钥添加到远程主机的<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">具体流程如下：</span><br></pre></td></tr></table></figure></p>
-<ol>
-<li>在客户端生成一对公钥私钥<br> ssh-keygen<br>这个时候在目录~/.ssh/下面就会生成id_rsa.pub（公钥），id_rsa（私钥）</li>
-<li>将公钥拷贝到远程主机<br> ssh-copy-id user@host<br>```</li>
-</ol>
-<p>经过上述流程我们就实现了ssh免密码登录的流程了。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2258,7 +2270,7 @@ scp  -r local_dir username@servername:remote_dir
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">81</span>
+                    <span class="site-state-item-count">82</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>

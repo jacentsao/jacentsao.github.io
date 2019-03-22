@@ -118,7 +118,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/jacentsao/picbed/master/img/markdownUser%20Thread%20vs%20CPU.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/jacentsao/picbed/master/img/markdownUser%20Thread%20vs%20Light%20Weight%20Process%20N%3AM.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/jacentsao/picbed/master/img/markdownThread%20State%20.png">
-<meta property="og:updated_time" content="2019-03-17T14:58:57.906Z">
+<meta property="og:updated_time" content="2019-03-18T13:46:58.863Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java-深入理解Java虚拟机-Java内存模型与线程">
 <meta name="twitter:description" content="12.1 概述衡量一个服务性能的高低好坏，每秒事务处理数（Transaction Per Second，TPS） 12.2 硬件的效率与一致性下图为处理器、高速缓存、主存之间的交互关系：  如果存在一个计算任务依赖另外一个计算任务的中间结果，那么其顺序性并不能靠代码的先后顺序来保证，因为为了保证处理器内部的运算单元能够尽量被充分利用，处理器可能会对代码进行乱序执行优化（Our-Of-Order E">
@@ -319,7 +319,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">81</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">82</span></a>
 
   </li>
         
@@ -517,7 +517,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-03-17 22:58:57" itemprop="dateModified" datetime="2019-03-17T22:58:57+08:00">2019-03-17</time>
+                <time title="修改时间：2019-03-18 21:46:58" itemprop="dateModified" datetime="2019-03-18T21:46:58+08:00">2019-03-18</time>
               
             
           </span>
@@ -572,11 +572,11 @@
 <h4 id="12-2-硬件的效率与一致性"><a href="#12-2-硬件的效率与一致性" class="headerlink" title="12.2 硬件的效率与一致性"></a>12.2 硬件的效率与一致性</h4><p>下图为处理器、高速缓存、主存之间的交互关系：</p>
 <p><img src="https://raw.githubusercontent.com/jacentsao/picbed/master/img/markdown20190316processor%20Cache%20memory.png" alt=""></p>
 <p>如果存在一个计算任务依赖另外一个计算任务的中间结果，那么其顺序性并不能靠代码的先后顺序来保证，因为为了保证处理器内部的运算单元能够尽量被充分利用，处理器可能会对代码进行乱序执行优化（Our-Of-Order Ececution）。类似的Java虚拟机的即时编译器也有类似的指令重排序（Instruction Reorder）优化。</p>
-<h3 id="12-3-Java内存模型（Java-Memory-Mode）"><a href="#12-3-Java内存模型（Java-Memory-Mode）" class="headerlink" title="12.3 Java内存模型（Java Memory Mode）"></a>12.3 Java内存模型（Java Memory Mode）</h3><h4 id="12-3-1-主内存与工作内存"><a href="#12-3-1-主内存与工作内存" class="headerlink" title="12.3.1 主内存与工作内存"></a>12.3.1 主内存与工作内存</h4><p>如下图所示：</p>
+<h3 id="12-3-Java内存模型（Java-Memory-Model）"><a href="#12-3-Java内存模型（Java-Memory-Model）" class="headerlink" title="12.3 Java内存模型（Java Memory Model）"></a>12.3 Java内存模型（Java Memory Model）</h3><h4 id="12-3-1-主内存与工作内存"><a href="#12-3-1-主内存与工作内存" class="headerlink" title="12.3.1 主内存与工作内存"></a>12.3.1 主内存与工作内存</h4><p>如下图所示：</p>
 <p><img src="https://raw.githubusercontent.com/jacentsao/picbed/master/img/markdown20190316thread%20main%20memory%20working%20memroy%20.png" alt=""></p>
-<h4 id="12-3-2-内存间交互操作"><a href="#12-3-2-内存间交互操作" class="headerlink" title="12.3.2 内存间交互操作"></a>12.3.2 内存间交互操作</h4><p>Java内存模型中定义了一下8种操作来完成，虚拟机实现时必须保证下面提及的每一种操作都是原子的、部分再分的（对于double和long类型的变量来说，load、store、read和write操作在某些平台上允许有例外，见12.3.4）</p>
+<h4 id="12-3-2-内存间交互操作"><a href="#12-3-2-内存间交互操作" class="headerlink" title="12.3.2 内存间交互操作"></a>12.3.2 内存间交互操作</h4><p>Java内存模型中定义了一下8种操作来完成，虚拟机实现时必须保证下面提及的每一种操作都是原子的、不可再分的（对于double和long类型的变量来说，load、store、read和write操作在某些平台上允许有例外，见12.3.4）</p>
 <ul>
-<li>lock：作用于主内存的的变量，把一个变量标识为一桶啊线程独占的状态。</li>
+<li>lock：作用于主内存的的变量，把一个变量标识为一条线程独占的状态。</li>
 <li>unlock：作用于主内存的变量，把一个处于锁定状态的变量释放出来，释放后的变量才可以被其他线程锁定。</li>
 <li>read：作用于主内存的变量，把一个变量的值从主内存传输到线程的工作内存中。</li>
 <li>load：作用于工作内存的变量，把read操作从主内存中得到的标量值放入工作内存的变量副本中。</li>
@@ -723,6 +723,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/03/18/java-深入理解Java虚拟机-线程安全与锁优化/" rel="prev" title="java-深入理解Java虚拟机-线程安全与锁优化">
+                java-深入理解Java虚拟机-线程安全与锁优化 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -793,7 +797,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">81</span>
+                    <span class="site-state-item-count">82</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1025,7 +1029,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#12-1-概述"><span class="nav-number">1.</span> <span class="nav-text">12.1 概述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#12-2-硬件的效率与一致性"><span class="nav-number">1.1.</span> <span class="nav-text">12.2 硬件的效率与一致性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-3-Java内存模型（Java-Memory-Mode）"><span class="nav-number">2.</span> <span class="nav-text">12.3 Java内存模型（Java Memory Mode）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#12-3-1-主内存与工作内存"><span class="nav-number">2.1.</span> <span class="nav-text">12.3.1 主内存与工作内存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-3-2-内存间交互操作"><span class="nav-number">2.2.</span> <span class="nav-text">12.3.2 内存间交互操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-3-3-对于volatile型变量的特殊规则"><span class="nav-number">2.3.</span> <span class="nav-text">12.3.3 对于volatile型变量的特殊规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-3-4-对于long和double型变量的特殊规则"><span class="nav-number">2.4.</span> <span class="nav-text">12.3.4 对于long和double型变量的特殊规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-3-5-原子性、可见性和有序性"><span class="nav-number">2.5.</span> <span class="nav-text">12.3.5 原子性、可见性和有序性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-3-6-先行发生原则（happens-before）"><span class="nav-number">2.6.</span> <span class="nav-text">12.3.6 先行发生原则（happens-before）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-4-Java与线程"><span class="nav-number">3.</span> <span class="nav-text">12.4 Java与线程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#12-4-1-线程的实现"><span class="nav-number">3.1.</span> <span class="nav-text">12.4.1 线程的实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-4-2-Java线程调度"><span class="nav-number">3.2.</span> <span class="nav-text">12.4.2 Java线程调度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-4-3-状态转化"><span class="nav-number">3.3.</span> <span class="nav-text">12.4.3 状态转化</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#12-1-概述"><span class="nav-number">1.</span> <span class="nav-text">12.1 概述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#12-2-硬件的效率与一致性"><span class="nav-number">1.1.</span> <span class="nav-text">12.2 硬件的效率与一致性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-3-Java内存模型（Java-Memory-Model）"><span class="nav-number">2.</span> <span class="nav-text">12.3 Java内存模型（Java Memory Model）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#12-3-1-主内存与工作内存"><span class="nav-number">2.1.</span> <span class="nav-text">12.3.1 主内存与工作内存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-3-2-内存间交互操作"><span class="nav-number">2.2.</span> <span class="nav-text">12.3.2 内存间交互操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-3-3-对于volatile型变量的特殊规则"><span class="nav-number">2.3.</span> <span class="nav-text">12.3.3 对于volatile型变量的特殊规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-3-4-对于long和double型变量的特殊规则"><span class="nav-number">2.4.</span> <span class="nav-text">12.3.4 对于long和double型变量的特殊规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-3-5-原子性、可见性和有序性"><span class="nav-number">2.5.</span> <span class="nav-text">12.3.5 原子性、可见性和有序性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-3-6-先行发生原则（happens-before）"><span class="nav-number">2.6.</span> <span class="nav-text">12.3.6 先行发生原则（happens-before）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-4-Java与线程"><span class="nav-number">3.</span> <span class="nav-text">12.4 Java与线程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#12-4-1-线程的实现"><span class="nav-number">3.1.</span> <span class="nav-text">12.4.1 线程的实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-4-2-Java线程调度"><span class="nav-number">3.2.</span> <span class="nav-text">12.4.2 Java线程调度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-4-3-状态转化"><span class="nav-number">3.3.</span> <span class="nav-text">12.4.3 状态转化</span></a></li></ol></li></ol></div>
             
 
           </div>
