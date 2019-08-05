@@ -33,22 +33,35 @@ $ node -v 确认node是否安装ok
 
 #### 获取hexo博客源码
 
-将自己的博客通过各种方式获取到当前设备，比如我自己用的是git。如下所示是我的源码分支：
+将自己的博客通过各种方式获取到当前设备，比如我自己用的是git。如下所示是我的源码分支（hexo-source）：
 
 ![](https://raw.githubusercontent.com/jacentsao/picbed/master/img/markdown20181212195458hexo-sourcefile.png)
 
-以下是我的生成的网页的分支：
+以下是我的生成的网页的分支(master)：
 ![](https://raw.githubusercontent.com/jacentsao/picbed/master/img/markdown20181212200121hexo-master.png)
 
 另外再把主题单独弄一个[项目](https://github.com/jacentsao/hexo-theme-next)进行同步。
 
-我的做法是先拉取网页代码分支，然后进入目录以后再拉取一份切换到源码分支并改名叫.deploy_git
-
+我的做法是先拉取网页代码（master）分支，然后切换到源码分支（hexo-source），复制一份改名叫.deploy_git放在项目根目录下。
 #### 安装启动hexo
 
 
 ```shell
 $ npm install -g hexo-cli
 $ npm install hexo --save
-$ hexo s --debug
+$ npm install hexo-deployer-git #git部署辅助
+$ hexo s --debug  #运行测试
+```
+
+#### 提交代码
+
+``` shell
+# 部署网页分支（master分支）
+hexo clean  
+hexo g 
+hexo d
+# 提交源码分支（hexo-source分支）
+git commit
+git push
+
 ```
