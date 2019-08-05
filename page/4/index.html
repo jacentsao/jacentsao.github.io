@@ -15,7 +15,7 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -273,7 +273,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">54</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">55</span></a>
 
   </li>
         
@@ -292,7 +292,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">20</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">21</span></a>
 
   </li>
         
@@ -311,7 +311,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">82</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">83</span></a>
 
   </li>
         
@@ -449,6 +449,187 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/22/Android-Studio-代理设置/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JacenTsao">
+      <meta itemprop="description" content="这是我的个人测试小站">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Silence of Heart">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2017/10/22/Android-Studio-代理设置/" class="post-title-link" itemprop="url">Android Studio 代理设置</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-10-22 16:16:15" itemprop="dateCreated datePublished" datetime="2017-10-22T16:16:15+08:00">2017-10-22</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-08-03 16:54:22" itemprop="dateModified" datetime="2019-08-03T16:54:22+08:00">2019-08-03</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近因为Lantern老是出问题，又买了一个搬瓦工的，搭建好后速度还是可以的，Youtube上面1080P没有卡顿现象。但是各种工具的是使用又出现了问题，所以特意记录一下，节省下次切换工具配置的时间。</p>
+<h4 id="git配置"><a href="#git配置" class="headerlink" title="git配置"></a>git配置</h4><p>首先是配置git的代理，以下是http(s)配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git config --global https.proxy &apos;http://127.0.0.1:65322&apos;</span><br><span class="line">git config --global http.proxy &apos;http://127.0.0.1:65322&apos;</span><br><span class="line"></span><br><span class="line">取消设置代理</span><br><span class="line">git config --global --unset http.proxy</span><br><span class="line">git config --global --unset https.proxy</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export http_proxy=http://127.0.0.1:1087;</span><br><span class="line">export https_proxy=http://127.0.0.1:1087;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Gradle配置"><a href="#Gradle配置" class="headerlink" title="Gradle配置"></a>Gradle配置</h4><p>在全局的gradle.properties中添加以下配置，这样子每个项目的gradle同步都回使用ss代理了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">systemProp.http.proxyHost=127.0.0.1</span><br><span class="line">systemProp.http.proxyPort=1087</span><br><span class="line">systemProp.https.proxyHost=127.0.0.1</span><br><span class="line">systemProp.https.proxyPort=1087</span><br></pre></td></tr></table></figure>
+
+<h4 id="Android-Studio代理设置"><a href="#Android-Studio代理设置" class="headerlink" title="Android Studio代理设置"></a>Android Studio代理设置</h4><p>目前来看启用自动代理即可</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/22/ssh免登录/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -511,7 +692,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-11-28 09:27:42" itemprop="dateModified" datetime="2018-11-28T09:27:42+08:00">2018-11-28</time>
+                <time title="修改时间：2019-08-03 16:54:22" itemprop="dateModified" datetime="2019-08-03T16:54:22+08:00">2019-08-03</time>
               
             
           </span>
@@ -567,11 +748,12 @@
             <h4 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h4><p><a href="https://zh.wikipedia.org/wiki/Secure_Shell" target="_blank" rel="noopener">Secure Shell</a>（缩写为SSH），由IETF的网络工作小组（Network Working Group）所制定；SSH为一项创建在应用层和传输层基础上的安全协议，为计算机上的Shell（壳层）提供安全的传输和使用环境。</p>
 <p>平时我们会通过ssh远程登录我们的主机来进行管理，在Mac下面一般我会通过自带的Terminal或者<a href="https://www.iterm2.com/" target="_blank" rel="noopener">iterm2</a>直接登录，而在Windows下面的话通常会使用<a href="http://www.putty.org/" target="_blank" rel="noopener">Putty</a>进行登录。                </p>
 <h4 id="登录流程"><a href="#登录流程" class="headerlink" title="登录流程"></a>登录流程</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">基本登录</span><br><span class="line">ssh user@host (用户名+主机地址)</span><br><span class="line"></span><br><span class="line">如果本机用户名跟远程的主机用户名一致，可以省略掉用户</span><br><span class="line">ssh host</span><br><span class="line"></span><br><span class="line">ssh默认端口是22，如果端口不是默认值则需要指定端口登录</span><br><span class="line">ssh user@host -p 1111 指定端口1111，使用用户user登录到主机</span><br><span class="line"></span><br><span class="line">在输入完上面的指令以后接下来就是输入密码了，此处就不再累述了</span><br></pre></td></tr></table></figure>
+
 <h4 id="公钥登录"><a href="#公钥登录" class="headerlink" title="公钥登录"></a>公钥登录</h4><p>在上面的流程中，我们每次都需要重新输入密码才能够进行登录，那么可不可以免密码直接登录了，答案当然是可以的了。</p>
 <p>通过公钥登录可以实现免密码登录，首先在客户端生成一对公钥私钥，然后将公钥添加到远程主机的<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">具体流程如下：</span><br></pre></td></tr></table></figure></p>
 <ol>
 <li>在客户端生成一对公钥私钥<br> ssh-keygen<br>这个时候在目录~/.ssh/下面就会生成id_rsa.pub（公钥），id_rsa（私钥）</li>
-<li>将公钥拷贝到远程主机<br> ssh-copy-id user@host<br>```</li>
+<li>将公钥拷贝到远程主机<br> ssh-copy-id user@host<pre><code></code></pre></li>
 </ol>
 <p>经过上述流程我们就实现了ssh免密码登录的流程了。</p>
 
@@ -692,7 +874,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-11-28 09:27:42" itemprop="dateModified" datetime="2018-11-28T09:27:42+08:00">2018-11-28</time>
+                <time title="修改时间：2019-08-03 16:54:22" itemprop="dateModified" datetime="2019-08-03T16:54:22+08:00">2019-08-03</time>
               
             
           </span>
@@ -879,7 +1061,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-11-28 09:27:42" itemprop="dateModified" datetime="2018-11-28T09:27:42+08:00">2018-11-28</time>
+                <time title="修改时间：2019-08-03 16:54:22" itemprop="dateModified" datetime="2019-08-03T16:54:22+08:00">2019-08-03</time>
               
             
           </span>
@@ -1068,7 +1250,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-11-28 09:27:42" itemprop="dateModified" datetime="2018-11-28T09:27:42+08:00">2018-11-28</time>
+                <time title="修改时间：2019-08-03 16:54:22" itemprop="dateModified" datetime="2019-08-03T16:54:22+08:00">2019-08-03</time>
               
             
           </span>
@@ -1269,7 +1451,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-11-28 09:27:42" itemprop="dateModified" datetime="2018-11-28T09:27:42+08:00">2018-11-28</time>
+                <time title="修改时间：2019-08-03 16:54:22" itemprop="dateModified" datetime="2019-08-03T16:54:22+08:00">2019-08-03</time>
               
             
           </span>
@@ -1479,7 +1661,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-11-28 09:27:42" itemprop="dateModified" datetime="2018-11-28T09:27:42+08:00">2018-11-28</time>
+                <time title="修改时间：2019-08-03 16:54:22" itemprop="dateModified" datetime="2019-08-03T16:54:22+08:00">2019-08-03</time>
               
             
           </span>
@@ -1690,7 +1872,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-11-28 09:27:42" itemprop="dateModified" datetime="2018-11-28T09:27:42+08:00">2018-11-28</time>
+                <time title="修改时间：2019-08-03 16:54:22" itemprop="dateModified" datetime="2019-08-03T16:54:22+08:00">2019-08-03</time>
               
             
           </span>
@@ -1868,7 +2050,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-11-28 09:27:42" itemprop="dateModified" datetime="2018-11-28T09:27:42+08:00">2018-11-28</time>
+                <time title="修改时间：2019-08-03 16:54:22" itemprop="dateModified" datetime="2019-08-03T16:54:22+08:00">2019-08-03</time>
               
             
           </span>
@@ -1933,8 +2115,8 @@
             res.srcDirs = [&apos;resources/debug&apos;]
         }
     }
-}
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">当然我们也可以指定多个资源文件目录：</span><br></pre></td></tr></table></figure>
+}</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">当然我们也可以指定多个资源文件目录：</span><br></pre></td></tr></table></figure>
+
 <pre><code>android {
     sourceSets {
         main {
@@ -1945,8 +2127,7 @@
             res.srcDirs = [&apos;resources/debug&apos;]
         }
     }
-}
-</code></pre><p>```</p>
+}</code></pre><p>```</p>
 <p>不过要注意的是同时指定多个资源文件夹的时候文件不能重复，否则在后续构建<a href="https://developer.android.com/studio/write/add-resources.html#resource_merging" target="_blank" rel="noopener">合并资源文件</a>的时候会出现重复的错误。</p>
 <p>#####资源合并</p>
 
@@ -2067,7 +2248,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-11-28 09:27:42" itemprop="dateModified" datetime="2018-11-28T09:27:42+08:00">2018-11-28</time>
+                <time title="修改时间：2019-08-03 16:54:22" itemprop="dateModified" datetime="2019-08-03T16:54:22+08:00">2019-08-03</time>
               
             
           </span>
@@ -2123,6 +2304,7 @@
             <p>最近公司项目在百度进行认领，需要将自己的签名写入百度的空包上传，过程如下：</p>
 <p>1.执行如下命令</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">jarsigner -verbose -keystore appkey.keystore -signedjar sign.apk Baidu_Claim_unsigned.apk keyAlias</span><br></pre></td></tr></table></figure>
+
 <p>其中appkey.keystore：自己的签名文件，可以加上绝对路径</p>
 <p>sign.apk：输出文件</p>
 <p>Baidu_Claim_unsigned.apk：原始文件</p>
@@ -2130,161 +2312,9 @@
 <p>此过程需要输入密玥的密码，然后按enter即会执行。</p>
 <p>2.执行过程中的输出</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Enter Passphrase for keystore:</span><br><span class="line">adding: META-INF/MANIFEST.MF</span><br><span class="line">adding: META-INF/___.SF</span><br><span class="line">adding: META-INF/___.RSA</span><br><span class="line">signing: AndroidManifest.xml</span><br><span class="line">signing: res/drawable/ic_launcher.png</span><br><span class="line">signing: res/layout/activity_main.xml</span><br><span class="line">signing: resources.arsc</span><br><span class="line">signing: classes.dex</span><br><span class="line">jar signed.</span><br><span class="line"></span><br><span class="line">Warning:</span><br><span class="line">No -tsa or -tsacert is provided and this jar is not timestamped. Without a timestamp, users may not be able to validate this jar after the signer certificate&apos;s expiration date (2043-11-01) or after any future revocation date.</span><br></pre></td></tr></table></figure>
+
 <p>3.执行完毕会在当前目录生成一个新的apk，用这个apk上传即可</p>
 
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/20/今天雨好大/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="JacenTsao">
-      <meta itemprop="description" content="这是我的个人测试小站">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Silence of Heart">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/06/20/今天雨好大/" class="post-title-link" itemprop="url">今天雨好大</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-06-20 08:58:35" itemprop="dateCreated datePublished" datetime="2017-06-20T08:58:35+08:00">2017-06-20</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-11-28 09:27:42" itemprop="dateModified" datetime="2018-11-28T09:27:42+08:00">2018-11-28</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
           
         
       
@@ -2374,7 +2404,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">82</span>
+                    <span class="site-state-item-count">83</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2427,7 +2457,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">20</span>
+                      
+                    
+                    <span class="site-state-item-count">21</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -2548,7 +2580,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">54</span>
+                      
+                    
+                    <span class="site-state-item-count">55</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -2621,7 +2655,7 @@
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
 
 
 

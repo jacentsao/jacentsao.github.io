@@ -15,7 +15,7 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -112,7 +112,7 @@
 <meta property="og:site_name" content="Silence of Heart">
 <meta property="og:description" content="因为在我们的项目里面有一个大小超过11M的assets可执行文件,所以在app初次安装或者版本升级的时候需要全新拷贝或者升级拷贝.在实际使用中发现在app覆盖安装的时候重新拷贝assets文件很容易出现拷贝不完整的问题,这会导致这个可执行文件运行出现错误,最直观的表现就是界面数据展示异常,且只能通过卸载重装或者清除数据重新生成这个可执行文件解决异常,所以后来我就进行了一些优化.">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-12-24T00:58:36.571Z">
+<meta property="og:updated_time" content="2019-08-03T08:54:22.633Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android-拷贝文件Buff-Size最佳实践">
 <meta name="twitter:description" content="因为在我们的项目里面有一个大小超过11M的assets可执行文件,所以在app初次安装或者版本升级的时候需要全新拷贝或者升级拷贝.在实际使用中发现在app覆盖安装的时候重新拷贝assets文件很容易出现拷贝不完整的问题,这会导致这个可执行文件运行出现错误,最直观的表现就是界面数据展示异常,且只能通过卸载重装或者清除数据重新生成这个可执行文件解决异常,所以后来我就进行了一些优化.">
@@ -274,7 +274,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">54</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">55</span></a>
 
   </li>
         
@@ -293,7 +293,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">20</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">21</span></a>
 
   </li>
         
@@ -312,7 +312,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">82</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">83</span></a>
 
   </li>
         
@@ -510,7 +510,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-12-24 08:58:36" itemprop="dateModified" datetime="2018-12-24T08:58:36+08:00">2018-12-24</time>
+                <time title="修改时间：2019-08-03 16:54:22" itemprop="dateModified" datetime="2019-08-03T16:54:22+08:00">2019-08-03</time>
               
             
           </span>
@@ -561,14 +561,15 @@
       
 
       
-        <p>因为在我们的项目里面有一个大小超过11M的assets<a href="http://stackoverflow.com/questions/5583487/hosting-an-executable-within-android-application" target="_blank" rel="noopener">可执行文件</a>,所以在app初次安装或者版本升级的时候需要全新拷贝或者升级拷贝.在实际使用中发现在app覆盖安装的时候重新拷贝assets文件很容易出现拷贝不完整的问题,这会导致这个可执行文件运行出现错误,最直观的表现就是界面数据展示异常,且只能通过卸载重装或者清除数据重新生成这个可执行文件解决异常,所以后来我就进行了一些优化.<br><a id="more"></a></p>
+        <p>因为在我们的项目里面有一个大小超过11M的assets<a href="http://stackoverflow.com/questions/5583487/hosting-an-executable-within-android-application" target="_blank" rel="noopener">可执行文件</a>,所以在app初次安装或者版本升级的时候需要全新拷贝或者升级拷贝.在实际使用中发现在app覆盖安装的时候重新拷贝assets文件很容易出现拷贝不完整的问题,这会导致这个可执行文件运行出现错误,最直观的表现就是界面数据展示异常,且只能通过卸载重装或者清除数据重新生成这个可执行文件解决异常,所以后来我就进行了一些优化.</p>
+<a id="more"></a>
+
 <h5 id="1-加入文件完整性校验"><a href="#1-加入文件完整性校验" class="headerlink" title="1.加入文件完整性校验"></a>1.加入文件完整性校验</h5><p>最开始的时候首先想到的是对文件进行完整性校验,即通过文件的MD5值进行对比,观察生成的完整的可执行文件的MD5值是否发生了改变来进行判断.如果MD5值出现改变则提示用户初始化失败,强制关闭app并且重新生成可执行文件.这里有一点补充的是之所以有这个分割成1M文件是因为<strong>在Android2.3之前单个assets文件大小不能超过1M</strong>,<a href="http://ponystyle.com/blog/2010/03/26/dealing-with-asset-compression-in-android-apps/" target="_blank" rel="noopener">参考资料</a>看这里. 拷贝代码例子如下,当然在我们的项目中还应该有一个分割和合并的过程,具体的代码就不再这里详细的写出来了: </p>
 <pre><code>File Path = Ctxt.getDir(&quot;Data&quot;, 0);
 File DBFile = new File(Path, &quot;database.db&quot;);
 
 if(!DBFile.exists() || DatabaseNeedsUpgrade)  //Need to copy...
-    CopyDatabase(Ctxt, DBFile);
-</code></pre><p>​<br>    static private void CopyDatabase(Context Ctxt, File DBFile) throws IOException<br>    {<br>        AssetManager assets = Ctxt.getAssets();<br>        OutputStream outstream = new FileOutputStream(DBFile);<br>        DBFile.createNewFile();<br>        byte []b = new byte[1024];<br>        int i, r;<br>        String []assetfiles = assets.list(“”);<br>        Arrays.sort(assetfiles);<br>        for(i=1;i&lt;10;i++) //I have definitely less than 10 files; you might have more<br>        {<br>            String partname = String.format(“%d.db”, i);<br>            if(Arrays.binarySearch(assetfiles, partname) &lt; 0) //No such file in assets - time to quit the loop<br>                break;<br>            InputStream instream = assets.open(partname);<br>            while((r = instream.read(b)) != -1)<br>                outstream.write(b, 0, r);<br>            instream.close();<br>        }<br>        outstream.close();<br>    }</p>
+    CopyDatabase(Ctxt, DBFile);</code></pre><p>​<br>    static private void CopyDatabase(Context Ctxt, File DBFile) throws IOException<br>    {<br>        AssetManager assets = Ctxt.getAssets();<br>        OutputStream outstream = new FileOutputStream(DBFile);<br>        DBFile.createNewFile();<br>        byte []b = new byte[1024];<br>        int i, r;<br>        String []assetfiles = assets.list(“”);<br>        Arrays.sort(assetfiles);<br>        for(i=1;i&lt;10;i++) //I have definitely less than 10 files; you might have more<br>        {<br>            String partname = String.format(“%d.db”, i);<br>            if(Arrays.binarySearch(assetfiles, partname) &lt; 0) //No such file in assets - time to quit the loop<br>                break;<br>            InputStream instream = assets.open(partname);<br>            while((r = instream.read(b)) != -1)<br>                outstream.write(b, 0, r);<br>            instream.close();<br>        }<br>        outstream.close();<br>    }</p>
 <h5 id="2-考虑不分割文件"><a href="#2-考虑不分割文件" class="headerlink" title="2.考虑不分割文件"></a>2.考虑不分割文件</h5><p>前面有提到其实只有在Android2.3之前才有assets单个文件大小不能超过1M的限制,而拷贝过程通常都是在进行到其中的某个文件时就失败了,所以考虑不分割文件直接进行拷贝.在实际测试中发现并没有什么大的改善,甚至于拷贝速度还下降了.</p>
 <h5 id="3-从拷贝的过程入手"><a href="#3-从拷贝的过程入手" class="headerlink" title="3.从拷贝的过程入手"></a>3.从拷贝的过程入手</h5><p>通常我们拷贝文件的时候都会使用int数组进行缓存加速拷贝过程,但是这个缓存的大小究竟要设置为多大比较合适可能大家都没怎么想过.正常来说在设备允许的情况下当然是越大越好,但实际使用过程中,我们也要考虑增大缓存带来的收益.通过测试和查阅<a href="http://stackoverflow.com/questions/10143731/android-optimal-buffer-size" target="_blank" rel="noopener">资料</a>发现,在使用32K缓存大小的情况下收益是最好的.大幅度的提升了拷贝速度,后面我们基本上没有遇到过由于文件拷贝不完整导致的启动异常问题.如下表所示,对应不同缓存拷贝20M文件的耗时:</p>
 <p>​        </p>
@@ -578,8 +579,7 @@ Optimus LTE    1178    617     322     172     101     65      47      42      4
 HTC EVO        3971    1884    941     480     251     141     95      69      56      50      48      55      50      49      48      48      48      47         
 Galaxy S2      750     383     210     123     74      50      41      37      35      34      34      37      39      44      46      44      45      44
 Galaxy Nexus   2272    1216    659     341     187     108     70      52      41      38      38      45      44      54      56      66      68      58
-Galaxy Note    1549    799     404     220     127     75      58      54      52      56      52      45      44      62      43      39      44      46
-</code></pre><p>可以发现,32K缓存拷贝文件的收益是极高的,对手机内存的压力也比较小.</p>
+Galaxy Note    1549    799     404     220     127     75      58      54      52      56      52      45      44      62      43      39      44      46</code></pre><p>可以发现,32K缓存拷贝文件的收益是极高的,对手机内存的压力也比较小.</p>
 
       
     </div>
@@ -700,7 +700,7 @@ Galaxy Note    1549    799     404     220     127     75      58      54      5
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">82</span>
+                    <span class="site-state-item-count">83</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -753,7 +753,9 @@ Galaxy Note    1549    799     404     220     127     75      58      54      5
                     
                       
                     
-                    <span class="site-state-item-count">20</span>
+                      
+                    
+                    <span class="site-state-item-count">21</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -874,7 +876,9 @@ Galaxy Note    1549    799     404     220     127     75      58      54      5
                     
                       
                     
-                    <span class="site-state-item-count">54</span>
+                      
+                    
+                    <span class="site-state-item-count">55</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -964,7 +968,7 @@ Galaxy Note    1549    799     404     220     127     75      58      54      5
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
 
 
 

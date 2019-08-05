@@ -15,7 +15,7 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -114,7 +114,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://tools.android.com/recent/updatingsdkfromcommand-line/2011-08-19%20tools%20screenshot%20r12%20install%20no-ui%20b.png?attredirects=0">
 <meta property="og:image" content="https://raw.githubusercontent.com/jacentsao/picbed/master/img/markdownnecessary%20android%20sdk%20tools.png">
-<meta property="og:updated_time" content="2018-11-28T01:27:42.910Z">
+<meta property="og:updated_time" content="2019-08-03T08:54:22.638Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux服务端更新Android SDK">
 <meta name="twitter:description" content="更新内容 更新（2018-11-18，更新使用sdkmanager，更新jcenter和google的仓库）  使用android前段时间因为新版本需求更新了一下项目的Recycleview版本,对应的SDK也更新了.项目组的几位同事的项目全都因为找不到对应的SDK报错了,后面把自己的SDK拷贝一份给他们才OK(实在想吐槽一下,我觉得做为一个Android程序员翻墙是一项基本的技能).">
@@ -277,7 +277,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">54</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">55</span></a>
 
   </li>
         
@@ -296,7 +296,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">20</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">21</span></a>
 
   </li>
         
@@ -315,7 +315,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">82</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">83</span></a>
 
   </li>
         
@@ -513,7 +513,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-11-28 09:27:42" itemprop="dateModified" datetime="2018-11-28T09:27:42+08:00">2018-11-28</time>
+                <time title="修改时间：2019-08-03 16:54:22" itemprop="dateModified" datetime="2019-08-03T16:54:22+08:00">2019-08-03</time>
               
             
           </span>
@@ -567,7 +567,9 @@
         <h4 id="更新内容"><a href="#更新内容" class="headerlink" title="更新内容"></a>更新内容</h4><ul>
 <li><strong>更新（2018-11-18，更新使用sdkmanager，更新jcenter和google的仓库）</strong></li>
 </ul>
-<h4 id="使用android"><a href="#使用android" class="headerlink" title="使用android"></a>使用android</h4><p>前段时间因为新版本需求更新了一下项目的Recycleview版本,对应的SDK也更新了.项目组的几位同事的项目全都因为找不到对应的SDK报错了,后面把自己的SDK拷贝一份给他们才OK(实在想吐槽一下,我觉得做为一个Android程序员翻墙是一项基本的技能).<br><a id="more"></a><br>然而就在今天根据新的安排,后续打包统一走运维.而运维使用的是jenkins集成打包,然后上传到<a href="http://fir.im/" target="_blank" rel="noopener">fir</a>,测试人员直接下载安装然后进行测试.结果服务端果然出现了同样的错误.</p>
+<h4 id="使用android"><a href="#使用android" class="headerlink" title="使用android"></a>使用android</h4><p>前段时间因为新版本需求更新了一下项目的Recycleview版本,对应的SDK也更新了.项目组的几位同事的项目全都因为找不到对应的SDK报错了,后面把自己的SDK拷贝一份给他们才OK(实在想吐槽一下,我觉得做为一个Android程序员翻墙是一项基本的技能).</p>
+<a id="more"></a>
+<p>然而就在今天根据新的安排,后续打包统一走运维.而运维使用的是jenkins集成打包,然后上传到<a href="http://fir.im/" target="_blank" rel="noopener">fir</a>,测试人员直接下载安装然后进行测试.结果服务端果然出现了同样的错误.</p>
 <pre><code>   Could not resolve all dependencies for configuration &apos;:app:_debugCompile&apos;.
    &gt; Could not find com.android.support:recyclerview-v7:23.4.0.
 Searched in the following locations:
@@ -593,8 +595,7 @@ Searched in the following locations:
     file:/usr/local/android/extras/google/m2repository/com/android/support/recyclerview-v7/23.4.0/recyclerview-v7-23.4.0.pom
     file:/usr/local/android/extras/google/m2repository/com/android/support/recyclerview-v7/23.4.0/recyclerview-v7-23.4.0.jar
 Required by:
-    workspace:app:unspecified &gt; com.android.support:design:23.1.1
-</code></pre><p>然后我就跟运维的胖哥搜索教程,第一步去Github上面下载了<a href="https://github.com/getlantern/lantern" target="_blank" rel="noopener">lantern</a> (Lantern都有付费版本了),然后去谷歌搜索Linux update Android SDK,然后找到了官方的<a href="http://tools.android.com/recent/updatingsdkfromcommand-line" target="_blank" rel="noopener">教程</a>,在GFW的帮助下,并没有什么用.<img src="http://tools.android.com/recent/updatingsdkfromcommand-line/2011-08-19%20tools%20screenshot%20r12%20install%20no-ui%20b.png?attredirects=0" alt="Official Guidance"></p>
+    workspace:app:unspecified &gt; com.android.support:design:23.1.1</code></pre><p>然后我就跟运维的胖哥搜索教程,第一步去Github上面下载了<a href="https://github.com/getlantern/lantern" target="_blank" rel="noopener">lantern</a> (Lantern都有付费版本了),然后去谷歌搜索Linux update Android SDK,然后找到了官方的<a href="http://tools.android.com/recent/updatingsdkfromcommand-line" target="_blank" rel="noopener">教程</a>,在GFW的帮助下,并没有什么用.<img src="http://tools.android.com/recent/updatingsdkfromcommand-line/2011-08-19%20tools%20screenshot%20r12%20install%20no-ui%20b.png?attredirects=0" alt="Official Guidance"></p>
 <p>第二步,想在运维那里直接使用云梯翻墙更新(这里吐槽一下,云梯实在很不稳定,建议自己买VPS+Shadowsocks才是王道).跟预料的一样,根本连不上.</p>
 <p>第三步,其实一开始思路就是错的,用什么谷歌搜索,只有少数的被国家保护的公民才有这种问题啊,所以直接使用百度搜索即可.果然还是自家人懂得自家事,找到了很多<a href="https://segmentfault.com/a/1190000004639481" target="_blank" rel="noopener">内容</a>.</p>
 <pre><code>//step 0:cd 到你安装SDK目录的Tools目录下(例如:/Volumes/work/sdk/tools)
@@ -629,11 +630,11 @@ Options:
 
 
 //step 3:同意license内容,反正你也没的选,然后就会自动下载并解压
-Do you accept the license &apos;android-sdk-preview-license-52d11cd2&apos; [y/n]:
-</code></pre><p>这里代理服务器其实蛮多的,参考<a href="http://www.androiddevtools.cn/" target="_blank" rel="noopener">AndroidDev</a>,不懂翻墙人士的福音.深圳地区设置腾讯代理以后下载速度基本上都是2-3M起,速度非常快.</p>
+Do you accept the license &apos;android-sdk-preview-license-52d11cd2&apos; [y/n]:</code></pre><p>这里代理服务器其实蛮多的,参考<a href="http://www.androiddevtools.cn/" target="_blank" rel="noopener">AndroidDev</a>,不懂翻墙人士的福音.深圳地区设置腾讯代理以后下载速度基本上都是2-3M起,速度非常快.</p>
 <p><strong>使用上面命令行是因为Linux Server没有可用图形操作界面,如果有图形操作界面的话还是不要使用这种方式了</strong>,把时间花在更有用的地方吧!毕竟我们是一群需求没定好就能把项目做完的码农!</p>
 <h4 id="使用sdkmanager"><a href="#使用sdkmanager" class="headerlink" title="使用sdkmanager"></a>使用sdkmanager</h4><p>sdkmanager是谷歌推出的新的工具，以前的android工具已经是deprecated状态，所以大家尽量切换到新的sdkmanager进行管理。同样的，我们也要对工具进行代理才能够正常的更新。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//获取所有的工具列表</span><br><span class="line">sdkmanager --list --no_https --proxy=http --proxy_host=g.cn --proxy_port=80</span><br><span class="line">//安装指定的工具（&quot;platforms;android-28&quot;）</span><br><span class="line">sdkmanager &quot;platforms;android-28&quot; --no_https --proxy=http --proxy_host=g.cn --proxy_port=80</span><br><span class="line">//也可以同时指定安装多个工具</span><br><span class="line">sdkmanager &quot;platforms;android-28&quot; &quot;build-tools;28.0.3&quot; --no_https --proxy=http --proxy_host=g.cn --proxy_port=80</span><br></pre></td></tr></table></figure>
+
 <p>如下所示：<br><img src="https://raw.githubusercontent.com/jacentsao/picbed/master/img/markdownnecessary%20android%20sdk%20tools.png" alt=""></p>
 <h4 id="使用阿里云仓库"><a href="#使用阿里云仓库" class="headerlink" title="使用阿里云仓库"></a>使用阿里云仓库</h4><p>阿里云仓库地址 <a href="http://maven.aliyun.com/mvn/view，" target="_blank" rel="noopener">http://maven.aliyun.com/mvn/view，</a> gradle版本的一些说明  <a href="https://developer.android.com/studio/releases/gradle-plugin" target="_blank" rel="noopener">https://developer.android.com/studio/releases/gradle-plugin</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//替换jcenter()</span><br><span class="line">maven &#123;url &apos;https://maven.aliyun.com/repository/jcenter&apos;&#125;</span><br><span class="line">//替换google(),从gradle3.0.0开始就需要添加谷歌仓库</span><br><span class="line">maven &#123;url &apos;https://maven.aliyun.com/repository/google&apos;&#125;</span><br><span class="line">//公共仓库</span><br><span class="line">maven &#123;url &apos;https://maven.aliyun.com/repository/public&apos;&#125;</span><br></pre></td></tr></table></figure>
@@ -760,7 +761,7 @@ Do you accept the license &apos;android-sdk-preview-license-52d11cd2&apos; [y/n]
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">82</span>
+                    <span class="site-state-item-count">83</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -813,7 +814,9 @@ Do you accept the license &apos;android-sdk-preview-license-52d11cd2&apos; [y/n]
                     
                       
                     
-                    <span class="site-state-item-count">20</span>
+                      
+                    
+                    <span class="site-state-item-count">21</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -934,7 +937,9 @@ Do you accept the license &apos;android-sdk-preview-license-52d11cd2&apos; [y/n]
                     
                       
                     
-                    <span class="site-state-item-count">54</span>
+                      
+                    
+                    <span class="site-state-item-count">55</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1024,7 +1029,7 @@ Do you accept the license &apos;android-sdk-preview-license-52d11cd2&apos; [y/n]
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
 
 
 

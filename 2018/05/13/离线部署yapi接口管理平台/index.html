@@ -15,7 +15,7 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -112,7 +112,7 @@
 <meta property="og:site_name" content="Silence of Heart">
 <meta property="og:description" content="YApi 是一个可本地部署的、打通前后端及QA的、可视化的接口管理平台，项目官网,Github地址。 本文是对自己在多平台内网部署的时候的过程及遇到的问题的记录。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-28T01:27:42.920Z">
+<meta property="og:updated_time" content="2019-08-03T08:54:22.652Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="内网部署yapi接口管理平台">
 <meta name="twitter:description" content="YApi 是一个可本地部署的、打通前后端及QA的、可视化的接口管理平台，项目官网,Github地址。 本文是对自己在多平台内网部署的时候的过程及遇到的问题的记录。">
@@ -274,7 +274,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">54</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">55</span></a>
 
   </li>
         
@@ -293,7 +293,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">20</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">21</span></a>
 
   </li>
         
@@ -312,7 +312,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">82</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">83</span></a>
 
   </li>
         
@@ -510,7 +510,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-11-28 09:27:42" itemprop="dateModified" datetime="2018-11-28T09:27:42+08:00">2018-11-28</time>
+                <time title="修改时间：2019-08-03 16:54:22" itemprop="dateModified" datetime="2019-08-03T16:54:22+08:00">2019-08-03</time>
               
             
           </span>
@@ -564,6 +564,7 @@
         <p>YApi 是一个可本地部署的、打通前后端及QA的、可视化的接口管理平台，<a href="https://yapi.ymfe.org" target="_blank" rel="noopener">项目官网</a>,<a href="https://github.com/YMFE/yapi" target="_blank" rel="noopener">Github地址</a>。</p>
 <p>本文是对自己在多平台内网部署的时候的过程及遇到的问题的记录。</p>
 <a id="more"></a>
+
 <h4 id="内网部署"><a href="#内网部署" class="headerlink" title="内网部署"></a>内网部署</h4><h5 id="环境要求"><a href="#环境要求" class="headerlink" title="环境要求"></a>环境要求</h5><ul>
 <li>nodejs (7.6+)</li>
 <li>mongodb (2.6+)</li>
@@ -573,19 +574,26 @@
 <h5 id="升级"><a href="#升级" class="headerlink" title="升级"></a>升级</h5><p>cd  {项目目录}<br>yapi ls //查看版本号列表<br>yapi update //更新到最新版本<br>yapi update -v {Version} //更新到指定版本</p>
 <h4 id="centos安装环境"><a href="#centos安装环境" class="headerlink" title="centos安装环境"></a>centos安装环境</h4><h5 id="安装nodejs"><a href="#安装nodejs" class="headerlink" title="安装nodejs"></a>安装nodejs</h5><p>使用EPEL安装nodejs</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ yum info epel-release  检查是否有安装</span><br><span class="line"></span><br><span class="line">$ sudo yum install epel-release 安装epel</span><br><span class="line"></span><br><span class="line">$ sudo yum install -y nodejs 安装nodejs</span><br><span class="line"></span><br><span class="line">$ sudo npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br><span class="line"></span><br><span class="line">$ sudo npm install -g n</span><br><span class="line"></span><br><span class="line">$ sudo n stable 安装最新的稳定版本</span><br></pre></td></tr></table></figure>
+
 <h5 id="安装mongodb"><a href="#安装mongodb" class="headerlink" title="安装mongodb"></a>安装mongodb</h5><p>1 . 创建文件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim /etc/yum.repos.d/mongodb-org.repo</span><br></pre></td></tr></table></figure>
+
 <p>2 . 复制下面的内容</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[mongodb-org-3.6]</span><br><span class="line">name=MongoDB Repository</span><br><span class="line">baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.6/x86_64/</span><br><span class="line">gpgcheck=1</span><br><span class="line">enabled=1</span><br><span class="line">gpgkey=https://www.mongodb.org/static/pgp/server-3.6.asc</span><br></pre></td></tr></table></figure>
+
 <p>国内的服务器替换 baseurl 为阿里源,否则你回感受来自共产主义的负加成</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">baseurl=http://mirrors.aliyun.com/mongodb/yum/redhat/6/mongodb-org/stable/x86_64/</span><br></pre></td></tr></table></figure>
+
 <p>我搭建的时候用的</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">baseurl=http://mirrors.aliyun.com/mongodb/yum/redhat/7Server/mongodb-org/3.2/x86_64/</span><br></pre></td></tr></table></figure>
+
 <p>下载速度很快但是每次卡在最后一步，最后把3.2版本改为3.6以后一下载就安装好了</p>
 <p>3 . 更新文件，安装</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ yum udpate </span><br><span class="line">$ yum -y install mongodb=org</span><br></pre></td></tr></table></figure>
+
 <h5 id="配置nginx代理"><a href="#配置nginx代理" class="headerlink" title="配置nginx代理"></a>配置nginx代理</h5><p>由于centos是丢在一台Windows机器的Vmware WorkStation上面，所以还用了nginx反向代理yapi，配置如下</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">            proxy_http_version 1.1;</span><br><span class="line">	    proxy_set_header Upgrade $http_upgrade;</span><br><span class="line">	    proxy_set_header Connection &quot;upgrade&quot;;</span><br><span class="line">            proxy_pass   http://127.0.0.1:3011;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
 <h4 id="Macos安装"><a href="#Macos安装" class="headerlink" title="Macos安装"></a>Macos安装</h4><p>由于开了全局代理，终端翻墙，安装过程基本按照<a href="https://github.com/suxiaoxin/yapi_user_guide/blob/master/mac%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE.md" target="_blank" rel="noopener">官方教程</a>过程很流畅。</p>
 <h4 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h4><p>做开发，一要网络好，二要代理好。感谢GCD，感谢阿里巴巴。</p>
 
@@ -708,7 +716,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">82</span>
+                    <span class="site-state-item-count">83</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -761,7 +769,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">20</span>
+                      
+                    
+                    <span class="site-state-item-count">21</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -882,7 +892,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">54</span>
+                      
+                    
+                    <span class="site-state-item-count">55</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -972,7 +984,7 @@
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
 
 
 

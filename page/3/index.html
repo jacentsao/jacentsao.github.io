@@ -15,7 +15,7 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -273,7 +273,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">54</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">55</span></a>
 
   </li>
         
@@ -292,7 +292,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">20</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">21</span></a>
 
   </li>
         
@@ -311,7 +311,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">82</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">83</span></a>
 
   </li>
         
@@ -449,6 +449,159 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/10/java-lambda学习笔记/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JacenTsao">
+      <meta itemprop="description" content="这是我的个人测试小站">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Silence of Heart">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/04/10/java-lambda学习笔记/" class="post-title-link" itemprop="url">java - lambda学习笔记</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-04-10 15:39:36" itemprop="dateCreated datePublished" datetime="2018-04-10T15:39:36+08:00">2018-04-10</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-08-03 16:54:22" itemprop="dateModified" datetime="2019-08-03T16:54:22+08:00">2019-08-03</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/20/后端性能测试1/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -511,7 +664,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-11-28 09:27:42" itemprop="dateModified" datetime="2018-11-28T09:27:42+08:00">2018-11-28</time>
+                <time title="修改时间：2019-08-03 16:54:22" itemprop="dateModified" datetime="2019-08-03T16:54:22+08:00">2019-08-03</time>
               
             
           </span>
@@ -577,16 +730,21 @@
 </ul>
 <p>以下一个完整的ab测试post请求如下：</p>
 <figure class="highlight plain"><figcaption><span>-n 100 -c 10 -p ./login.txt -T 'application/json'</span><a href="http://127.0.0.1:5174/" target="_blank" rel="noopener">```</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">即100次请求，并发数为10，指定当前目录下的login.txt文件中的json数据发送到服务器localhost，5174端口。以下是login.txt中的文件内容:</span><br></pre></td></tr></table></figure>
-<p>{“test”:”test”,”cmd”:”test”}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### 测试结果分析</span><br><span class="line"></span><br><span class="line">以下是以请求百度首页模拟100人总计10000此访问来进行ab测试返回分析:</span><br></pre></td></tr></table></figure></p>
-<p>ab -n 10000 -c 100  <a href="https://www.baidu.com/index.html" target="_blank" rel="noopener">https://www.baidu.com/index.html</a><br>//ApacheBenchmark软件申明<br>This is ApacheBench, Version 2.3 &lt;$Revision: 1807734 $&gt;<br>Copyright 1996 Adam Twiss, Zeus Technology Ltd, <a href="http://www.zeustech.net/" target="_blank" rel="noopener">http://www.zeustech.net/</a><br>Licensed to The Apache Software Foundation, <a href="http://www.apache.org/" target="_blank" rel="noopener">http://www.apache.org/</a></p>
-<p>//测试的网址<br>Benchmarking www.baidu.com (be patient)</p>
-<p>//请求的进度<br>Completed 1000 requests<br>Completed 2000 requests<br>Completed 3000 requests<br>Completed 4000 requests<br>Completed 5000 requests<br>SSL handshake failed (1).<br>140735932269448:error:140770FC:SSL routines:SSL23_GET_SERVER_HELLO:unknown protocol:/BuildRoot/Library/Caches/com.apple.xbs/Sources/libressl/libressl-22/libressl/ssl/s23_clnt.c:565:<br>Completed 6000 requests<br>Completed 7000 requests<br>SSL handshake failed (1).<br>140735932269448:error:140770FC:SSL routines:SSL23_GET_SERVER_HELLO:unknown protocol:/BuildRoot/Library/Caches/com.apple.xbs/Sources/libressl/libressl-22/libressl/ssl/s23_clnt.c:565:<br>Completed 8000 requests<br>Completed 9000 requests<br>Completed 10000 requests<br>Finished 10000 requests</p>
-<p>//百度的服务器软件信息<br>Server Software:        BWS/1.1<br>//被测试的主机地址<br>Server Hostname:        www.baidu.com<br>//https的默认端口<br>Server Port:            443<br>//加密协议<br>SSL/TLS Protocol:       TLSv1.2,ECDHE-RSA-AES128-GCM-SHA256,2048,128<br>//加密服务器名称<br>TLS Server Name:        www.baidu.com</p>
-<p>//文档的路径<br>Document Path:          /index.html<br>//文档的大小<br>Document Length:        227 bytes</p>
-<p>//并发数<br>Concurrency Level:      100<br>//测试总的时间<br>Time taken for tests:   146.932 seconds<br>//完成的请求数量<br>Complete requests:      10000<br>//失败的次数<br>Failed requests:        2<br>   (Connect: 0, Receive: 0, Length: 2, Exceptions: 0)<br>//总的数据传输量，包括请求头和文本内容<br>Total transferred:      8718256 bytes<br>//请求的文档总大小 227 <em> 10000 （总计一万次请求）- 2 </em> 227（两次失败）<br>HTML transferred:       2269546 bytes<br>//每秒完成的请求数量 10000/146.932<br>Requests per second:    68.06 [#/sec] (mean)<br>//每个请求的平均耗时<br>Time per request:       1469.317 [ms] (mean)<br>//服务器完成一个请求的耗时<br>Time per request:       14.693 [ms] (mean, across all concurrent requests)<br>//服务器的吞吐率<br>Transfer rate:          57.94 [Kbytes/sec] received</p>
-<p>//连接信息<br>Connection Times (ms)<br>              min  mean[+/-sd] median   max<br>Connect:        0 1220 947.0   1170   45274<br>Processing:    14  234 227.0    116    2292<br>Waiting:       13  220 214.9    114    2291<br>Total:        107 1454 961.3   1301   46006</p>
-<p>//完成请求比例的耗时，如下完成90%的耗时为1990ms<br>Percentage of the requests served within a certain time (ms)<br>  50%   1301<br>  66%   1377<br>  75%   1464<br>  80%   1540<br>  90%   1990<br>  95%   2221<br>  98%   2827<br>  99%   2972<br> 100%  46006 (longest request)<br>```</p>
 
+<p>{“test”:”test”,”cmd”:”test”} </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### 测试结果分析</span><br><span class="line"></span><br><span class="line">以下是以请求百度首页模拟100人总计10000此访问来进行ab测试返回分析:</span><br></pre></td></tr></table></figure>
+
+<p>ab -n 10000 -c 100  <a href="https://www.baidu.com/index.html" target="_blank" rel="noopener">https://www.baidu.com/index.html</a><br>//ApacheBenchmark软件申明<br>This is ApacheBench, Version 2.3 &lt;$Revision: 1807734 $&gt;<br>Copyright 1996 Adam Twiss, Zeus Technology Ltd, <a href="http://www.zeustech.net/" target="_blank" rel="noopener">http://www.zeustech.net/</a><br>Licensed to The Apache Software Foundation, <a href="http://www.apache.org/" target="_blank" rel="noopener">http://www.apache.org/</a></p>
+<p>//测试的网址<br>Benchmarking <a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a> (be patient)</p>
+<p>//请求的进度<br>Completed 1000 requests<br>Completed 2000 requests<br>Completed 3000 requests<br>Completed 4000 requests<br>Completed 5000 requests<br>SSL handshake failed (1).<br>140735932269448:error:140770FC:SSL routines:SSL23_GET_SERVER_HELLO:unknown protocol:/BuildRoot/Library/Caches/com.apple.xbs/Sources/libressl/libressl-22/libressl/ssl/s23_clnt.c:565:<br>Completed 6000 requests<br>Completed 7000 requests<br>SSL handshake failed (1).<br>140735932269448:error:140770FC:SSL routines:SSL23_GET_SERVER_HELLO:unknown protocol:/BuildRoot/Library/Caches/com.apple.xbs/Sources/libressl/libressl-22/libressl/ssl/s23_clnt.c:565:<br>Completed 8000 requests<br>Completed 9000 requests<br>Completed 10000 requests<br>Finished 10000 requests</p>
+<p>//百度的服务器软件信息<br>Server Software:        BWS/1.1<br>//被测试的主机地址<br>Server Hostname:        <a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a><br>//https的默认端口<br>Server Port:            443<br>//加密协议<br>SSL/TLS Protocol:       TLSv1.2,ECDHE-RSA-AES128-GCM-SHA256,2048,128<br>//加密服务器名称<br>TLS Server Name:        <a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a></p>
+<p>//文档的路径<br>Document Path:          /index.html<br>//文档的大小<br>Document Length:        227 bytes</p>
+<p>//并发数<br>Concurrency Level:      100<br>//测试总的时间<br>Time taken for tests:   146.932 seconds<br>//完成的请求数量<br>Complete requests:      10000<br>//失败的次数<br>Failed requests:        2<br>   (Connect: 0, Receive: 0, Length: 2, Exceptions: 0)<br>//总的数据传输量，包括请求头和文本内容<br>Total transferred:      8718256 bytes<br>//请求的文档总大小 227 * 10000 （总计一万次请求）- 2 * 227（两次失败）<br>HTML transferred:       2269546 bytes<br>//每秒完成的请求数量 10000/146.932<br>Requests per second:    68.06 [#/sec] (mean)<br>//每个请求的平均耗时<br>Time per request:       1469.317 [ms] (mean)<br>//服务器完成一个请求的耗时<br>Time per request:       14.693 [ms] (mean, across all concurrent requests)<br>//服务器的吞吐率<br>Transfer rate:          57.94 [Kbytes/sec] received</p>
+<p>//连接信息<br>Connection Times (ms)<br>              min  mean[+/-sd] median   max<br>Connect:        0 1220 947.0   1170   45274<br>Processing:    14  234 227.0    116    2292<br>Waiting:       13  220 214.9    114    2291<br>Total:        107 1454 961.3   1301   46006</p>
+<p>//完成请求比例的耗时，如下完成90%的耗时为1990ms<br>Percentage of the requests served within a certain time (ms)<br>  50%   1301<br>  66%   1377<br>  75%   1464<br>  80%   1540<br>  90%   1990<br>  95%   2221<br>  98%   2827<br>  99%   2972<br> 100%  46006 (longest request)</p>
+<pre><code>
+
+</code></pre>
           
         
       
@@ -704,7 +862,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-11-28 09:27:42" itemprop="dateModified" datetime="2018-11-28T09:27:42+08:00">2018-11-28</time>
+                <time title="修改时间：2019-08-03 16:54:22" itemprop="dateModified" datetime="2019-08-03T16:54:22+08:00">2019-08-03</time>
               
             
           </span>
@@ -880,7 +1038,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-11-28 09:27:42" itemprop="dateModified" datetime="2018-11-28T09:27:42+08:00">2018-11-28</time>
+                <time title="修改时间：2019-08-03 16:54:22" itemprop="dateModified" datetime="2019-08-03T16:54:22+08:00">2019-08-03</time>
               
             
           </span>
@@ -935,13 +1093,17 @@
           
             <p>随着Kotlin的越来越火热，对于Android开发者而言学习Kotlin也变成了一个必要的过程了。</p>
 <h5 id="基础语法"><a href="#基础语法" class="headerlink" title="基础语法"></a>基础语法</h5><h6 id="定义一个类"><a href="#定义一个类" class="headerlink" title="定义一个类"></a>定义一个类</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class User(name: String, age: Int) &#123;&#125; //如果类没有内容则大括号可以省略掉</span><br></pre></td></tr></table></figure>
+
 <p>构造函数的函数体，即下列代码的init块中</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class User(name: String, age: Int) &#123;</span><br><span class="line">	init &#123;</span><br><span class="line">		...</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h6 id="类继承"><a href="#类继承" class="headerlink" title="类继承"></a>类继承</h6><p>默认任何类都是继承基础类Any（类似于java中的Object），但是我们可以继承其它类。所有的类默认都是final的，因此如果我们要让别的类继承的话就需要声明open或者abstract关键字。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class User(name: String, age: Int)</span><br><span class="line"></span><br><span class="line">class Max(name: String, age: Int, gender: String) : User(name, age)</span><br></pre></td></tr></table></figure>
+
 <p>如上所示，如果只有单个构造器时，需要从父类继承下来的构造器中指定需要的参数，类似于java super关键字</p>
 <h6 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h6><p>函数使用fun声明:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fun add(x: Int, y: Int): Int &#123;</span><br><span class="line">       return x + y</span><br><span class="line">   &#125;</span><br><span class="line">  </span><br><span class="line">  func add(x: Int, y: Int) : Int = x+y</span><br><span class="line">   </span><br><span class="line"> 无返回值的函数，会返回Unit，于java中的void类似，但是Unit是一个真正的对象</span><br></pre></td></tr></table></figure>
+
 <h6 id="构造方法和函数参数"><a href="#构造方法和函数参数" class="headerlink" title="构造方法和函数参数"></a>构造方法和函数参数</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">toast(&quot;hell&quot;) //使用默认的Toast.LENGTH_LONG</span><br><span class="line">toast(&quot;hell&quot;,Toast.LENGTH_LONG)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">fun toast(msg: String, length: Int = Toast.LENGTH_LONG) &#123;//执行函数默认值，避免方法重载</span><br><span class="line">        Toast.makeText(this,msg, length).show()</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
           
         
@@ -1060,7 +1222,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-11-28 09:27:42" itemprop="dateModified" datetime="2018-11-28T09:27:42+08:00">2018-11-28</time>
+                <time title="修改时间：2019-08-03 16:54:22" itemprop="dateModified" datetime="2019-08-03T16:54:22+08:00">2019-08-03</time>
               
             
           </span>
@@ -1097,6 +1259,7 @@
           
             <p><strong>务必确认在构建非Windows包的时候，根目录下面无syso版本信息文件，否则各种各样的奇葩错误</strong></p>
 <h5 id="seq-android-c-213-3-error"><a href="#seq-android-c-213-3-error" class="headerlink" title="seq_android.c:213:3: error"></a>seq_android.c:213:3: error</h5><figure class="highlight plain"><figcaption><span>go build -pkgdir</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># _/var/folders/w4/75xgx41n2bb7mm3m0dxbp0d40000gn/T/gomobile-work-159245723/gomobile_bind</span><br><span class="line">seq_android.c:213:3: error: implicitly declaring library function &apos;memcpy&apos; with type &apos;void *(void *, const void *, unsigned long)&apos; [-Werror,-Wimplicit-function-declaration]</span><br><span class="line">seq_android.c:213:3: note: include the header &lt;string.h&gt; or explicitly provide a declaration for &apos;memcpy&apos;</span><br></pre></td></tr></table></figure>
+
 <p>解决方案</p>
 <p><code>https://github.com/golang/go/issues/22766 seq_android.c:213:3: error</code></p>
 
@@ -1217,7 +1380,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-11-28 09:27:42" itemprop="dateModified" datetime="2018-11-28T09:27:42+08:00">2018-11-28</time>
+                <time title="修改时间：2019-08-03 16:54:22" itemprop="dateModified" datetime="2019-08-03T16:54:22+08:00">2019-08-03</time>
               
             
           </span>
@@ -1401,7 +1564,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-11-28 09:27:42" itemprop="dateModified" datetime="2018-11-28T09:27:42+08:00">2018-11-28</time>
+                <time title="修改时间：2019-08-03 16:54:22" itemprop="dateModified" datetime="2019-08-03T16:54:22+08:00">2019-08-03</time>
               
             
           </span>
@@ -1576,7 +1739,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-11-28 09:27:42" itemprop="dateModified" datetime="2018-11-28T09:27:42+08:00">2018-11-28</time>
+                <time title="修改时间：2019-08-03 16:54:22" itemprop="dateModified" datetime="2019-08-03T16:54:22+08:00">2019-08-03</time>
               
             
           </span>
@@ -1638,7 +1801,8 @@
 <li>执行 /Applications/MAMP/Library/bin 目录下的mysql即可进入命令行操作界面</li>
 </ol>
 <h5 id="使用golang连接数据库"><a href="#使用golang连接数据库" class="headerlink" title="使用golang连接数据库"></a>使用golang连接数据库</h5><ol>
-<li><code>db, err := sql.Open(&quot;mysql&quot;, &quot;root:root@unix(/Applications/MAMP/tmp/mysql/mysql.sock)/mysql&quot;)</code></li>
+<li><pre><code class="db,"></code></pre>
+</li>
 </ol>
 
           
@@ -1758,7 +1922,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-11-28 09:27:42" itemprop="dateModified" datetime="2018-11-28T09:27:42+08:00">2018-11-28</time>
+                <time title="修改时间：2019-08-03 16:54:22" itemprop="dateModified" datetime="2019-08-03T16:54:22+08:00">2019-08-03</time>
               
             
           </span>
@@ -1938,7 +2102,7 @@ scp  -r local_dir username@servername:remote_dir
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-11-28 09:27:42" itemprop="dateModified" datetime="2018-11-28T09:27:42+08:00">2018-11-28</time>
+                <time title="修改时间：2019-08-03 16:54:22" itemprop="dateModified" datetime="2019-08-03T16:54:22+08:00">2019-08-03</time>
               
             
           </span>
@@ -1992,194 +2156,20 @@ scp  -r local_dir username@servername:remote_dir
         
           
             <p>移动平台对于安全和隐私是越来越注重了，Android在权限方面也在不断的收紧，一定程度上对于流氓软件还是有克制作用的。</p>
-<p>今天学习了一下<a href="https://developer.android.com/training/secure-file-sharing/setup-sharing.html" target="_blank" rel="noopener">FileProvider</a>和<a href="https://developer.android.com/reference/android/support/v4/content/FileProvider.html#getUriForFile(android.content.Context, java.lang.String, java.io.File" target="_blank" rel="noopener">文档</a>)的基本使用：</p>
+<p>今天学习了一下<a href="https://developer.android.com/training/secure-file-sharing/setup-sharing.html" target="_blank" rel="noopener">FileProvider</a>和[文档](<a href="https://developer.android.com/reference/android/support/v4/content/FileProvider.html#getUriForFile" target="_blank" rel="noopener">https://developer.android.com/reference/android/support/v4/content/FileProvider.html#getUriForFile</a>(android.content.Context, java.lang.String, java.io.File))的基本使用：</p>
 <h5 id="1-定义Provider"><a href="#1-定义Provider" class="headerlink" title="1.定义Provider"></a>1.定义Provider</h5><p>首先要在MManifest文件中定义一个Provider，其中authorities=包名.fileprovider。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    package=&quot;com.example.myapp&quot;&gt;</span><br><span class="line">    &lt;application</span><br><span class="line">        ...&gt;</span><br><span class="line">        &lt;provider</span><br><span class="line">            android:name=&quot;android.support.v4.content.FileProvider&quot;</span><br><span class="line">            android:authorities=&quot;com.example.myapp.fileprovider&quot;</span><br><span class="line">            android:grantUriPermissions=&quot;true&quot;</span><br><span class="line">            android:exported=&quot;false&quot;&gt;</span><br><span class="line">            &lt;meta-data</span><br><span class="line">                android:name=&quot;android.support.FILE_PROVIDER_PATHS&quot;</span><br><span class="line">                android:resource=&quot;@xml/filepaths&quot; /&gt;</span><br><span class="line">        &lt;/provider&gt;</span><br><span class="line">        ...</span><br><span class="line">    &lt;/application&gt;</span><br><span class="line">&lt;/manifest&gt;</span><br></pre></td></tr></table></figure>
+
 <h5 id="2-创建filepaths文件"><a href="#2-创建filepaths文件" class="headerlink" title="2.创建filepaths文件"></a>2.创建filepaths文件</h5><p>在res目录下面新建一个xml目录，并在新建的xml目录下面创建一个filepaths的文件，内容如下所示：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;paths xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;</span><br><span class="line">    &lt;files-path name=&quot;my_images&quot; path=&quot;images/&quot;/&gt;</span><br><span class="line">    ...</span><br><span class="line">&lt;/paths&gt;</span><br></pre></td></tr></table></figure>
+
 <p>定义的路径又分为如下几种，分别对应内部存储和外部存储</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;files-path name=&quot;name&quot; path=&quot;path&quot; /&gt;  Context.getFilesDir().</span><br><span class="line">&lt;cache-path name=&quot;name&quot; path=&quot;path&quot; /&gt;  getCacheDir().</span><br><span class="line">&lt;external-path name=&quot;name&quot; path=&quot;path&quot; /&gt;  Environment.getExternalStorageDirectory().</span><br><span class="line">&lt;external-files-path name=&quot;name&quot; path=&quot;path&quot; /&gt;Context#getExternalFilesDir(String) Context.getExternalFilesDir(null).</span><br><span class="line">&lt;external-cache-path name=&quot;name&quot; path=&quot;path&quot; /&gt; Context.getExternalCacheDir().</span><br></pre></td></tr></table></figure>
+
 <p>其中，name是出于安全考虑用于替换path显示的，path则是真实的次级目录</p>
 <h5 id="3-创建一个可分享的Uri"><a href="#3-创建一个可分享的Uri" class="headerlink" title="3.创建一个可分享的Uri"></a>3.创建一个可分享的Uri</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">File imagePath = new File(Context.getFilesDir(), &quot;images&quot;);</span><br><span class="line">File newFile = new File(imagePath, &quot;default_image.jpg&quot;);</span><br><span class="line">Uri contentUri = FileProvider.getUriForFile(getContext(), &quot;com.mydomain.fileprovider&quot;, newFile);</span><br></pre></td></tr></table></figure>
+
 <p>最终获取到的Uri是<code>content://com.mydomain.fileprovider/my_images/default_image.jpg</code>，可以看到实际的images路径被替换为my_images了。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/22/Android-Studio-代理设置/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="JacenTsao">
-      <meta itemprop="description" content="这是我的个人测试小站">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Silence of Heart">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/10/22/Android-Studio-代理设置/" class="post-title-link" itemprop="url">Android Studio 代理设置</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-10-22 16:16:15" itemprop="dateCreated datePublished" datetime="2017-10-22T16:16:15+08:00">2017-10-22</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-11-28 09:27:42" itemprop="dateModified" datetime="2018-11-28T09:27:42+08:00">2018-11-28</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>最近因为Lantern老是出问题，又买了一个搬瓦工的，搭建好后速度还是可以的，Youtube上面1080P没有卡顿现象。但是各种工具的是使用又出现了问题，所以特意记录一下，节省下次切换工具配置的时间。</p>
-<h4 id="git配置"><a href="#git配置" class="headerlink" title="git配置"></a>git配置</h4><p>首先是配置git的代理，以下是http(s)配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git config --global https.proxy &apos;http://127.0.0.1:65322&apos;</span><br><span class="line">git config --global http.proxy &apos;http://127.0.0.1:65322&apos;</span><br><span class="line"></span><br><span class="line">取消设置代理</span><br><span class="line">git config --global --unset http.proxy</span><br><span class="line">git config --global --unset https.proxy</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export http_proxy=http://127.0.0.1:1087;</span><br><span class="line">export https_proxy=http://127.0.0.1:1087;</span><br></pre></td></tr></table></figure>
-<h4 id="Gradle配置"><a href="#Gradle配置" class="headerlink" title="Gradle配置"></a>Gradle配置</h4><p>在全局的gradle.properties中添加以下配置，这样子每个项目的gradle同步都回使用ss代理了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">systemProp.http.proxyHost=127.0.0.1</span><br><span class="line">systemProp.http.proxyPort=1087</span><br><span class="line">systemProp.https.proxyHost=127.0.0.1</span><br><span class="line">systemProp.https.proxyPort=1087</span><br></pre></td></tr></table></figure>
-<h4 id="Android-Studio代理设置"><a href="#Android-Studio代理设置" class="headerlink" title="Android Studio代理设置"></a>Android Studio代理设置</h4><p>目前来看启用自动代理即可</p>
 
           
         
@@ -2270,7 +2260,7 @@ scp  -r local_dir username@servername:remote_dir
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">82</span>
+                    <span class="site-state-item-count">83</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2323,7 +2313,9 @@ scp  -r local_dir username@servername:remote_dir
                     
                       
                     
-                    <span class="site-state-item-count">20</span>
+                      
+                    
+                    <span class="site-state-item-count">21</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -2444,7 +2436,9 @@ scp  -r local_dir username@servername:remote_dir
                     
                       
                     
-                    <span class="site-state-item-count">54</span>
+                      
+                    
+                    <span class="site-state-item-count">55</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -2517,7 +2511,7 @@ scp  -r local_dir username@servername:remote_dir
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
 
 
 

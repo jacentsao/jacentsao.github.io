@@ -15,7 +15,7 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -112,7 +112,7 @@
 <meta property="og:site_name" content="Silence of Heart">
 <meta property="og:description" content="最近碰到一个很奇怪的现象，就是我们的app在启东的时候第一次请求接口的时候很容易出现请求失败的现象，尤其是在清理掉缓存重新安装的时候。由于这个接口是访问的localhost，而这个localhost是我们自己在本地启用的一个服务。所以导致了我一开始就走进了一个死牛角尖，怀疑是不是这个服务没有运行起来，导致无法访问本地服务器，钻了死角。 后面通过查找资料发现，Volley在使用的时候通过Reques">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-12-24T00:58:36.570Z">
+<meta property="og:updated_time" content="2019-08-03T08:54:22.630Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android-Volley中出现的java.io.InterruptedIOException:thread interrupted">
 <meta name="twitter:description" content="最近碰到一个很奇怪的现象，就是我们的app在启东的时候第一次请求接口的时候很容易出现请求失败的现象，尤其是在清理掉缓存重新安装的时候。由于这个接口是访问的localhost，而这个localhost是我们自己在本地启用的一个服务。所以导致了我一开始就走进了一个死牛角尖，怀疑是不是这个服务没有运行起来，导致无法访问本地服务器，钻了死角。 后面通过查找资料发现，Volley在使用的时候通过Reques">
@@ -274,7 +274,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">54</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">55</span></a>
 
   </li>
         
@@ -293,7 +293,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">20</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">21</span></a>
 
   </li>
         
@@ -312,7 +312,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">82</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">83</span></a>
 
   </li>
         
@@ -510,7 +510,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-12-24 08:58:36" itemprop="dateModified" datetime="2018-12-24T08:58:36+08:00">2018-12-24</time>
+                <time title="修改时间：2019-08-03 16:54:22" itemprop="dateModified" datetime="2019-08-03T16:54:22+08:00">2019-08-03</time>
               
             
           </span>
@@ -564,6 +564,8 @@
         <p>最近碰到一个很奇怪的现象，就是我们的app在启东的时候第一次请求接口的时候很容易出现请求失败的现象，尤其是在清理掉缓存重新安装的时候。由于这个接口是访问的localhost，而这个localhost是我们自己在本地启用的一个服务。所以导致了我一开始就走进了一个死牛角尖，怀疑是不是这个服务没有运行起来，导致无法访问本地服务器，钻了死角。</p>
 <p>后面通过查找资料发现，Volley在使用的时候通过RequestQueue添加一个Request是后如果再次调用了RequestQueue的start()方法就会出现这种问题。<a href="http://stackoverflow.com/questions/31158858/random-com-android-volley-noconnection-error-java-io-interruptedioexception-st" target="_blank" rel="noopener">参考资料</a>，来自stackoverflow。</p>
 <a id="more"></a>
+
+
 <pre><code>public static RequestQueue newRequestQueue(Context context, HttpStack stack) {
     File cacheDir = new File(context.getCacheDir(), DEFAULT_CACHE_DIR);
 
@@ -591,8 +593,7 @@
     queue.start();
 
     return queue;    
-}
-</code></pre><p>​<br>当使用RequestQueue的Start()方法的时候，Volley会调用stop方法确保所有的请求都是停止状态。<br>​<br>​    public void stop() {<br>​        if (mCacheDispatcher != null) {<br>​            mCacheDispatcher.quit();<br>​        }<br>​        for (int i = 0; i &lt; mDispatchers.length; i++) {<br>​            if (mDispatchers[i] != null) {<br>​                mDispatchers[i].quit();<br>​            }<br>​        }<br>​    }        </p>
+}</code></pre><p>​<br>当使用RequestQueue的Start()方法的时候，Volley会调用stop方法确保所有的请求都是停止状态。<br>​<br>​    public void stop() {<br>​        if (mCacheDispatcher != null) {<br>​            mCacheDispatcher.quit();<br>​        }<br>​        for (int i = 0; i &lt; mDispatchers.length; i++) {<br>​            if (mDispatchers[i] != null) {<br>​                mDispatchers[i].quit();<br>​            }<br>​        }<br>​    }        </p>
 <p>​<br>在stop()方法中调用了quit()方法：</p>
 <pre><code>public void stop() {
     if (mCacheDispatcher != null) {
@@ -603,8 +604,7 @@
             mDispatchers[i].quit();
         }
     }
-}    
-</code></pre><p>​<br>最终我们来到了这里，这就是我们为什么会出现thread被interrupte的原因，所以我们在使用RequestQueue的时候是不能调用Start()方法的。</p>
+}    </code></pre><p>​<br>最终我们来到了这里，这就是我们为什么会出现thread被interrupte的原因，所以我们在使用RequestQueue的时候是不能调用Start()方法的。</p>
 <pre><code>public void interrupt() {
     // Interrupt this thread before running actions so that other
     // threads that observe the interrupt as a result of an action
@@ -616,8 +616,7 @@
             interruptActions.get(i).run();
         }
     }
-}    
-</code></pre>
+}    </code></pre>
       
     </div>
 
@@ -730,7 +729,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">82</span>
+                    <span class="site-state-item-count">83</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -783,7 +782,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">20</span>
+                      
+                    
+                    <span class="site-state-item-count">21</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -904,7 +905,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">54</span>
+                      
+                    
+                    <span class="site-state-item-count">55</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -977,7 +980,7 @@
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
 
 
 

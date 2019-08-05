@@ -15,7 +15,7 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -112,7 +112,7 @@
 <meta property="og:site_name" content="Silence of Heart">
 <meta property="og:description" content="go doc fmt list all the data belowprintThe verbs: General: %v    the value in a default format     when printing structs, the plus flag (%+v) adds field names %#v    a Go-syntax representation of the">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-28T01:27:42.913Z">
+<meta property="og:updated_time" content="2019-08-03T08:54:22.641Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="go语言中的fmt包学习">
 <meta name="twitter:description" content="go doc fmt list all the data belowprintThe verbs: General: %v    the value in a default format     when printing structs, the plus flag (%+v) adds field names %#v    a Go-syntax representation of the">
@@ -274,7 +274,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">54</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">55</span></a>
 
   </li>
         
@@ -293,7 +293,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">20</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">21</span></a>
 
   </li>
         
@@ -312,7 +312,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">82</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">83</span></a>
 
   </li>
         
@@ -510,7 +510,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-11-28 09:27:42" itemprop="dateModified" datetime="2018-11-28T09:27:42+08:00">2018-11-28</time>
+                <time title="修改时间：2019-08-03 16:54:22" itemprop="dateModified" datetime="2019-08-03T16:54:22+08:00">2019-08-03</time>
               
             
           </span>
@@ -567,10 +567,8 @@
     when printing structs, the plus flag (%+v) adds field names
 %#v    a Go-syntax representation of the value
 %T    a Go-syntax representation of the type of the value
-%%    a literal percent sign; consumes no value
-</code></pre><p>Boolean:</p>
-<pre><code>%t    the word true or false
-</code></pre><p>Integer:</p>
+%%    a literal percent sign; consumes no value</code></pre><p>Boolean:</p>
+<pre><code>%t    the word true or false</code></pre><p>Integer:</p>
 <pre><code>%b    base 2
 %c    the character represented by the corresponding Unicode code point
 %d    base 10
@@ -578,8 +576,7 @@
 %q    a single-quoted character literal safely escaped with Go syntax.
 %x    base 16, with lower-case letters for a-f
 %X    base 16, with upper-case letters for A-F
-%U    Unicode format: U+1234; same as &quot;U+%04X&quot;
-</code></pre><p>Floating-point and complex constituents:</p>
+%U    Unicode format: U+1234; same as &quot;U+%04X&quot;</code></pre><p>Floating-point and complex constituents:</p>
 <pre><code>%b    decimalless scientific notation with exponent a power of two,
     in the manner of strconv.FormatFloat with the &apos;b&apos; format,
     e.g. -123456p-78
@@ -588,15 +585,12 @@
 %f    decimal point but no exponent, e.g. 123.456
 %F    synonym for %f
 %g    %e for large exponents, %f otherwise
-%G    %E for large exponents, %F otherwise
-</code></pre><p>String and slice of bytes (treated equivalently with these verbs):</p>
+%G    %E for large exponents, %F otherwise</code></pre><p>String and slice of bytes (treated equivalently with these verbs):</p>
 <pre><code>%s    the uninterpreted bytes of the string or slice
 %q    a double-quoted string safely escaped with Go syntax
 %x    base 16, lower-case, two characters per byte
-%X    base 16, upper-case, two characters per byte
-</code></pre><p>Pointer:</p>
-<pre><code>%p    base 16 notation, with leading 0x
-</code></pre><p>There is no ‘u’ flag. Integers are printed unsigned if they have unsigned<br>type. Similarly, there is no need to specify the size of the operand (int8,<br>int64).</p>
+%X    base 16, upper-case, two characters per byte</code></pre><p>Pointer:</p>
+<pre><code>%p    base 16 notation, with leading 0x</code></pre><p>There is no ‘u’ flag. Integers are printed unsigned if they have unsigned<br>type. Similarly, there is no need to specify the size of the operand (int8,<br>int64).</p>
 <p>The default format for %v is:</p>
 <pre><code>bool:                    %t
 int, int8 etc.:          %d
@@ -604,14 +598,12 @@ uint, uint8 etc.:        %d, %x if printed with %#v
 float32, complex64, etc: %g
 string:                  %s
 chan:                    %p
-pointer:                 %p
-</code></pre><p>Control width and precision:</p>
+pointer:                 %p</code></pre><p>Control width and precision:</p>
 <pre><code> %f     default width, default precision
 %9f    width 9, default precision
 %.2f   default width, precision 2
 %9.2f  width 9, precision 2
-%9.f   width 9, precision 0
-</code></pre><h4 id="一些小区别"><a href="#一些小区别" class="headerlink" title="一些小区别"></a>一些小区别</h4><p>函数 fmt.Sprintf 与 Printf 的作⽤是完全相同的，不过前者将格式化后的字符串以返 回值的形式返回给调⽤者，因此你可以在程序中使⽤包含变量的字符串</p>
+%9.f   width 9, precision 0</code></pre><h4 id="一些小区别"><a href="#一些小区别" class="headerlink" title="一些小区别"></a>一些小区别</h4><p>函数 fmt.Sprintf 与 Printf 的作⽤是完全相同的，不过前者将格式化后的字符串以返 回值的形式返回给调⽤者，因此你可以在程序中使⽤包含变量的字符串</p>
 
       
     </div>
@@ -732,7 +724,7 @@ pointer:                 %p
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">82</span>
+                    <span class="site-state-item-count">83</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -785,7 +777,9 @@ pointer:                 %p
                     
                       
                     
-                    <span class="site-state-item-count">20</span>
+                      
+                    
+                    <span class="site-state-item-count">21</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -906,7 +900,9 @@ pointer:                 %p
                     
                       
                     
-                    <span class="site-state-item-count">54</span>
+                      
+                    
+                    <span class="site-state-item-count">55</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -996,7 +992,7 @@ pointer:                 %p
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
 
 
 
