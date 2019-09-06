@@ -234,3 +234,18 @@ xgo的docker镜像是我们真正的编译环境,[Github地址](https://github.c
 		./zhjd-android-16-arm
 	
 最后在终端会输出可执行文件的执行结果
+
+### 更新golang版本（2019-09-05更新）
+
+由于最近Android 10 更新以后出现了兼容性问题，详情见[issue 29674](https://github.com/golang/go/issues/29674)。谷歌于2019-09-04更新了该问题，发布于golang 1.13，详见[release note](https://golang.org/doc/go1.13)。
+
+#### 处理过程
+
+``` shell
+1. 更新go sdk到1.13 release版本。
+2. git clone https://github.com/jacentsao/xgo.git
+3. cd xgo/docker/go-1.13.0
+4. docker build -t xgo:latest .
+5. xgo -image xgo --targets=android-14/arm --ldflags "-s -w" 项目地址（-image 指定镜像）
+
+```
