@@ -273,7 +273,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">55</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">56</span></a>
 
   </li>
         
@@ -311,7 +311,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">85</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">86</span></a>
 
   </li>
         
@@ -433,6 +433,195 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/26/Android-序列化/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JacenTsao">
+      <meta itemprop="description" content="这是我的个人测试小站">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Silence of Heart">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2017/02/26/Android-序列化/" class="post-title-link" itemprop="url">Android-序列化</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-02-26 20:18:04" itemprop="dateCreated datePublished" datetime="2017-02-26T20:18:04+08:00">2017-02-26</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-08-03 16:54:22" itemprop="dateModified" datetime="2019-08-03T16:54:22+08:00">2019-08-03</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在Android中我们经常使用到序列化来进行数据传递,比如Intent和Binder,或者将对象持久化到存储设备或者通过网络传输到其他设备的时候.通常我们会有两种方式来实现序列化: 1.Serializable 2.Parcelable </p>
+<h5 id="1-Serializable方式实现序列化"><a href="#1-Serializable方式实现序列化" class="headerlink" title="1. Serializable方式实现序列化"></a>1. Serializable方式实现序列化</h5><p>Serializable是java中所提供的一个序列化接口，它是空接口。通常我们可以通过实现Serializable接口来实现序列化，为对象提供标准的序列化和反序列化操作。同时我们注意到在实现该接口的时候我们会有一个long型的serialVersionUID，这个serialVersionUID主要是用于反序列化。如下所示：</p>
+<pre><code>public class User implements Serializable {
+    private static final long serialVersionUID = 7990301608074625143L;
+    public static int GENDAT_FEMALE = 0;
+    public static int GENDAT_MALE = 1;
+    private String name;
+
+    private int age;
+
+    private int gendar;
+
+    transient //序列化的时候忽略该字段
+    private int test;
+}</code></pre><p>以上面的User类为例，将其一个对象写入文件以后再从文件读取：<br>​<br>            User user = new User(“Max”, 0, 0, 0);<br>            ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(path));<br>            outputStream.writeObject(user);<br>            outputStream.close();</p>
+<pre><code>ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(path));
+User reader = (User) inputStream.readObject();
+Toast.makeText(this, reader.toString(), Toast.LENGTH_LONG).show();</code></pre><p>​<br>当把对象user写入到文件中的时候，同时会写入对象的serialVersionUID，在从文件中读取对象的时候，    </p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -2090,179 +2279,6 @@ pointer:                 %p</code></pre><p>Control width and precision:</p>
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/29/go语言中的init-函数/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="JacenTsao">
-      <meta itemprop="description" content="这是我的个人测试小站">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Silence of Heart">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/01/29/go语言中的init-函数/" class="post-title-link" itemprop="url">go语言中的init()函数</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-01-29 10:43:18" itemprop="dateCreated datePublished" datetime="2017-01-29T10:43:18+08:00">2017-01-29</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-08-03 16:54:22" itemprop="dateModified" datetime="2019-08-03T16:54:22+08:00">2019-08-03</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Golang/" itemprop="url" rel="index"><span itemprop="name">Golang</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>在go语言中,有一类比较特殊的函数,不能够被人为的调用,而是在每个包完成初始化动作后自动执行,而且执行优先级比main函数高.</p>
-<p>没一个源文件都可以包含一个或者多个init函数.初始化工作是以单线程执行,并且按照包的依赖关系顺序执行.一个可能的用途是在开始执行程序之前对数据进行检验或者修复,以保证程序状态的正确性.</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2312,7 +2328,7 @@ pointer:                 %p</code></pre><p>Control width and precision:</p>
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">85</span>
+                    <span class="site-state-item-count">86</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2490,7 +2506,9 @@ pointer:                 %p</code></pre><p>Control width and precision:</p>
                     
                       
                     
-                    <span class="site-state-item-count">55</span>
+                      
+                    
+                    <span class="site-state-item-count">56</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
