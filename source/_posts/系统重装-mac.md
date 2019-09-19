@@ -43,4 +43,9 @@ tags:
 # 14.安装Dash    文档工具
 # 15.安装Docker  配置阿里云镜像加速器 https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors
 # 16.安装有道词典
+# 17.安装PicGo 图库上传工具
+# 18.安装Xmind 思维导图工具
+# 19.安装Macs Fan Control 风扇转速控制软件，解救烫手的mac
+# 20.安装TimeMachine Editor 时间备份控制软件
 ```
+
