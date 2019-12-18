@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-09-23T02:07:43.830Z</updated>
+  <updated>2019-12-18T13:49:45.444Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,52 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>开发路上的一些小的总结</title>
+    <link href="http://yoursite.com/2019/11/14/%E5%BC%80%E5%8F%91%E8%B7%AF%E4%B8%8A%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E7%9A%84%E6%80%BB%E7%BB%93/"/>
+    <id>http://yoursite.com/2019/11/14/开发路上的一些小的总结/</id>
+    <published>2019-11-14T09:05:07.000Z</published>
+    <updated>2019-12-18T13:49:45.444Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>禁止使用json结构存储配置信息，拆分成表，更加明了。同时在出现问题的时候也好进行修复。</li><li>后端接收的所有数据必须进行校验。</li><li>json存储配置的时候需要给默认值,否则多端情况下容易出现错误，方便使用@validate进行参数校验,现在一会空一会有的难写。</li><li>用golang写脚本，crontab写定时任务。</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ol&gt;
+&lt;li&gt;禁止使用json结构存储配置信息，拆分成表，更加明了。同时在出现问题的时候也好进行修复。&lt;/li&gt;
+&lt;li&gt;后端接收的所有数据必须进行校验。&lt;/li&gt;
+&lt;li&gt;json存储配置的时候需要给默认值,否则多端情况下容易出现错误，方便使用@validate进行参数校验
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>java-HashMap容量</title>
+    <link href="http://yoursite.com/2019/10/31/java-HashMap%E5%AE%B9%E9%87%8F/"/>
+    <id>http://yoursite.com/2019/10/31/java-HashMap容量/</id>
+    <published>2019-10-31T08:02:35.000Z</published>
+    <updated>2019-12-18T13:49:45.444Z</updated>
+    
+    <content type="html"><![CDATA[<p>学习HashMap初始容量和扩容策略Demo</p><a id="more"></a><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//根据传参的容量数字，返回一个2的整数次幂的容量大小</span><br><span class="line">static final int tableSizeFor(int cap) &#123;</span><br><span class="line">        int n = cap - 1;</span><br><span class="line">        n |= n &gt;&gt;&gt; 1;</span><br><span class="line">        n |= n &gt;&gt;&gt; 2;</span><br><span class="line">        n |= n &gt;&gt;&gt; 4;</span><br><span class="line">        n |= n &gt;&gt;&gt; 8;</span><br><span class="line">        n |= n &gt;&gt;&gt; 16;</span><br><span class="line">        return (n &lt; 0) ? 1 : (n &gt;= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span> ;i &lt; <span class="number">50</span>; i++) &#123;</span><br><span class="line">          testInitCapacity(i);</span><br><span class="line">      &#125;</span><br><span class="line">      HashMap m = <span class="keyword">new</span> HashMap();</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span> ;i &lt; <span class="number">50</span>; i++) &#123;</span><br><span class="line">          testExpandCapacity(m, i);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testExpandCapacity</span><span class="params">(HashMap map, <span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">      map.put(i, i);</span><br><span class="line">      printParams(map);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testInitCapacity</span><span class="params">(<span class="keyword">int</span> initCapacity)</span> </span>&#123;</span><br><span class="line">      HashMap map = <span class="keyword">new</span> HashMap(initCapacity);</span><br><span class="line">      printParams(map);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printParams</span><span class="params">(HashMap map)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">          Method method = map.getClass().getDeclaredMethod(<span class="string">"capacity"</span>);</span><br><span class="line">          Field threshold = map.getClass().getDeclaredField(<span class="string">"threshold"</span>);</span><br><span class="line">          method.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">          threshold.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">          Integer realCapacity = (Integer) method.invoke(map);</span><br><span class="line">          Object thresholdValue = threshold.get(map);</span><br><span class="line">          System.out.println(<span class="string">"size is "</span> + map.size() + <span class="string">" and capacity is "</span> + realCapacity + <span class="string">" and threshold is "</span> + thresholdValue);</span><br><span class="line">      &#125; <span class="keyword">catch</span> (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) &#123;</span><br><span class="line">          e.printStackTrace();</span><br><span class="line">      &#125; <span class="keyword">catch</span> (NoSuchFieldException e) &#123;</span><br><span class="line">          e.printStackTrace();</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line">size is 0 and capacity is 1 and threshold is 1</span><br><span class="line">size is 0 and capacity is 2 and threshold is 2</span><br><span class="line">size is 0 and capacity is 4 and threshold is 4</span><br><span class="line">size is 0 and capacity is 4 and threshold is 4</span><br><span class="line">size is 0 and capacity is 8 and threshold is 8</span><br><span class="line">size is 0 and capacity is 8 and threshold is 8</span><br><span class="line">size is 0 and capacity is 8 and threshold is 8</span><br><span class="line">size is 0 and capacity is 8 and threshold is 8</span><br><span class="line">size is 0 and capacity is 16 and threshold is 16</span><br><span class="line">size is 0 and capacity is 16 and threshold is 16</span><br><span class="line">size is 0 and capacity is 16 and threshold is 16</span><br><span class="line">size is 0 and capacity is 16 and threshold is 16</span><br><span class="line">size is 0 and capacity is 16 and threshold is 16</span><br><span class="line">size is 0 and capacity is 16 and threshold is 16</span><br><span class="line">size is 0 and capacity is 16 and threshold is 16</span><br><span class="line">size is 0 and capacity is 16 and threshold is 16</span><br><span class="line">size is 0 and capacity is 32 and threshold is 32</span><br><span class="line">size is 0 and capacity is 32 and threshold is 32</span><br><span class="line">size is 0 and capacity is 32 and threshold is 32</span><br><span class="line">size is 0 and capacity is 32 and threshold is 32</span><br><span class="line">size is 0 and capacity is 32 and threshold is 32</span><br><span class="line">size is 0 and capacity is 32 and threshold is 32</span><br><span class="line">size is 0 and capacity is 32 and threshold is 32</span><br><span class="line">size is 0 and capacity is 32 and threshold is 32</span><br><span class="line">size is 0 and capacity is 32 and threshold is 32</span><br><span class="line">size is 0 and capacity is 32 and threshold is 32</span><br><span class="line">size is 0 and capacity is 32 and threshold is 32</span><br><span class="line">size is 0 and capacity is 32 and threshold is 32</span><br><span class="line">size is 0 and capacity is 32 and threshold is 32</span><br><span class="line">size is 0 and capacity is 32 and threshold is 32</span><br><span class="line">size is 0 and capacity is 32 and threshold is 32</span><br><span class="line">size is 0 and capacity is 32 and threshold is 32</span><br><span class="line">size is 0 and capacity is 64 and threshold is 64</span><br><span class="line">size is 0 and capacity is 64 and threshold is 64</span><br><span class="line">size is 0 and capacity is 64 and threshold is 64</span><br><span class="line">size is 0 and capacity is 64 and threshold is 64</span><br><span class="line">size is 0 and capacity is 64 and threshold is 64</span><br><span class="line">size is 0 and capacity is 64 and threshold is 64</span><br><span class="line">size is 0 and capacity is 64 and threshold is 64</span><br><span class="line">size is 0 and capacity is 64 and threshold is 64</span><br><span class="line">size is 0 and capacity is 64 and threshold is 64</span><br><span class="line">size is 0 and capacity is 64 and threshold is 64</span><br><span class="line">size is 0 and capacity is 64 and threshold is 64</span><br><span class="line">size is 0 and capacity is 64 and threshold is 64</span><br><span class="line">size is 0 and capacity is 64 and threshold is 64</span><br><span class="line">size is 0 and capacity is 64 and threshold is 64</span><br><span class="line">size is 0 and capacity is 64 and threshold is 64</span><br><span class="line">size is 0 and capacity is 64 and threshold is 64</span><br><span class="line">size is 0 and capacity is 64 and threshold is 64</span><br><span class="line">size is 1 and capacity is 16 and threshold is 12</span><br><span class="line">size is 2 and capacity is 16 and threshold is 12</span><br><span class="line">size is 3 and capacity is 16 and threshold is 12</span><br><span class="line">size is 4 and capacity is 16 and threshold is 12</span><br><span class="line">size is 5 and capacity is 16 and threshold is 12</span><br><span class="line">size is 6 and capacity is 16 and threshold is 12</span><br><span class="line">size is 7 and capacity is 16 and threshold is 12</span><br><span class="line">size is 8 and capacity is 16 and threshold is 12</span><br><span class="line">size is 9 and capacity is 16 and threshold is 12</span><br><span class="line">size is 10 and capacity is 16 and threshold is 12</span><br><span class="line">size is 11 and capacity is 16 and threshold is 12</span><br><span class="line">size is 12 and capacity is 16 and threshold is 12</span><br><span class="line">size is 13 and capacity is 32 and threshold is 24</span><br><span class="line">size is 14 and capacity is 32 and threshold is 24</span><br><span class="line">size is 15 and capacity is 32 and threshold is 24</span><br><span class="line">size is 16 and capacity is 32 and threshold is 24</span><br><span class="line">size is 17 and capacity is 32 and threshold is 24</span><br><span class="line">size is 18 and capacity is 32 and threshold is 24</span><br><span class="line">size is 19 and capacity is 32 and threshold is 24</span><br><span class="line">size is 20 and capacity is 32 and threshold is 24</span><br><span class="line">size is 21 and capacity is 32 and threshold is 24</span><br><span class="line">size is 22 and capacity is 32 and threshold is 24</span><br><span class="line">size is 23 and capacity is 32 and threshold is 24</span><br><span class="line">size is 24 and capacity is 32 and threshold is 24</span><br><span class="line">size is 25 and capacity is 64 and threshold is 48</span><br><span class="line">size is 26 and capacity is 64 and threshold is 48</span><br><span class="line">size is 27 and capacity is 64 and threshold is 48</span><br><span class="line">size is 28 and capacity is 64 and threshold is 48</span><br><span class="line">size is 29 and capacity is 64 and threshold is 48</span><br><span class="line">size is 30 and capacity is 64 and threshold is 48</span><br><span class="line">size is 31 and capacity is 64 and threshold is 48</span><br><span class="line">size is 32 and capacity is 64 and threshold is 48</span><br><span class="line">size is 33 and capacity is 64 and threshold is 48</span><br><span class="line">size is 34 and capacity is 64 and threshold is 48</span><br><span class="line">size is 35 and capacity is 64 and threshold is 48</span><br><span class="line">size is 36 and capacity is 64 and threshold is 48</span><br><span class="line">size is 37 and capacity is 64 and threshold is 48</span><br><span class="line">size is 38 and capacity is 64 and threshold is 48</span><br><span class="line">size is 39 and capacity is 64 and threshold is 48</span><br><span class="line">size is 40 and capacity is 64 and threshold is 48</span><br><span class="line">size is 41 and capacity is 64 and threshold is 48</span><br><span class="line">size is 42 and capacity is 64 and threshold is 48</span><br><span class="line">size is 43 and capacity is 64 and threshold is 48</span><br><span class="line">size is 44 and capacity is 64 and threshold is 48</span><br><span class="line">size is 45 and capacity is 64 and threshold is 48</span><br><span class="line">size is 46 and capacity is 64 and threshold is 48</span><br><span class="line">size is 47 and capacity is 64 and threshold is 48</span><br><span class="line">size is 48 and capacity is 64 and threshold is 48</span><br><span class="line">size is 49 and capacity is 128 and threshold is 96</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;学习HashMap初始容量和扩容策略Demo&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="java" scheme="http://yoursite.com/categories/java/"/>
+    
+    
+      <category term="java" scheme="http://yoursite.com/tags/java/"/>
+    
+  </entry>
   
   <entry>
     <title>开发常用英语词汇</title>
@@ -387,9 +433,9 @@
       <category term="博客编写" scheme="http://yoursite.com/categories/%E5%8D%9A%E5%AE%A2%E7%BC%96%E5%86%99/"/>
     
     
-      <category term="nginx" scheme="http://yoursite.com/tags/nginx/"/>
-    
       <category term="blog" scheme="http://yoursite.com/tags/blog/"/>
+    
+      <category term="nginx" scheme="http://yoursite.com/tags/nginx/"/>
     
   </entry>
   
@@ -468,65 +514,9 @@
       <category term="博客编写" scheme="http://yoursite.com/categories/%E5%8D%9A%E5%AE%A2%E7%BC%96%E5%86%99/"/>
     
     
-      <category term="blog" scheme="http://yoursite.com/tags/blog/"/>
-    
       <category term="hexo" scheme="http://yoursite.com/tags/hexo/"/>
     
-  </entry>
-  
-  <entry>
-    <title>Stub简介</title>
-    <link href="http://yoursite.com/2018/11/28/Stub%E7%AE%80%E4%BB%8B/"/>
-    <id>http://yoursite.com/2018/11/28/Stub简介/</id>
-    <published>2018-11-28T08:37:00.000Z</published>
-    <updated>2019-08-03T08:54:22.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>Stub 本意是指桩，具体含义如下：</p><ul><li>n. 存根；烟蒂；树桩；断株</li><li>vt. 踩熄；连根拔除</li><li>n. (Stub)人名；(挪、瑞典)斯图布</li></ul><p>在计算机语言中指<a href="https://zh.wikipedia.org/wiki/桩_(计算机)" target="_blank" rel="noopener">维基百科</a>。</p><p>桩[1]（Stub / Method Stub）是指用来替换一部分功能的程序段。桩程序可以用来模拟已有程序的行为（比如一个远端机器的过程）或是对将要开发的代码的一种临时替代。因此，打桩技术在程序移植、分布式计算、通用软件开发和测试中用处很大。</p><p>以下是桩程序的一个例子（伪码）：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">BEGIN</span><br><span class="line">    Temperature = ThermometerRead(Outside)</span><br><span class="line">    IF Temperature &gt; 40 THEN</span><br><span class="line">         PRINT &quot;It&apos;s HOT!&quot;</span><br><span class="line">    END IF</span><br><span class="line">END</span><br><span class="line"></span><br><span class="line">BEGIN ThermometerRead(Source insideOrOutside)</span><br><span class="line">     RETURN 28</span><br><span class="line">END ThermometerRead</span><br></pre></td></tr></table></figure><p>上例中的伪码调用了 ThermometerRead函数，其返回一个温度。由于ThermometerRead需要去读取硬件设备，而这个函数现在还没能开发完成，不能正常工作。ThermometerRead只是简单的返回了一个合理的值，这样主程序就能正常调用这个函数，并继续接下来的开发了。可以注意到，虽然它接受了一个Source类型的参数，表明需要返回的温度是内部还是外部的，实际上并没有对这个参数进行任何使用。</p><p>桩程序是一段并不执行任何实际功能的程序，只对接受的参数进行声明并返回一个合法值。这个返回值通常只是一个对于调用者来讲可接受的值即可。桩通常用在对一个已有接口的临时替换上，实际的接口程序在未来再对桩程序进行替换。</p><p>在远程方法调用（RMI）中将客户辅助对象称之为Stub（桩）；将服务辅助对象称之为skeleton[2]（骨架）。</p><p>RMI的过程是：客户对象一旦被调用，客户对象调用stub，stub调用网络远端的skeleton，而skeleton最终调用真正的服务对象。由此，在调用客户对象的时候，感觉上就是直接调用了真正的服务对象。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;Stub 本意是指桩，具体含义如下：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;n. 存根；烟蒂；树桩；断株&lt;/li&gt;
-&lt;li&gt;vt. 踩熄；连根拔除&lt;/li&gt;
-&lt;li&gt;n. (Stub)人名；(挪、瑞典)斯图布&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;在计算机语言中指&lt;a href=&quot;https:/
-      
-    
-    </summary>
-    
-      <category term="计算机基础" scheme="http://yoursite.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"/>
-    
-    
-      <category term="计算机基础" scheme="http://yoursite.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Go程序设计语言(The Go Programming Language)</title>
-    <link href="http://yoursite.com/2018/07/23/Go%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80-The-Go-Programming-Language/"/>
-    <id>http://yoursite.com/2018/07/23/Go程序设计语言-The-Go-Programming-Language/</id>
-    <published>2018-07-23T15:27:02.000Z</published>
-    <updated>2019-08-03T08:54:22.000Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="第2章-程序结构"><a href="#第2章-程序结构" class="headerlink" title="第2章 程序结构"></a>第2章 程序结构</h4><h5 id="2-1-名称"><a href="#2-1-名称" class="headerlink" title="2.1 名称"></a>2.1 名称</h5><ul><li><p>Go通过首字母的大小写来决定是否包外可见，大写代表可以被包外引用，小写意味着只能包内使用</p></li><li><p>Go使用驼峰命名的方式，不使用小写+下划线的方式</p></li><li><p>Go中，名称的作用域越大，使用越长且更有意义的名称</p></li></ul><h5 id="2-2-声明"><a href="#2-2-声明" class="headerlink" title="2.2 声明"></a>2.2 声明</h5><ul><li>var 变量</li><li>const 常量</li><li>type 类型</li><li>func 函数</li></ul><h5 id="2-3-变量"><a href="#2-3-变量" class="headerlink" title="2.3 变量"></a>2.3 变量</h5><p>var 声明创建一个具体类型的变量</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var name type = expression</span><br></pre></td></tr></table></figure><p>类型和表达式可以省略一个，省略类型自动根据表达式推导类型，省略表达式则变量取默认值（数字为0，布尔型为FALSE，字符串为””，接口和引用类型(slice、指针、map、通道、函数为nil)，数组或结构体这样的符合类型，零值是所有元素或成员的零值）</p><h6 id="2-3-1-短变量声明"><a href="#2-3-1-短变量声明" class="headerlink" title="2.3.1 短变量声明"></a>2.3.1 短变量声明</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">i, j := 0,1</span><br><span class="line">i,j = j, i</span><br><span class="line">i:= 1</span><br></pre></td></tr></table></figure><h5 id="2-3-2-指针"><a href="#2-3-2-指针" class="headerlink" title="2.3.2 指针"></a>2.3.2 指针</h5><p>变量是存储值的地方</p><p>指针的值是一个变量的地址。一个指针指示值所保存的位置。不是所有的值都有地址，但是所有的变量都有。使用指针可以在不知道变量名的情况下间接更新或者使用变量的值。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h4 id=&quot;第2章-程序结构&quot;&gt;&lt;a href=&quot;#第2章-程序结构&quot; class=&quot;headerlink&quot; title=&quot;第2章 程序结构&quot;&gt;&lt;/a&gt;第2章 程序结构&lt;/h4&gt;&lt;h5 id=&quot;2-1-名称&quot;&gt;&lt;a href=&quot;#2-1-名称&quot; class=&quot;headerli
-      
-    
-    </summary>
-    
-      <category term="Go" scheme="http://yoursite.com/categories/Go/"/>
-    
-    
-      <category term="Go" scheme="http://yoursite.com/tags/Go/"/>
+      <category term="blog" scheme="http://yoursite.com/tags/blog/"/>
     
   </entry>
   

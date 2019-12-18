@@ -311,7 +311,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">86</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">88</span></a>
 
   </li>
         
@@ -433,6 +433,386 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/28/Stub简介/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JacenTsao">
+      <meta itemprop="description" content="这是我的个人测试小站">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Silence of Heart">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/11/28/Stub简介/" class="post-title-link" itemprop="url">Stub简介</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-28 16:37:00" itemprop="dateCreated datePublished" datetime="2018-11-28T16:37:00+08:00">2018-11-28</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-08-03 16:54:22" itemprop="dateModified" datetime="2019-08-03T16:54:22+08:00">2019-08-03</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/计算机基础/" itemprop="url" rel="index"><span itemprop="name">计算机基础</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Stub 本意是指桩，具体含义如下：</p>
+<ul>
+<li>n. 存根；烟蒂；树桩；断株</li>
+<li>vt. 踩熄；连根拔除</li>
+<li>n. (Stub)人名；(挪、瑞典)斯图布</li>
+</ul>
+<p>在计算机语言中指<a href="https://zh.wikipedia.org/wiki/桩_(计算机)" target="_blank" rel="noopener">维基百科</a>。</p>
+<p>桩[1]（Stub / Method Stub）是指用来替换一部分功能的程序段。桩程序可以用来模拟已有程序的行为（比如一个远端机器的过程）或是对将要开发的代码的一种临时替代。因此，打桩技术在程序移植、分布式计算、通用软件开发和测试中用处很大。</p>
+<p>以下是桩程序的一个例子（伪码）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">BEGIN</span><br><span class="line">    Temperature = ThermometerRead(Outside)</span><br><span class="line">    IF Temperature &gt; 40 THEN</span><br><span class="line">         PRINT &quot;It&apos;s HOT!&quot;</span><br><span class="line">    END IF</span><br><span class="line">END</span><br><span class="line"></span><br><span class="line">BEGIN ThermometerRead(Source insideOrOutside)</span><br><span class="line">     RETURN 28</span><br><span class="line">END ThermometerRead</span><br></pre></td></tr></table></figure>
+
+
+<p>上例中的伪码调用了 ThermometerRead函数，其返回一个温度。由于ThermometerRead需要去读取硬件设备，而这个函数现在还没能开发完成，不能正常工作。ThermometerRead只是简单的返回了一个合理的值，这样主程序就能正常调用这个函数，并继续接下来的开发了。可以注意到，虽然它接受了一个Source类型的参数，表明需要返回的温度是内部还是外部的，实际上并没有对这个参数进行任何使用。</p>
+<p>桩程序是一段并不执行任何实际功能的程序，只对接受的参数进行声明并返回一个合法值。这个返回值通常只是一个对于调用者来讲可接受的值即可。桩通常用在对一个已有接口的临时替换上，实际的接口程序在未来再对桩程序进行替换。</p>
+<p>在远程方法调用（RMI）中将客户辅助对象称之为Stub（桩）；将服务辅助对象称之为skeleton[2]（骨架）。</p>
+<p>RMI的过程是：客户对象一旦被调用，客户对象调用stub，stub调用网络远端的skeleton，而skeleton最终调用真正的服务对象。由此，在调用客户对象的时候，感觉上就是直接调用了真正的服务对象。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/23/Go程序设计语言-The-Go-Programming-Language/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JacenTsao">
+      <meta itemprop="description" content="这是我的个人测试小站">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Silence of Heart">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/07/23/Go程序设计语言-The-Go-Programming-Language/" class="post-title-link" itemprop="url">Go程序设计语言(The Go Programming Language)</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-07-23 23:27:02" itemprop="dateCreated datePublished" datetime="2018-07-23T23:27:02+08:00">2018-07-23</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-08-03 16:54:22" itemprop="dateModified" datetime="2019-08-03T16:54:22+08:00">2019-08-03</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="第2章-程序结构"><a href="#第2章-程序结构" class="headerlink" title="第2章 程序结构"></a>第2章 程序结构</h4><h5 id="2-1-名称"><a href="#2-1-名称" class="headerlink" title="2.1 名称"></a>2.1 名称</h5><ul>
+<li><p>Go通过首字母的大小写来决定是否包外可见，大写代表可以被包外引用，小写意味着只能包内使用</p>
+</li>
+<li><p>Go使用驼峰命名的方式，不使用小写+下划线的方式</p>
+</li>
+<li><p>Go中，名称的作用域越大，使用越长且更有意义的名称</p>
+</li>
+</ul>
+<h5 id="2-2-声明"><a href="#2-2-声明" class="headerlink" title="2.2 声明"></a>2.2 声明</h5><ul>
+<li>var 变量</li>
+<li>const 常量</li>
+<li>type 类型</li>
+<li>func 函数</li>
+</ul>
+<h5 id="2-3-变量"><a href="#2-3-变量" class="headerlink" title="2.3 变量"></a>2.3 变量</h5><p>var 声明创建一个具体类型的变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var name type = expression</span><br></pre></td></tr></table></figure>
+
+<p>类型和表达式可以省略一个，省略类型自动根据表达式推导类型，省略表达式则变量取默认值（数字为0，布尔型为FALSE，字符串为””，接口和引用类型(slice、指针、map、通道、函数为nil)，数组或结构体这样的符合类型，零值是所有元素或成员的零值）</p>
+<h6 id="2-3-1-短变量声明"><a href="#2-3-1-短变量声明" class="headerlink" title="2.3.1 短变量声明"></a>2.3.1 短变量声明</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">i, j := 0,1</span><br><span class="line">i,j = j, i</span><br><span class="line">i:= 1</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-3-2-指针"><a href="#2-3-2-指针" class="headerlink" title="2.3.2 指针"></a>2.3.2 指针</h5><p>变量是存储值的地方</p>
+<p>指针的值是一个变量的地址。一个指针指示值所保存的位置。不是所有的值都有地址，但是所有的变量都有。使用指针可以在不知道变量名的情况下间接更新或者使用变量的值。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -1856,365 +2236,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/11/Go语言实战阅读笔记2/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="JacenTsao">
-      <meta itemprop="description" content="这是我的个人测试小站">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Silence of Heart">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/12/11/Go语言实战阅读笔记2/" class="post-title-link" itemprop="url">Go语言实战阅读笔记2</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-12-11 21:47:03" itemprop="dateCreated datePublished" datetime="2017-12-11T21:47:03+08:00">2017-12-11</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-08-03 16:54:22" itemprop="dateModified" datetime="2019-08-03T16:54:22+08:00">2019-08-03</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Golang/" itemprop="url" rel="index"><span itemprop="name">Golang</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="Golang基础"><a href="#Golang基础" class="headerlink" title="Golang基础"></a>Golang基础</h4><h5 id="1-指针"><a href="#1-指针" class="headerlink" title="1.指针"></a>1.指针</h5><p>&amp;符号的意思是对变量取地址<br>*符号的意思是对指针取值</p>
-<p>*和 &amp; 可以互相抵消,同时注意，*&amp;可以抵消掉，但&amp;*是不可以抵消的</p>
-<ul>
-<li>传指针使得多个函数能操作同一个对象。</li>
-<li>传指针比较轻量级 (8bytes),只是传内存地址，我们可以用指针传递体积大的结构体。如果用参数值传递的话, 在每次copy上面就会花费相对较多的系统开销（内存和时间）。所以当你要传递大的结构体的时候，用指针是一个明智的选择。</li>
-<li>Go语言中channel，slice，map这三种类型的实现机制类似指针，所以可以直接传递，而不用取地址后传递指针。（注：若函数需改变slice的长度，则仍需要取地址传递指针）</li>
-</ul>
-<h5 id="2-字符串"><a href="#2-字符串" class="headerlink" title="2.字符串"></a>2.字符串</h5><p>`  括起的字符串为Raw字符串，即字符串在代码中的形式就是打印时的形式，它没有字符转义，换行也将原样输出。</p>
-<h5 id="3-make和new操作"><a href="#3-make和new操作" class="headerlink" title="3.make和new操作"></a>3.make和new操作</h5><p>make用于内建类型（map、slice 和channel）的内存分配。new用于各种类型的内存分配。</p>
-<p>内建函数new本质上说跟其它语言中的同名函数功能一样：new(T) 返回的是*T，即new返回指针</p>
-<p>内建函数make(T, args)与new(T)有着不同的功能，make只能创建slice、map和channel，并且返回一个有初始值(非零)的T类型，而不是*T。本质来讲，导致这三个类型有所不同的原因是指向数据结构的引用在使用前必须被初始化。</p>
-<h5 id="流程和函数"><a href="#流程和函数" class="headerlink" title="流程和函数"></a>流程和函数</h5><p>go里面没有类似于c和java的三木运算符，其主要运算符包括for、switch、if、while、goto</p>
-<p>go里面支持可变参数func name(arg …name){}</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/11/Go语言实战阅读笔记1/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="JacenTsao">
-      <meta itemprop="description" content="这是我的个人测试小站">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Silence of Heart">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/12/11/Go语言实战阅读笔记1/" class="post-title-link" itemprop="url">Go语言实战阅读笔记1</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-12-11 21:31:36" itemprop="dateCreated datePublished" datetime="2017-12-11T21:31:36+08:00">2017-12-11</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-08-03 16:54:22" itemprop="dateModified" datetime="2019-08-03T16:54:22+08:00">2019-08-03</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Golang/" itemprop="url" rel="index"><span itemprop="name">Golang</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h5 id="1-1-Go语言的特性"><a href="#1-1-Go语言的特性" class="headerlink" title="1.1 Go语言的特性"></a>1.1 Go语言的特性</h5><h6 id="1-1-1-高效的开发速度和编译速度"><a href="#1-1-1-高效的开发速度和编译速度" class="headerlink" title="1.1.1  高效的开发速度和编译速度"></a>1.1.1  高效的开发速度和编译速度</h6><p>Golang编译没有从编译代码到执行代码的中间过程，用动态语言编写应用程序可以快速看到输出。代价是，动态语言不提供静态语言提供的类型安全特性，不得不大量使用测试套件来避免在运行的时候出现类型错误这类bug</p>
-<h6 id="1-1-2-天然的并发支持"><a href="#1-1-2-天然的并发支持" class="headerlink" title="1.1.2 天然的并发支持"></a>1.1.2 天然的并发支持</h6><h6 id="1-1-2-1-goroutine"><a href="#1-1-2-1-goroutine" class="headerlink" title="1.1.2.1 goroutine"></a>1.1.2.1 goroutine</h6><p>不同于java和C需要编写大量额外的代码来使用线程，Golang在同一个线程中并行多个goroutine，net/http库直接使用了内置的goroutine，每个接收到的请求都在自己的goroutine中运行。goroutine使用的内存相对于线程而言更少，Go语言在运行时会自动在配置的一组逻辑处理器上调度执行goroutine。每个逻辑处理器绑定到一个操作系统上。这样子让用户的应用程序执行效率更高，而开发工作量显著减少。</p>
-<h6 id="1-1-2-1-通道"><a href="#1-1-2-1-通道" class="headerlink" title="1.1.2.1 通道"></a>1.1.2.1 通道</h6><p>通道是一种在goroutine中进行安全的数据通信的数据结构，帮助用户避免其它语言里面常见的共享内存访问的问题</p>
-<p>并发最难得部分就是要确保其他并发运行的进行、线程或goroutine不会以外修改用户的数据。在线程不安全的情况下访问和修改共享变量往往会带来灾难性的后果，在其它语言中，通常要通过复杂的锁规则来防止对一个全局变量或者共享内存造成不同步的修改</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2264,7 +2285,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">88</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
