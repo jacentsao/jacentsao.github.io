@@ -11,18 +11,37 @@ categories: Android
 
 首先是配置git的代理，以下是http(s)配置
 
-```
-git config --global https.proxy 'http://127.0.0.1:65322'
+```shell
+#http协议代理
 git config --global http.proxy 'http://127.0.0.1:65322'
 
-取消设置代理
+#通过socks协议
+git config --global http.proxy 'socks5://127.0.0.1:1080'
+
+#取消设置代理
 git config --global --unset http.proxy
-git config --global --unset https.proxy
+```
+
+```shell
+#终端代理
+export http_proxy=http://127.0.0.1:1087;
+export https_proxy=http://127.0.0.1:1087;
+```
+
+```shell
+#只针对Github进行代理设置
+git config --global http.https://github.com.proxy socks5://127.0.0.1:1080
+
+#取消代理
+git config --global --unset http.https://github.com.proxy)
 ```
 
 ```
-export http_proxy=http://127.0.0.1:1087;
-export https_proxy=http://127.0.0.1:1087;
+#对于使用git@协议的，可以配置socks5代理
+在~/.ssh/config 文件后面添加几行，没有可以新建一个
+
+Host github.com
+ProxyCommand nc -X 5 -x 127.0.0.1:1080 %h %p
 ```
 
 #### Gradle配置
