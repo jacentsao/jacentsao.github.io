@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-12-18T13:49:45.444Z</updated>
+  <updated>2020-01-14T14:55:49.772Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>阶段性总结公司版本 2019/01/01-2019/12/31</title>
+    <link href="http://yoursite.com/2020/01/14/%E9%98%B6%E6%AE%B5%E6%80%A7%E6%80%BB%E7%BB%93-2019-01-01-2019-12-31/"/>
+    <id>http://yoursite.com/2020/01/14/阶段性总结-2019-01-01-2019-12-31/</id>
+    <published>2020-01-14T14:36:23.000Z</published>
+    <updated>2020-01-14T14:55:49.772Z</updated>
+    
+    <content type="html"><![CDATA[<p>时间过的可真快呀，眨眼间2019年已经过去了，2020年1月也已经过半，是时候回首过去展望未来了。</p><p>过去的一年后端算是时间上比较宽松的一年，除了微店后端的大版本，其他基本上都不会太忙，特别是相较于前端算是比较闲的。主要原因在于前端端展现形式较多，后端则接口通用，故很多时候都比前端更加的清闲。但是受限于个人研发能力和知识范围所限，并没有很好的利用好这些时间去对我们的产品进行深层次的改造和优化，只停留在浅显的表面进行问题的追踪和优化。缺乏系统的知识体系和进阶的学习成长路线，面向业务编程，对于一些大的调整点缺乏足够的恒心和毅力去执行，导致最终都是不了了之。也没有给团队其他成员较好的分配一些任务，导致团队成员目标不明确，迷茫。同时缺少对团队成员统一编码规范的约束，导致代码风格各异，且无review代码。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;时间过的可真快呀，眨眼间2019年已经过去了，2020年1月也已经过半，是时候回首过去展望未来了。&lt;/p&gt;
+&lt;p&gt;过去的一年后端算是时间上比较宽松的一年，除了微店后端的大版本，其他基本上都不会太忙，特别是相较于前端算是比较闲的。主要原因在于前端端展现形式较多，后端则接口通用
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>开发路上的一些小的总结</title>
@@ -490,33 +512,6 @@
     
     
       <category term="后端" scheme="http://yoursite.com/tags/%E5%90%8E%E7%AB%AF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>hexo-多设备之间无缝衔接</title>
-    <link href="http://yoursite.com/2018/11/28/hexo-%E5%A4%9A%E8%AE%BE%E5%A4%87%E4%B9%8B%E9%97%B4%E6%97%A0%E7%BC%9D%E8%A1%94%E6%8E%A5/"/>
-    <id>http://yoursite.com/2018/11/28/hexo-多设备之间无缝衔接/</id>
-    <published>2018-11-28T14:56:04.000Z</published>
-    <updated>2019-08-05T13:41:00.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>最开始使用hexo的时候是在自己的Mac上面搭的，那时候每天都是背着自己的电脑上下班也没觉得不方便。后来老婆跟我在一起以后老是嫌弃我过安检的时候要走有包通道，非常耗时。所以就放弃了带自己的电脑上班，改为专门使用公司提供的Windows工作。这个时候就必须要把家里的电脑和公司的电脑的博客进行同步了。</p><!-- --><h4 id="安装依赖工具"><a href="#安装依赖工具" class="headerlink" title="安装依赖工具"></a>安装依赖工具</h4><ol><li>安装node</li></ol><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">//下载</span><br><span class="line"><span class="meta">$</span> wget https://nodejs.org/dist/v10.14.0/node-v10.14.0-linux-x64.tar.xz</span><br><span class="line"></span><br><span class="line">//解压</span><br><span class="line"><span class="meta">$</span> tar xf node-v10.14.0-linux-x64.tar.xz</span><br><span class="line"></span><br><span class="line">//放到usr/local/node目录下</span><br><span class="line"><span class="meta">$</span> mkdir /usr/local/node</span><br><span class="line"><span class="meta">$</span> mv node-v10.14.0-linux-x64   /usr/local/node</span><br><span class="line"></span><br><span class="line">//配置环境变量</span><br><span class="line"><span class="meta">$</span> vim ~/.zshrc</span><br><span class="line"><span class="meta">$</span> /usr/local/node/node-v10.14.0-linux-x64/bin 添加到环境变量中</span><br><span class="line"><span class="meta">$</span> source ~/.zshrc 刷新</span><br><span class="line"><span class="meta">$</span> node -v 确认node是否安装ok</span><br></pre></td></tr></table></figure><h4 id="获取hexo博客源码"><a href="#获取hexo博客源码" class="headerlink" title="获取hexo博客源码"></a>获取hexo博客源码</h4><p>将自己的博客通过各种方式获取到当前设备，比如我自己用的是git。如下所示是我的源码分支（hexo-source）：</p><p><img src="https://raw.githubusercontent.com/jacentsao/picbed/master/img/markdown20181212195458hexo-sourcefile.png" alt=""></p><p>以下是我的生成的网页的分支(master)：<br><img src="https://raw.githubusercontent.com/jacentsao/picbed/master/img/markdown20181212200121hexo-master.png" alt=""></p><p>另外再把主题单独弄一个<a href="https://github.com/jacentsao/hexo-theme-next" target="_blank" rel="noopener">项目</a>进行同步。</p><p>我的做法是先拉取网页代码（master）分支，然后切换到源码分支（hexo-source），复制一份改名叫.deploy_git放在项目根目录下。</p><h4 id="安装启动hexo"><a href="#安装启动hexo" class="headerlink" title="安装启动hexo"></a>安装启动hexo</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> npm install -g hexo-cli</span><br><span class="line"><span class="meta">$</span> npm install hexo --save</span><br><span class="line"><span class="meta">$</span> npm install hexo-deployer-git #git部署辅助</span><br><span class="line"><span class="meta">$</span> hexo s --debug  #运行测试</span><br></pre></td></tr></table></figure><h4 id="提交代码"><a href="#提交代码" class="headerlink" title="提交代码"></a>提交代码</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 部署网页分支（master分支）</span><br><span class="line">hexo clean  </span><br><span class="line">hexo g </span><br><span class="line">hexo d</span><br><span class="line"><span class="meta">#</span> 提交源码分支（hexo-source分支）</span><br><span class="line">git commit</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;最开始使用hexo的时候是在自己的Mac上面搭的，那时候每天都是背着自己的电脑上下班也没觉得不方便。后来老婆跟我在一起以后老是嫌弃我过安检的时候要走有包通道，非常耗时。所以就放弃了带自己的电脑上班，改为专门使用公司提供的Windows工作。这个时候就必须要把家里的电脑和公司
-      
-    
-    </summary>
-    
-      <category term="博客编写" scheme="http://yoursite.com/categories/%E5%8D%9A%E5%AE%A2%E7%BC%96%E5%86%99/"/>
-    
-    
-      <category term="blog" scheme="http://yoursite.com/tags/blog/"/>
-    
-      <category term="hexo" scheme="http://yoursite.com/tags/hexo/"/>
     
   </entry>
   

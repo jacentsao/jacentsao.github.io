@@ -311,7 +311,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">88</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">89</span></a>
 
   </li>
         
@@ -433,6 +433,192 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/28/hexo-多设备之间无缝衔接/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JacenTsao">
+      <meta itemprop="description" content="这是我的个人测试小站">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Silence of Heart">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/11/28/hexo-多设备之间无缝衔接/" class="post-title-link" itemprop="url">hexo-多设备之间无缝衔接</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-28 22:56:04" itemprop="dateCreated datePublished" datetime="2018-11-28T22:56:04+08:00">2018-11-28</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-08-05 21:41:00" itemprop="dateModified" datetime="2019-08-05T21:41:00+08:00">2019-08-05</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/博客编写/" itemprop="url" rel="index"><span itemprop="name">博客编写</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最开始使用hexo的时候是在自己的Mac上面搭的，那时候每天都是背着自己的电脑上下班也没觉得不方便。后来老婆跟我在一起以后老是嫌弃我过安检的时候要走有包通道，非常耗时。所以就放弃了带自己的电脑上班，改为专门使用公司提供的Windows工作。这个时候就必须要把家里的电脑和公司的电脑的博客进行同步了。</p>
+<!-- -->
+
+<h4 id="安装依赖工具"><a href="#安装依赖工具" class="headerlink" title="安装依赖工具"></a>安装依赖工具</h4><ol>
+<li>安装node</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">//下载</span><br><span class="line"><span class="meta">$</span> wget https://nodejs.org/dist/v10.14.0/node-v10.14.0-linux-x64.tar.xz</span><br><span class="line"></span><br><span class="line">//解压</span><br><span class="line"><span class="meta">$</span> tar xf node-v10.14.0-linux-x64.tar.xz</span><br><span class="line"></span><br><span class="line">//放到usr/local/node目录下</span><br><span class="line"><span class="meta">$</span> mkdir /usr/local/node</span><br><span class="line"><span class="meta">$</span> mv node-v10.14.0-linux-x64   /usr/local/node</span><br><span class="line"></span><br><span class="line">//配置环境变量</span><br><span class="line"><span class="meta">$</span> vim ~/.zshrc</span><br><span class="line"><span class="meta">$</span> /usr/local/node/node-v10.14.0-linux-x64/bin 添加到环境变量中</span><br><span class="line"><span class="meta">$</span> source ~/.zshrc 刷新</span><br><span class="line"><span class="meta">$</span> node -v 确认node是否安装ok</span><br></pre></td></tr></table></figure>
+
+<h4 id="获取hexo博客源码"><a href="#获取hexo博客源码" class="headerlink" title="获取hexo博客源码"></a>获取hexo博客源码</h4><p>将自己的博客通过各种方式获取到当前设备，比如我自己用的是git。如下所示是我的源码分支（hexo-source）：</p>
+<p><img src="https://raw.githubusercontent.com/jacentsao/picbed/master/img/markdown20181212195458hexo-sourcefile.png" alt=""></p>
+<p>以下是我的生成的网页的分支(master)：<br><img src="https://raw.githubusercontent.com/jacentsao/picbed/master/img/markdown20181212200121hexo-master.png" alt=""></p>
+<p>另外再把主题单独弄一个<a href="https://github.com/jacentsao/hexo-theme-next" target="_blank" rel="noopener">项目</a>进行同步。</p>
+<p>我的做法是先拉取网页代码（master）分支，然后切换到源码分支（hexo-source），复制一份改名叫.deploy_git放在项目根目录下。</p>
+<h4 id="安装启动hexo"><a href="#安装启动hexo" class="headerlink" title="安装启动hexo"></a>安装启动hexo</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> npm install -g hexo-cli</span><br><span class="line"><span class="meta">$</span> npm install hexo --save</span><br><span class="line"><span class="meta">$</span> npm install hexo-deployer-git #git部署辅助</span><br><span class="line"><span class="meta">$</span> hexo s --debug  #运行测试</span><br></pre></td></tr></table></figure>
+
+<h4 id="提交代码"><a href="#提交代码" class="headerlink" title="提交代码"></a>提交代码</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 部署网页分支（master分支）</span><br><span class="line">hexo clean  </span><br><span class="line">hexo g </span><br><span class="line">hexo d</span><br><span class="line"><span class="meta">#</span> 提交源码分支（hexo-source分支）</span><br><span class="line">git commit</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -2078,164 +2264,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/19/gomobile相关的错误处理/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="JacenTsao">
-      <meta itemprop="description" content="这是我的个人测试小站">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Silence of Heart">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/12/19/gomobile相关的错误处理/" class="post-title-link" itemprop="url">gomobile相关的错误处理</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-12-19 12:16:06" itemprop="dateCreated datePublished" datetime="2017-12-19T12:16:06+08:00">2017-12-19</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-08-03 16:54:22" itemprop="dateModified" datetime="2019-08-03T16:54:22+08:00">2019-08-03</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>务必确认在构建非Windows包的时候，根目录下面无syso版本信息文件，否则各种各样的奇葩错误</strong></p>
-<h5 id="seq-android-c-213-3-error"><a href="#seq-android-c-213-3-error" class="headerlink" title="seq_android.c:213:3: error"></a>seq_android.c:213:3: error</h5><figure class="highlight plain"><figcaption><span>go build -pkgdir</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># _/var/folders/w4/75xgx41n2bb7mm3m0dxbp0d40000gn/T/gomobile-work-159245723/gomobile_bind</span><br><span class="line">seq_android.c:213:3: error: implicitly declaring library function &apos;memcpy&apos; with type &apos;void *(void *, const void *, unsigned long)&apos; [-Werror,-Wimplicit-function-declaration]</span><br><span class="line">seq_android.c:213:3: note: include the header &lt;string.h&gt; or explicitly provide a declaration for &apos;memcpy&apos;</span><br></pre></td></tr></table></figure>
-
-<p>解决方案</p>
-<p><code>https://github.com/golang/go/issues/22766 seq_android.c:213:3: error</code></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2285,7 +2313,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">88</span>
+                    <span class="site-state-item-count">89</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2526,7 +2554,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>

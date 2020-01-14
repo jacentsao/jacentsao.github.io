@@ -311,7 +311,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">88</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">89</span></a>
 
   </li>
         
@@ -433,6 +433,207 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/27/Android-Performance-and-View-Hierarchies/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JacenTsao">
+      <meta itemprop="description" content="这是我的个人测试小站">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Silence of Heart">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2017/08/27/Android-Performance-and-View-Hierarchies/" class="post-title-link" itemprop="url">Android - Performance and View Hierarchies</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-08-27 21:10:02" itemprop="dateCreated datePublished" datetime="2017-08-27T21:10:02+08:00">2017-08-27</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-08-03 16:54:22" itemprop="dateModified" datetime="2019-08-03T16:54:22+08:00">2019-08-03</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>布局的层次对于应用的性能影响也是很显著的。</p>
+<h4 id="布局和测量性能"><a href="#布局和测量性能" class="headerlink" title="布局和测量性能"></a>布局和测量性能</h4><p>渲染本身包含了Layout和Measure两个过程，系统在这两个过程中确定View hierarchy的具体位置。Measure过程确定了View的尺寸和边界，Layout过程则确定了View在屏幕的位置。</p>
+<p>这两个过程本身会占用一些系统的资源。当然，大多数时候，这个过程占用的系统资源较少，不会对性能造成显著的影响。但是，如果你的应用需要添加或者移除View对象就会显著开销更多的资源，例如Recycleview回收或者复用。或者当一个View对象需要重绘来满足它的约束的时候，也会占用更多的资源。例如，给一个WRAP_CONTENT的View对象设置文本，会导致重绘。</p>
+<p>如果一个渲染过程过长，就会导致无法在16ms内渲染完一帧，这就会导致掉帧，动画也会变得卡顿。</p>
+<p>由于UI的绘制是处于主线程的，所以对于这些导致卡顿的问题需要优化，从而让我们的应用变得流畅。</p>
+<h5 id="管理复杂度：Layout相关"><a href="#管理复杂度：Layout相关" class="headerlink" title="管理复杂度：Layout相关"></a>管理复杂度：Layout相关</h5><p>Android布局允许你嵌套UI对象，这种嵌套经常会导致额外的开销。当你的应用渲染一个Layout的对象，应用同时需要渲染它的所有的子View。对于一个复杂的Layout，有时候系统只有在第一次加载的时候会比较占用系统资源。例如，你的应用中有一个复杂的复用过的Recycleview，系统需要加载所有的对象。其他例子，一个微不足道的变化可能会导致视图层次的一系列的重绘。</p>
+<p>Layout过程中视图层次的嵌套会显著导致绘制的时间增加。因此，越少层次的嵌套，Layout过程花费的时间就越少。</p>
+<p>如果你使用RelativeLayout，但是你也可能在不使用weight属性的情况下，通过使用LinearLayout实现。另外，如果你的target版本是Android7.0的话，你还可以使用ConstraintLayout，这是一个用于替换RelativeLayout的布局，它是一个功能类似，性能更好的RelativeLayout。</p>
+<h5 id="“双重税收”"><a href="#“双重税收”" class="headerlink" title="“双重税收”"></a>“双重税收”</h5><p>一般来说，系统执行Layout或者Measure过程是非常快的。但是，对于一些很复杂的Layout，系统可能需要多次绘制才能够最终确定所有对象的位置。这种超过一次的Layout和Measure过程就是所谓的双重税收。</p>
+<p>例如，当你使用一个可以通过一个View对象确定另一个View对象的位置的RelativeLayout容器。系统会执行以下步骤：</p>
+<ol>
+<li>根据每一个子View的约束条件，逐个执行Layout和Measure过程</li>
+<li>使用前面的数据，同时计算View的weight，来给相对的View找到一个合适的位置</li>
+<li>再次执行Layout过程来确定这些相对位置的View</li>
+<li>执行下一个渲染过程</li>
+</ol>
+<p>如果你的视图层次越多，那么潜在性能问题就越多。</p>
+<p>除了RelativeLayout其他容器也会导致双重税收。例如：</p>
+<ul>
+<li>水平的线性布局会导致两次Layout和Measure过程。如果你给线性布局添加了<a href="https://developer.android.com/reference/android/widget/LinearLayout.html#attr_android:measureWithLargestChild" target="_blank" rel="noopener">measureWithLargestChild</a>（其实是由于使用了weight属性的View的尺寸等于最大的子View的最小尺寸）也有可能由于要进行第二次Layout和Measure来确定每一个View对象的大小。</li>
+<li>GridLayout同样也有类似的问题。这个容器同样允许相对位置，正常情况下，GridLayout会通过预处理确定号子View的相对关系来避免双重税收。但是，如果Layout使用了weight或者Gravity的时候，它的预处理就没了，当容器是RelativeLayout的时候系统可能需要多次执行这个过程。</li>
+</ul>
+<p>多次的Layout和Measure过程本身并不是一个性能负担。但是，他们会在某些场景下成为一种负担。我们应该对以下的情况保持足够的警惕：</p>
+<ul>
+<li>布局层次的根布局</li>
+<li>布局层次过多</li>
+<li>一个界面产生很多的实例，例如ListView</li>
+</ul>
+<h4 id="诊断布局层次问题"><a href="#诊断布局层次问题" class="headerlink" title="诊断布局层次问题"></a>诊断布局层次问题</h4><p>布局性能问题受到很多因素的影响而变成了一个复杂的问题。以下是一些帮助你找到性能瓶颈的工具。当然也有一些其他的，没有那么确定性的工具，但也能提供一些提示帮助我们找到问题。</p>
+<h5 id="Systrace"><a href="#Systrace" class="headerlink" title="Systrace"></a>Systrace</h5><p><a href="https://developer.android.com/studio/profile/systrace.html" target="_blank" rel="noopener">Systrace</a>是一个Android SDK内嵌的诊断性能问题的工具。这个工具允许我们查看整个设备的时间信息，允许你查看什么时候会因为Layout的性能问题影响到设备的性能。</p>
+<h5 id="GPU呈现模式"><a href="#GPU呈现模式" class="headerlink" title="GPU呈现模式"></a>GPU呈现模式</h5><h5 id="lint检查"><a href="#lint检查" class="headerlink" title="lint检查"></a>lint检查</h5><h5 id="Hierarchy-Viewer"><a href="#Hierarchy-Viewer" class="headerlink" title="Hierarchy Viewer"></a>Hierarchy Viewer</h5><h4 id="解决布局层次问题"><a href="#解决布局层次问题" class="headerlink" title="解决布局层次问题"></a>解决布局层次问题</h4><h5 id="减少无用的嵌套"><a href="#减少无用的嵌套" class="headerlink" title="减少无用的嵌套"></a>减少无用的嵌套</h5><h5 id="使用merge-include标签"><a href="#使用merge-include标签" class="headerlink" title="使用merge/include标签"></a>使用merge/include标签</h5><h5 id="整体替换新的Layout"><a href="#整体替换新的Layout" class="headerlink" title="整体替换新的Layout"></a>整体替换新的Layout</h5>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -2131,196 +2332,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/24/Linux-命令行学习/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="JacenTsao">
-      <meta itemprop="description" content="这是我的个人测试小站">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Silence of Heart">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/05/24/Linux-命令行学习/" class="post-title-link" itemprop="url">Linux 命令行学习</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-05-24 21:57:27" itemprop="dateCreated datePublished" datetime="2017-05-24T21:57:27+08:00">2017-05-24</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-08-03 16:54:22" itemprop="dateModified" datetime="2019-08-03T16:54:22+08:00">2019-08-03</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="1-别名"><a href="#1-别名" class="headerlink" title="1: 别名"></a>1: 别名</h4><p>alias 别名<br>列表展示： alias<br>设置： alias name=’string’ eg: alias foo=’ls -al’<br>取消设置: unalias foo</p>
-<h4 id="2：I-O重定向"><a href="#2：I-O重定向" class="headerlink" title="2：I/O重定向"></a>2：I/O重定向</h4><ul>
-<li>cat - Concatenate files /连接文件</li>
-<li>sort - Sort lines of text /排序文件</li>
-<li>uniq - Report or omit repeated lines /报道或省略重复行 </li>
-<li>grep - Print lines matching a pattern /打印匹配行</li>
-<li>wc - Pring newline, word, and byte counts for each file /打印文件中的换行符，字，和字节个数 </li>
-<li>head - Output the first part of a file /输出文件开头部分</li>
-<li>tail - Output the last part of a file /输出文件结尾部分</li>
-<li>tee - Read from standard input and write to standard output and files /读取标准输入，写入标准输出和文件</li>
-</ul>
-<h4 id="3：echo"><a href="#3：echo" class="headerlink" title="3：echo"></a>3：echo</h4><ul>
-<li>echo - Diaplay a line of text / 显示一行文本</li>
-</ul>
-<h4 id="4：进程"><a href="#4：进程" class="headerlink" title="4：进程"></a>4：进程</h4><ul>
-<li>sof -i tcp:port 查看端口占用，显示PID</li>
-<li>kill -9 pid 干掉占用的进程</li>
-<li>netstat -an | grep port</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2370,7 +2381,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">88</span>
+                    <span class="site-state-item-count">89</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2611,7 +2622,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
